@@ -12,5 +12,6 @@ LazyData: true
 Imports:
     googleAuthR (>= 0.5.1),
     assertthat,
-    jsonlite
+    jsonlite,
+    base64enc
 RoxygenNote: 6.0.1

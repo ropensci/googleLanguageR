@@ -39,10 +39,7 @@ gl_nlp <- function(string,
 
   call_url <- sprintf("https://language.googleapis.com/v1/documents:%s", nlp_type)
 
-  is.gcs <- grepl("^gs://", string)
-
-  if(is.gcs){
-    myMessage("Using text from Google Storage URI: ", string, level = 3)
+  if(is.gcs(string)){
     body <- list(
       document = list(
         type = jsonlite::unbox(type),
