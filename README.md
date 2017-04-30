@@ -1,4 +1,4 @@
-# googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API and Google 
+# googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API and Google Cloud Speech API
 
 This package contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning/)
 
