@@ -2,7 +2,7 @@
 #'
 #' Turn audio into text
 #'
-#' @param audio_source File location of audio data bytes in base64-encoded string, or Google Cloud Storage URI
+#' @param audio_source File location of audio data, or Google Cloud Storage URI
 #' @param encoding Encoding of audio data sent
 #' @param sampleRateHertz Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000}
 #' @param languageCode Language of the supplied audio as a \code{BCP-47} language tag
@@ -22,9 +22,12 @@
 #' Recognition accuracy may be reduced if lossy codecs, which include the other codecs listed in this section,
 #' are used to capture or transmit the audio, particularly if background noise is present.
 #'
+#' Read more on audio encodings here \url{https://cloud.google.com/speech/docs/encoding}
+#'
 #' @export
 gl_speech_recognise <- function(audio_source,
-                                encoding = c("LINEAR16","FLAC","MULAW","AMR","AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
+                                encoding = c("LINEAR16","FLAC","MULAW","AMR",
+                                             "AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
                                 sampleRateHertz = 16000L,
                                 languageCode = "en-US",
                                 maxAlternatives = 1L,
@@ -38,6 +41,8 @@ gl_speech_recognise <- function(audio_source,
                           is.unit(languageCode),
                           is.numeric(maxAlternatives),
                           is.logical(profanityFilter))
+
+  encoding <- match.arg(encoding)
 
   if(is.gcs(audio_source)){
     recognitionAudio <- list(
@@ -64,8 +69,32 @@ gl_speech_recognise <- function(audio_source,
 
   f <- googleAuthR::gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
                                       "POST",
-                                      data_parse_function = function(x) x)
+                                      data_parse_function = function(x) x$results)
 
   f(the_body = body)
 
+}
+
+#' Record audio from an R session
+#'
+#' Wrapper around \link[audio]{record} with defaults that can be used in \link{gl_speech_recognition}
+#'
+#' @param filename Where to save WAV file as uncompressed PCM data
+#' @param sampleRateHertz Sample rate for the recording
+#' @param secs How long to record for
+#'
+#' Play the file using the same sampleRate e.g. \code{audio::play(a$data, rate = 16000L)}
+#' @return The audio data of class \code{audioSample}
+#' @export
+gl_speech_record <- function(filename = "inst/test.wav", sampleRateHertz = 16000L, secs = 15L){
+
+  a <- audio::record(sampleRateHertz*secs, rate = sampleRateHertz, channels = 1)
+  audio::wait(a)
+
+  recording <- a$data
+  close(a)
+
+  audio::save.wave(recording, where = filename)
+
+  recording
 }

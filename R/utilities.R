@@ -1,4 +1,12 @@
 
+is.gcs <- function(x){
+  out <- grepl("^gs://", x)
+  if(out){
+    myMessage("Using Google Storage URI: ", x, level = 3)
+  }
+  out
+}
+
 is.NullOb <- function(x) is.null(x) | all(sapply(x, is.null))
 
 

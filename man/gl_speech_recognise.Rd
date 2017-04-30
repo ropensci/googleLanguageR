@@ -10,7 +10,7 @@ gl_speech_recognise(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW",
   profanityFilter = FALSE, speechContexts = NULL)
 }
 \arguments{
-\item{audio_source}{File location of audio data bytes in base64-encoded string, or Google Cloud Storage URI}
+\item{audio_source}{File location of audio data, or Google Cloud Storage URI}
 
 \item{encoding}{Encoding of audio data sent}
 
@@ -40,5 +40,7 @@ For best results, the audio source should be captured and transmitted using a
 lossless encoding (FLAC or LINEAR16).
 Recognition accuracy may be reduced if lossy codecs, which include the other codecs listed in this section,
 are used to capture or transmit the audio, particularly if background noise is present.
+
+Read more on audio encodings here \url{https://cloud.google.com/speech/docs/encoding}
 }
 
