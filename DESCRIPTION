@@ -1,0 +1,14 @@
+Package: googleLanguageR
+Title: Call Google's Natural Language API and Cloud Translation API from R
+Version: 0.0.0.9000
+Authors@R: person("Mark", "Edmondson", email = "r@sunholo.com", role = c("aut", "cre"))
+Description: This package lets you call the Google Cloud Translation API for detection and 
+  translation of text.  It also allows you to analyse text using the Google Natural Language API 
+  for analysing sentiment, entities or syntax.
+Depends: R (>= 3.3.2)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    googleAuthR (>= 0.5.1),
+    assertthat
