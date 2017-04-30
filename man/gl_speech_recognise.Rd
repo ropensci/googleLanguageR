@@ -28,7 +28,13 @@ gl_speech_recognise(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW",
 Turn audio into text
 }
 \details{
-
+Google Cloud Speech API enables developers to convert audio to text by applying powerful
+neural network models in an easy to use API.
+The API recognizes over 80 languages and variants, to support your global user base.
+You can transcribe the text of users dictating to an application’s microphone,
+enable command-and-control through voice, or transcribe audio files, among many other use cases.
+Recognize audio uploaded in the request, and integrate with your audio storage on Google Cloud Storage,
+by using the same technology Google uses to power its own products.
 }
 \section{AudioEncoding}{
 
@@ -44,3 +50,21 @@ are used to capture or transmit the audio, particularly if background noise is p
 Read more on audio encodings here \url{https://cloud.google.com/speech/docs/encoding}
 }
 
+\examples{
+
+\dontrun{
+
+gl_auth(json_file.json)
+test_audio <- system.files("googleLanguageR", "woman1_wb.wav")
+result <- gl_speech_recognise(test_audio)
+
+result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
+
+result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
+
+}
+
+}
+\seealso{
+\url{https://cloud.google.com/speech/}
+}

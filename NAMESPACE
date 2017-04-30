@@ -3,7 +3,6 @@
 export(gl_auth)
 export(gl_nlp)
 export(gl_speech_recognise)
-export(gl_speech_record)
 export(gl_translate_detect)
 export(gl_translate_language)
 export(gl_translate_list)

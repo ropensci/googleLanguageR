@@ -12,6 +12,14 @@
 #'
 #' @details
 #'
+#' Google Cloud Speech API enables developers to convert audio to text by applying powerful
+#' neural network models in an easy to use API.
+#' The API recognizes over 80 languages and variants, to support your global user base.
+#' You can transcribe the text of users dictating to an application’s microphone,
+#' enable command-and-control through voice, or transcribe audio files, among many other use cases.
+#' Recognize audio uploaded in the request, and integrate with your audio storage on Google Cloud Storage,
+#' by using the same technology Google uses to power its own products.
+#'
 #' @section AudioEncoding:
 #'
 #' Audio encoding of the data sent in the audio message. All encodings support only 1 channel (mono) audio.
@@ -24,6 +32,21 @@
 #'
 #' Read more on audio encodings here \url{https://cloud.google.com/speech/docs/encoding}
 #'
+#' @examples
+#'
+#' \dontrun{
+#'
+#' gl_auth(json_file.json)
+#' test_audio <- system.files("googleLanguageR", "woman1_wb.wav")
+#' result <- gl_speech_recognise(test_audio)
+#'
+#' result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
+#'
+#' result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
+#'
+#' }
+#'
+#' @seealso \url{https://cloud.google.com/speech/}
 #' @export
 gl_speech_recognise <- function(audio_source,
                                 encoding = c("LINEAR16","FLAC","MULAW","AMR",
@@ -69,32 +92,8 @@ gl_speech_recognise <- function(audio_source,
 
   f <- googleAuthR::gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
                                       "POST",
-                                      data_parse_function = function(x) x$results)
+                                      data_parse_function = function(x) x$results$alternatives[[1]])
 
   f(the_body = body)
 
-}
-
-#' Record audio from an R session
-#'
-#' Wrapper around \link[audio]{record} with defaults that can be used in \link{gl_speech_recognition}
-#'
-#' @param filename Where to save WAV file as uncompressed PCM data
-#' @param sampleRateHertz Sample rate for the recording
-#' @param secs How long to record for
-#'
-#' Play the file using the same sampleRate e.g. \code{audio::play(a$data, rate = 16000L)}
-#' @return The audio data of class \code{audioSample}
-#' @export
-gl_speech_record <- function(filename = "inst/test.wav", sampleRateHertz = 16000L, secs = 15L){
-
-  a <- audio::record(sampleRateHertz*secs, rate = sampleRateHertz, channels = 1)
-  audio::wait(a)
-
-  recording <- a$data
-  close(a)
-
-  audio::save.wave(recording, where = filename)
-
-  recording
 }
