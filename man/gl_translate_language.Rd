@@ -21,10 +21,18 @@ gl_translate_language(string, encode = TRUE, target = "en",
 \item{model}{What translation model to use}
 }
 \value{
-A list of the detected languages
+A list of the translations
 }
 \description{
-Translate the language of text within a request
+Translate character vectors via the Google Translate API
+}
+\details{
+You can translate a vector of strings, but each call must be under 2000 characters.
+If more than 2000 characters, split it up into seperate calls.
+
+The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
+
+The function will limit the API calls for for the characters and API requests per 100 seconds, which you can set via the options \code{googleLanguageR.rate_limit} and \code{googleLanguageR.character_limit}.  By default these are set at \code{0.5} requests per second, and \code{100000} characters per 100 seconds.
 }
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/translate}

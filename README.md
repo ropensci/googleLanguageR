@@ -16,7 +16,7 @@ Read more [here](https://cloud.google.com/translate/)
 
 Read more [here](https://cloud.google.com/natural-language/)
 
-## API limits
+## Translation API limits
 
 The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 

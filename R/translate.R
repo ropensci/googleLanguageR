@@ -1,3 +1,7 @@
+.word_rate <- new.env(parent = globalenv())
+.word_rate$characters <- 0
+.word_rate$timestamp <- Sys.time()
+
 #' List languages from Google Translate API
 #'
 #' Returns a list of supported languages for translation.
@@ -16,7 +20,7 @@
 gl_translate_list <- function(target = 'en'){
 
   assertthat::assert_that(is.character(target),
-                          length(target) == 1)
+                          is.unit(target))
 
   call_url <- sprintf("https://translation.googleapis.com/language/translate/v2/languages")
 
@@ -39,6 +43,9 @@ gl_translate_list <- function(target = 'en'){
 #' @export
 #' @family translations
 gl_translate_detect <- function(string, encode = TRUE){
+
+  assertthat::assert_that(is.character(string),
+                          is.logical(encode))
 
   if(encode){
     raw <- string
@@ -74,52 +81,6 @@ gl_translate_detect <- function(string, encode = TRUE){
   f()
 
 }
-
-.word_rate <- new.env(parent = globalenv())
-.word_rate$characters <- 0
-.word_rate$timestamp <- Sys.time()
-
-# Limit the API to the limits imposed by Google
-check_rate <- function(word_count,
-                       .timestamp = Sys.time(),
-                       character_limit = getOption("googleLanguageR.character_limit")){
-
-  ## window of character limit in seconds (e.g. 100000 per 100 seconds)
-  delay_limit = 100L
-
-  assertthat::assert_that(is.numeric(word_count),
-                          length(word_count) == 1,
-                          is.numeric(character_limit),
-                          is.numeric(delay_limit),
-                          assertthat::is.time(.timestamp))
-
-  if(.word_rate$characters > 0){
-    myMessage("# Current character batch: ", .word_rate$characters, level = 2)
-  }
-
-  .word_rate$characters <- .word_rate$characters + word_count
-  if(.word_rate$characters > character_limit){
-    myMessage("Limiting API as over ", character_limit," characters in ", delay_limit, " seconds",
-              level = 3)
-    myMessage("Timestamp batch start: ", .word_rate$timestamp,
-              level = 2)
-
-    delay <- difftime(.timestamp, .word_rate$timestamp, units = "secs")
-
-    while(delay < delay_limit){
-      myMessage("Waiting for ", format(round(delay_limit - delay), format = "%S"),
-                level = 3)
-      delay <- difftime(Sys.time(), .word_rate$timestamp, units = "secs")
-      Sys.sleep(5)
-    }
-
-    myMessage("Ready to call API again", level = 2)
-    .word_rate$characters <- 0
-    .word_rate$timestamp <- Sys.time()
-
-    }
-}
-
 
 #' Translate the language of text within a request
 #'
@@ -157,9 +118,9 @@ gl_translate_language <- function(string,
   assertthat::assert_that(is.character(string),
                           is.logical(encode),
                           is.character(target),
-                          length(target) == 1,
+                          is.unit(target),
                           is.character(source),
-                          length(source) == 1)
+                          is.unit(source))
 
   format <- match.arg(format)
   model <- match.arg(model)
@@ -178,7 +139,7 @@ gl_translate_language <- function(string,
 
   myMessage("Translating: ",char_num," characters - ", substring(raw, 0, 50), "...", level = 3)
 
-  if(length(string) > 1){
+  if(!is.unit(string)){
     myMessage("Translating vector of strings > 1: ", length(string), level = 2)
   }
 
@@ -201,3 +162,47 @@ gl_translate_language <- function(string,
   f()
 
 }
+
+
+# Limit the API to the limits imposed by Google
+check_rate <- function(word_count,
+                       timestamp = Sys.time(),
+                       character_limit = getOption("googleLanguageR.character_limit")){
+
+  ## window of character limit in seconds (e.g. 100000 per 100 seconds)
+  delay_limit = 100L
+
+  assertthat::assert_that(is.numeric(word_count),
+                          is.unit(word_count),
+                          is.numeric(character_limit),
+                          is.numeric(delay_limit),
+                          assertthat::is.time(timestamp))
+
+  if(.word_rate$characters > 0){
+    myMessage("# Current character batch: ", .word_rate$characters, level = 2)
+  }
+
+  .word_rate$characters <- .word_rate$characters + word_count
+  if(.word_rate$characters > character_limit){
+    myMessage("Limiting API as over ", character_limit," characters in ", delay_limit, " seconds",
+              level = 3)
+    myMessage("Timestamp batch start: ", .word_rate$timestamp,
+              level = 2)
+
+    delay <- difftime(timestamp, .word_rate$timestamp, units = "secs")
+
+    while(delay < delay_limit){
+      myMessage("Waiting for ", format(round(delay_limit - delay), format = "%S"),
+                level = 3)
+      delay <- difftime(Sys.time(), .word_rate$timestamp, units = "secs")
+      Sys.sleep(5)
+    }
+
+    myMessage("Ready to call API again", level = 2)
+    .word_rate$characters <- 0
+    .word_rate$timestamp <- Sys.time()
+
+  }
+}
+
+

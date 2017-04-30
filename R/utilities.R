@@ -12,6 +12,10 @@ is.error <- function(test_me){
   inherits(test_me, "try-error")
 }
 
+is.unit <- function(x){
+  length(x) == 1
+}
+
 
 error.message <- function(test_me){
   if(is.error(test_me)) attr(test_me, "condition")$message
