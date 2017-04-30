@@ -12,3 +12,4 @@ LazyData: true
 Imports:
     googleAuthR (>= 0.5.1),
     assertthat
+RoxygenNote: 6.0.1

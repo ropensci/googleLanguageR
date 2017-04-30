@@ -2,7 +2,8 @@
 
   op <- options()
   op.googleLanguageR <- list(
-    googleLanguageR.rate_limit = 0.5
+    googleLanguageR.rate_limit = 0.5,
+    googleLanguageR.character_limit = 100000L
   )
 
   toset <- !(names(op.googleLanguageR) %in% names(op))

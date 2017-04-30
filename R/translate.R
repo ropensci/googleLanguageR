@@ -82,8 +82,10 @@ gl_translate_detect <- function(string, encode = TRUE){
 # Limit the API to the limits imposed by Google
 check_rate <- function(word_count,
                        .timestamp = Sys.time(),
-                       character_limit = 100000L,
-                       delay_limit = 100L){
+                       character_limit = getOption("googleLanguageR.character_limit")){
+
+  ## window of character limit in seconds (e.g. 100000 per 100 seconds)
+  delay_limit = 100L
 
   assertthat::assert_that(is.numeric(word_count),
                           length(word_count) == 1,
@@ -97,13 +99,16 @@ check_rate <- function(word_count,
 
   .word_rate$characters <- .word_rate$characters + word_count
   if(.word_rate$characters > character_limit){
-    myMessage("Limiting API as over ", character_limit," characters in ", delay_limit, " seconds", level = 3)
-    myMessage("Timestamp batch start: ", .word_rate$timestamp, level = 2)
+    myMessage("Limiting API as over ", character_limit," characters in ", delay_limit, " seconds",
+              level = 3)
+    myMessage("Timestamp batch start: ", .word_rate$timestamp,
+              level = 2)
 
     delay <- difftime(.timestamp, .word_rate$timestamp, units = "secs")
 
     while(delay < delay_limit){
-      myMessage("Waiting for ", format(round(delay_limit - delay), format = "%S"), level = 3)
+      myMessage("Waiting for ", format(round(delay_limit - delay), format = "%S"),
+                level = 3)
       delay <- difftime(Sys.time(), .word_rate$timestamp, units = "secs")
       Sys.sleep(5)
     }
@@ -118,6 +123,8 @@ check_rate <- function(word_count,
 
 #' Translate the language of text within a request
 #'
+#' Translate character vectors via the Google Translate API
+#'
 #' @param string A character vector of text to detect language for
 #' @param encode If TRUE, will run strings through URL encoding
 #' @param target The target language
@@ -125,7 +132,18 @@ check_rate <- function(word_count,
 #' @param source Specify the language to translate from. Will detect it if left default
 #' @param model What translation model to use
 #'
-#' @return A list of the detected languages
+#' @details
+#'
+#' You can translate a vector of strings, but each call must be under 2000 characters.
+#' If more than 2000 characters, split it up into seperate calls.
+#'
+#' The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
+#'
+#' The function will limit the API calls for for the characters and API requests per 100 seconds, which you can set via the options \code{googleLanguageR.rate_limit} and \code{googleLanguageR.character_limit}.  By default these are set at \code{0.5} requests per second, and \code{100000} characters per 100 seconds.
+#'
+#'
+#'
+#' @return A list of the translations
 #' @seealso \url{https://cloud.google.com/translate/docs/reference/translate}
 #' @export
 #' @family translations
