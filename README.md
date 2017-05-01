@@ -80,20 +80,25 @@ result$confidence
 result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
 
 result2$transcript
-#> [1] "to administer medicine to animals is freaking care very difficult matter and yet sometimes it's necessary to do so"
-#> [2] "to administer medicine to animals is freaking give very difficult matter and yet sometimes it's necessary to do so"
+#> [1] "to administer medicine to animals is freaking care very difficult matter 
+#  and yet sometimes it's necessary to do so"
+#> [2] "to administer medicine to animals is freaking give very difficult matter 
+#  and yet sometimes it's necessary to do so"
 
 ## specify british accent
 result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
 result_brit
-#> [1] "to administer medicine to animals if we can give very difficult matter and yet sometimes it's necessary to do so"
+#> [1] "to administer medicine to animals if we can give very difficult matter 
+#  and yet sometimes it's necessary to do so"
 
 ## help it out with context for "frequently"
-result_brit_freq <- gl_speech_recognise(test_audio, 
-                                        languageCode = "en-GB", 
-                                        speechContexts = list(phrases = list("is frequently a very difficult")))
+result_brit_freq <- 
+  gl_speech_recognise(test_audio, 
+                      languageCode = "en-GB", 
+                      speechContexts = list(phrases = list("is frequently a very difficult")))
 result_brit_freq$transcript
-#> "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"
+#> "to administer medicine to animals is frequently a very difficult matter 
+#  and yet sometimes it's necessary to do so"
 ```
 
 ## Demo for Google Translation API
@@ -110,7 +115,6 @@ japan$translatedText
 
 ```r
 nlp_result <- gl_nlp(result_brit_freq$transcript)
-#>2017-05-01 21:57:18 -- annotateTextanalyzeEntitiesanalyzeSentimentanalyzeSyntax for 'to administer medicine to animals is frequently a very difficult matter and yet sometimes it's neces...'
 
 head(nlp_result$tokens$text)
 #      content beginOffset
