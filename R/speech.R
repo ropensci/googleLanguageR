@@ -46,7 +46,7 @@
 #'
 #' }
 #'
-#' @seealso \url{https://cloud.google.com/speech/}
+#' @seealso \url{https://cloud.google.com/speech/reference/rest/v1/speech/recognize}
 #' @export
 gl_speech_recognise <- function(audio_source,
                                 encoding = c("LINEAR16","FLAC","MULAW","AMR",

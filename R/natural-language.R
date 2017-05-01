@@ -18,6 +18,25 @@
 #'
 #' @return A list of analysis of the text
 #' @seealso \url{https://cloud.google.com/natural-language/docs/reference/rest/v1/documents}
+#'
+#' @examples
+#'
+#' \dontrun{
+#'
+#' text <- "to administer medicince to animals is frequently a very difficult matter,
+#'   and yet sometimes it's necessary to do so"
+#' nlp_result <- gl_nlp(text)
+#'
+#' head(nlp_result$tokens$text)
+#'
+#' head(nlp_result$tokens$partOfSpeech$tag)
+#'
+#' nlp_result$entities
+#'
+#' nlp_result$documentSentiment
+#'
+#' }
+#'
 #' @export
 gl_nlp <- function(string,
                    nlp_type = c("annotateText", "analyzeEntities", "analyzeSentiment", "analyzeSyntax"),

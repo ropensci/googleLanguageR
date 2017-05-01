@@ -34,6 +34,22 @@ The API limits in three ways: characters per day, characters per 100 seconds, an
 
 The function will limit the API calls for for the characters and API requests per 100 seconds, which you can set via the options \code{googleLanguageR.rate_limit} and \code{googleLanguageR.character_limit}.  By default these are set at \code{0.5} requests per second, and \code{100000} characters per 100 seconds.
 }
+\examples{
+
+\dontrun{
+
+text <- "to administer medicince to animals is frequently a very difficult matter,
+  and yet sometimes it's necessary to do so"
+
+japan <- gl_translate_language(text, target = "ja")
+
+japan$translatedText
+#> [1] "動物に薬を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
+
+
+}
+
+}
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/translate}
 

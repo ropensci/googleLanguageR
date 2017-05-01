@@ -63,11 +63,78 @@ library(googleLanguageR)
 ## download a service JSON from your own Google Project
 gl_auth(json_file.json)
 
-## a test audio file is installed with the package
-test_audio <- system.files("googleLanguageR", "woman1_wb.wav")
+## a test audio file is installed with the package which reads:
+## "to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
+test_audio <- system.files(package = "googleLanguageR", "woman1_wb.wav")
 result <- gl_speech_recognise(test_audio)
 
+## its not perfect but...:)
+result$transcript
+#> [1] "to administer medicine to animals is freaking care very difficult matter and yet sometimes it's necessary to do so"
+result$confidence
+#> [1] 0.9154025
+
+## get alternative transcriptions
 result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
 
+result2$transcript
+#> [1] "to administer medicine to animals is freaking care very difficult matter and yet sometimes it's necessary to do so"
+#> [2] "to administer medicine to animals is freaking give very difficult matter and yet sometimes it's necessary to do so"
+
+## specify british accent
 result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
+result_brit
+#> [1] "to administer medicine to animals if we can give very difficult matter and yet sometimes it's necessary to do so"
+
+## help it out with context for "frequently"
+result_brit_freq <- gl_speech_recognise(test_audio, 
+                                        languageCode = "en-GB", 
+                                        speechContexts = list(phrases = list("is frequently a very difficult")))
+result_brit_freq$transcript
+#> "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"
+```
+
+## Demo for Google Translation API
+
+```r
+## translate British into Japanese
+japan <- gl_translate_language(result_brit_freq$transcript, target = "ja")
+
+japan$translatedText
+#> [1] "動物に薬を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
+```
+
+## Demo for Entity Analysis
+
+```r
+nlp_result <- gl_nlp(result_brit_freq$transcript)
+#>2017-05-01 21:57:18 -- annotateTextanalyzeEntitiesanalyzeSentimentanalyzeSyntax for 'to administer medicine to animals is frequently a very difficult matter and yet sometimes it's neces...'
+
+head(nlp_result$tokens$text)
+#      content beginOffset
+# 1         to           0
+# 2 administer           3
+# 3   medicine          14
+# 4         to          23
+# 5    animals          26
+# 6         is          34
+
+head(nlp_result$tokens$partOfSpeech$tag)
+#> [1] "PRT"  "VERB" "NOUN" "ADP"  "NOUN" "VERB"
+
+
+nlp_result$entities
+#       name  type  salience             mentions
+# 1 medicine OTHER 0.5268406 medicine, 14, COMMON
+# 2  animals OTHER 0.2444008  animals, 26, COMMON
+# 3   matter OTHER 0.2287586   matter, 65, COMMON
+
+nlp_result$documentSentiment
+# $magnitude
+# [1] 0.2
+#
+# $score
+# [1] 0.2
+
+
 ```

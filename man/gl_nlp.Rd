@@ -33,6 +33,25 @@ Analyse text entites, sentiment, and syntax using the Google Natural Language AP
 Encoding type can usually be left at default \code{UTF8}.
   See here for details: \url{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}
 }
+\examples{
+
+\dontrun{
+
+text <- "to administer medicince to animals is frequently a very difficult matter,
+  and yet sometimes it's necessary to do so"
+nlp_result <- gl_nlp(text)
+
+head(nlp_result$tokens$text)
+
+head(nlp_result$tokens$partOfSpeech$tag)
+
+nlp_result$entities
+
+nlp_result$documentSentiment
+
+}
+
+}
 \seealso{
 \url{https://cloud.google.com/natural-language/docs/reference/rest/v1/documents}
 }

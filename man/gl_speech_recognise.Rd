@@ -66,5 +66,5 @@ result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
 
 }
 \seealso{
-\url{https://cloud.google.com/speech/}
+\url{https://cloud.google.com/speech/reference/rest/v1/speech/recognize}
 }
