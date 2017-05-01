@@ -64,7 +64,7 @@ library(googleLanguageR)
 gl_auth(json_file.json)
 
 ## a test audio file is installed with the package
-test_audio <- system.files("googleLanguageR", "woman1_wb.wav")
+test_audio <- system.file("googleLanguageR", "woman1_wb.wav")
 result <- gl_speech_recognise(test_audio)
 
 result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
