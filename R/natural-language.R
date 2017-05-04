@@ -89,7 +89,7 @@ gl_nlp <- function(string,
         extractSyntax = jsonlite::unbox(TRUE),
         extractEntities = jsonlite::unbox(TRUE),
         extractDocumentSentiment = jsonlite::unbox(TRUE),
-        extractEntitySentiment = jsonlite::unbox(TRUE)
+        extractEntitySentiment = if(version == "v1beta2") jsonlite::unbox(TRUE) else NULL
       ))
       )
   }
