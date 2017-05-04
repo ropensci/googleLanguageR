@@ -17,7 +17,7 @@ gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
 
 \item{type}{Whether input text is plain text or a HTML page}
 
-\item{language}{Language of source, must be supported by API.  If \code{NULL} is auto-detected.}
+\item{language}{Language of source, must be supported by API.}
 
 \item{encodingType}{Text encoding that the caller uses to process the output}
 

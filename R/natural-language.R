@@ -5,7 +5,7 @@
 #' @param string A character vector of text to detect language for, or Google Cloud Storage URIs
 #' @param nlp_type The type of Natural Language Analysis to perform.  The default \code{annotateText} will perform all features in one call.
 #' @param type Whether input text is plain text or a HTML page
-#' @param language Language of source, must be supported by API.  If \code{NULL} is auto-detected.
+#' @param language Language of source, must be supported by API.
 #' @param encodingType Text encoding that the caller uses to process the output
 #' @param version the API version
 #'
