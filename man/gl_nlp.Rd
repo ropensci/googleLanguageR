@@ -6,9 +6,9 @@
 \usage{
 gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
   "analyzeSentiment", "analyzeSyntax", "analyzeEntitySentiment"),
-  type = c("PLAIN_TEXT", "HTML"), language = NULL,
-  encodingType = c("UTF8", "UTF16", "UTF32", "NONE"), version = c("v1",
-  "v1beta2", "v1beta1"))
+  type = c("PLAIN_TEXT", "HTML"), language = c("en", "zh", "zh-Hant", "fr",
+  "de", "it", "ja", "ko", "pt", "es", "de"), encodingType = c("UTF8", "UTF16",
+  "UTF32", "NONE"), version = c("v1", "v1beta2", "v1beta1"))
 }
 \arguments{
 \item{string}{A character vector of text to detect language for, or Google Cloud Storage URIs}
