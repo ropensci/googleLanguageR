@@ -48,12 +48,13 @@ gl_nlp <- function(string,
                    encodingType = c("UTF8","UTF16","UTF32","NONE"),
                    version = c("v1", "v1beta2", "v1beta1")){
 
+  nlp_type <- match.arg(nlp_type)
+
   myMessage(nlp_type, " for '", substring(string, 0, 100), "...'", level = 3)
 
   assertthat::assert_that(is.unit(string),
                           is.character(string))
   version <- match.arg(version)
-  nlp_type <- match.arg(nlp_type)
   type <- match.arg(type)
   language <- match.arg(language)
   encodingType <- match.arg(encodingType)
@@ -84,14 +85,25 @@ gl_nlp <- function(string,
   }
 
   if(nlp_type == "annotateText"){
-    body <- c(body, list(
-      features = list(
-        extractSyntax = jsonlite::unbox(TRUE),
-        extractEntities = jsonlite::unbox(TRUE),
-        extractDocumentSentiment = jsonlite::unbox(TRUE),
-        extractEntitySentiment = if(version == "v1beta2") jsonlite::unbox(TRUE) else NULL
-      ))
-      )
+
+    if(version == "v1beta2"){
+      body <- c(body, list(
+        features = list(
+          extractSyntax = jsonlite::unbox(TRUE),
+          extractEntities = jsonlite::unbox(TRUE),
+          extractDocumentSentiment = jsonlite::unbox(TRUE),
+          extractEntitySentiment = jsonlite::unbox(TRUE)
+        )))
+
+    } else {
+      body <- c(body, list(
+        features = list(
+          extractSyntax = jsonlite::unbox(TRUE),
+          extractEntities = jsonlite::unbox(TRUE),
+          extractDocumentSentiment = jsonlite::unbox(TRUE)
+        )))
+
+    }
   }
 
   f <- googleAuthR::gar_api_generator(call_url,
