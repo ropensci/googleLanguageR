@@ -5,7 +5,7 @@
 #' @param string A character vector of text to detect language for, or Google Cloud Storage URIs
 #' @param nlp_type The type of Natural Language Analysis to perform.  The default \code{annotateText} will perform all features in one call.
 #' @param type Whether input text is plain text or a HTML page
-#' @param language Language of source, must be supported by API
+#' @param language Language of source, must be supported by API.  If \code{NULL} is auto-detected.
 #' @param encodingType Text encoding that the caller uses to process the output
 #'
 #' @details
@@ -15,6 +15,8 @@
 #'
 #' Encoding type can usually be left at default \code{UTF8}.
 #'   See here for details: \url{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}
+#'
+#' The current language support is available here \url{https://cloud.google.com/natural-language/docs/languages}
 #'
 #' @return A list of analysis of the text
 #' @seealso \url{https://cloud.google.com/natural-language/docs/reference/rest/v1/documents}
@@ -39,9 +41,9 @@
 #'
 #' @export
 gl_nlp <- function(string,
-                   nlp_type = c("annotateText", "analyzeEntities", "analyzeSentiment", "analyzeSyntax"),
+                   nlp_type = c("annotateText", "analyzeEntities", "analyzeSentiment", "analyzeSyntax","analyzeEntitySentiment"),
                    type = c("PLAIN_TEXT", "HTML"),
-                   language = c("en", "es", "ja"),
+                   language = NULL,
                    encodingType = c("UTF8","UTF16","UTF32","NONE")){
 
   myMessage(nlp_type, " for '", substring(string, 0, 100), "...'", level = 3)
@@ -83,7 +85,8 @@ gl_nlp <- function(string,
       features = list(
         extractSyntax = jsonlite::unbox(TRUE),
         extractEntities = jsonlite::unbox(TRUE),
-        extractDocumentSentiment = jsonlite::unbox(TRUE)
+        extractDocumentSentiment = jsonlite::unbox(TRUE),
+        extractEntitySentiment = jsonlite::unbox(TRUE)
       ))
       )
   }

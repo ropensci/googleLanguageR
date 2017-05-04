@@ -5,9 +5,9 @@
 \title{Perform Natural Language Analysis on text}
 \usage{
 gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
-  "analyzeSentiment", "analyzeSyntax"), type = c("PLAIN_TEXT", "HTML"),
-  language = c("en", "es", "ja"), encodingType = c("UTF8", "UTF16", "UTF32",
-  "NONE"))
+  "analyzeSentiment", "analyzeSyntax", "analyzeEntitySentiment"),
+  type = c("PLAIN_TEXT", "HTML"), language = NULL,
+  encodingType = c("UTF8", "UTF16", "UTF32", "NONE"))
 }
 \arguments{
 \item{string}{A character vector of text to detect language for, or Google Cloud Storage URIs}
@@ -16,7 +16,7 @@ gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
 
 \item{type}{Whether input text is plain text or a HTML page}
 
-\item{language}{Language of source, must be supported by API}
+\item{language}{Language of source, must be supported by API.  If \code{NULL} is auto-detected.}
 
 \item{encodingType}{Text encoding that the caller uses to process the output}
 }
@@ -32,6 +32,8 @@ Analyse text entites, sentiment, and syntax using the Google Natural Language AP
 
 Encoding type can usually be left at default \code{UTF8}.
   See here for details: \url{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}
+
+The current language support is available here \url{https://cloud.google.com/natural-language/docs/languages}
 }
 \examples{
 
