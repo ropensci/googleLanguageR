@@ -7,7 +7,8 @@
 gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
   "analyzeSentiment", "analyzeSyntax", "analyzeEntitySentiment"),
   type = c("PLAIN_TEXT", "HTML"), language = NULL,
-  encodingType = c("UTF8", "UTF16", "UTF32", "NONE"))
+  encodingType = c("UTF8", "UTF16", "UTF32", "NONE"), version = c("v1",
+  "v1beta2", "v1beta1"))
 }
 \arguments{
 \item{string}{A character vector of text to detect language for, or Google Cloud Storage URIs}
@@ -19,6 +20,8 @@ gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
 \item{language}{Language of source, must be supported by API.  If \code{NULL} is auto-detected.}
 
 \item{encodingType}{Text encoding that the caller uses to process the output}
+
+\item{version}{the API version}
 }
 \value{
 A list of analysis of the text

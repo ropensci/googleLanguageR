@@ -7,6 +7,7 @@
 #' @param type Whether input text is plain text or a HTML page
 #' @param language Language of source, must be supported by API.  If \code{NULL} is auto-detected.
 #' @param encodingType Text encoding that the caller uses to process the output
+#' @param version the API version
 #'
 #' @details
 #'
@@ -44,12 +45,14 @@ gl_nlp <- function(string,
                    nlp_type = c("annotateText", "analyzeEntities", "analyzeSentiment", "analyzeSyntax","analyzeEntitySentiment"),
                    type = c("PLAIN_TEXT", "HTML"),
                    language = NULL,
-                   encodingType = c("UTF8","UTF16","UTF32","NONE")){
+                   encodingType = c("UTF8","UTF16","UTF32","NONE"),
+                   version = c("v1", "v1beta2", "v1beta1")){
 
   myMessage(nlp_type, " for '", substring(string, 0, 100), "...'", level = 3)
 
   assertthat::assert_that(is.unit(string),
                           is.character(string))
+  version <- match.arg(version)
   nlp_type <- match.arg(nlp_type)
   type <- match.arg(type)
   language <- match.arg(language)
@@ -58,7 +61,7 @@ gl_nlp <- function(string,
   ## rate limits - 1000 requests per 100 seconds
   Sys.sleep(getOption("googleLanguageR.rate_limit"))
 
-  call_url <- sprintf("https://language.googleapis.com/v1/documents:%s", nlp_type)
+  call_url <- sprintf("https://language.googleapis.com/%s/documents:%s", version, nlp_type)
 
   if(is.gcs(string)){
     body <- list(
