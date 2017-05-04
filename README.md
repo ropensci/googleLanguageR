@@ -72,7 +72,8 @@ result <- gl_speech_recognise(test_audio)
 
 ## its not perfect but...:)
 result$transcript
-#> [1] "to administer medicine to animals is freaking care very difficult matter and yet sometimes it's necessary to do so"
+#> [1] "to administer medicine to animals is freaking care very difficult matter 
+#  and yet sometimes it's necessary to do so"
 result$confidence
 #> [1] 0.9154025
 
