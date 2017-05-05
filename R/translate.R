@@ -86,7 +86,7 @@ gl_translate_detect <- function(string, encode = TRUE){
 #'
 #' Translate character vectors via the Google Translate API
 #'
-#' @param string A character vector of text to detect language for
+#' @param t_string A character vector of text to detect language for
 #' @param encode If TRUE, will run strings through URL encoding
 #' @param target The target language
 #' @param format Whether the text is plain or HTML
@@ -124,14 +124,14 @@ gl_translate_detect <- function(string, encode = TRUE){
 #'
 #' @export
 #' @family translations
-gl_translate_language <- function(string,
+gl_translate_language <- function(t_string,
                                   encode = TRUE,
                                   target = "en",
                                   format = c("text","html"),
                                   source = '',
                                   model = c("nmt", "base")){
 
-  assertthat::assert_that(is.character(string),
+  assertthat::assert_that(is.character(t_string),
                           is.logical(encode),
                           is.character(target),
                           is.unit(target),
@@ -140,10 +140,11 @@ gl_translate_language <- function(string,
 
   format <- match.arg(format)
   model <- match.arg(model)
+  raw <- t_string
 
   if(encode){
-    raw <- string
-    string <- vapply(string,
+
+    t_string <- vapply(t_string,
                      utils::URLencode,
                      FUN.VALUE = character(1),
                      reserved = TRUE,
@@ -151,12 +152,18 @@ gl_translate_language <- function(string,
                      USE.NAMES = FALSE)
   }
 
-  char_num <- sum(nchar(string))
+  char_num <- sum(nchar(t_string))
+
+  if(char_num > 1500){
+    warning("Too many characters to send to API, only sending first 1500.  Got ", char_num)
+    t_string <- substring(t_string, 0, 1500)
+    char_num <- 1500
+  }
 
   myMessage("Translating: ",char_num," characters - ", substring(raw, 0, 50), "...", level = 3)
 
-  if(!is.unit(string)){
-    myMessage("Translating vector of strings > 1: ", length(string), level = 2)
+  if(!is.unit(t_string)){
+    myMessage("Translating vector of strings > 1: ", length(t_string), level = 2)
   }
 
   ## rate limits - 1000 requests per 100 seconds
@@ -172,7 +179,7 @@ gl_translate_language <- function(string,
                                       pars_args = list(target = target,
                                                        format = format,
                                                        source = source,
-                                                       q = paste0(string, collapse = "&q=")),
+                                                       q = paste0(t_string, collapse = "&q=")),
                                       data_parse_function = function(x) x$data$translations)
 
   f()

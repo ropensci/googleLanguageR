@@ -7,7 +7,7 @@
 gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
   "analyzeSentiment", "analyzeSyntax", "analyzeEntitySentiment"),
   type = c("PLAIN_TEXT", "HTML"), language = c("en", "zh", "zh-Hant", "fr",
-  "de", "it", "ja", "ko", "pt", "es", "de"), encodingType = c("UTF8", "UTF16",
+  "de", "it", "ja", "ko", "pt", "es"), encodingType = c("UTF8", "UTF16",
   "UTF32", "NONE"), version = c("v1", "v1beta2", "v1beta1"))
 }
 \arguments{

@@ -4,11 +4,11 @@
 \alias{gl_translate_language}
 \title{Translate the language of text within a request}
 \usage{
-gl_translate_language(string, encode = TRUE, target = "en",
+gl_translate_language(t_string, encode = TRUE, target = "en",
   format = c("text", "html"), source = "", model = c("nmt", "base"))
 }
 \arguments{
-\item{string}{A character vector of text to detect language for}
+\item{t_string}{A character vector of text to detect language for}
 
 \item{encode}{If TRUE, will run strings through URL encoding}
 
