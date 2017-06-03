@@ -104,6 +104,20 @@ result_brit_freq$transcript
 
 ## Demo for Google Translation API
 
+You can detect language via `gl_translate_detect`
+
+```r
+## which language is this?
+gl_translate_detect("katten sad på måtten")
+
+#  confidence isReliable language
+#1  0.1863063      FALSE       sv
+```
+
+The more text it has, the better....
+
+And translate via `gl_translate_language`, that also detects the langauge. It costs the same as `gl_translate_detect`
+
 ```r
 ## translate British into Japanese
 japan <- gl_translate_language(result_brit_freq$transcript, target = "ja")
