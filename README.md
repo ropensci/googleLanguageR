@@ -112,9 +112,27 @@ gl_translate_detect("katten sad på måtten")
 
 #  confidence isReliable language
 #1  0.1863063      FALSE       sv
+
+gl_translate_detect("katten sidder på måtten")
+#  Detecting language: 39 characters - katten sidder på måtten...
+#  [[1]]
+#  isReliable language confidence
+#  1      FALSE       da   0.536223
 ```
 
-The more text it has, the better....
+The more text it has, the better.  And it helps if its not Danish...
+
+It may be better to use [`cld2`](https://github.com/ropensci/cld2) to translate offline first, if you have a lot of text to avoid charges if the translation is unnecessary (e.g. already in English)
+
+```r
+cld2::detect_language("katten sad på måtten")
+[1] NA
+
+cld2::detect_language("katten sidder på måtten")
+[1] "DANISH"
+attr(,"code")
+[1] "da"
+```
 
 And translate via `gl_translate_language`, that also detects the langauge. It costs the same as `gl_translate_detect`
 
