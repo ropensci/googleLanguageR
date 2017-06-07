@@ -19,8 +19,7 @@
 #' @family translations
 gl_translate_list <- function(target = 'en'){
 
-  assertthat::assert_that(is.character(target),
-                          is.unit(target))
+  assertthat::assert_that(assertthat::is.string(target))
 
   call_url <- sprintf("https://translation.googleapis.com/language/translate/v2/languages")
 
@@ -37,6 +36,13 @@ gl_translate_list <- function(target = 'en'){
 #'
 #' @param string A character vector of text to detect language for
 #' @param encode If TRUE, will run strings through URL encoding
+#'
+#' @details
+#'   Consider using \code{library(cld2)} and \code{cld2::detect_language} instead offline,
+#' since that is free and local without needing a paid API call.
+#'
+#' \link{gl_translate_language} also returns a detection of the language,
+#' so you could also wish to do it in one step via that function.
 #'
 #' @return A list of the detected languages
 #' @seealso \url{https://cloud.google.com/translate/docs/reference/detect}

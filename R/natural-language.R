@@ -52,8 +52,8 @@ gl_nlp <- function(string,
 
   myMessage(nlp_type, " for '", substring(string, 0, 100), "...'", level = 3)
 
-  assertthat::assert_that(is.unit(string),
-                          is.character(string))
+  assertthat::assert_that(assertthat::is.string(string))
+
   version <- match.arg(version)
   type <- match.arg(type)
   language <- match.arg(language)

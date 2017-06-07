@@ -57,11 +57,9 @@ gl_speech_recognise <- function(audio_source,
                                 profanityFilter = FALSE,
                                 speechContexts = NULL){
 
-  assertthat::assert_that(is.character(audio_source),
-                          is.unit(audio_source),
+  assertthat::assert_that(assertthat::is.string(audio_source),
                           is.numeric(sampleRateHertz),
-                          is.character(languageCode),
-                          is.unit(languageCode),
+                          assertthat::is.string(languageCode),
                           is.numeric(maxAlternatives),
                           is.logical(profanityFilter))
 
@@ -72,7 +70,8 @@ gl_speech_recognise <- function(audio_source,
       uri = audio_source
     )
   } else {
-    assertthat::is.readable(audio_source)
+    assertthat::assert_that(assertthat::is.readable(audio_source))
+
     recognitionAudio <- list(
       content = base64enc::base64encode(audio_source)
     )
