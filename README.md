@@ -1,5 +1,9 @@
 # googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API and Google Cloud Speech API
 
+[![CRAN](http://www.r-pkg.org/badges/version/googleLanguageR)](http://cran.r-project.org/package=googleLanguageR)
+[![Build Status](https://travis-ci.org/MarkEdmondson1234/googleLanguageR.png?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleLanguageR)
+[![codecov.io](http://codecov.io/github/MarkEdmondson1234/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/MarkEdmondson1234/googleLanguageR?branch=master)
+
 This package contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning/)
 
 Note all are paid services, you will need to provide your credit card details for your own Google Project to use them.
