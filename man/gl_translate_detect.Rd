@@ -17,6 +17,24 @@ A list of the detected languages
 \description{
 Detect the language of text within a request
 }
+\examples{
+
+\dontrun{
+## which language is this?
+gl_translate_detect("katten sad på måtten")
+# confidence isReliable language
+#1  0.1863063      FALSE       sv
+
+gl_translate_detect("katten sidder på måtten")
+# Detecting language: 39 characters - katten sidder på måtten...
+# [[1]]
+# isReliable language confidence
+# 1      FALSE       da   0.536223
+
+
+}
+
+}
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/detect}
 

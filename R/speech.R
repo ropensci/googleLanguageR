@@ -36,7 +36,6 @@
 #'
 #' \dontrun{
 #'
-#' gl_auth(json_file.json)
 #' test_audio <- system.files("googleLanguageR", "woman1_wb.wav")
 #' result <- gl_speech_recognise(test_audio)
 #'
