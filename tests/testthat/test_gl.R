@@ -1,6 +1,3 @@
-library(googleAuthR)
-gar_cache_setup("googleLanguageR", location = "mock")
-
 context("NLP")
 
 test_that("NLP returns expected fields", {
@@ -40,3 +37,4 @@ test_that("Translation works", {
   expect_equal(japan$translatedText, test_result)
 
 })
+
