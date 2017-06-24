@@ -1,7 +1,7 @@
 context("Auth")
 
-## to run tests, you currently need to add the file location of your
-## Google project service JSON file to an environemnt variable GL_AUTH
+## To run tests hitting the API, uncomment this chunk.  By default the API calls will
+## be tested vai the saved mock API files in the same folder.
 # test_that("Local auth working", {
 #
 #   gl_auth(Sys.getenv("GL_AUTH"))
