@@ -6,6 +6,8 @@ Description: This package lets you call the 'Google Cloud Translation API' for d
   translation of text.  It also allows you to analyse text using the 'Google Natural Language API' 
   for analysing sentiment, entities or syntax.  You can also analyse sound files and transcribe them
   to text via the 'Google Cloud Speech API'.
+URL: http://code.markedmondson.me/googleLanguageR/
+BugReports: https://github.com/MarkEdmondson1234/googleLanguageR/issues
 Depends: R (>= 3.3.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -16,4 +18,9 @@ Imports:
     jsonlite,
     base64enc
 RoxygenNote: 6.0.1
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Remotes:
+    MarkEdmondson1234/googleAuthR 

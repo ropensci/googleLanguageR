@@ -7,7 +7,7 @@ is.gcs <- function(x){
   out
 }
 
-is.NullOb <- function(x) is.null(x) | all(sapply(x, is.null))
+is.NullOb <- function(x) is.null(x) | all(vapply(x, is.null, logical(1)))
 
 
 rmNullObs <- function(x) {

@@ -82,7 +82,8 @@ gl_translate_detect <- function(string, encode = TRUE){
 
   char_num <- sum(nchar(string))
 
-  message("Detecting language: ",char_num," characters - ", substring(raw, 0, 50), "...")
+  message("Detecting language: ",char_num,
+          " characters - ", substring(raw, 0, 50), "...")
 
   ## rate limits - 1000 requests per 100 seconds
   Sys.sleep(getOption("googleLanguageR.rate_limit"))
@@ -216,7 +217,7 @@ check_rate <- function(word_count,
                        character_limit = getOption("googleLanguageR.character_limit")){
 
   ## window of character limit in seconds (e.g. 100000 per 100 seconds)
-  delay_limit = 100L
+  delay_limit <- 100L
 
   assertthat::assert_that(is.numeric(word_count),
                           is.unit(word_count),

@@ -42,9 +42,14 @@
 #'
 #' @export
 gl_nlp <- function(string,
-                   nlp_type = c("annotateText", "analyzeEntities", "analyzeSentiment", "analyzeSyntax","analyzeEntitySentiment"),
+                   nlp_type = c("annotateText",
+                                "analyzeEntities",
+                                "analyzeSentiment",
+                                "analyzeSyntax",
+                                "analyzeEntitySentiment"),
                    type = c("PLAIN_TEXT", "HTML"),
-                   language = c("en", "zh","zh-Hant","fr","de","it","ja","ko","pt","es"),
+                   language = c("en", "zh","zh-Hant","fr","de",
+                                "it","ja","ko","pt","es"),
                    encodingType = c("UTF8","UTF16","UTF32","NONE"),
                    version = c("v1", "v1beta2", "v1beta1")){
 
@@ -62,7 +67,8 @@ gl_nlp <- function(string,
   ## rate limits - 1000 requests per 100 seconds
   Sys.sleep(getOption("googleLanguageR.rate_limit"))
 
-  call_url <- sprintf("https://language.googleapis.com/%s/documents:%s", version, nlp_type)
+  call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
+                      version, nlp_type)
 
   if(is.gcs(string)){
     body <- list(
