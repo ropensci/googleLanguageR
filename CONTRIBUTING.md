@@ -9,5 +9,5 @@ To run tests taht hit the API, you will need to add your own authentication serv
 You will also need to enable the following APIS:
 
 * [Google Cloud Speech API](https://console.developers.google.com/apis/api/speech.googleapis.com/overview)
-
-
+* [Google Cloud Natural Language API](https://console.developers.google.com/apis/api/language.googleapis.com/overview)
+* [Google Cloud Translation API](https://console.developers.google.com/apis/api/translate.googleapis.com/overview)
