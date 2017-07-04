@@ -1,17 +1,7 @@
-context("Auth")
-
-## To run tests hitting the API, uncomment this chunk.  By default the API calls will
-## be tested vai the saved mock API files in the same folder.
-# test_that("Local auth working", {
-#
-#   gl_auth(Sys.getenv("GL_AUTH"))
-#
-# })
-
-context("NLP")
+context("Unit tests - NLP")
 
 test_that("NLP returns expected fields", {
-  # skip_on_cran()
+
   library(googleAuthR)
   gar_cache_setup("googleLanguageR", location = "mock")
   test_text <- "The cat sat on the mat"
@@ -21,10 +11,10 @@ test_that("NLP returns expected fields", {
 
 })
 
-context("Speech")
+context("Unit tests - Speech")
 
 test_that("Speech recognise expected", {
-  # skip_on_cran()
+
   ## get the sample source file
   library(googleAuthR)
   gar_cache_setup("googleLanguageR", location = "mock")
@@ -38,10 +28,23 @@ test_that("Speech recognise expected", {
 
 })
 
-context("Translation")
+context("Unit tests - Translation")
 
-test_that("Translation works", {
-  # skip_on_cran()
+test_that("Listing translations works", {
+  skip_on_cran()
+
+  library(googleAuthR)
+  gar_cache_setup("googleLanguageR", location = "mock")
+
+  gl_list <- gl_translate_list()
+
+
+  expect_equal(class(gl_list), "data.frame")
+
+})
+
+test_that("Translation detection works", {
+
   library(googleAuthR)
   gar_cache_setup("googleLanguageR", location = "mock")
   text <- "動物に医薬品を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
@@ -53,4 +56,5 @@ test_that("Translation works", {
   expect_equal(japan[[1]]$language, expected)
 
 })
+
 
