@@ -138,10 +138,7 @@ gl_translate_detect <- function(string, encode = TRUE){
 #' text <- "to administer medicince to animals is frequently a very difficult matter,
 #'   and yet sometimes it's necessary to do so"
 #'
-#' japan <- gl_translate_language(text, target = "ja")
-#'
-#' japan$translatedText
-#' #> [1] "動物に薬を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
+#' gl_translate_language(text, target = "ja")
 #'
 #'
 #' }
