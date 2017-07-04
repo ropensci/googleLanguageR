@@ -110,7 +110,6 @@ Translate text via `gl_translate_language`.  Note this is a lot more refined tha
 japan <- gl_translate_language(result_brit_freq$transcript, target = "ja")
 
 japan$translatedText
-#> [1] "動物に薬を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
 ```
 
 You can choose the target language via the argument `target`.  The function will automatically detect the language if you do not define an argument `source`.
