@@ -57,4 +57,19 @@ test_that("Translation detection works", {
 
 })
 
+test_that("Translation from Japanese works", {
+  library(googleAuthR)
+  gar_cache_setup("googleLanguageR", location = "mock")
+
+  text <- "動物に医薬品を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
+
+  japan <- gl_translate_language(text)
+
+  expected <- "Administration of medicines to animals is often a very difficult problem, but sometimes you need to do it"
+
+  expect_true(stringdist::ain(japan$translatedText, expected, maxDist = 10))
+
+})
+
+
 
