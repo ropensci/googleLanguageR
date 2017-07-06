@@ -6,7 +6,7 @@
 #'
 #' Returns a list of supported languages for translation.
 #'
-#' @param target If specified, language names are localized in target langauge
+#' @param target If specified, language names are localized in target language
 #'
 #' @details
 #' Supported language codes, generally consisting of its ISO 639-1 identifier. (E.g. \code{'en', 'ja'}).
@@ -120,7 +120,7 @@ gl_translate_detect <- function(string, encode = TRUE){
 #' @details
 #'
 #' You can translate a vector of strings, but each call must be under 2000 characters.
-#' If more than 2000 characters, split it up into seperate calls.
+#' If more than 2000 characters, split it up into separate calls.
 #'
 #' The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 #'
@@ -154,10 +154,8 @@ gl_translate_language <- function(t_string,
 
   assertthat::assert_that(is.character(t_string),
                           is.logical(encode),
-                          is.character(target),
-                          is.unit(target),
-                          is.character(source),
-                          is.unit(source))
+                          assertthat::is.string(target),
+                          assertthat::is.string(source))
 
   format <- match.arg(format)
   model <- match.arg(model)
@@ -183,7 +181,7 @@ gl_translate_language <- function(t_string,
 
   myMessage("Translating: ",char_num," characters - ", substring(raw, 0, 50), "...", level = 3)
 
-  if(!is.unit(t_string)){
+  if(!assertthat::is.string(t_string)){
     myMessage("Translating vector of strings > 1: ", length(t_string), level = 2)
   }
 
@@ -216,8 +214,7 @@ check_rate <- function(word_count,
   ## window of character limit in seconds (e.g. 100000 per 100 seconds)
   delay_limit <- 100L
 
-  assertthat::assert_that(is.numeric(word_count),
-                          is.unit(word_count),
+  assertthat::assert_that(assertthat::is.count(word_count),
                           is.numeric(character_limit),
                           is.numeric(delay_limit),
                           assertthat::is.time(timestamp))

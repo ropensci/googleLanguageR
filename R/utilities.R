@@ -7,14 +7,6 @@ is.gcs <- function(x){
   out
 }
 
-is.NullOb <- function(x) is.null(x) | all(vapply(x, is.null, logical(1)))
-
-
-rmNullObs <- function(x) {
-  x <- Filter(Negate(is.NullOb), x)
-  lapply(x, function(x) if (is.list(x)) rmNullObs(x) else x)
-}
-
 
 is.error <- function(test_me){
   inherits(test_me, "try-error")
@@ -40,9 +32,4 @@ myMessage <- function(..., level = 1){
     message(Sys.time()," -- ", ...)
   }
 
-}
-
-
-idempotency <- function(){
-  paste(sample(c(LETTERS, letters, 0:9), 15, TRUE),collapse="")
 }

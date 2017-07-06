@@ -3,6 +3,7 @@
 [![CRAN](http://www.r-pkg.org/badges/version/googleLanguageR)](http://cran.r-project.org/package=googleLanguageR)
 [![Build Status](https://travis-ci.org/MarkEdmondson1234/googleLanguageR.png?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleLanguageR)
 [![codecov.io](http://codecov.io/github/MarkEdmondson1234/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/MarkEdmondson1234/googleLanguageR?branch=master)
+[![](https://ropensci.org/badges/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
 
 This package contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning/)
 

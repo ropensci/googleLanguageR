@@ -1,6 +1,6 @@
 #' Perform Natural Language Analysis on text
 #'
-#' Analyse text entites, sentiment, and syntax using the Google Natural Language API
+#' Analyse text entities, sentiment, and syntax using the Google Natural Language API
 #'
 #' @param string A character vector of text to detect language for, or Google Cloud Storage URIs
 #' @param nlp_type The type of Natural Language Analysis to perform.  The default \code{annotateText} will perform all features in one call.
