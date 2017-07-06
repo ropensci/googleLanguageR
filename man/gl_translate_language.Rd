@@ -28,7 +28,7 @@ Translate character vectors via the Google Translate API
 }
 \details{
 You can translate a vector of strings, but each call must be under 2000 characters.
-If more than 2000 characters, split it up into seperate calls.
+If more than 2000 characters, split it up into separate calls.
 
 The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 

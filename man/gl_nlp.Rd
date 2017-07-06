@@ -27,7 +27,7 @@ gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
 A list of analysis of the text
 }
 \description{
-Analyse text entites, sentiment, and syntax using the Google Natural Language API
+Analyse text entities, sentiment, and syntax using the Google Natural Language API
 }
 \details{
 \code{string} can be a character vector, or a location of a file content on Google cloud Storage.

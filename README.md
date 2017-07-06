@@ -40,14 +40,34 @@ Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
 
 ## Useage
 
-Once set up you can authenticate your R session by using the `gl_auth` function pointing at your JSON auth file:
+### Authentication
+
+The best way to authenticate is to use an environment file.  See `?Startup`.  I usually place this in my home directory. (e.g. if using RStudio, click on `Home` in the file explorer, create a new `TEXT` file and call it `.Renviron`)  
+
+Set the file location of your download Google Project JSON file in a `GL_AUTH` argument:
+
+```
+#.Renviron
+GL_AUTH=location_of_json_file.json
+```
+
+Then, when you load the library you should auto-authenticate:
+
+```r
+library(googleLanguageR)
+# Setting scopes to https://www.googleapis.com/auth/cloud-platform
+# Set any additional scopes via options(googleAuthR.scopes.selected = c('scope1', 'scope2')) before loading library.
+# Successfully authenticated via location_of_json_file.json
+```
+
+You can also authenticate directly using the `gl_auth` function pointing at your JSON auth file:
 
 ```r
 library(googleLanguageR)
 gl_auth("location_of_json_file.json")
 ```
 
-Call the APIs via the functions:
+You can then call the APIs via the functions:
 
 * `gl_nlp()` - Natural Langage API
 * `gl_speech_recognise()` - Cloud Speech API

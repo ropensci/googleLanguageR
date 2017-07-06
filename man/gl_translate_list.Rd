@@ -7,7 +7,7 @@
 gl_translate_list(target = "en")
 }
 \arguments{
-\item{target}{If specified, language names are localized in target langauge}
+\item{target}{If specified, language names are localized in target language}
 }
 \value{
 data.frame of supported languages
