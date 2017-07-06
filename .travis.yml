@@ -1,7 +1,7 @@
 language: r
 cache: packages
 notifications:
-  slack: edmondsons:kgTokxui4ZzTsqdD19tCoozf
+  slack: googleauthrverse:tGfXjSD58cQSEr1YuzQ5hKPS
   email:
     on_success: change
     on_failure: change
