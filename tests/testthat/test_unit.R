@@ -1,9 +1,11 @@
+library(googleAuthR)
+# cache to file system
+gar_cache_setup(memoise::cache_filesystem("mock"))
+
 context("Unit tests - NLP")
 
 test_that("NLP returns expected fields", {
 
-  library(googleAuthR)
-  gar_cache_setup("googleLanguageR", location = "mock")
   test_text <- "The cat sat on the mat"
   nlp <- gl_nlp(test_text)
 
@@ -15,16 +17,13 @@ context("Unit tests - Speech")
 
 test_that("Speech recognise expected", {
 
-  ## get the sample source file
-  library(googleAuthR)
-  gar_cache_setup("googleLanguageR", location = "mock")
   test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
 
   result <- gl_speech_recognise(test_audio)
 
   test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
-
-  expect_equal(result$transcript, test_result)
+  ## the API call varies a bit, so it passes if within 10 characters of expected transscript
+  expect_true(stringdist::ain(result$transcript, test_result, maxDist = 10))
 
 })
 
@@ -33,11 +32,7 @@ context("Unit tests - Translation")
 test_that("Listing translations works", {
   skip_on_cran()
 
-  library(googleAuthR)
-  gar_cache_setup("googleLanguageR", location = "mock")
-
   gl_list <- gl_translate_list()
-
 
   expect_equal(class(gl_list), "data.frame")
 
@@ -45,8 +40,6 @@ test_that("Listing translations works", {
 
 test_that("Translation detection works", {
 
-  library(googleAuthR)
-  gar_cache_setup("googleLanguageR", location = "mock")
   text <- "動物に医薬品を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
 
   japan <- gl_translate_detect(text)
@@ -58,8 +51,6 @@ test_that("Translation detection works", {
 })
 
 test_that("Translation from Japanese works", {
-  library(googleAuthR)
-  gar_cache_setup("googleLanguageR", location = "mock")
 
   text <- "動物に医薬品を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
 
