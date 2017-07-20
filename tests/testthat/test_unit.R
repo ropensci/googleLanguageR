@@ -26,6 +26,8 @@ test_that("Cache folder exists", {
 context("Unit tests - NLP")
 
 test_that("NLP returns expected fields", {
+  library(googleAuthR)
+  gar_cache_setup(memoise::cache_filesystem(file.path("mock")))
 
   test_text <- "The cat sat on the mat"
   nlp <- gl_nlp(test_text)
