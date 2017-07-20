@@ -14,9 +14,12 @@ context("Unit tests - can find cache folder")
 test_that("Cache folder exists", {
 
   folder <- file.path("mock")
-  expect_true(file.exists(folder))
+  expect_true(dir.exists(folder))
   cat("\n#cache files: ", list.files(folder), "\n")
   expect_true(length(list.files(folder)) > 0)
+  cat(getwd())
+  cat("\n#gar_cache_get_loc: ", gar_cache_get_loc()$keys())
+  expect_equal(gar_cache_get_loc()$keys(), list.files(folder))
 
 })
 
