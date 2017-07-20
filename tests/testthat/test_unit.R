@@ -36,11 +36,22 @@ test_that("Memoise works on Travis at all", {
 
 })
 
+test_that("Use memoise directly", {
+
+  test_text <- "The cat sat on the mat"
+
+  mgl_nlp <- memoise::memoise(gl_nlp, cache = memoise::cache_filesystem("mock"))
+  nlp <- mgl_nlp(test_text)
+
+  expect_equal(nlp$sentences$text$content, test_text)
+
+})
+
 context("Unit tests - NLP")
 
+
+
 test_that("NLP returns expected fields", {
-  library(googleAuthR)
-  gar_cache_setup(memoise::cache_filesystem(file.path("mock")))
 
   test_text <- "The cat sat on the mat"
   nlp <- gl_nlp(test_text)
