@@ -9,7 +9,7 @@ if(on_travis){
   cat("\n#testing not on CI\n")
 }
 
-context("Unit tests - can find cache folder")
+context("Unit tests - caching works")
 
 test_that("Cache folder exists", {
 
@@ -20,6 +20,19 @@ test_that("Cache folder exists", {
   cat(getwd())
   cat("\n#gar_cache_get_loc: ", gar_cache_get_loc()$keys())
   expect_equal(gar_cache_get_loc()$keys(), list.files(folder))
+
+})
+
+test_that("Memoise works on Travis at all", {
+
+  f <- function() as.numeric(Sys.time())
+  mf <- memoise::memoise(f, cache = memoise::cache_filesystem("mock"))
+
+  cached_time <- mf()
+
+  cat("\n#cache test time (1500547795): ", cached_time, "\n")
+
+  expect_equal(cached_time, 1500547795)
 
 })
 
