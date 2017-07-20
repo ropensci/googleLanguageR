@@ -1,12 +1,23 @@
 library(googleAuthR)
 # cache to file system
-gar_cache_setup(memoise::cache_filesystem("mock"))
+gar_cache_setup(memoise::cache_filesystem(file.path("mock")))
+
+on_travis <- Sys.getenv("CI") == "true"
+if(on_travis){
+  cat("\n#testing on CI\n")
+} else {
+  cat("\n#testing not on CI\n")
+}
 
 context("Unit tests - can find cache folder")
 
 test_that("Cache folder exists", {
 
-  expect_true(file.exists(file.path("mock")))
+  folder <- file.path("mock")
+  expect_true(file.exists(folder))
+  cat("\n#cache files: ", list.files(folder), "\n")
+  expect_true(length(list.files(folder)) > 0)
+
 })
 
 context("Unit tests - NLP")
