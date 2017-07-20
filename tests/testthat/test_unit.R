@@ -2,6 +2,13 @@ library(googleAuthR)
 # cache to file system
 gar_cache_setup(memoise::cache_filesystem("mock"))
 
+context("Unit tests - can find cache folder")
+
+test_that("Cache folder exists", {
+
+  expect_true(file.exists(file.path("mock")))
+})
+
 context("Unit tests - NLP")
 
 test_that("NLP returns expected fields", {
