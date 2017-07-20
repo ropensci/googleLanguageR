@@ -38,6 +38,7 @@ test_that("Memoise works on Travis at all", {
 
 test_that("Use memoise directly", {
 
+  gar_cache_setup(NULL)
   test_text <- "The cat sat on the mat"
 
   mgl_nlp <- memoise::memoise(gl_nlp, cache = memoise::cache_filesystem("mock"))
