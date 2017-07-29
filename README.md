@@ -38,7 +38,7 @@ Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
 4. [Generate a service account credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) as a JSON file
 5. Return to R, and install this library via `devtools::install_github("MarkEdmondson1234/googleLanguageR")`
 
-## Useage
+## Usage
 
 ### Authentication
 

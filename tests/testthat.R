@@ -1,5 +1,4 @@
-library(googleAuthR)
-library(testthat)
+library(httptest)
 library(googleLanguageR)
 
 test_check("googleLanguageR")

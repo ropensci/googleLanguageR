@@ -2,7 +2,7 @@
 #'
 #' Analyse text entities, sentiment, and syntax using the Google Natural Language API
 #'
-#' @param string A character vector of text to detect language for, or Google Cloud Storage URIs
+#' @param string A length one character of text to detect language for, or Google Cloud Storage URI
 #' @param nlp_type The type of Natural Language Analysis to perform.  The default \code{annotateText} will perform all features in one call.
 #' @param type Whether input text is plain text or a HTML page
 #' @param language Language of source, must be supported by API.
@@ -54,10 +54,10 @@ gl_nlp <- function(string,
                    version = c("v1", "v1beta2", "v1beta1")){
 
   nlp_type <- match.arg(nlp_type)
-
-  myMessage(nlp_type, " for '", substring(string, 0, 100), "...'", level = 3)
-
   assertthat::assert_that(assertthat::is.string(string))
+
+  myMessage(nlp_type, " for '", substring(string, 0, 50), "...'",
+            level = 3)
 
   version <- match.arg(version)
   type <- match.arg(type)

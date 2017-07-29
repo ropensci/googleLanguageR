@@ -1,3 +1,4 @@
+library(httptest)
 local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
   cat("\nNo authentication file detected - skipping integration tests\n")

@@ -11,7 +11,7 @@ gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
   "UTF32", "NONE"), version = c("v1", "v1beta2", "v1beta1"))
 }
 \arguments{
-\item{string}{A character vector of text to detect language for, or Google Cloud Storage URIs}
+\item{string}{A length one character of text to detect language for, or Google Cloud Storage URI}
 
 \item{nlp_type}{The type of Natural Language Analysis to perform.  The default \code{annotateText} will perform all features in one call.}
 

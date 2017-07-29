@@ -17,11 +17,13 @@ VignetteBuilder: knitr
 Imports:
     assertthat,
     base64enc,
-    googleAuthR (>= 0.5.1),
+    googleAuthR,
     jsonlite
 Suggests: 
     knitr,
     rmarkdown,
-    testthat,
+    httptest,
     stringdist
-Remotes: MarkEdmondson1234/googleAuthR 
+Remotes: 
+    MarkEdmondson1234/googleAuthR,
+    nealrichardson/httptest
