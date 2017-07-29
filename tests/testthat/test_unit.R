@@ -1,4 +1,6 @@
 library(httptest)
+.mockPaths(path.expand(file.path(getwd(),"mock")))
+
 local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
   cat("\nNo authentication file detected - skipping integration tests\n")
@@ -9,12 +11,9 @@ if(!local_auth){
 on_travis <- Sys.getenv("CI") == "true"
 if(on_travis){
   cat("\n#testing on CI - working dir: ", path.expand(getwd()), "\n")
-  .mockPaths(path.expand(getwd()))
 } else {
   cat("\n#testing not on CI\n")
-  .mockPaths("mock")
 }
-
 
 context("API Mocking")
 
