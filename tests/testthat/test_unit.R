@@ -9,11 +9,12 @@ if(!local_auth){
 on_travis <- Sys.getenv("CI") == "true"
 if(on_travis){
   cat("\n#testing on CI\n")
+  .mockPaths("tests/testthat/mock")
 } else {
   cat("\n#testing not on CI\n")
+  .mockPaths("mock")
 }
 
-.mockPaths("mock")
 
 context("API Mocking")
 
