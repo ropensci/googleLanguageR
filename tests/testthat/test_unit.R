@@ -8,7 +8,7 @@ if(!local_auth){
 
 on_travis <- Sys.getenv("CI") == "true"
 if(on_travis){
-  cat("\n#testing on CI\n")
+  cat("\n#testing on CI - working dir: ", path.expand(getwd()), "\n")
   .mockPaths("tests/testthat/mock")
 } else {
   cat("\n#testing not on CI\n")
