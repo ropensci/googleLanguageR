@@ -23,9 +23,7 @@ gl_translate_list <- function(target = 'en'){
 
   assert_that(is.string(target))
 
-  call_url <- sprintf("https://translation.googleapis.com/language/translate/v2/languages")
-
-  f <- gar_api_generator(call_url,
+  f <- gar_api_generator("https://translation.googleapis.com/language/translate/v2/languages",
                          "GET",
                          pars_args = list(target = target),
                          data_parse_function = function(x) x$data$languages)
@@ -184,9 +182,7 @@ gl_translate_language <- function(t_string,
   ## character limits - 100000 characters per 100 seconds
   check_rate(char_num)
 
-  call_url <- paste0("https://translation.googleapis.com/language/translate/v2")
-
-  f <- gar_api_generator(call_url,
+  f <- gar_api_generator("https://translation.googleapis.com/language/translate/v2",
                          "POST",
                          pars_args = list(target = target,
                                           format = format,

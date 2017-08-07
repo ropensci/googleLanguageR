@@ -1,4 +1,5 @@
 #' @importFrom jsonlite unbox
+#' @noRd
 jubox <- function(x){
   unbox(x)
 }

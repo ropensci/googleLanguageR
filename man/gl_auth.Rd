@@ -2,13 +2,18 @@
 % Please edit documentation in R/auth.R
 \name{gl_auth}
 \alias{gl_auth}
-\title{Auth with Google Translate API}
+\title{Authenticate with Google language API services}
 \usage{
 gl_auth(json_file)
 }
 \arguments{
-\item{json_file}{File you have downloaded from your Google Project}
+\item{json_file}{Authentication json file you have downloaded from your Google Project}
 }
 \description{
-Auth with Google Translate API
+Authenticate with Google language API services
+}
+\details{
+You may prefer to authenticate automatically upon package load by
+  assigning a Environment argument \code{GL_AUTH} equal to the file
+  location of your auth file JSON.
 }
