@@ -17,16 +17,18 @@
 #'
 #' @export
 #' @family translations
+#' @importFrom googleAuthR gar_api_generator
+#' @import assertthat
 gl_translate_list <- function(target = 'en'){
 
-  assertthat::assert_that(assertthat::is.string(target))
+  assert_that(is.string(target))
 
   call_url <- sprintf("https://translation.googleapis.com/language/translate/v2/languages")
 
-  f <- googleAuthR::gar_api_generator(call_url,
-                                      "GET",
-                                      pars_args = list(target = target),
-                                      data_parse_function = function(x) x$data$languages)
+  f <- gar_api_generator(call_url,
+                         "GET",
+                         pars_args = list(target = target),
+                         data_parse_function = function(x) x$data$languages)
 
   f()
 
@@ -61,15 +63,18 @@ gl_translate_list <- function(target = 'en'){
 #'
 #' }
 #'
+#' @import assertthat
+#' @importFrom utils URLencode
+#' @importFrom googleAuthR gar_api_generator
 gl_translate_detect <- function(string, encode = TRUE){
 
-  assertthat::assert_that(is.character(string),
-                          is.logical(encode))
+  assert_that(is.character(string),
+              is.logical(encode))
 
   if(encode){
     raw <- string
     string <- vapply(string,
-                     utils::URLencode,
+                     URLencode,
                      FUN.VALUE = character(1),
                      reserved = TRUE,
                      repeated = TRUE,
@@ -81,19 +86,16 @@ gl_translate_detect <- function(string, encode = TRUE){
   message("Detecting language: ",char_num,
           " characters - ", substring(raw, 0, 50), "...")
 
-  ## rate limits - 1000 requests per 100 seconds
-  Sys.sleep(getOption("googleLanguageR.rate_limit"))
-
   ## character limits - 100000 characters per 100 seconds
   check_rate(sum(nchar(string)))
 
   call_url <- paste0("https://translation.googleapis.com/language/translate/v2/detect?",
                      paste0("q=", string, collapse = "&"))
 
-  f <- googleAuthR::gar_api_generator(call_url,
-                                      "POST",
-                                      data_parse_function = function(x) Reduce(rbind,
-                                                                               x$data$detections))
+  f <- gar_api_generator(call_url,
+                         "POST",
+                         data_parse_function = function(x) Reduce(rbind,
+                                                                  x$data$detections))
 
   me <- f()
 
@@ -142,6 +144,9 @@ gl_translate_detect <- function(string, encode = TRUE){
 #'
 #' @export
 #' @family translations
+#' @import assertthat
+#' @importFrom utils URLencode
+#' @importFrom googleAuthR gar_api_generator
 gl_translate_language <- function(t_string,
                                   encode = TRUE,
                                   target = "en",
@@ -149,48 +154,45 @@ gl_translate_language <- function(t_string,
                                   source = '',
                                   model = c("nmt", "base")){
 
-  assertthat::assert_that(is.character(t_string),
-                          is.logical(encode),
-                          assertthat::is.string(target),
-                          assertthat::is.string(source))
+  assert_that(is.character(t_string),
+              is.logical(encode),
+              is.string(target),
+              is.string(source))
 
   format <- match.arg(format)
-  model <- match.arg(model)
-  raw <- t_string
+  model  <- match.arg(model)
+  raw    <- t_string
 
   if(encode){
 
     t_string <- vapply(t_string,
-                     utils::URLencode,
-                     FUN.VALUE = character(1),
-                     reserved = TRUE,
-                     repeated = TRUE,
-                     USE.NAMES = FALSE)
+                       URLencode,
+                       FUN.VALUE = character(1),
+                       reserved = TRUE,
+                       repeated = TRUE,
+                       USE.NAMES = FALSE)
   }
 
   char_num <- sum(nchar(t_string))
 
   myMessage("Translating: ",char_num," characters - ", substring(raw, 0, 50), "...", level = 3)
 
-  if(!assertthat::is.string(t_string)){
+  if(!is.string(t_string)){
     myMessage("Translating vector of strings > 1: ", length(t_string), level = 2)
   }
-
-  ## rate limits - 1000 requests per 100 seconds
-  Sys.sleep(getOption("googleLanguageR.rate_limit"))
 
   ## character limits - 100000 characters per 100 seconds
   check_rate(char_num)
 
   call_url <- paste0("https://translation.googleapis.com/language/translate/v2")
 
-  f <- googleAuthR::gar_api_generator(call_url,
-                                      "POST",
-                                      pars_args = list(target = target,
-                                                       format = format,
-                                                       source = source,
-                                                       q = paste0(t_string, collapse = "&q=")),
-                                      data_parse_function = function(x) x$data$translations)
+  f <- gar_api_generator(call_url,
+                         "POST",
+                         pars_args = list(target = target,
+                                          format = format,
+                                          source = source,
+                                          q = paste0(t_string, collapse = "&q=")),
+                         data_parse_function = function(x) x$data$translations)
 
   me <- f()
 
@@ -201,7 +203,11 @@ gl_translate_language <- function(t_string,
 }
 
 
-# Limit the API to the limits imposed by Google
+#' Limit the API to the limits imposed by Google
+#'
+#'
+#' @import assertthat
+#' @noRd
 check_rate <- function(word_count,
                        timestamp = Sys.time(),
                        character_limit = getOption("googleLanguageR.character_limit")){
@@ -209,10 +215,10 @@ check_rate <- function(word_count,
   ## window of character limit in seconds (e.g. 100000 per 100 seconds)
   delay_limit <- 100L
 
-  assertthat::assert_that(assertthat::is.count(word_count),
-                          is.numeric(character_limit),
-                          is.numeric(delay_limit),
-                          assertthat::is.time(timestamp))
+  assert_that(is.count(word_count),
+              is.numeric(character_limit),
+              is.numeric(delay_limit),
+              is.time(timestamp))
 
   if(.word_rate$characters > 0){
     myMessage("# Current character batch: ", .word_rate$characters, level = 2)

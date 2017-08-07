@@ -1,4 +1,9 @@
+#' @importFrom jsonlite unbox
+jubox <- function(x){
+  unbox(x)
+}
 
+# tests if a google storage URL
 is.gcs <- function(x){
   out <- grepl("^gs://", x)
   if(out){
@@ -7,26 +12,11 @@ is.gcs <- function(x){
   out
 }
 
-
-is.error <- function(test_me){
-  inherits(test_me, "try-error")
-}
-
-is.unit <- function(x){
-  length(x) == 1
-}
-
-
-error.message <- function(test_me){
-  if(is.error(test_me)) attr(test_me, "condition")$message
-}
-
-
+# controls when messages are sent to user via an option
+# 1 = low level, 2= debug, 3=normal
 myMessage <- function(..., level = 1){
 
-
-  compare_level <- getOption("googleAuthR.verbose")
-  if(is.null(compare_level)) compare_level <- 1
+  compare_level <- getOption("googleAuthR.verbose", default = 1)
 
   if(level >= compare_level){
     message(Sys.time()," -- ", ...)

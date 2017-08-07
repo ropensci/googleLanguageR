@@ -3,8 +3,9 @@
 #' @param json_file File you have downloaded from your Google Project
 #'
 #' @export
+#' @importFrom googleAuthR gar_auth_service
 gl_auth <- function(json_file){
 
   options(googleAuthR.scopes.selected = "https://www.googleapis.com/auth/cloud-platform")
-  googleAuthR::gar_auth_service(json_file = json_file)
+  gar_auth_service(json_file = json_file)
 }

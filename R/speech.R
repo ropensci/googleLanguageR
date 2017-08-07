@@ -51,6 +51,9 @@
 #'
 #' @seealso \url{https://cloud.google.com/speech/reference/rest/v1/speech/recognize}
 #' @export
+#' @import assertthat
+#' @import base64enc
+#' @importFrom googleAuthR gar_api_generator
 gl_speech_recognise <- function(audio_source,
                                 encoding = c("LINEAR16","FLAC","MULAW","AMR",
                                              "AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
@@ -60,11 +63,11 @@ gl_speech_recognise <- function(audio_source,
                                 profanityFilter = FALSE,
                                 speechContexts = NULL){
 
-  assertthat::assert_that(assertthat::is.string(audio_source),
-                          is.numeric(sampleRateHertz),
-                          assertthat::is.string(languageCode),
-                          is.numeric(maxAlternatives),
-                          is.logical(profanityFilter))
+  assert_that(is.string(audio_source),
+              is.numeric(sampleRateHertz),
+              is.string(languageCode),
+              is.numeric(maxAlternatives),
+              is.logical(profanityFilter))
 
   encoding <- match.arg(encoding)
 
@@ -73,10 +76,10 @@ gl_speech_recognise <- function(audio_source,
       uri = audio_source
     )
   } else {
-    assertthat::assert_that(assertthat::is.readable(audio_source))
+    assert_that(is.readable(audio_source))
 
     recognitionAudio <- list(
-      content = base64enc::base64encode(audio_source)
+      content = base64encode(audio_source)
     )
   }
 
@@ -92,9 +95,9 @@ gl_speech_recognise <- function(audio_source,
     audio = recognitionAudio
   )
 
-  f <- googleAuthR::gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
-                                      "POST",
-                                      data_parse_function = function(x) x$results$alternatives[[1]])
+  f <- gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
+                         "POST",
+                         data_parse_function = function(x) x$results$alternatives[[1]])
 
   f(the_body = body)
 

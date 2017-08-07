@@ -41,6 +41,8 @@
 #' }
 #'
 #' @export
+#' @import assertthat
+#' @importFrom googleAuthR gar_api_generator
 gl_nlp <- function(string,
                    nlp_type = c("annotateText",
                                 "analyzeEntities",
@@ -53,68 +55,50 @@ gl_nlp <- function(string,
                    encodingType = c("UTF8","UTF16","UTF32","NONE"),
                    version = c("v1", "v1beta2", "v1beta1")){
 
-  nlp_type <- match.arg(nlp_type)
-  assertthat::assert_that(assertthat::is.string(string))
-
+  assert_that(is.string(string))
   myMessage(nlp_type, " for '", substring(string, 0, 50), "...'",
             level = 3)
 
-  version <- match.arg(version)
-  type <- match.arg(type)
-  language <- match.arg(language)
-  encodingType <- match.arg(encodingType)
-
-  ## rate limits - 1000 requests per 100 seconds
-  Sys.sleep(getOption("googleLanguageR.rate_limit"))
+  nlp_type      <- match.arg(nlp_type)
+  version       <- match.arg(version)
+  type          <- match.arg(type)
+  language      <- match.arg(language)
+  encodingType  <- match.arg(encodingType)
 
   call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
                       version, nlp_type)
 
+  body <- list(
+    document = list(
+      type = jubox(type),
+      language = jubox(language)
+    ),
+    encodingType = encodingType
+  )
+
   if(is.gcs(string)){
-    body <- list(
-      document = list(
-        type = jsonlite::unbox(type),
-        language = jsonlite::unbox(language),
-        gcsContentUri = jsonlite::unbox(string)
-      ),
-      encodingType = encodingType
-    )
+    body$document$gcsContentUri <- jubox(string)
   } else {
-    body <- list(
-      document = list(
-        type = jsonlite::unbox(type),
-        language = jsonlite::unbox(language),
-        content = jsonlite::unbox(string)
-      ),
-      encodingType = encodingType
-    )
+    body$document$content = jubox(string)
   }
 
   if(nlp_type == "annotateText"){
 
+    body <- c(body, list(
+      features = list(
+        extractSyntax = jubox(TRUE),
+        extractEntities = jubox(TRUE),
+        extractDocumentSentiment = jubox(TRUE)
+      )))
+
     if(version == "v1beta2"){
-      body <- c(body, list(
-        features = list(
-          extractSyntax = jsonlite::unbox(TRUE),
-          extractEntities = jsonlite::unbox(TRUE),
-          extractDocumentSentiment = jsonlite::unbox(TRUE),
-          extractEntitySentiment = jsonlite::unbox(TRUE)
-        )))
-
-    } else {
-      body <- c(body, list(
-        features = list(
-          extractSyntax = jsonlite::unbox(TRUE),
-          extractEntities = jsonlite::unbox(TRUE),
-          extractDocumentSentiment = jsonlite::unbox(TRUE)
-        )))
-
+      body$features$extractEntitySentiment = jubox(TRUE)
     }
   }
 
-  f <- googleAuthR::gar_api_generator(call_url,
-                                      "POST",
-                                      data_parse_function = function(x) x)
+  f <- gar_api_generator(call_url,
+                         "POST",
+                         data_parse_function = function(x) x)
 
   f(the_body = body)
 

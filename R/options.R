@@ -2,7 +2,6 @@
 
   op <- options()
   op.googleLanguageR <- list(
-    googleLanguageR.rate_limit = 0.5,
     googleLanguageR.character_limit = 100000L,
     googleAuthR.scopes.selected = "https://www.googleapis.com/auth/cloud-platform"
   )
@@ -20,8 +19,7 @@
   needed <- "https://www.googleapis.com/auth/cloud-platform"
 
   googleAuthR::gar_attach_auto_auth(needed,
-                                    environment_var = "GL_AUTH",
-                                    travis_environment_var = "TRAVIS_GL_AUTH")
+                                    environment_var = "GL_AUTH")
 
   invisible()
 

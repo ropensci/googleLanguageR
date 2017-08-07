@@ -180,11 +180,10 @@ gl_translate_detect("katten sidder på måtten")
 
 The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager `https://console.developers.google.com/apis/api/translate.googleapis.com/quotas`
 
-The library will limit the API calls for for the characters and API requests per 100 seconds, which you can set via the options `googleLanguageR.rate_limit` and `googleLanguageR.character_limit`.  By default these are set at `0.5` requests per second, and `100000` characters per 100 seconds.  Change them via:
+The library will limit the API calls for the characters and API requests per 100 seconds, which you can set via the options `googleLanguageR.rate_limit` and `googleLanguageR.character_limit`.  The API will retry if you are making requests too quickly, and also pause to make sure you only send `100000` characters per 100 seconds.  Change the rate limit via:
 
 ```r
-options(googleLanguageR.rate_limit = 0.15, 
-        googleLanguageR.character_limit = 10000L)
+options(googleLanguageR.character_limit = 10000L)
 ```
 
 ## Google Cloud Speech API
