@@ -44,23 +44,19 @@ gl_translate_list <- function(target = 'en'){
 #' \link{gl_translate_language} also returns a detection of the language,
 #' so you could also wish to do it in one step via that function.
 #'
-#' @return A list of the detected languages
+#' @return A data.frame of the detected languages with columns \code{confidence}, \code{isReliable}, \code{language}, and \code{text} of length equal to the vector of text you passed in.
+#'
 #' @seealso \url{https://cloud.google.com/translate/docs/reference/detect}
 #' @export
 #' @family translations
 #' @examples
 #'
 #' \dontrun{
-#' ## which language is this?
-#' gl_translate_detect("katten sad på måtten")
-#' # confidence isReliable language
-#' #1  0.1863063      FALSE       sv
 #'
 #' gl_translate_detect("katten sidder på måtten")
 #' # Detecting language: 39 characters - katten sidder på måtten...
-#' # [[1]]
-#' # isReliable language confidence
-#' # 1      FALSE       da   0.536223
+#' # confidence isReliable language                    text
+#' # 1   0.536223      FALSE       da katten sidder på måtten
 #'
 #'
 #' }
@@ -94,15 +90,16 @@ gl_translate_detect <- function(string, encode = TRUE){
   call_url <- paste0("https://translation.googleapis.com/language/translate/v2/detect?",
                      paste0("q=", string, collapse = "&"))
 
-  if(nchar(call_url) > 2000){
-    stop("Total URL must be less than 2000 characters")
-  }
-
   f <- googleAuthR::gar_api_generator(call_url,
                                       "POST",
-                                      data_parse_function = function(x) x$data$detections)
+                                      data_parse_function = function(x) Reduce(rbind,
+                                                                               x$data$detections))
 
-  f()
+  me <- f()
+
+  me$text <- raw
+
+  me
 
 }
 
@@ -119,8 +116,7 @@ gl_translate_detect <- function(string, encode = TRUE){
 #'
 #' @details
 #'
-#' You can translate a vector of strings, but each call must be under 2000 characters.
-#' If more than 2000 characters, split it up into separate calls.
+#' You can translate a vector of strings, although if too many you will get a \code{Too many text segments} error from the API.
 #'
 #' The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 #'
@@ -128,7 +124,8 @@ gl_translate_detect <- function(string, encode = TRUE){
 #'
 #'
 #'
-#' @return A list of the translations
+#' @return A data.frame of \code{translatedText} and \code{detectedSourceLanguage} and \code{text} of length equal to the vector of text you passed in.
+#'
 #' @seealso \url{https://cloud.google.com/translate/docs/reference/translate}
 #'
 #' @examples
@@ -173,12 +170,6 @@ gl_translate_language <- function(t_string,
 
   char_num <- sum(nchar(t_string))
 
-  if(char_num > 1500){
-    warning("Too many characters to send to API, only sending first 1500.  Got ", char_num)
-    t_string <- substring(t_string, 0, 1500)
-    char_num <- 1500
-  }
-
   myMessage("Translating: ",char_num," characters - ", substring(raw, 0, 50), "...", level = 3)
 
   if(!assertthat::is.string(t_string)){
@@ -201,7 +192,11 @@ gl_translate_language <- function(t_string,
                                                        q = paste0(t_string, collapse = "&q=")),
                                       data_parse_function = function(x) x$data$translations)
 
-  f()
+  me <- f()
+
+  me$text <- raw
+
+  me
 
 }
 

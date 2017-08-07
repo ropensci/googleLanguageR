@@ -31,7 +31,7 @@ gl_speech_recognize(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW",
 \item{speechContexts}{An optional character vector of context to assist the speech recognition}
 }
 \value{
-A data.frame of two columns: the \code{transcript} and the \code{confidence} with the number of rows equal to the \code{maxAlternatives}
+A data.frame of two columns: \code{transcript} and the \code{confidence} with the number of rows equal to the \code{maxAlternatives}
 }
 \description{
 Turn audio into text

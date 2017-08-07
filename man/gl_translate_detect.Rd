@@ -12,7 +12,7 @@ gl_translate_detect(string, encode = TRUE)
 \item{encode}{If TRUE, will run strings through URL encoding}
 }
 \value{
-A list of the detected languages
+A data.frame of the detected languages with columns \code{confidence}, \code{isReliable}, \code{language}, and \code{text} of length equal to the vector of text you passed in.
 }
 \description{
 Detect the language of text within a request
@@ -27,16 +27,11 @@ so you could also wish to do it in one step via that function.
 \examples{
 
 \dontrun{
-## which language is this?
-gl_translate_detect("katten sad på måtten")
-# confidence isReliable language
-#1  0.1863063      FALSE       sv
 
 gl_translate_detect("katten sidder på måtten")
 # Detecting language: 39 characters - katten sidder på måtten...
-# [[1]]
-# isReliable language confidence
-# 1      FALSE       da   0.536223
+# confidence isReliable language                    text
+# 1   0.536223      FALSE       da katten sidder på måtten
 
 
 }
