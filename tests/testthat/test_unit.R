@@ -84,7 +84,8 @@ with_mock_API({
 
     expected <- "ja"
 
-    expect_equal(japan[[1]]$language, expected)
+    expect_equal(class(japan), "data.frame")
+    expect_equal(japan$language, expected)
 
   })
 
