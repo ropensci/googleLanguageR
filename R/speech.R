@@ -10,6 +10,8 @@
 #' @param profanityFilter If \code{TRUE} will attempt to filter out profanities
 #' @param speechContexts An optional character vector of context to assist the speech recognition
 #'
+#' @return A data.frame of two columns: \code{transcript} and the \code{confidence} with the number of rows equal to the \code{maxAlternatives}
+#'
 #' @details
 #'
 #' Google Cloud Speech API enables developers to convert audio to text by applying powerful
@@ -36,7 +38,7 @@
 #'
 #' \dontrun{
 #'
-#' test_audio <- system.files("googleLanguageR", "woman1_wb.wav")
+#' test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 #' result <- gl_speech_recognise(test_audio)
 #'
 #' result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
@@ -44,6 +46,8 @@
 #' result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
 #'
 #' }
+#'
+
 #'
 #' @seealso \url{https://cloud.google.com/speech/reference/rest/v1/speech/recognize}
 #' @export
@@ -95,3 +99,7 @@ gl_speech_recognise <- function(audio_source,
   f(the_body = body)
 
 }
+
+#' @rdname gl_speech_recognise
+#' @export
+gl_speech_recognize <- gl_speech_recognise

@@ -2,9 +2,15 @@
 % Please edit documentation in R/speech.R
 \name{gl_speech_recognise}
 \alias{gl_speech_recognise}
+\alias{gl_speech_recognize}
 \title{Call Google Speech API}
 \usage{
 gl_speech_recognise(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW",
+  "AMR", "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"),
+  sampleRateHertz = 16000L, languageCode = "en-US", maxAlternatives = 1L,
+  profanityFilter = FALSE, speechContexts = NULL)
+
+gl_speech_recognize(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW",
   "AMR", "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"),
   sampleRateHertz = 16000L, languageCode = "en-US", maxAlternatives = 1L,
   profanityFilter = FALSE, speechContexts = NULL)
@@ -23,6 +29,9 @@ gl_speech_recognise(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW",
 \item{profanityFilter}{If \code{TRUE} will attempt to filter out profanities}
 
 \item{speechContexts}{An optional character vector of context to assist the speech recognition}
+}
+\value{
+A data.frame of two columns: the \code{transcript} and the \code{confidence} with the number of rows equal to the \code{maxAlternatives}
 }
 \description{
 Turn audio into text
@@ -54,7 +63,7 @@ Read more on audio encodings here \url{https://cloud.google.com/speech/docs/enco
 
 \dontrun{
 
-test_audio <- system.files("googleLanguageR", "woman1_wb.wav")
+test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 result <- gl_speech_recognise(test_audio)
 
 result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
@@ -62,6 +71,7 @@ result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
 result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
 
 }
+
 
 }
 \seealso{
