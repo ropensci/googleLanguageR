@@ -7,7 +7,7 @@
       },
       "sentiment": {
         "magnitude": 0.1,
-        "score": 0.1
+        "score": -0.1
       }
     }
   ],
@@ -197,7 +197,7 @@
   ],
   "documentSentiment": {
     "magnitude": 0.1,
-    "score": 0.1
+    "score": -0.1
   },
   "language": "en"
 }
