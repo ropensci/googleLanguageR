@@ -60,6 +60,7 @@
 #' @export
 #' @import assertthat
 #' @importFrom googleAuthR gar_api_generator
+#' @importFrom purrr map
 gl_nlp <- function(string,
                    nlp_type = c("annotateText",
                                 "analyzeEntities",
@@ -72,12 +73,12 @@ gl_nlp <- function(string,
                    encodingType = c("UTF8","UTF16","UTF32","NONE"),
                    version = c("v1", "v1beta2", "v1beta1")){
 
-  lapply(string, gl_nlp_single,
-         nlp_type = nlp_type,
-         type = type,
-         language = language,
-         encodingType = encodingType,
-         version = version)
+  map(string, gl_nlp_single,
+      nlp_type = nlp_type,
+      type = type,
+      language = language,
+      encodingType = encodingType,
+      version = version)
 
 }
 
@@ -99,10 +100,11 @@ gl_nlp_single <- function(string,
                           version = c("v1", "v1beta2", "v1beta1")){
 
   assert_that(is.string(string))
+  nlp_type      <- match.arg(nlp_type)
+
   myMessage(nlp_type, " for '", substring(string, 0, 50), "...'",
             level = 3)
 
-  nlp_type      <- match.arg(nlp_type)
   version       <- match.arg(version)
   type          <- match.arg(type)
   language      <- match.arg(language)
