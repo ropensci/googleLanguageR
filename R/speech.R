@@ -54,6 +54,7 @@
 #' @import assertthat
 #' @import base64enc
 #' @importFrom googleAuthR gar_api_generator
+#' @importFrom tibble as_tibble
 gl_speech_recognise <- function(audio_source,
                                 encoding = c("LINEAR16","FLAC","MULAW","AMR",
                                              "AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
@@ -95,9 +96,11 @@ gl_speech_recognise <- function(audio_source,
     audio = recognitionAudio
   )
 
+  parse <- function(x) as_tibble(x$results$alternatives[[1]])
+
   f <- gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
                          "POST",
-                         data_parse_function = function(x) x$results$alternatives[[1]])
+                         data_parse_function = parse)
 
   f(the_body = body)
 

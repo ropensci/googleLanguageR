@@ -28,7 +28,8 @@ test_that("NLP returns expected fields", {
   test_text <- "The cat sat on the mat"
   nlp <- gl_nlp(test_text)
 
-  expect_equal(nlp$sentences$text$content, test_text)
+  expect_s3_class(nlp[[1]]$sentences, "data.frame")
+  expect_equal(nlp[[1]]$sentences$content, test_text)
 
 })
 
@@ -59,8 +60,7 @@ test_that("Listing translations works", {
 
   gl_list <- gl_translate_list()
 
-
-  expect_equal(class(gl_list), "data.frame")
+  expect_s3_class(gl_list, "data.frame")
 
 })
 
@@ -74,7 +74,7 @@ test_that("Translation detection works", {
 
   expected <- "ja"
 
-  expect_equal(class(japan), "data.frame")
+  expect_s3_class(japan, "data.frame")
   expect_equal(japan$language, expected)
 
 })

@@ -18,6 +18,7 @@
 #' @export
 #' @family translations
 #' @importFrom googleAuthR gar_api_generator
+#' @importFrom tibble as_tibble
 #' @import assertthat
 gl_translate_list <- function(target = 'en'){
 
@@ -28,7 +29,7 @@ gl_translate_list <- function(target = 'en'){
                          pars_args = list(target = target),
                          data_parse_function = function(x) x$data$languages)
 
-  f()
+  as_tibble(f())
 
 }
 
@@ -64,6 +65,7 @@ gl_translate_list <- function(target = 'en'){
 #' @import assertthat
 #' @importFrom utils URLencode
 #' @importFrom googleAuthR gar_api_generator
+#' @importFrom tibble as_tibble
 gl_translate_detect <- function(string, encode = TRUE){
 
   assert_that(is.character(string),
@@ -99,7 +101,7 @@ gl_translate_detect <- function(string, encode = TRUE){
 
   me$text <- raw
 
-  me
+  as_tibble(me)
 
 }
 
@@ -145,6 +147,7 @@ gl_translate_detect <- function(string, encode = TRUE){
 #' @import assertthat
 #' @importFrom utils URLencode
 #' @importFrom googleAuthR gar_api_generator
+#' @importFrom tibble as_tibble
 gl_translate_language <- function(t_string,
                                   encode = TRUE,
                                   target = "en",
@@ -194,7 +197,7 @@ gl_translate_language <- function(t_string,
 
   me$text <- raw
 
-  me
+  as_tibble(me)
 
 }
 

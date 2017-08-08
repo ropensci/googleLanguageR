@@ -17,8 +17,12 @@ VignetteBuilder: knitr
 Imports:
     assertthat,
     base64enc,
+    dplyr,
     googleAuthR,
-    jsonlite
+    jsonlite,
+    magrittr,
+    purrr,
+    tibble
 Suggests: 
     knitr,
     rmarkdown,
