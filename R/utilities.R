@@ -8,14 +8,14 @@ jubox <- function(x){
 is.gcs <- function(x){
   out <- grepl("^gs://", x)
   if(out){
-    myMessage("Using Google Storage URI: ", x, level = 3)
+    my_message("Using Google Storage URI: ", x, level = 3)
   }
   out
 }
 
 # controls when messages are sent to user via an option
 # 1 = low level, 2= debug, 3=normal
-myMessage <- function(..., level = 1){
+my_message <- function(..., level = 1){
 
   compare_level <- getOption("googleAuthR.verbose", default = 1)
 
@@ -23,4 +23,12 @@ myMessage <- function(..., level = 1){
     message(Sys.time()," -- ", ...)
   }
 
+}
+
+# check loaded package
+check_package_loaded <- function(package_name){
+  if (!requireNamespace(package_name, quietly = TRUE)) {
+    stop(paste0(package_name, " needed for this function to work. Please install it"),
+         call. = FALSE)
+  }
 }

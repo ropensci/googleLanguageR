@@ -10,7 +10,7 @@
 #' @param profanityFilter If \code{TRUE} will attempt to filter out profanities
 #' @param speechContexts An optional character vector of context to assist the speech recognition
 #'
-#' @return A data.frame of two columns: \code{transcript} and the \code{confidence} with the number of rows equal to the \code{maxAlternatives}
+#' @return A tibble of two columns: \code{transcript} and the \code{confidence} with the number of rows equal to the \code{maxAlternatives}
 #'
 #' @details
 #'
@@ -98,11 +98,11 @@ gl_speech_recognise <- function(audio_source,
 
   parse <- function(x) as_tibble(x$results$alternatives[[1]])
 
-  f <- gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
+  call_api <- gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
                          "POST",
                          data_parse_function = parse)
 
-  f(the_body = body)
+  call_api(the_body = body)
 
 }
 

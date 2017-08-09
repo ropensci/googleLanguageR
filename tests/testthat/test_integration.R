@@ -58,7 +58,7 @@ test_that("Listing translations works", {
   skip_on_cran()
   skip_if_not(local_auth)
 
-  gl_list <- gl_translate_list()
+  gl_list <- gl_translate_languages()
 
   expect_s3_class(gl_list, "data.frame")
 
@@ -68,28 +68,26 @@ test_that("Translation detection works", {
   skip_on_cran()
   skip_if_not(local_auth)
 
-  text <- "動物に医薬品を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
+  text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
 
-  japan <- gl_translate_detect(text)
+  danish <- gl_translate_detect(text)
 
-  expected <- "ja"
-
-  expect_s3_class(japan, "data.frame")
-  expect_equal(japan$language, expected)
+  expect_s3_class(danish, "data.frame")
+  expect_equal(danish$language, "da")
 
 })
 
-test_that("Translation from Japanese works", {
+test_that("Translation from Danish works", {
   skip_on_cran()
   skip_if_not(local_auth)
 
-  text <- "動物に医薬品を投与することはしばしば非常に困難な問題ですが、時にはそれを行う必要があります"
+  text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
 
-  japan <- gl_translate_language(text)
+  danish <- gl_translate_language(text)
 
-  expected <- "Administration of medicines to animals is often a very difficult problem, but sometimes you need to do it"
+  expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
 
-  expect_true(stringdist::ain(japan$translatedText, expected, maxDist = 10))
+  expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
 
 })

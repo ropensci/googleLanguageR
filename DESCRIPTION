@@ -25,9 +25,10 @@ Imports:
     stats,
     tibble
 Suggests: 
+    httptest,
     knitr,
     rmarkdown,
-    httptest,
+    rvest,
     stringdist
 Remotes: 
     MarkEdmondson1234/googleAuthR

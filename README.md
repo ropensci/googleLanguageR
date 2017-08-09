@@ -9,6 +9,14 @@ This package contains functions for analysing language through the [Google Cloud
 
 Note all are paid services, you will need to provide your credit card details for your own Google Project to use them.
 
+The package can be used by any user who is looking to take advantage of Google's massive dataset to train these machine learning models.  Some applications include:
+
+* Translation of speech into another language text, via speech-to-text then translation
+* Identification of sentiment within text, such as from Twitter feeds
+* Pulling out the objects of a sentence, to help classify texts and get metadata links from Wikipedia about them.
+
+The applications of the API results could be relevant to business or researchers looking to scale text analysis.
+
 ## Google Natural Language API
 
 > Google Natural Language API reveals the structure and meaning of text by offering powerful machine learning models in an easy to use REST API. You can use it to extract information about people, places, events and much more, mentioned in text documents, news articles or blog posts. You can also use it to understand sentiment about your product on social media or parse intent from customer conversations happening in a call center or a messaging app. 

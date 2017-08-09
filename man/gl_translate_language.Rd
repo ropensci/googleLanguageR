@@ -5,7 +5,7 @@
 \title{Translate the language of text within a request}
 \usage{
 gl_translate_language(t_string, target = "en", format = c("text", "html"),
-  source = "", model = c("nmt", "base"))
+  source = "", model = c("nmt", "base"), stripHTML = FALSE)
 }
 \arguments{
 \item{t_string}{A character vector of text to detect language for}
@@ -17,15 +17,24 @@ gl_translate_language(t_string, target = "en", format = c("text", "html"),
 \item{source}{Specify the language to translate from. Will detect it if left default}
 
 \item{model}{What translation model to use}
+
+\item{stripHTML}{If translating HTML, whether to strip out HTML tags}
 }
 \value{
-A data.frame of \code{translatedText} and \code{detectedSourceLanguage} and \code{text} of length equal to the vector of text you passed in.
+A tibble of \code{translatedText} and \code{detectedSourceLanguage} and \code{text} of length equal to the vector of text you passed in.
 }
 \description{
 Translate character vectors via the Google Translate API
 }
 \details{
-You can translate a vector of strings, although if too many you will get a \code{Too many text segments} error from the API.
+You can translate a vector of strings, although if too many for one call then it will be
+  broken up into one API call per element.
+  This is the same cost as charging is per character translated, but will take longer.
+
+If translating HTML set the \code{format = "html"}.
+Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts.
+The flag \code{stripHTML=TRUE} will use strip out HTML tags using \link[rvest]{html_text}
+If using \code{readLines} to read a webpage into R, this will typically trigger a vectorised call meaning one API call per line
 
 The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 
@@ -35,12 +44,17 @@ The function will limit the API calls for for the characters and API requests pe
 
 \dontrun{
 
-text <- "to administer medicince to animals is frequently a very difficult matter,
+text <- "to administer medicine to animals is frequently a very difficult matter,
   and yet sometimes it's necessary to do so"
 
 gl_translate_language(text, target = "ja")
 
+# translate webpages
+web_page <- readLines("http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer")
+html_trans <- gl_translate_language(web_page, format = "html")
 
+# strip out HTML tags before translating a web page
+html_trans <- gl_translate_language(web_page, format = "html", stripHTML = TRUE)
 }
 
 }
@@ -48,5 +62,5 @@ gl_translate_language(text, target = "ja")
 \url{https://cloud.google.com/translate/docs/reference/translate}
 
 Other translations: \code{\link{gl_translate_detect}},
-  \code{\link{gl_translate_list}}
+  \code{\link{gl_translate_languages}}
 }

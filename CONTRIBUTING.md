@@ -13,3 +13,10 @@ You will need to enable the following APIs:
 * [Google Cloud Speech API](https://console.developers.google.com/apis/api/speech.googleapis.com/overview)
 * [Google Cloud Natural Language API](https://console.developers.google.com/apis/api/language.googleapis.com/overview)
 * [Google Cloud Translation API](https://console.developers.google.com/apis/api/translate.googleapis.com/overview)
+
+## Contributor Covenant Code of Conduct.
+
+* Any contributors should be doing so for the joy of creating and sharing and advancing knowledge.  Treat each other with the respect this deserves.  
+* The main language is English. 
+* The community will tolerate everything but intolerance. It should be assumed everyone is trying to be tolerant until they repeatedly prove otherwise. 
+* Don't break any laws or copyrights during contributions, credit sources where it is due. 

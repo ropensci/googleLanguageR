@@ -107,7 +107,7 @@ gl_nlp_single <- function(string,
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
 
-  myMessage(nlp_type, " for '", substring(string, 0, 50), "...'",
+  my_message(nlp_type, " for '", substring(string, 0, 50), "...'",
             level = 3)
 
   call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
@@ -141,11 +141,11 @@ gl_nlp_single <- function(string,
     }
   }
 
-  f <- gar_api_generator(call_url,
-                         "POST",
-                         data_parse_function = parse_nlp)
+  call_api <- gar_api_generator(call_url,
+                                "POST",
+                                data_parse_function = parse_nlp)
 
-  f(the_body = body)
+  call_api(the_body = body)
 
 }
 

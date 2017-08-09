@@ -8,11 +8,9 @@ gl_translate_detect(string)
 }
 \arguments{
 \item{string}{A character vector of text to detect language for}
-
-\item{encode}{If TRUE, will run strings through URL encoding}
 }
 \value{
-A data.frame of the detected languages with columns \code{confidence}, \code{isReliable}, \code{language}, and \code{text} of length equal to the vector of text you passed in.
+A tibble of the detected languages with columns \code{confidence}, \code{isReliable}, \code{language}, and \code{text} of length equal to the vector of text you passed in.
 }
 \description{
 Detect the language of text within a request
@@ -40,6 +38,6 @@ gl_translate_detect("katten sidder på måtten")
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/detect}
 
-Other translations: \code{\link{gl_translate_language}},
-  \code{\link{gl_translate_list}}
+Other translations: \code{\link{gl_translate_languages}},
+  \code{\link{gl_translate_language}}
 }
