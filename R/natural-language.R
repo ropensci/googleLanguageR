@@ -100,15 +100,15 @@ gl_nlp_single <- function(string,
                           version = c("v1", "v1beta2", "v1beta1")){
 
   assert_that(is.string(string))
+
   nlp_type      <- match.arg(nlp_type)
-
-  myMessage(nlp_type, " for '", substring(string, 0, 50), "...'",
-            level = 3)
-
   version       <- match.arg(version)
   type          <- match.arg(type)
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
+
+  myMessage(nlp_type, " for '", substring(string, 0, 50), "...'",
+            level = 3)
 
   call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
                       version, nlp_type)
@@ -145,10 +145,7 @@ gl_nlp_single <- function(string,
                          "POST",
                          data_parse_function = parse_nlp)
 
-  me <- f(the_body = body)
-
-  # enframe(me, name = "object")
-  me
+  f(the_body = body)
 
 }
 

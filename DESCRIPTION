@@ -22,6 +22,7 @@ Imports:
     jsonlite,
     magrittr,
     purrr,
+    stats,
     tibble
 Suggests: 
     knitr,

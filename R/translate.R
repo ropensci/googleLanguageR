@@ -27,9 +27,9 @@ gl_translate_list <- function(target = 'en'){
   f <- gar_api_generator("https://translation.googleapis.com/language/translate/v2/languages",
                          "GET",
                          pars_args = list(target = target),
-                         data_parse_function = function(x) x$data$languages)
+                         data_parse_function = function(x) as_tibble(x$data$languages))
 
-  as_tibble(f())
+  f()
 
 }
 
@@ -66,6 +66,7 @@ gl_translate_list <- function(target = 'en'){
 #' @importFrom utils URLencode
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
+#' @importFrom stats setNames
 gl_translate_detect <- function(string){
 
   assert_that(is.character(string))
@@ -137,6 +138,7 @@ gl_translate_detect <- function(string){
 #' @importFrom utils URLencode
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
+#' @importFrom stats setNames
 gl_translate_language <- function(t_string,
                                   target = "en",
                                   format = c("text","html"),
@@ -170,6 +172,7 @@ gl_translate_language <- function(t_string,
 
   f <- gar_api_generator("https://translation.googleapis.com/language/translate/v2",
                          "POST",
+                         #otherwise jsonlite turns all the q's into q1, q2 etc.
                          customConfig = list(encode = "form"),
                          data_parse_function = function(x) x$data$translations)
 
