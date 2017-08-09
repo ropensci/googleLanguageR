@@ -78,8 +78,8 @@ gl_auth("location_of_json_file.json")
 You can then call the APIs via the functions:
 
 * `gl_nlp()` - Natural Langage API
-* `gl_speech_recognise()` - Cloud Speech API
-* `gl_translate_language()` - Cloud Translation API
+* `gl_speech()` - Cloud Speech API
+* `gl_translate()` - Cloud Translation API
 
 ## Natural Language API
 
@@ -154,18 +154,18 @@ nlp$language
 
 ## Google Translation API
 
-You can only detect language via `gl_translate_detect`, or translate and detect language via `gl_translate_language`
+You can detect the language via `gl_translate_detect`, or translate and detect language via `gl_translate`
 
 ### Language Translation
 
-Translate text via `gl_translate_language`.  Note this is a lot more refined than the free version on Google's translation website.
+Translate text via `gl_translate`.  Note this is a lot more refined than the free version on Google's translation website.
 
 ```r
 
 text <- "to administer medicince to animals is frequently a very difficult matter,
          and yet sometimes it's necessary to do so"
-## translate British into Japanese
-danish <- gl_translate_language(text, target = "da")
+## translate British into Danish
+danish <- gl_translate(text, target = "da")
 
 danish
 # A tibble: 1 x 3
@@ -256,7 +256,7 @@ The file is sourced from the [University of Southampton's speech detection](http
 ## get the sample source file
 test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 
-result <- gl_speech_recognise(test_audio)
+result <- gl_speech(test_audio)
 
 ## its not perfect but...:)
 result$transcript
@@ -266,7 +266,7 @@ result$confidence
 #> [1] 0.9154025
 
 ## get alternative transcriptions
-result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
+result2 <- gl_speech(test_audio, maxAlternatives = 2L)
 
 result2$transcript
 #> [1] "to administer medicine to animals is freaking care very difficult matter 
@@ -275,16 +275,17 @@ result2$transcript
 #  and yet sometimes it's necessary to do so"
 
 ## specify british accent
-result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
+result_brit <- gl_speech(test_audio, languageCode = "en-GB")
 result_brit
 #> [1] "to administer medicine to animals if we can give very difficult matter 
 #  and yet sometimes it's necessary to do so"
 
 ## help it out with context for "frequently"
 result_brit_freq <- 
-  gl_speech_recognise(test_audio, 
-                      languageCode = "en-GB", 
-                      speechContexts = list(phrases = list("is frequently a very difficult")))
+  gl_speech(test_audio, 
+            languageCode = "en-GB", 
+            speechContexts = list(phrases = list("is frequently a very difficult")))
+            
 result_brit_freq$transcript
 #> "to administer medicine to animals is frequently a very difficult matter 
 #  and yet sometimes it's necessary to do so"

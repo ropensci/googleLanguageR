@@ -39,11 +39,11 @@
 #' \dontrun{
 #'
 #' test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
-#' result <- gl_speech_recognise(test_audio)
+#' result <- gl_speech(test_audio)
 #'
-#' result2 <- gl_speech_recognise(test_audio, maxAlternatives = 2L)
+#' result2 <- gl_speech(test_audio, maxAlternatives = 2L)
 #'
-#' result_brit <- gl_speech_recognise(test_audio, languageCode = "en-GB")
+#' result_brit <- gl_speech(test_audio, languageCode = "en-GB")
 #'
 #' }
 #'
@@ -55,14 +55,14 @@
 #' @import base64enc
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
-gl_speech_recognise <- function(audio_source,
-                                encoding = c("LINEAR16","FLAC","MULAW","AMR",
-                                             "AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
-                                sampleRateHertz = 16000L,
-                                languageCode = "en-US",
-                                maxAlternatives = 1L,
-                                profanityFilter = FALSE,
-                                speechContexts = NULL){
+gl_speech <- function(audio_source,
+                      encoding = c("LINEAR16","FLAC","MULAW","AMR",
+                                   "AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
+                      sampleRateHertz = 16000L,
+                      languageCode = "en-US",
+                      maxAlternatives = 1L,
+                      profanityFilter = FALSE,
+                      speechContexts = NULL){
 
   assert_that(is.string(audio_source),
               is.numeric(sampleRateHertz),
@@ -105,7 +105,3 @@ gl_speech_recognise <- function(audio_source,
   call_api(the_body = body)
 
 }
-
-#' @rdname gl_speech_recognise
-#' @export
-gl_speech_recognize <- gl_speech_recognise

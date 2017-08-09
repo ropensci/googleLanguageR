@@ -145,14 +145,14 @@ gl_translate_detect <- function(string){
 #' text <- "to administer medicine to animals is frequently a very difficult matter,
 #'   and yet sometimes it's necessary to do so"
 #'
-#' gl_translate_language(text, target = "ja")
+#' gl_translate(text, target = "ja")
 #'
 #' # translate webpages
 #' web_page <- readLines("http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer")
-#' html_trans <- gl_translate_language(web_page, format = "html")
+#' html_trans <- gl_translate(web_page, format = "html")
 #'
 #' # strip out HTML tags before translating a web page
-#' html_trans <- gl_translate_language(web_page, format = "html", stripHTML = TRUE)
+#' html_trans <- gl_translate(web_page, format = "html", stripHTML = TRUE)
 #' }
 #'
 #' @export
@@ -163,12 +163,12 @@ gl_translate_detect <- function(string){
 #' @importFrom tibble as_tibble
 #' @importFrom stats setNames
 #' @importFrom purrr map_df
-gl_translate_language <- function(t_string,
-                                  target = "en",
-                                  format = c("text","html"),
-                                  source = '',
-                                  model = c("nmt", "base"),
-                                  stripHTML = FALSE){
+gl_translate <- function(t_string,
+                         target = "en",
+                         format = c("text","html"),
+                         source = '',
+                         model = c("nmt", "base"),
+                         stripHTML = FALSE){
 
   assert_that(is.character(t_string),
               is.string(target),

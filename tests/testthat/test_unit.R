@@ -29,10 +29,10 @@ test_that("Record requests if online", {
   capture_requests(
     path = "mock", {
       gl_nlp(test_text)
-      gl_speech_recognise(test_audio)
+      gl_speech(test_audio)
       gl_translate_languages()
       gl_translate_detect(text)
-      gl_translate_language(text)
+      gl_translate(text)
     })
 
 })
@@ -58,7 +58,7 @@ with_mock_API({
 
     test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
 
-    result <- gl_speech_recognise(test_audio)
+    result <- gl_speech(test_audio)
 
     test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
     ## the API call varies a bit, so it passes if within 10 characters of expected transscript
@@ -96,7 +96,7 @@ with_mock_API({
 
     text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
 
-    danish <- gl_translate_language(text)
+    danish <- gl_translate(text)
 
     expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
 

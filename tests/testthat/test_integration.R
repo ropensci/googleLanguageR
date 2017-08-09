@@ -42,7 +42,7 @@ test_that("Speech recognise expected", {
   ## get the sample source file
   test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
 
-  result <- gl_speech_recognise(test_audio)
+  result <- gl_speech(test_audio)
 
   test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
 
@@ -83,18 +83,12 @@ test_that("Translation from Danish works", {
 
   text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
 
-  danish <- gl_translate_language(text)
+  danish <- gl_translate(text)
 
   expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
 
   expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
-
-})
-
-test_that("Rate limiting works", {
-  skip_on_cran()
-  skip_if_not(local_auth)
 
 })
 
