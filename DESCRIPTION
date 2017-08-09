@@ -29,5 +29,4 @@ Suggests:
     httptest,
     stringdist
 Remotes: 
-    MarkEdmondson1234/googleAuthR,
-    nealrichardson/httptest
+    MarkEdmondson1234/googleAuthR

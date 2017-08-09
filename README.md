@@ -84,38 +84,64 @@ The Natural Language API returns natural language understanding technolgies.  Yo
 
 ### Demo for Entity Analysis
 
-```r
-text <- "to administer medicince to animals is frequently a very difficult matter,
-         and yet sometimes it's necessary to do so"
-nlp_result <- gl_nlp(text)
+You can pass a vector of text which will call the API for each element.  The return is a list of responses, each response being a list of tibbles holding the different types of analysis.
 
-head(nlp_result$tokens$text)
-#      content beginOffset
-# 1         to           0
-# 2 administer           3
-# 3   medicine          14
-# 4         to          23
-# 5    animals          26
-# 6         is          34
+```r
+texts <- c("to administer medicince to animals is frequently a very difficult matter,
+         and yet sometimes it's necessary to do so", 
+         "I don't know how to make a text demo that is sensible")
+nlp_result <- gl_nlp(texts)
+
+## get first return
+nlp <- nlp_result[[1]]
+nlp$sentences
+# A tibble: 1 x 4
+                                                                                                          content
+                                                                                                            <chr>
+1 "to administer medicince to animals is frequently a very difficult matter,\n         and yet sometimes it's nec
+# ... with 3 more variables: beginOffset <int>, magnitude <dbl>, score <dbl>
 
 head(nlp_result$tokens$partOfSpeech$tag)
 #> [1] "PRT"  "VERB" "NOUN" "ADP"  "NOUN" "VERB"
 
+nlp2 <- nlp_result[[2]]
+nlp2$sentences
+# A tibble: 1 x 4
+                                                content beginOffset magnitude score
+                                                  <chr>       <int>     <dbl> <dbl>
+1 I don't know how to make a text demo that is sensible           0       0.3  -0.3
 
-nlp_result$entities
-#       name  type  salience             mentions
-# 1 medicine OTHER 0.5268406 medicine, 14, COMMON
-# 2  animals OTHER 0.2444008  animals, 26, COMMON
-# 3   matter OTHER 0.2287586   matter, 65, COMMON
+nlp$tokens
+# A tibble: 21 x 17
+      content beginOffset   tag         aspect         case         form         gender         mood
+        <chr>       <int> <chr>          <chr>        <chr>        <chr>          <chr>        <chr>
+ 1         to           0   PRT ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+ 2 administer           3  VERB ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+ 3  medicince          14  NOUN ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+ 4         to          24   ADP ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+ 5    animals          27  NOUN ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+ 6         is          35  VERB ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN   INDICATIVE
+ 7 frequently          38   ADV ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+ 8          a          49   DET ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+ 9       very          51   ADV ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+10  difficult          56   ADJ ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN GENDER_UNKNOWN MOOD_UNKNOWN
+# ... with 11 more rows, and 9 more variables: number <chr>, person <chr>, proper <chr>, reciprocity <chr>,
+#   tense <chr>, voice <chr>, headTokenIndex <int>, label <chr>, value <chr>
 
-nlp_result$documentSentiment
-# $magnitude
-# [1] 0.2
-#
-# $score
-# [1] 0.2
+nlp$entities
+       name  type  salience beginOffset mention_type
+1 medicince OTHER 0.5231533          14       COMMON
+2   animals OTHER 0.2449778          27       COMMON
+3    matter OTHER 0.2318689          66       COMMON
 
+nlp$documentSentiment
+# A tibble: 1 x 2
+  magnitude score
+      <dbl> <dbl>
+1       0.5   0.5
 
+nlp$language
+[1] "en"
 ```
 
 ## Google Translation API
@@ -127,10 +153,18 @@ You can only detect language via `gl_translate_detect`, or translate and detect 
 Translate text via `gl_translate_language`.  Note this is a lot more refined than the free version on Google's translation website.
 
 ```r
-## translate British into Japanese
-japan <- gl_translate_language(result_brit_freq$transcript, target = "ja")
 
-japan$translatedText
+text <- "to administer medicince to animals is frequently a very difficult matter,
+         and yet sometimes it's necessary to do so"
+## translate British into Japanese
+danish <- gl_translate_language(text, target = "da")
+
+danish
+# A tibble: 1 x 3
+                                                                                                   translatedText
+*                                                                                                           <chr>
+1 "At administrere medicince til dyr er ofte en meget vanskelig sag,\n         Og dog er det undertiden nødvendig
+# ... with 2 more variables: detectedSourceLanguage <chr>, text <chr>
 ```
 
 You can choose the target language via the argument `target`.  The function will automatically detect the language if you do not define an argument `source`.
@@ -146,14 +180,18 @@ This function only detects the language:
 ```r
 ## which language is this?
 gl_translate_detect("katten sad på måtten")
-#  confidence isReliable language
-#1  0.1863063      FALSE       sv
+Detecting language: 36 characters - katten sad på måtten...
+# A tibble: 1 x 4
+  confidence isReliable language                 text
+*      <dbl>      <lgl>    <chr>                <chr>
+1  0.1863063      FALSE       sv katten sad på måtten
 
 gl_translate_detect("katten sidder på måtten")
-#  Detecting language: 39 characters - katten sidder på måtten...
-#  [[1]]
-#  isReliable language confidence
-#  1      FALSE       da   0.536223
+Detecting language: 39 characters - katten sidder på måtten...
+# A tibble: 1 x 4
+  confidence isReliable language                    text
+*      <dbl>      <lgl>    <chr>                   <chr>
+1   0.536223      FALSE       da katten sidder på måtten
 ```
 
 The more text it has, the better.  And it helps if its not Danish...
@@ -178,7 +216,7 @@ gl_translate_detect("katten sidder på måtten")
 
 ### Translation API limits
 
-The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager `https://console.developers.google.com/apis/api/translate.googleapis.com/quotas`
+The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager in Google Cloud console: `https://console.developers.google.com/apis/api/translate.googleapis.com/quotas`
 
 The library will limit the API calls for the characters and API requests per 100 seconds, which you can set via the options `googleLanguageR.rate_limit` and `googleLanguageR.character_limit`.  The API will retry if you are making requests too quickly, and also pause to make sure you only send `100000` characters per 100 seconds.  Change the rate limit via:
 
@@ -208,7 +246,7 @@ The file is sourced from the [University of Southampton's speech detection](http
 
 ```r
 ## get the sample source file
-test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
+test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 
 result <- gl_speech_recognise(test_audio)
 
