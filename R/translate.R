@@ -66,40 +66,30 @@ gl_translate_list <- function(target = 'en'){
 #' @importFrom utils URLencode
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
-gl_translate_detect <- function(string, encode = TRUE){
+gl_translate_detect <- function(string){
 
-  assert_that(is.character(string),
-              is.logical(encode))
-
-  if(encode){
-    raw <- string
-    string <- vapply(string,
-                     URLencode,
-                     FUN.VALUE = character(1),
-                     reserved = TRUE,
-                     repeated = TRUE,
-                     USE.NAMES = FALSE)
-  }
+  assert_that(is.character(string))
 
   char_num <- sum(nchar(string))
 
   message("Detecting language: ",char_num,
-          " characters - ", substring(raw, 0, 50), "...")
+          " characters - ", substring(string, 0, 50), "...")
 
   ## character limits - 100000 characters per 100 seconds
-  check_rate(sum(nchar(string)))
+  check_rate(char_num)
 
-  call_url <- paste0("https://translation.googleapis.com/language/translate/v2/detect?",
-                     paste0("q=", string, collapse = "&"))
+  ## repeat per text
+  pars <- setNames(as.list(string), rep("q",length(string)))
 
-  f <- gar_api_generator(call_url,
+  f <- gar_api_generator("https://translation.googleapis.com/language/translate/v2/detect",
                          "POST",
+                         customConfig = list(encode = "form"),
                          data_parse_function = function(x) Reduce(rbind,
                                                                   x$data$detections))
 
-  me <- f()
+  me <- f(the_body = pars)
 
-  me$text <- raw
+  me$text <- string
 
   as_tibble(me)
 
@@ -110,7 +100,6 @@ gl_translate_detect <- function(string, encode = TRUE){
 #' Translate character vectors via the Google Translate API
 #'
 #' @param t_string A character vector of text to detect language for
-#' @param encode If TRUE, will run strings through URL encoding
 #' @param target The target language
 #' @param format Whether the text is plain or HTML
 #' @param source Specify the language to translate from. Will detect it if left default
@@ -149,34 +138,21 @@ gl_translate_detect <- function(string, encode = TRUE){
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
 gl_translate_language <- function(t_string,
-                                  encode = TRUE,
                                   target = "en",
                                   format = c("text","html"),
                                   source = '',
                                   model = c("nmt", "base")){
 
   assert_that(is.character(t_string),
-              is.logical(encode),
               is.string(target),
               is.string(source))
 
   format <- match.arg(format)
   model  <- match.arg(model)
-  raw    <- t_string
-
-  if(encode){
-
-    t_string <- vapply(t_string,
-                       URLencode,
-                       FUN.VALUE = character(1),
-                       reserved = TRUE,
-                       repeated = TRUE,
-                       USE.NAMES = FALSE)
-  }
 
   char_num <- sum(nchar(t_string))
 
-  myMessage("Translating: ",char_num," characters - ", substring(raw, 0, 50), "...", level = 3)
+  myMessage("Translating: ",char_num," characters - ", substring(t_string, 0, 50), "...", level = 3)
 
   if(!is.string(t_string)){
     myMessage("Translating vector of strings > 1: ", length(t_string), level = 2)
@@ -185,17 +161,21 @@ gl_translate_language <- function(t_string,
   ## character limits - 100000 characters per 100 seconds
   check_rate(char_num)
 
+  pars <- list(target = target,
+               format = format,
+               source = source)
+
+  ## repeat per text
+  pars <- c(pars, setNames(as.list(t_string), rep("q",length(t_string))))
+
   f <- gar_api_generator("https://translation.googleapis.com/language/translate/v2",
                          "POST",
-                         pars_args = list(target = target,
-                                          format = format,
-                                          source = source,
-                                          q = paste0(t_string, collapse = "&q=")),
+                         customConfig = list(encode = "form"),
                          data_parse_function = function(x) x$data$translations)
 
-  me <- f()
+  me <- f(the_body = pars)
 
-  me$text <- raw
+  me$text <- t_string
 
   as_tibble(me)
 

@@ -94,3 +94,9 @@ test_that("Translation from Japanese works", {
 
 })
 
+test_that("Rate limiting works", {
+  skip_on_cran()
+  skip_if_not(local_auth)
+
+})
+

@@ -4,7 +4,7 @@
 \alias{gl_translate_detect}
 \title{Detect the language of text within a request}
 \usage{
-gl_translate_detect(string, encode = TRUE)
+gl_translate_detect(string)
 }
 \arguments{
 \item{string}{A character vector of text to detect language for}
