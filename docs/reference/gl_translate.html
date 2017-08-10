@@ -53,21 +53,21 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../articles/translation.html">
-    <span class=" globe"></span>
+    <span class="fa fa-globe fa-lg"></span>
      
     Translation API
   </a>
 </li>
 <li>
   <a href="../articles/nlp.html">
-    <span class="object object-group"></span>
+    <span class="fa fa-object-group fa-lg"></span>
      
     NLP API
   </a>
 </li>
 <li>
   <a href="../articles/speech.html">
-    <span class=" comment"></span>
+    <span class="fa fa-comment fa-lg"></span>
      
     Speech API
   </a>
@@ -152,10 +152,6 @@
       <th>model</th>
       <td><p>What translation model to use</p></td>
     </tr>
-    <tr>
-      <th>stripHTML</th>
-      <td><p>If translating HTML, whether to strip out HTML tags</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -168,9 +164,7 @@
   broken up into one API call per element.
   This is the same cost as charging is per character translated, but will take longer.</p>
 <p>If translating HTML set the <code>format = "html"</code>.
-Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts.
-The flag <code>stripHTML=TRUE</code> will use strip out HTML tags using <a href='http://www.rdocumentation.org/packages/rvest/topics/html_text'>html_text</a>
-If using <code>readLines</code> to read a webpage into R, this will typically trigger a vectorised call meaning one API call per line</p>
+Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts. See example on how to do this with <code>rvest</code></p>
 <p>The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager <code>https://console.developers.google.com/apis/api/translate.googleapis.com/quotas</code></p>
 <p>The function will limit the API calls for for the characters and API requests per 100 seconds, which you can set via the options <code>googleLanguageR.rate_limit</code> and <code>googleLanguageR.character_limit</code>.  By default these are set at <code>0.5</code> requests per second, and <code>100000</code> characters per 100 seconds.</p>
     

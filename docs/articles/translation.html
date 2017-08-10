@@ -30,21 +30,21 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../articles/translation.html">
-    <span class=" globe"></span>
+    <span class="fa fa-globe fa-lg"></span>
      
     Translation API
   </a>
 </li>
 <li>
   <a href="../articles/nlp.html">
-    <span class="object object-group"></span>
+    <span class="fa fa-object-group fa-lg"></span>
      
     NLP API
   </a>
 </li>
 <li>
   <a href="../articles/speech.html">
-    <span class=" comment"></span>
+    <span class="fa fa-comment fa-lg"></span>
      
     Speech API
   </a>
@@ -120,7 +120,7 @@
 text &lt;-<span class="st"> "to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"</span>
 ## translate British into Danish
 <span class="kw"><a href="../reference/gl_translate.html">gl_translate</a></span>(text, <span class="dt">target =</span> <span class="st">"da"</span>)$translatedText
-<span class="co">#&gt; 2017-08-10 21:35:23 -- Translating text: 115 characters - to administer medicince to animals is frequently a...</span>
+<span class="co">#&gt; 2017-08-10 22:36:30 -- Translating text: 115 characters - to administer medicince to animals is frequently a...</span>
 <span class="co">#&gt; [1] "At administrere medicince til dyr er ofte en meget vanskelig sag, og dog er det undertiden nødvendigt at gøre det"</span></code></pre></div>
 <p>You can choose the target language via the argument <code>target</code>. The function will automatically detect the language if you do not define an argument <code>source</code>. This function which will also detect the langauge. As it costs the same as <code>gl_translate_detect</code>, its usually cheaper to detect and translate in one step.</p>
 <p>You can pass a vector of text which will first be attempted to translate in one API call - if that fails due to being greater than the API limits, it will attempt again but vectorising the API calls. This will result in more calls and be slower, but cost the same as you are charged per character translated, not per API call.</p>
@@ -142,7 +142,7 @@ my_url &lt;-<span class="st"> "http://www.dr.dk/nyheder/indland/greenpeace-faceb
 <span class="st">  </span>html_text %&gt;%<span class="st"> </span><span class="co"># extract text</span>
 <span class="st">  </span><span class="kw"><a href="../reference/gl_translate.html">gl_translate</a></span>(<span class="dt">format =</span> <span class="st">"html"</span>) %&gt;%<span class="st"> </span><span class="co"># translate with html flag</span>
 <span class="st">  </span>dplyr::<span class="kw">select</span>(translatedText) <span class="co"># show translatedText column of output tibble</span>
-<span class="co">#&gt; 2017-08-10 21:35:27 -- Translating html: 2970 characters - Af Nicolas S. Nielsen</span>
+<span class="co">#&gt; 2017-08-10 22:36:34 -- Translating html: 2970 characters - Af Nicolas S. Nielsen</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;           Der er lutter ros...</span>
 <span class="co">#&gt; # A tibble: 1 x 1</span>

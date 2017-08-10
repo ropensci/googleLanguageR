@@ -13,13 +13,13 @@ navbar:
   type: inverse
   left:
     - text: "Translation API"
-      icon: globe
+      icon: fa-globe fa-lg
       href: articles/translation.html
     - text: "NLP API"
-      icon: object-group
+      icon: fa-object-group fa-lg
       href: articles/nlp.html
     - text: "Speech API"
-      icon: comment
+      icon: fa-comment fa-lg
       href: articles/speech.html
     - text: "Help"
       menu:
