@@ -132,27 +132,30 @@
 <p>“To administer medicine to animals is frequently a very difficult matter, and yet sometimes it’s necessary to do so”</p>
 </blockquote>
 <p>The file is sourced from the <a href="http://www-mobile.ecs.soton.ac.uk/newcomms/">University of Southampton’s speech detection</a> group and is fairly difficult for computers to parse, as we see below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(googleLanguageR)</code></pre></div>
-<pre><code>## Setting scopes to https://www.googleapis.com/auth/cloud-platform</code></pre>
-<pre><code>## Set any additional scopes via options(googleAuthR.scopes.selected = c('scope1', 'scope2')) before loading library.</code></pre>
-<pre><code>## Successfully authenticated via /Users/mark/dev/auth/auth.json</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## get the sample source file
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(googleLanguageR)
+<span class="co">#&gt; Setting scopes to https://www.googleapis.com/auth/cloud-platform</span>
+<span class="co">#&gt; Set any additional scopes via options(googleAuthR.scopes.selected = c('scope1', 'scope2')) before loading library.</span>
+<span class="co">#&gt; Successfully authenticated via /Users/mark/dev/auth/auth.json</span>
+## get the sample source file
 test_audio &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"woman1_wb.wav"</span>, <span class="dt">package =</span> <span class="st">"googleLanguageR"</span>)
 
 ## its not perfect but...:)
-<span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio)$transcript</code></pre></div>
-<pre><code>## [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## get alternative transcriptions
-<span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">maxAlternatives =</span> 2L)$transcript</code></pre></div>
-<pre><code>## [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"     
-## [2] "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>)$transcript</code></pre></div>
-<pre><code>## [1] "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## help it out with context for "frequently"
+<span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio)$transcript
+<span class="co">#&gt; [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"</span>
+
+## get alternative transcriptions
+<span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">maxAlternatives =</span> 2L)$transcript
+<span class="co">#&gt; [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"     </span>
+<span class="co">#&gt; [2] "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"</span>
+
+<span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>)$transcript
+<span class="co">#&gt; [1] "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"</span>
+
+## help it out with context for "frequently"
 <span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, 
             <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>, 
-            <span class="dt">speechContexts =</span> <span class="kw">list</span>(<span class="dt">phrases =</span> <span class="kw">list</span>(<span class="st">"is frequently a very difficult"</span>)))$transcript</code></pre></div>
-<pre><code>## [1] "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"</code></pre>
+            <span class="dt">speechContexts =</span> <span class="kw">list</span>(<span class="dt">phrases =</span> <span class="kw">list</span>(<span class="st">"is frequently a very difficult"</span>)))$transcript
+<span class="co">#&gt; [1] "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"</span></code></pre></div>
 </div>
 </div>
   </div>

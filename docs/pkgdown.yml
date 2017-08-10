@@ -2,8 +2,8 @@ urls:
   reference: https://code.markedmondson.me/googleLanguageR//reference
   article: https://code.markedmondson.me/googleLanguageR//articles
 articles:
-  Intro: Intro.html
   nlp: nlp.html
+  setup: setup.html
   speech: speech.html
   translation: translation.html
 

@@ -112,7 +112,7 @@ nlp_result <- gl_nlp(texts)
 str(nlp_result, max.level = 2)
 ```
 
-See more examples and details [on the website](articles/nlp.html) or via `vignette("Google Natural Language API", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/nlp.html) or via `vignette("nlp", package = "googleLanguageR")`
 
 ## Google Translation API
 
@@ -126,13 +126,11 @@ text <- "to administer medicince to animals is frequently a very difficult matte
 gl_translate(text, target = "da")$translatedText
 ```
 
-See more examples and details [on the website](articles/translation.html) or via `vignette("Google Cloud Translation API", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/translation.html) or via `vignette("translate", package = "googleLanguageR")`
 
 ## Google Cloud Speech API
 
 The Cloud Speech API provides audio transcription.  Its accessible via the `gl_speech` function.
-
-### Demo for Google Cloud Speech API
 
 A test audio file is installed with the package which reads:
 
@@ -148,5 +146,5 @@ test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 gl_speech(test_audio)$transcript
 ```
 
-See more examples and details [on the website](articles/speech.html) or via `vignette("Google Cloud Speech API", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
 

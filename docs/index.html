@@ -218,7 +218,7 @@ nlp_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/gl_
 ##   ..$ entities         :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  5 variables:
 ##   ..$ documentSentiment:Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
 ##   ..$ language         : chr "en"</code></pre>
-<p>See more examples and details <a href="articles/nlp.html">on the website</a> or via <code>vignette("Google Natural Language API", package = "googleLanguageR")</code></p>
+<p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/nlp.html">on the website</a> or via <code><a href="https://code.markedmondson.me/googleLanguageR//articles/nlp.html">vignette("nlp", package = "googleLanguageR")</a></code></p>
 </div>
 </div>
 <div id="google-translation-api" class="section level2">
@@ -230,15 +230,12 @@ nlp_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/gl_
 ## translate British into Danish
 <span class="kw"><a href="reference/gl_translate.html">gl_translate</a></span>(text, <span class="dt">target =</span> <span class="st">"da"</span>)$translatedText</code></pre></div>
 <pre><code>## [1] "At administrere medicince til dyr er ofte en meget vanskelig sag, og dog er det undertiden nødvendigt at gøre det"</code></pre>
-<p>See more examples and details <a href="articles/translation.html">on the website</a> or via <code>vignette("Google Cloud Translation API", package = "googleLanguageR")</code></p>
+<p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/translation.html">on the website</a> or via <code>vignette("translate", package = "googleLanguageR")</code></p>
 </div>
 <div id="google-cloud-speech-api-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#google-cloud-speech-api-1" class="anchor"></a>Google Cloud Speech API</h2>
 <p>The Cloud Speech API provides audio transcription. Its accessible via the <code>gl_speech</code> function.</p>
-<div id="demo-for-google-cloud-speech-api" class="section level3">
-<h3 class="hasAnchor">
-<a href="#demo-for-google-cloud-speech-api" class="anchor"></a>Demo for Google Cloud Speech API</h3>
 <p>A test audio file is installed with the package which reads:</p>
 <blockquote>
 <p>“To administer medicine to animals is frequently a very difficult matter, and yet sometimes it’s necessary to do so”</p>
@@ -250,8 +247,7 @@ test_audio &lt;-<span class="st"> </span><span class="kw">system.file</span>(<sp
 ## its not perfect but...:)
 <span class="kw"><a href="reference/gl_speech.html">gl_speech</a></span>(test_audio)$transcript</code></pre></div>
 <pre><code>## [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"</code></pre>
-<p>See more examples and details <a href="articles/speech.html">on the website</a> or via <code>vignette("Google Cloud Speech API", package = "googleLanguageR")</code></p>
-</div>
+<p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/speech.html">on the website</a> or via <code><a href="https://code.markedmondson.me/googleLanguageR//articles/speech.html">vignette("speech", package = "googleLanguageR")</a></code></p>
 </div>
 </div>
   </div>

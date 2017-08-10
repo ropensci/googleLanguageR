@@ -120,7 +120,7 @@ str(nlp_result, max.level = 2)
     ##   ..$ documentSentiment:Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:
     ##   ..$ language         : chr "en"
 
-See more examples and details [on the website](articles/nlp.html) or via `vignette("Google Natural Language API", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/nlp.html) or via `vignette("nlp", package = "googleLanguageR")`
 
 Google Translation API
 ----------------------
@@ -137,14 +137,12 @@ gl_translate(text, target = "da")$translatedText
 
     ## [1] "At administrere medicince til dyr er ofte en meget vanskelig sag, og dog er det undertiden nødvendigt at gøre det"
 
-See more examples and details [on the website](articles/translation.html) or via `vignette("Google Cloud Translation API", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/translation.html) or via `vignette("translate", package = "googleLanguageR")`
 
 Google Cloud Speech API
 -----------------------
 
 The Cloud Speech API provides audio transcription. Its accessible via the `gl_speech` function.
-
-### Demo for Google Cloud Speech API
 
 A test audio file is installed with the package which reads:
 
@@ -162,4 +160,4 @@ gl_speech(test_audio)$transcript
 
     ## [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"
 
-See more examples and details [on the website](articles/speech.html) or via `vignette("Google Cloud Speech API", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
