@@ -53,7 +53,7 @@ gl_translate_languages <- function(target = 'en'){
 #'   Consider using \code{library(cld2)} and \code{cld2::detect_language} instead offline,
 #' since that is free and local without needing a paid API call.
 #'
-#' \link{gl_translate_language} also returns a detection of the language,
+#' \link{gl_translate} also returns a detection of the language,
 #' so you could also wish to do it in one step via that function.
 #'
 #' @return A tibble of the detected languages with columns \code{confidence}, \code{isReliable}, \code{language}, and \code{text} of length equal to the vector of text you passed in.
@@ -118,7 +118,6 @@ gl_translate_detect <- function(string){
 #' @param format Whether the text is plain or HTML
 #' @param source Specify the language to translate from. Will detect it if left default
 #' @param model What translation model to use
-#' @param stripHTML If translating HTML, whether to strip out HTML tags
 #'
 #' @details
 #'
@@ -127,9 +126,7 @@ gl_translate_detect <- function(string){
 #'   This is the same cost as charging is per character translated, but will take longer.
 #'
 #' If translating HTML set the \code{format = "html"}.
-#' Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts.
-#' The flag \code{stripHTML=TRUE} will use strip out HTML tags using \link[rvest]{html_text}
-#' If using \code{readLines} to read a webpage into R, this will typically trigger a vectorised call meaning one API call per line
+#' Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts. See example on how to do this with \code{rvest}
 #'
 #' The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 #'
@@ -219,7 +216,7 @@ gl_translate <- function(t_string,
 
   me <- tryCatch(call_api(the_body = pars),
                  error = function(ex){
-                   if(grepl("Too many text segments", ex$message)){
+                   if(grepl("Too many text segments|Request payload size exceeds the limit", ex$message)){
                      my_message("Attempting to split into several API calls", level = 3)
                      purrr::map_df(t_string, gl_translate,
                                    format = format,

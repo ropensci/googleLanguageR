@@ -28,9 +28,28 @@ test_that("NLP returns expected fields", {
   test_text <- "The cat sat on the mat"
   nlp <- gl_nlp(test_text)
 
+  expect_equal(length(nlp), 1)
+  expect_equal(names(nlp[[1]]), c("sentences","tokens","entities","documentSentiment","language"))
   expect_s3_class(nlp[[1]]$sentences, "data.frame")
   expect_equal(nlp[[1]]$sentences$content, test_text)
+  expect_equal(names(nlp[[1]]$sentences), c("content","beginOffset","magnitude","score"))
+  expect_equal(names(nlp[[1]]$tokens), c("content", "beginOffset", "tag", "aspect", "case",
+                                         "form", "gender", "mood", "number", "person", "proper",
+                                         "reciprocity", "tense", "voice", "headTokenIndex",
+                                         "label", "value"))
+  expect_equal(names(nlp[[1]]$entities), c("name","type","salience","beginOffset","mention_type"))
+  expect_equal(names(nlp[[1]]$documentSentiment), c("magnitude","score"))
+  expect_equal(nlp[[1]]$language, "en")
+  expect_s3_class(nlp[[1]]$tokens, "data.frame")
+  expect_s3_class(nlp[[1]]$entities, "data.frame")
+  expect_s3_class(nlp[[1]]$documentSentiment, "data.frame")
 
+  test_text2 <- "How much is that doggy in the window?"
+
+  nlp2 <- gl_nlp(c(test_text, test_text2))
+  expect_equal(length(nlp2), 2)
+  expect_equal(names(nlp[[1]]), c("sentences","tokens","entities","documentSentiment","language"))
+  expect_equal(names(nlp[[2]]), c("sentences","tokens","entities","documentSentiment","language"))
 })
 
 context("Integration tests - Speech")
@@ -45,6 +64,9 @@ test_that("Speech recognise expected", {
   result <- gl_speech(test_audio)
 
   test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
+
+  expect_s3_class(result, "data.frame")
+  expect_equal(names(result), c("transcript","confidence"))
 
   ## the API call varies a bit, so it passes if within 10 characters of expected transscript
   expect_true(stringdist::ain(result$transcript, test_result, maxDist = 10))
@@ -61,6 +83,12 @@ test_that("Listing translations works", {
   gl_list <- gl_translate_languages()
 
   expect_s3_class(gl_list, "data.frame")
+  expect_gt(nrow(gl_list), 100)
+  expect_equal(names(gl_list), c("language","name"))
+
+  gl_list_dansk <- gl_translate_languages("da")
+
+  expect_true("Arabisk" %in% gl_list_dansk$name)
 
 })
 
@@ -74,10 +102,16 @@ test_that("Translation detection works", {
 
   expect_s3_class(danish, "data.frame")
   expect_equal(danish$language, "da")
+  expect_equal(names(danish), c("confidence","isReliable","language","text"))
+
+  two_lang <- gl_translate_detect(c(text, "The owl and the pussycat went to sea"))
+
+  expect_equal(nrow(two_lang), 2)
+  expect_equal(two_lang$language, c("da","en"))
 
 })
 
-test_that("Translation from Danish works", {
+test_that("Translation works", {
   skip_on_cran()
   skip_if_not(local_auth)
 
@@ -89,6 +123,26 @@ test_that("Translation from Danish works", {
 
   expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
+  # HTML testing
+  my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
+
+  library(rvest)
+  library(magrittr)
+  result <- read_html(my_url) %>%
+     html_node(css = ".wcms-article-content") %>%
+     html_text
+
+  trans_result <- gl_translate(result, format = "html")
+
+  expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
+
+  # a lot of text
+  lots <- rep(paste(result, text, expected),35)
+  expect_equal(sum(nchar(lots)), 115745L)
+
+  big_r <- gl_translate(lots)
+
+  expect_equal(nrow(big_r), 35)
 
 })
 

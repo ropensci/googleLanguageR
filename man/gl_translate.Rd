@@ -17,8 +17,6 @@ gl_translate(t_string, target = "en", format = c("text", "html"),
 \item{source}{Specify the language to translate from. Will detect it if left default}
 
 \item{model}{What translation model to use}
-
-\item{stripHTML}{If translating HTML, whether to strip out HTML tags}
 }
 \value{
 A tibble of \code{translatedText} and \code{detectedSourceLanguage} and \code{text} of length equal to the vector of text you passed in.
@@ -32,9 +30,7 @@ You can translate a vector of strings, although if too many for one call then it
   This is the same cost as charging is per character translated, but will take longer.
 
 If translating HTML set the \code{format = "html"}.
-Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts.
-The flag \code{stripHTML=TRUE} will use strip out HTML tags using \link[rvest]{html_text}
-If using \code{readLines} to read a webpage into R, this will typically trigger a vectorised call meaning one API call per line
+Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts. See example on how to do this with \code{rvest}
 
 The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 

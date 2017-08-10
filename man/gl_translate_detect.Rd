@@ -19,7 +19,7 @@ Detect the language of text within a request
 Consider using \code{library(cld2)} and \code{cld2::detect_language} instead offline,
 since that is free and local without needing a paid API call.
 
-\link{gl_translate_language} also returns a detection of the language,
+\link{gl_translate} also returns a detection of the language,
 so you could also wish to do it in one step via that function.
 }
 \examples{
