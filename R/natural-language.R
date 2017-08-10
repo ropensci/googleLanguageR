@@ -110,6 +110,8 @@ gl_nlp_single <- function(string,
   my_message(nlp_type, " for '", substring(string, 0, 50), "...'",
             level = 3)
 
+  string <- trimws(string)
+
   call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
                       version, nlp_type)
 
@@ -193,6 +195,8 @@ parse_nlp <- function(x){
     if(!is_empty(x$entities$sentiment)){
       e <- bind_cols(e, x$entities$sentiment)
     }
+
+    e <- as_tibble(e)
 
   }
 

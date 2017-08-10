@@ -5,7 +5,7 @@
 \title{Translate the language of text within a request}
 \usage{
 gl_translate(t_string, target = "en", format = c("text", "html"),
-  source = "", model = c("nmt", "base"), stripHTML = FALSE)
+  source = "", model = c("nmt", "base"))
 }
 \arguments{
 \item{t_string}{A character vector of text to detect language for}
@@ -49,12 +49,20 @@ text <- "to administer medicine to animals is frequently a very difficult matter
 
 gl_translate(text, target = "ja")
 
-# translate webpages
-web_page <- readLines("http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer")
-html_trans <- gl_translate(web_page, format = "html")
+# translate webpages using rvest to process beforehand
+library(rvest)
+library(googleLanguageR)
 
-# strip out HTML tags before translating a web page
-html_trans <- gl_translate(web_page, format = "html", stripHTML = TRUE)
+# translate webpages
+
+my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
+
+## in this case the content to translate is in css selector '.wcms-article-content'
+read_html(my_url) \%>\%
+  html_node(css = ".wcms-article-content") \%>\%
+  html_text \%>\%
+  gl_translate(format = "html")
+
 }
 
 }

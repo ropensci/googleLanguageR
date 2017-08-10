@@ -1,0 +1,53 @@
+---
+title: "Google Natural Language API"
+author: "Mark Edmondson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Google Natural Language API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+The Google Natural Language API reveals the structure and meaning of text by offering powerful machine learning models in an easy to use REST API. You can use it to extract information about people, places, events and much more, mentioned in text documents, news articles or blog posts. You can also use it to understand sentiment about your product on social media or parse intent from customer conversations happening in a call center or a messaging app. 
+
+Read more [on the Google Natural Language API](https://cloud.google.com/natural-language/)
+
+The Natural Language API returns natural language understanding technologies.  You can call them individually, or the default is to return them all.  The available returns are:
+
+* *Entity analysis* - Finds named entities (currently proper names and common nouns) in the text along with entity types, salience, mentions for each entity, and other properties.  If possible, will also return metadata about that entity such as a Wikipedia URL. If using the **v1beta2** endpoint this also includes sentiment for each entity.
+* *Syntax* - Analyzes the syntax of the text and provides sentence boundaries and tokenization along with part of speech tags, dependency trees, and other properties.
+* *Sentiment* - The overall sentiment of the text, represented by a magnitude `[0, +inf]` and score between `-1.0` (negative sentiment) and `1.0` (positive sentiment).
+
+
+### Demo for Entity Analysis
+
+You can pass a vector of text which will call the API for each element.  The return is a list of responses, each response being a list of tibbles holding the different types of analysis.
+
+```{r, message=TRUE, warning=FALSE}
+library(googleLanguageR)
+
+texts <- c("to administer medicince to animals is frequently a very difficult matter,
+         and yet sometimes it's necessary to do so", 
+         "I don't know how to make a text demo that is sensible")
+nlp_result <- gl_nlp(texts)
+
+# two results of lists of tibbles
+str(nlp_result, max.level = 2)
+
+## get first return
+nlp <- nlp_result[[1]]
+nlp$sentences
+
+nlp2 <- nlp_result[[2]]
+nlp2$sentences
+
+nlp2$tokens
+
+nlp2$entities
+
+nlp2$documentSentiment
+
+nlp2$language
+```

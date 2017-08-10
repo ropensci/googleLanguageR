@@ -1,3 +1,36 @@
+title: googleLanguageR
+url: https://code.markedmondson.me/googleLanguageR/
+home:
+  strip_header: true
+authors:
+  Mark Edmondson:
+    href: http://code.markedmondson.me
 template:
-  bootswatch: "united"
-
+  params:
+    bootswatch: cosmo
+navbar:
+  title: googleLanguageR
+  type: inverse
+  left:
+    - text: "Translation API"
+      icon: globe
+      href: articles/translation.html
+    - text: "NLP API"
+      icon: object-group
+      href: articles/nlp.html
+    - text: "Speech API"
+      icon: comment
+      href: articles/speech.html
+    - text: "Help"
+      menu:
+      - text: "Function Reference"
+        href: reference/index.html
+      - text: "News"
+        href: news/index.html
+  right:
+    - icon: fa-google fa-lg
+      href: https://cloud.google.com/products/machine-learning/
+    - icon: fa-github fa-lg
+      href: https://github.com/MarkEdmondson1234/googleLanguageR
+    - icon: fa-slack fa-lg
+      href: https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform

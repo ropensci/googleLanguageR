@@ -1,6 +1,6 @@
-# 0.0.9000
+# googleLanguageR 0.0.0.9000
 
-First release:
+## First release
 
 * Natural language API via `gl_nlp`
 * Speech annotation via `gl_speech_recognise`

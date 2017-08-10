@@ -1,0 +1,87 @@
+---
+title: "Introduction to googleLanguageR"
+author: "Mark Edmondson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to googleLanguageR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`googleLanguageR` contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning/)
+
+Note all are paid services, you will need to provide your credit card details for your own Google Project to use them.
+
+The package can be used by any user who is looking to take advantage of Google's massive dataset to train these machine learning models.  Some applications include:
+
+* Translation of speech into another language text, via speech-to-text then translation
+* Identification of sentiment within text, such as from Twitter feeds
+* Pulling out the objects of a sentence, to help classify texts and get metadata links from Wikipedia about them.
+
+The applications of the API results could be relevant to business or researchers looking to scale text analysis.
+
+## Google Natural Language API
+
+> Google Natural Language API reveals the structure and meaning of text by offering powerful machine learning models in an easy to use REST API. You can use it to extract information about people, places, events and much more, mentioned in text documents, news articles or blog posts. You can also use it to understand sentiment about your product on social media or parse intent from customer conversations happening in a call center or a messaging app. 
+
+Read more [on the Google Natural Language API](https://cloud.google.com/natural-language/)
+
+## Google Cloud Translation API
+
+> Google Cloud Translation API provides a simple programmatic interface for translating an arbitrary string into any supported language. Translation API is highly responsive, so websites and applications can integrate with Translation API for fast, dynamic translation of source text from the source language to a target language (e.g. French to English). 
+
+Read more [on the Google Cloud Translation Website](https://cloud.google.com/translate/)
+
+## Google Cloud Speech API
+
+> Google Cloud Speech API enables you to convert audio to text by applying neural network models in an easy to use API. The API recognizes over 80 languages and variants, to support your global user base. You can transcribe the text of users dictating to an application’s microphone or enable command-and-control through voice among many other use cases. 
+
+Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
+
+## Installation
+
+1. Create a [Google API Console Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
+2. Within your project, add a [payment method to the project](https://support.google.com/cloud/answer/6293589)
+3. Within your project, check the relevant APIs are activated
+  - [Google Natural Language API](https://console.cloud.google.com/apis/api/language.googleapis.com/overview)
+  - [Google Cloud Translation API](https://console.cloud.google.com/apis/api/translate.googleapis.com/overview)
+  - [Google Cloud Speech API](https://console.cloud.google.com/apis/api/speech.googleapis.com/overview)
+4. [Generate a service account credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) as a JSON file
+5. Return to R, and install this library via `devtools::install_github("MarkEdmondson1234/googleLanguageR")`
+
+## Usage
+
+### Authentication
+
+The best way to authenticate is to use an environment file.  See `?Startup`.  I usually place this in my home directory. (e.g. if using RStudio, click on `Home` in the file explorer, create a new `TEXT` file and call it `.Renviron`)  
+
+Set the file location of your download Google Project JSON file in a `GL_AUTH` argument:
+
+```
+#.Renviron
+GL_AUTH=location_of_json_file.json
+```
+
+Then, when you load the library you should auto-authenticate:
+
+```r
+library(googleLanguageR)
+# Setting scopes to https://www.googleapis.com/auth/cloud-platform
+# Set any additional scopes via options(googleAuthR.scopes.selected = c('scope1', 'scope2')) before loading library.
+# Successfully authenticated via location_of_json_file.json
+```
+
+You can also authenticate directly using the `gl_auth` function pointing at your JSON auth file:
+
+```r
+library(googleLanguageR)
+gl_auth("location_of_json_file.json")
+```
+
+You can then call the APIs via the functions:
+
+* `gl_nlp()` - Natural Langage API
+* `gl_speech()` - Cloud Speech API
+* `gl_translate()` - Cloud Translation API
+

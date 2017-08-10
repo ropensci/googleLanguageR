@@ -84,6 +84,8 @@ gl_translate_detect <- function(string){
 
   char_num <- sum(nchar(string))
 
+  string <- trimws(string)
+
   message("Detecting language: ",char_num,
           " characters - ", substring(string, 0, 50), "...")
 
@@ -147,12 +149,20 @@ gl_translate_detect <- function(string){
 #'
 #' gl_translate(text, target = "ja")
 #'
-#' # translate webpages
-#' web_page <- readLines("http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer")
-#' html_trans <- gl_translate(web_page, format = "html")
+#' # translate webpages using rvest to process beforehand
+#' library(rvest)
+#' library(googleLanguageR)
 #'
-#' # strip out HTML tags before translating a web page
-#' html_trans <- gl_translate(web_page, format = "html", stripHTML = TRUE)
+#' # translate webpages
+#'
+#' my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
+#'
+#' ## in this case the content to translate is in css selector '.wcms-article-content'
+#' read_html(my_url) %>%
+#'   html_node(css = ".wcms-article-content") %>%
+#'   html_text %>%
+#'   gl_translate(format = "html")
+#'
 #' }
 #'
 #' @export
@@ -167,8 +177,7 @@ gl_translate <- function(t_string,
                          target = "en",
                          format = c("text","html"),
                          source = '',
-                         model = c("nmt", "base"),
-                         stripHTML = FALSE){
+                         model = c("nmt", "base")){
 
   assert_that(is.character(t_string),
               is.string(target),
@@ -177,7 +186,9 @@ gl_translate <- function(t_string,
   format <- match.arg(format)
   model  <- match.arg(model)
 
-  t_string <- check_if_html(t_string, format, stripHTML)
+  ## string checks
+  t_string <- trimws(t_string)
+  t_string <- check_if_html(t_string, format)
 
   char_num <- sum(nchar(t_string))
 
@@ -210,7 +221,7 @@ gl_translate <- function(t_string,
                  error = function(ex){
                    if(grepl("Too many text segments", ex$message)){
                      my_message("Attempting to split into several API calls", level = 3)
-                     purrr::map_df(t_string, gl_translate_language,
+                     purrr::map_df(t_string, gl_translate,
                                    format = format,
                                    target = target,
                                    source = source,
@@ -272,19 +283,12 @@ check_rate <- function(word_count,
 }
 
 #' @noRd
-check_if_html <- function(string, format, stripHTML){
+check_if_html <- function(string, format){
 
   html_test <- any(grepl("<.+>", string))
 
   if(all(html_test, format != "html")){
     warning("Possible HTML found in input text, but format != 'html'")
-  }
-
-  if(all(html_test, stripHTML)){
-    my_message("Stripping out HTML tags using rvest", level = 3)
-    check_package_loaded("rvest")
-    check_package_loaded("xml2")
-    string <- rvest::html_text(xml2::read_html(string))
   }
 
   string
