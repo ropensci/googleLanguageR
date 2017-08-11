@@ -103,8 +103,7 @@ The Natural Language API returns natural language understanding technolgies.  Yo
 You can pass a vector of text which will call the API for each element.  The return is a list of responses, each response being a list of tibbles holding the different types of analysis.
 
 ```{r}
-texts <- c("to administer medicince to animals is frequently a very difficult matter,
-         and yet sometimes it's necessary to do so", 
+texts <- c("to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so", 
          "I don't know how to make a text demo that is sensible")
 nlp_result <- gl_nlp(texts)
 

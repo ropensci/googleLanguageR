@@ -48,8 +48,10 @@ test_that("NLP returns expected fields", {
 
   nlp2 <- gl_nlp(c(test_text, test_text2))
   expect_equal(length(nlp2), 2)
-  expect_equal(names(nlp[[1]]), c("sentences","tokens","entities","documentSentiment","language"))
-  expect_equal(names(nlp[[2]]), c("sentences","tokens","entities","documentSentiment","language"))
+  expect_equal(names(nlp2[[1]]),
+               c("sentences","tokens","entities","documentSentiment","language"))
+  expect_equal(names(nlp2[[2]]),
+               c("sentences","tokens","entities","documentSentiment","language"))
 })
 
 context("Integration tests - Speech")
