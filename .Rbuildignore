@@ -4,4 +4,3 @@
 ^_pkgdown\.yml$
 ^\.travis\.yml$
 ^CONTRIBUTING\.md$
-^inst/doc*
