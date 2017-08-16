@@ -1,6 +1,5 @@
 language: r
 cache: packages
-r_check_args: --no-build-vignettes --no-manual
 notifications:
   slack: googleauthrverse:tGfXjSD58cQSEr1YuzQ5hKPS
   email:

@@ -9,16 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include=FALSE}
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
-)
-```
-
 The Google Cloud Speech API enables you to convert audio to text by applying neural network models in an easy to use API. The API recognizes over 80 languages and variants, to support your global user base. You can transcribe the text of users dictating to an application’s microphone or enable command-and-control through voice among many other use cases. 
 
 Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
@@ -41,7 +31,7 @@ A test audio file is installed with the package which reads:
 
 The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk/newcomms/) group and is fairly difficult for computers to parse, as we see below:
 
-```{r, message=TRUE, warning=FALSE}
+```r
 library(googleLanguageR)
 ## get the sample source file
 test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")

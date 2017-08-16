@@ -9,16 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include=FALSE}
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
-)
-```
-
 The Google Natural Language API reveals the structure and meaning of text by offering powerful machine learning models in an easy to use REST API. You can use it to extract information about people, places, events and much more, mentioned in text documents, news articles or blog posts. You can also use it to understand sentiment about your product on social media or parse intent from customer conversations happening in a call center or a messaging app. 
 
 Read more [on the Google Natural Language API](https://cloud.google.com/natural-language/)
@@ -34,7 +24,7 @@ The Natural Language API returns natural language understanding technologies.  Y
 
 You can pass a vector of text which will call the API for each element.  The return is a list of responses, each response being a list of tibbles holding the different types of analysis.
 
-```{r, message=TRUE, warning=FALSE}
+```r
 library(googleLanguageR)
 
 texts <- c("to administer medicince to animals is frequently a very difficult matter,

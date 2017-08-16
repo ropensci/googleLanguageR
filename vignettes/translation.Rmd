@@ -9,16 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include=FALSE}
-NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  purl = NOT_CRAN,
-  eval = NOT_CRAN
-)
-```
-
 The Google Cloud Translation API provides a simple programmatic interface for translating an arbitrary string into any supported language. Translation API is highly responsive, so websites and applications can integrate with Translation API for fast, dynamic translation of source text from the source language to a target language (e.g. French to English). 
 
 Read more [on the Google Cloud Translation Website](https://cloud.google.com/translate/)
@@ -29,7 +19,7 @@ You can detect the language via `gl_translate_detect`, or translate and detect l
 
 Translate text via `gl_translate`.  Note this is a lot more refined than the free version on Google's translation website.
 
-```{r, warning=FALSE}
+```r
 library(googleLanguageR)
 
 text <- "to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
@@ -47,7 +37,7 @@ You can also supply web HTML and select the `format='html'` which will handle HT
 
 Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts using the tools of `rvest` - an example is shown below:
 
-```{r}
+```r
 # translate webpages
 library(rvest)
 library(googleLanguageR)
@@ -68,7 +58,7 @@ read_html(my_url) %>% # read html
 
 This function only detects the language:
 
-```{r}
+```r
 ## which language is this?
 gl_translate_detect("katten sidder på måtten")
 ```
@@ -77,7 +67,7 @@ The more text it has, the better.  And it helps if its not Danish...
 
 It may be better to use [`cld2`](https://github.com/ropensci/cld2) to translate offline first, to avoid charges if the translation is unnecessary (e.g. already in English).  You could then verify online for more uncertain cases.
 
-```{r}
+```r
 cld2::detect_language("katten sidder på måtten")
 ```
 
