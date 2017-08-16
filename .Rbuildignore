@@ -5,3 +5,4 @@
 ^\.travis\.yml$
 ^CONTRIBUTING\.md$
 ^README\.Rmd$
+^_gcssave\.yml$
