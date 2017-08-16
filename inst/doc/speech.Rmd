@@ -1,0 +1,62 @@
+---
+title: "Google Cloud Speech API"
+author: "Mark Edmondson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Google Cloud Speech API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+NOT_CRAN <- identical(tolower(Sys.getenv("NOT_CRAN")), "true")
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  purl = NOT_CRAN,
+  eval = NOT_CRAN
+)
+```
+
+The Google Cloud Speech API enables you to convert audio to text by applying neural network models in an easy to use API. The API recognizes over 80 languages and variants, to support your global user base. You can transcribe the text of users dictating to an application’s microphone or enable command-and-control through voice among many other use cases. 
+
+Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
+
+The Cloud Speech API provides audio transcription.  Its accessible via the `gl_speech` function.
+
+Arguments include:
+
+* `audio_source` - this is a local file in the correct format, or a Google Cloud Storage URI
+* `encoding` - the format of the sound file - `LINEAR16` is the common `.wav` format, other formats include `FLAC` and `OGG_OPUS`
+* `sampleRate` - this needs to be set to what your file is recorded at.  
+* `languageCode` - specify the language spoken as a [`BCP-47` language tag](https://tools.ietf.org/html/bcp47)
+* `speechContexts` - you can supply keywords to help the translation with some context. 
+
+### Demo for Google Cloud Speech API
+
+A test audio file is installed with the package which reads:
+
+> "To administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
+
+The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk/newcomms/) group and is fairly difficult for computers to parse, as we see below:
+
+```{r, message=TRUE, warning=FALSE}
+library(googleLanguageR)
+## get the sample source file
+test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
+
+## its not perfect but...:)
+gl_speech(test_audio)$transcript
+
+## get alternative transcriptions
+gl_speech(test_audio, maxAlternatives = 2L)$transcript
+
+gl_speech(test_audio, languageCode = "en-GB")$transcript
+
+## help it out with context for "frequently"
+gl_speech(test_audio, 
+            languageCode = "en-GB", 
+            speechContexts = list(phrases = list("is frequently a very difficult")))$transcript
+```
+

@@ -8,4 +8,4 @@
 * Rate limiting via `options(googleLanguageR.character_limit = 10000L)`
 * Vectorised support for inputs
 * Translating HTML support
-* tibble outputs
+* Tibble outputs
