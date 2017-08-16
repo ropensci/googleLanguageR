@@ -1,10 +1,40 @@
 library(httptest)
+library(rvest)
+library(magrittr)
+
+.mockPaths(path.expand(file.path(getwd(),"mock")))
+
 local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
   cat("\nNo authentication file detected - skipping integration tests\n")
 } else {
   cat("\nPerforming API calls for integration tests\n")
 }
+
+on_travis <- Sys.getenv("CI") == "true"
+if(on_travis){
+  cat("\n#testing on CI - working dir: ", path.expand(getwd()), "\n")
+} else {
+  cat("\n#testing not on CI\n")
+}
+
+## Generate test text and audio
+
+# HTML testing
+my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
+
+html_result <- read_html(my_url) %>%
+  html_node(css = ".wcms-article-content") %>%
+  html_text
+
+test_text <- "The cat sat on the mat"
+test_text2 <- "How much is that doggy in the window?"
+trans_text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
+expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
+# a lot of text
+lots <- rep(paste(html_result, trans_text, expected),35)
+test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
+
 
 context("Integration tests - Auth")
 
@@ -25,7 +55,6 @@ test_that("NLP returns expected fields", {
   skip_on_cran()
   skip_if_not(local_auth)
 
-  test_text <- "The cat sat on the mat"
   nlp <- gl_nlp(test_text)
 
   expect_equal(length(nlp), 1)
@@ -44,7 +73,7 @@ test_that("NLP returns expected fields", {
   expect_s3_class(nlp[[1]]$entities, "data.frame")
   expect_s3_class(nlp[[1]]$documentSentiment, "data.frame")
 
-  test_text2 <- "How much is that doggy in the window?"
+
 
   nlp2 <- gl_nlp(c(test_text, test_text2))
   expect_equal(length(nlp2), 2)
@@ -59,9 +88,6 @@ context("Integration tests - Speech")
 test_that("Speech recognise expected", {
   skip_on_cran()
   skip_if_not(local_auth)
-
-  ## get the sample source file
-  test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
 
   result <- gl_speech(test_audio)
 
@@ -98,15 +124,13 @@ test_that("Translation detection works", {
   skip_on_cran()
   skip_if_not(local_auth)
 
-  text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
-
-  danish <- gl_translate_detect(text)
+  danish <- gl_translate_detect(trans_text)
 
   expect_s3_class(danish, "data.frame")
   expect_equal(danish$language, "da")
   expect_equal(names(danish), c("confidence","isReliable","language","text"))
 
-  two_lang <- gl_translate_detect(c(text, "The owl and the pussycat went to sea"))
+  two_lang <- gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
 
   expect_equal(nrow(two_lang), 2)
   expect_equal(two_lang$language, c("da","en"))
@@ -117,29 +141,14 @@ test_that("Translation works", {
   skip_on_cran()
   skip_if_not(local_auth)
 
-  text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
-
-  danish <- gl_translate(text)
-
-  expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
+  danish <- gl_translate(trans_text)
 
   expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
-  # HTML testing
-  my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
-
-  library(rvest)
-  library(magrittr)
-  result <- read_html(my_url) %>%
-     html_node(css = ".wcms-article-content") %>%
-     html_text
-
-  trans_result <- gl_translate(result, format = "html")
+  trans_result <- gl_translate(html_result, format = "html")
 
   expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
-  # a lot of text
-  lots <- rep(paste(result, text, expected),35)
   expect_equal(sum(nchar(lots)), 115745L)
 
   big_r <- gl_translate(lots)
