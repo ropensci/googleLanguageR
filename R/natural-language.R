@@ -161,9 +161,6 @@ gl_nlp_single <- function(string,
 
 #' @importFrom tibble as_tibble
 #' @importFrom tibble tibble
-#' @importFrom dplyr bind_cols
-#' @importFrom dplyr select
-#' @importFrom dplyr full_join
 #' @importFrom purrr map_df
 #' @importFrom purrr is_empty
 #' @importFrom purrr compact
@@ -174,12 +171,12 @@ parse_nlp <- function(x){
   s <- t <- e <- d <- NULL
 
   if(!is_empty(x$sentences)){
-    s <- bind_cols(as_tibble(x$sentences$text),
+    s <- cbind(as_tibble(x$sentences$text),
                    as_tibble(x$sentences$sentiment))
   }
 
   if(!is_empty(x$tokens)){
-    t <- bind_cols(as_tibble(x$tokens$text),
+    t <- cbind(as_tibble(x$tokens$text),
                    as_tibble(x$tokens$partOfSpeech),
                    as_tibble(x$tokens$dependencyEdge),
                    as_tibble(x$tokens$lemma))
@@ -187,21 +184,18 @@ parse_nlp <- function(x){
 
   if(!is_empty(x$entities)){
 
-    name <- type <- salience <- NULL
-
-    ent <- x$entities %>%
-      select(name, type, salience)
+    ent <- x$entities[, c("name","type","salience")]
 
     metadata <- x$entities$metadata
 
-    mentions <- map_df(x$entities$mentions, ~ bind_cols(.x$text, tibble(mention_type = .x$type)))
+    mentions <- map_df(x$entities$mentions, ~ cbind(.x$text, tibble(mention_type = .x$type)))
 
     e <- ent %>%
-      full_join(mentions, by = c(name = "content")) %>%
-      bind_cols(metadata)
+      merge(mentions, by.x = "name", by.y = "content") %>%
+      cbind(metadata)
 
     if(!is_empty(x$entities$sentiment)){
-      e <- bind_cols(e, x$entities$sentiment)
+      e <- cbind(e, x$entities$sentiment)
     }
 
     e <- as_tibble(e)

@@ -142,6 +142,7 @@ test_that("Translation works", {
   skip_if_not(local_auth)
 
   danish <- gl_translate(trans_text)
+  expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful intercourse with former goods."
 
   expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
@@ -149,11 +150,11 @@ test_that("Translation works", {
 
   expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
-  expect_equal(sum(nchar(lots)), 115745L)
-
-  big_r <- gl_translate(lots)
-
-  expect_equal(nrow(big_r), 35)
+  # expect_equal(sum(nchar(lots)), 115745L)
+  #
+  # big_r <- gl_translate(lots)
+  #
+  # expect_equal(nrow(big_r), 35)
 
 })
 

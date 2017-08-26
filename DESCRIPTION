@@ -17,7 +17,6 @@ VignetteBuilder: knitr
 Imports:
     assertthat,
     base64enc,
-    dplyr,
     googleAuthR,
     jsonlite,
     magrittr,

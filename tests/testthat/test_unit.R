@@ -50,7 +50,7 @@ test_that("Record requests if online", {
       gl_translate_languages()
       gl_translate_detect(trans_text)
       gl_translate(trans_text)
-      gl_translate(lots)
+      # gl_translate(lots)
       gl_translate_languages("da")
       gl_translate(html_result, format = "html")
       gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
@@ -149,17 +149,19 @@ with_mock_API({
 
     danish <- gl_translate(trans_text)
 
+    expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful intercourse with former goods."
+
     expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
     trans_result <- gl_translate(html_result, format = "html")
 
     expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
-    expect_equal(sum(nchar(lots)), 115745L)
-
-    big_r <- gl_translate(lots)
-
-    expect_equal(nrow(big_r), 35)
+    # expect_equal(sum(nchar(lots)), 115745L)
+    #
+    # big_r <- gl_translate(lots)
+    #
+    # expect_equal(nrow(big_r), 35)
 
   })
 
