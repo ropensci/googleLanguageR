@@ -44,6 +44,8 @@ Analyse text entities, sentiment, and syntax using the Google Natural Language A
 Encoding type can usually be left at default \code{UTF8}.
   \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}{Read more here}
 
+Set \code{options(googleAuthR.verbose)} to 2 or less to see more verbose API feedback.
+
 The current language support is available \href{https://cloud.google.com/natural-language/docs/languages}{here}
 }
 \examples{

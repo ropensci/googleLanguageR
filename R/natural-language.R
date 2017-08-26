@@ -17,6 +17,8 @@
 #' Encoding type can usually be left at default \code{UTF8}.
 #'   \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}{Read more here}
 #'
+#' Set \code{options(googleAuthR.verbose)} to 2 or less to see more verbose API feedback.
+#'
 #' The current language support is available \href{https://cloud.google.com/natural-language/docs/languages}{here}
 #'
 #' @return A list of length equal to the number of elements in \code{string}, each element of which is a list of tibbles of the following objects, if those fields are asked for via \code{nlp_type}:
@@ -99,7 +101,13 @@ gl_nlp_single <- function(string,
                           encodingType = c("UTF8","UTF16","UTF32","NONE"),
                           version = c("v1", "v1beta2", "v1beta1")){
 
+  ## string processing
   assert_that(is.string(string))
+  string <- trimws(string)
+  if(nchar(string) == 0 || is.na(string)){
+    my_message("Zero length string passed, not calling API", level = 3)
+    return(NULL)
+  }
 
   nlp_type      <- match.arg(nlp_type)
   version       <- match.arg(version)
@@ -107,8 +115,8 @@ gl_nlp_single <- function(string,
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
 
-  my_message(nlp_type, " for '", substring(string, 0, 50), "...'",
-            level = 3)
+  my_message(nlp_type, " for '", substring(string, 0, 50), "'",
+            level = 2)
 
   string <- trimws(string)
 

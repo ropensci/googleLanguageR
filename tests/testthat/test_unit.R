@@ -50,7 +50,7 @@ test_that("Record requests if online", {
       gl_translate_languages()
       gl_translate_detect(trans_text)
       gl_translate(trans_text)
-      # gl_translate(lots)
+      gl_translate(lots)
       gl_translate_languages("da")
       gl_translate(html_result, format = "html")
       gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
@@ -155,11 +155,11 @@ with_mock_API({
 
     expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
-    # expect_equal(sum(nchar(lots)), 115745L)
+    expect_equal(sum(nchar(lots)), 115745L)
 
-    # big_r <- gl_translate(lots)
+    big_r <- gl_translate(lots)
 
-    # expect_equal(nrow(big_r), 35)
+    expect_equal(nrow(big_r), 35)
 
   })
 

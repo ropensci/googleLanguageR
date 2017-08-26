@@ -86,8 +86,8 @@ gl_translate_detect <- function(string){
 
   string <- trimws(string)
 
-  message("Detecting language: ",char_num,
-          " characters - ", substring(string, 0, 50), "...")
+  my_message("Detecting language: ",char_num,
+          " characters - ", substring(string, 0, 50), "...", level = 2)
 
   ## character limits - 100000 characters per 100 seconds
   check_rate(char_num)
@@ -192,7 +192,7 @@ gl_translate <- function(t_string,
   my_message("Translating ",format,": ",
              char_num," characters - ",
              substring(t_string, 0, 50), "...",
-             level = 3)
+             level = 2)
 
   if(!is.string(t_string)){
     my_message("Translating vector of strings > 1: ", length(t_string), level = 2)
