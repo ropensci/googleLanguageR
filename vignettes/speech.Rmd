@@ -50,3 +50,30 @@ gl_speech(test_audio,
             speechContexts = list(phrases = list("is frequently a very difficult")))$transcript
 ```
 
+### Word transcripts
+
+The API [supports timestamps](https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo) on when words are recognised. These are outputted into a list column that holds three entries: `startTime`, `endTime` and the `word`.
+
+To access this data, use `tidyr::unnest()` which will duplicate the other columns.
+
+```r
+> str(result)
+#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	1 obs. of  3 variables:
+# $ transcript: chr "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so"
+# $ confidence: num 0.929
+# $ words     :List of 1
+#  ..$ :'data.frame':	18 obs. of  3 variables:
+#  .. ..$ startTime: chr  "0s" "0.200s" "0.700s" "1.100s" ...
+#  .. ..$ endTime  : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...
+#  .. ..$ word     : chr  "to" "administer" "medicine" "to" ...
+
+## extracting words
+unnested <- tidyr::unnest(result)
+str(unnested)
+#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	18 obs. of  5 variables:
+# $ transcript: chr  "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so" "to administer medicine to animals Is frequent very difficult #matter and yet sometimes it's necessary to do so" "to administer medicine to animals Is frequent very #difficult matter and yet sometimes it's necessary to do so" "to administer medicine to animals Is #frequent very difficult matter and yet sometimes it's necessary to do so" ...
+# $ confidence: num  0.929 0.929 0.929 0.929 0.929 ...
+# $ startTime : chr  "0s" "0.200s" "0.700s" "1.100s" ...
+# $ endTime   : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...
+# $ word      : chr  "to" "administer" "medicine" "to" ...
+```

@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mark Edmondson" />
 
-<meta name="date" content="2017-08-16" />
+<meta name="date" content="2017-08-26" />
 
 <title>Google Cloud Speech API</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Google Cloud Speech API</h1>
 <h4 class="author"><em>Mark Edmondson</em></h4>
-<h4 class="date"><em>2017-08-16</em></h4>
+<h4 class="date"><em>2017-08-26</em></h4>
 
 
 
@@ -109,6 +109,30 @@ test_audio &lt;-<span class="st"> </span><span class="kw">system.file</span>(<sp
 <span class="kw">gl_speech</span>(test_audio, 
             <span class="dt">languageCode =</span> <span class="st">&quot;en-GB&quot;</span>, 
             <span class="dt">speechContexts =</span> <span class="kw">list</span>(<span class="dt">phrases =</span> <span class="kw">list</span>(<span class="st">&quot;is frequently a very difficult&quot;</span>)))$transcript</code></pre></div>
+</div>
+<div id="word-transcripts" class="section level3">
+<h3>Word transcripts</h3>
+<p>The API <a href="https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo">supports timestamps</a> on when words are recognised. These are outputted into a list column that holds three entries: <code>startTime</code>, <code>endTime</code> and the <code>word</code>.</p>
+<p>To access this data, use <code>tidyr::unnest()</code> which will duplicate the other columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(result)
+<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  1 obs. of  3 variables:</span>
+<span class="co"># $ transcript: chr &quot;to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so&quot;</span>
+<span class="co"># $ confidence: num 0.929</span>
+<span class="co"># $ words     :List of 1</span>
+<span class="co">#  ..$ :'data.frame':   18 obs. of  3 variables:</span>
+<span class="co">#  .. ..$ startTime: chr  &quot;0s&quot; &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; ...</span>
+<span class="co">#  .. ..$ endTime  : chr  &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; &quot;1.400s&quot; ...</span>
+<span class="co">#  .. ..$ word     : chr  &quot;to&quot; &quot;administer&quot; &quot;medicine&quot; &quot;to&quot; ...</span>
+
+## extracting words
+unnested &lt;-<span class="st"> </span>tidyr::<span class="kw">unnest</span>(result)
+<span class="kw">str</span>(unnested)
+<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  18 obs. of  5 variables:</span>
+<span class="co"># $ transcript: chr  &quot;to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so&quot; &quot;to administer medicine to animals Is frequent very difficult #matter and yet sometimes it's necessary to do so&quot; &quot;to administer medicine to animals Is frequent very #difficult matter and yet sometimes it's necessary to do so&quot; &quot;to administer medicine to animals Is #frequent very difficult matter and yet sometimes it's necessary to do so&quot; ...</span>
+<span class="co"># $ confidence: num  0.929 0.929 0.929 0.929 0.929 ...</span>
+<span class="co"># $ startTime : chr  &quot;0s&quot; &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; ...</span>
+<span class="co"># $ endTime   : chr  &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; &quot;1.400s&quot; ...</span>
+<span class="co"># $ word      : chr  &quot;to&quot; &quot;administer&quot; &quot;medicine&quot; &quot;to&quot; ...</span></code></pre></div>
 </div>
 
 

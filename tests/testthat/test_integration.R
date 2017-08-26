@@ -87,17 +87,21 @@ context("Integration tests - Speech")
 
 test_that("Speech recognise expected", {
   skip_on_cran()
-  skip_if_not(local_auth)
 
   result <- gl_speech(test_audio)
 
   test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
 
   expect_s3_class(result, "data.frame")
-  expect_equal(names(result), c("transcript","confidence"))
+  expect_equal(names(result), c("transcript","confidence","words"))
 
   ## the API call varies a bit, so it passes if within 10 characters of expected transscript
   expect_true(stringdist::ain(result$transcript, test_result, maxDist = 10))
+
+  ## word trasscripts
+  unnested <- tidyr::unnest(result)
+
+  expect_equal(names(unnested), c("transcript","confidence","startTime","endTime","word"))
 
 })
 

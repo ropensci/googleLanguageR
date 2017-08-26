@@ -25,7 +25,7 @@ gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
 \item{speechContexts}{An optional character vector of context to assist the speech recognition}
 }
 \value{
-A tibble of two columns: \code{transcript} and the \code{confidence} with the number of rows equal to the \code{maxAlternatives}
+A tibble of three columns: \code{transcript}, the \code{confidence} with the number of rows equal to the \code{maxAlternatives}; a list-column of word timestamps.
 }
 \description{
 Turn audio into text
@@ -53,6 +53,18 @@ are used to capture or transmit the audio, particularly if background noise is p
 Read more on audio encodings here \url{https://cloud.google.com/speech/docs/encoding}
 }
 
+\section{WordInfo}{
+
+
+Use \code{tidyr::unnest()} to extract the word columns if needed.
+
+\code{startTime} - Time offset relative to the beginning of the audio, and corresponding to the start of the spoken word.
+
+\code{endTime} - Time offset relative to the beginning of the audio, and corresponding to the end of the spoken word.
+
+\code{word} - The word corresponding to this set of information.
+}
+
 \examples{
 
 \dontrun{
@@ -63,6 +75,9 @@ result <- gl_speech(test_audio)
 result2 <- gl_speech(test_audio, maxAlternatives = 2L)
 
 result_brit <- gl_speech(test_audio, languageCode = "en-GB")
+
+## extract word timestamps
+tidyr::unnest(result_brit)
 
 }
 
