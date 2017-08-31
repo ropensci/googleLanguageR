@@ -2,7 +2,6 @@
 
   op <- options()
   op.googleLanguageR <- list(
-    googleLanguageR.character_limit = 100000L,
     googleAuthR.scopes.selected = "https://www.googleapis.com/auth/cloud-platform"
   )
 

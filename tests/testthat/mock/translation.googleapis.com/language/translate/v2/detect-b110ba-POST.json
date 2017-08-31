@@ -10,9 +10,9 @@
       ],
       [
         {
+          "confidence": 0.47274550795555115,
           "isReliable": false,
-          "language": "en",
-          "confidence": 0.47274550795555115
+          "language": "en"
         }
       ]
     ]

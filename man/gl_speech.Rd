@@ -7,7 +7,7 @@
 gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
   "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"), sampleRateHertz = 16000L,
   languageCode = "en-US", maxAlternatives = 1L, profanityFilter = FALSE,
-  speechContexts = NULL)
+  speechContexts = NULL, asynch = FALSE)
 }
 \arguments{
 \item{audio_source}{File location of audio data, or Google Cloud Storage URI}
@@ -23,9 +23,11 @@ gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
 \item{profanityFilter}{If \code{TRUE} will attempt to filter out profanities}
 
 \item{speechContexts}{An optional character vector of context to assist the speech recognition}
+
+\item{asynch}{If your \code{audio_source} is greater than 60 seconds, set this to TRUE to return an asynchronous call}
 }
 \value{
-A tibble of three columns: \code{transcript}, the \code{confidence} with the number of rows equal to the \code{maxAlternatives}; a list-column of word timestamps.
+A tibble of three columns: \code{transcript}, the \code{confidence} with the number of rows equal to the \code{maxAlternatives}; a list-column of word timestamps.  If \code{asynch} is TRUE, then an operation you will need to pass to \link{gl_speech_op} to get the finished result.
 }
 \description{
 Turn audio into text
@@ -78,6 +80,12 @@ result_brit <- gl_speech(test_audio, languageCode = "en-GB")
 
 ## extract word timestamps
 tidyr::unnest(result_brit)
+
+## make an asynchronous API request (mandatory for sound files over 60 seconds)
+asynch <- gl_speech(test_audio, asynch = TRUE)
+
+## Send to gl_speech_op() for status or finished result
+gl_speech_op(asynch)
 
 }
 

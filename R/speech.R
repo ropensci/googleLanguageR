@@ -9,8 +9,9 @@
 #' @param maxAlternatives Maximum number of recognition hypotheses to be returned. \code{0-30}
 #' @param profanityFilter If \code{TRUE} will attempt to filter out profanities
 #' @param speechContexts An optional character vector of context to assist the speech recognition
+#' @param asynch If your \code{audio_source} is greater than 60 seconds, set this to TRUE to return an asynchronous call
 #'
-#' @return A tibble of three columns: \code{transcript}, the \code{confidence} with the number of rows equal to the \code{maxAlternatives}; a list-column of word timestamps.
+#' @return A tibble of three columns: \code{transcript}, the \code{confidence} with the number of rows equal to the \code{maxAlternatives}; a list-column of word timestamps.  If \code{asynch} is TRUE, then an operation you will need to pass to \link{gl_speech_op} to get the finished result.
 #'
 #' @details
 #'
@@ -58,9 +59,14 @@
 #' ## extract word timestamps
 #' tidyr::unnest(result_brit)
 #'
+#' ## make an asynchronous API request (mandatory for sound files over 60 seconds)
+#' asynch <- gl_speech(test_audio, asynch = TRUE)
+#'
+#' ## Send to gl_speech_op() for status or finished result
+#' gl_speech_op(asynch)
+#'
 #' }
 #'
-
 #'
 #' @seealso \url{https://cloud.google.com/speech/reference/rest/v1/speech/recognize}
 #' @export
@@ -75,7 +81,8 @@ gl_speech <- function(audio_source,
                       languageCode = "en-US",
                       maxAlternatives = 1L,
                       profanityFilter = FALSE,
-                      speechContexts = NULL){
+                      speechContexts = NULL,
+                      asynch = FALSE){
 
   assert_that(is.string(audio_source),
               is.numeric(sampleRateHertz),
@@ -110,12 +117,94 @@ gl_speech <- function(audio_source,
     audio = recognitionAudio
   )
 
-  parse <- function(x) as_tibble(x$results$alternatives[[1]])
+  ## asynch or normal call?
+  if(asynch){
+    call_api <- gar_api_generator("https://speech.googleapis.com/v1/speech:longrunningrecognize",
+                                  "POST",
+                                  data_parse_function = parse_async)
 
-  call_api <- gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
-                         "POST",
-                         data_parse_function = parse)
+  } else {
+
+    call_api <- gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
+                                  "POST",
+                                  data_parse_function = parse_speech)
+  }
 
   call_api(the_body = body)
 
+}
+
+# parse normal speech call responses
+parse_speech <- function(x) as_tibble(x$results$alternatives[[1]])
+
+# parse asynchrnous speech calls responses
+parse_async <- function(x) structure(x, class = "gl_speech_op")
+
+# pretty print of gl_speech_op
+print.gl_speech_op <- function(x, ...){
+  cat("## Send to gl_speech_op() for status")
+  cat("\n##", x$name)
+}
+
+# checks if gl_speech_op class
+is.gl_speech_op <- function(x){
+  inherits(x, "gl_speech_op")
+}
+
+#' Get a speech operation
+#'
+#' For asynchronous calls of audio over 60 seconds, this returns the finished job
+#'
+#' @param operation A speech operation object from \link{gl_speech} when \code{asynch = TRUE}
+#'
+#' @return If the operation is still running, another operation object.  If done, the result as per \link{gl_speech}
+#'
+#' @seealso \link{gl_speech}
+#' @export
+#' @import assertthat
+#' @examples
+#'
+#' \dontrun{
+#'
+#' test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
+#'
+#' ## make an asynchronous API request (mandatory for sound files over 60 seconds)
+#' asynch <- gl_speech(test_audio, asynch = TRUE)
+#'
+#' ## Send to gl_speech_op() for status or finished result
+#' gl_speech_op(asynch)
+#'
+#' }
+#'
+gl_speech_op <- function(operation){
+
+  assert_that(
+    is.gl_speech_op(operation)
+  )
+
+  api_url <- sprintf("https://speech.googleapis.com/v1/operations/%s", operation$name)
+
+
+
+  call_api <- gar_api_generator(api_url,
+                                "GET",
+                                data_parse_function = parse_op)
+  call_api()
+
+}
+
+# parses operation responses
+parse_op <- function(x){
+  if(!is.null(x$done)){
+    if(!is.null(x$error)){
+      out <- x$error
+    } else {
+      out <- parse_speech(x$response)
+    }
+  } else {
+    my_message("Operation still in progress", level = 3)
+    out <- parse_async(x)
+  }
+
+  out
 }

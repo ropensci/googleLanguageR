@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mark Edmondson" />
 
-<meta name="date" content="2017-08-16" />
+<meta name="date" content="2017-08-31" />
 
 <title>Google Cloud Translation API</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Google Cloud Translation API</h1>
 <h4 class="author"><em>Mark Edmondson</em></h4>
-<h4 class="date"><em>2017-08-16</em></h4>
+<h4 class="date"><em>2017-08-31</em></h4>
 
 
 
@@ -99,7 +99,7 @@ my_url &lt;-<span class="st"> &quot;http://www.dr.dk/nyheder/indland/greenpeace-
 
 ## in this case the content to translate is in css select .wcms-article-content
 <span class="kw">read_html</span>(my_url) %&gt;%<span class="st"> </span><span class="co"># read html</span>
-<span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;.wcms-article-content&quot;</span>) %&gt;%<span class="st">   </span><span class="co"># select article content with CSS</span>
+<span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;.wcms-article-content&quot;</span>) %&gt;%<span class="st">   </span><span class="co"># select article content</span>
 <span class="st">  </span>html_text %&gt;%<span class="st"> </span><span class="co"># extract text</span>
 <span class="st">  </span><span class="kw">gl_translate</span>(<span class="dt">format =</span> <span class="st">&quot;html&quot;</span>) %&gt;%<span class="st"> </span><span class="co"># translate with html flag</span>
 <span class="st">  </span>dplyr::<span class="kw">select</span>(translatedText) <span class="co"># show translatedText column of output tibble</span></code></pre></div>
@@ -117,8 +117,7 @@ my_url &lt;-<span class="st"> &quot;http://www.dr.dk/nyheder/indland/greenpeace-
 <div id="translation-api-limits" class="section level3">
 <h3>Translation API limits</h3>
 <p>The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager in Google Cloud console: <code>https://console.developers.google.com/apis/api/translate.googleapis.com/quotas</code></p>
-<p>The library will limit the API calls for the characters and API requests per 100 seconds, which you can set via the options <code>googleLanguageR.character_limit</code>. The API will automatically retry if you are making requests too quickly, and also pause to make sure you only send <code>100000</code> characters per 100 seconds. Change the rate limit via:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">googleLanguageR.character_limit =</span> 10000L)</code></pre></div>
+<p>The library will limit the API calls for the characters and API requests per 100 seconds. The API will automatically retry if you are making requests too quickly, and also pause to make sure you only send <code>100000</code> characters per 100 seconds.</p>
 </div>
 
 

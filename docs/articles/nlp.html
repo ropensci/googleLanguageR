@@ -99,7 +99,7 @@
       <h1>Google Natural Language API</h1>
                         <h4 class="author">Mark Edmondson</h4>
             
-            <h4 class="date">2017-08-10</h4>
+            <h4 class="date">2017-08-31</h4>
           </div>
 
     
@@ -121,86 +121,29 @@
 <a href="#demo-for-entity-analysis" class="anchor"></a>Demo for Entity Analysis</h3>
 <p>You can pass a vector of text which will call the API for each element. The return is a list of responses, each response being a list of tibbles holding the different types of analysis.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(googleLanguageR)
-<span class="co">#&gt; Setting scopes to https://www.googleapis.com/auth/cloud-platform</span>
-<span class="co">#&gt; Set any additional scopes via options(googleAuthR.scopes.selected = c('scope1', 'scope2')) before loading library.</span>
-<span class="co">#&gt; Successfully authenticated via /Users/mark/dev/auth/auth.json</span>
 
 texts &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"to administer medicince to animals is frequently a very difficult matter,</span>
 <span class="st">         and yet sometimes it's necessary to do so"</span>, 
          <span class="st">"I don't know how to make a text demo that is sensible"</span>)
 nlp_result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gl_nlp.html">gl_nlp</a></span>(texts)
-<span class="co">#&gt; 2017-08-10 22:36:12 -- annotateText for 'to administer medicince to animals is frequently a...'</span>
-<span class="co">#&gt; 2017-08-10 22:36:13 -- annotateText for 'I don't know how to make a text demo that is sensi...'</span>
 
 <span class="co"># two results of lists of tibbles</span>
 <span class="kw">str</span>(nlp_result, <span class="dt">max.level =</span> <span class="dv">2</span>)
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ :List of 5</span>
-<span class="co">#&gt;   ..$ sentences        :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  4 variables:</span>
-<span class="co">#&gt;   ..$ tokens           :Classes 'tbl_df', 'tbl' and 'data.frame':    21 obs. of  17 variables:</span>
-<span class="co">#&gt;   ..$ entities         :Classes 'tbl_df', 'tbl' and 'data.frame':    3 obs. of  5 variables:</span>
-<span class="co">#&gt;   ..$ documentSentiment:Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:</span>
-<span class="co">#&gt;   ..$ language         : chr "en"</span>
-<span class="co">#&gt;  $ :List of 5</span>
-<span class="co">#&gt;   ..$ sentences        :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  4 variables:</span>
-<span class="co">#&gt;   ..$ tokens           :Classes 'tbl_df', 'tbl' and 'data.frame':    13 obs. of  17 variables:</span>
-<span class="co">#&gt;   ..$ entities         :Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  5 variables:</span>
-<span class="co">#&gt;   ..$ documentSentiment:Classes 'tbl_df', 'tbl' and 'data.frame':    1 obs. of  2 variables:</span>
-<span class="co">#&gt;   ..$ language         : chr "en"</span>
 
 ## get first return
 nlp &lt;-<span class="st"> </span>nlp_result[[<span class="dv">1</span>]]
 nlp$sentences
-<span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;                                                                       content</span>
-<span class="co">#&gt;                                                                         &lt;chr&gt;</span>
-<span class="co">#&gt; 1 "to administer medicince to animals is frequently a very difficult matter,\</span>
-<span class="co">#&gt; # ... with 3 more variables: beginOffset &lt;int&gt;, magnitude &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   score &lt;dbl&gt;</span>
 
 nlp2 &lt;-<span class="st"> </span>nlp_result[[<span class="dv">2</span>]]
 nlp2$sentences
-<span class="co">#&gt; # A tibble: 1 x 4</span>
-<span class="co">#&gt;                                                 content beginOffset</span>
-<span class="co">#&gt;                                                   &lt;chr&gt;       &lt;int&gt;</span>
-<span class="co">#&gt; 1 I don't know how to make a text demo that is sensible           0</span>
-<span class="co">#&gt; # ... with 2 more variables: magnitude &lt;dbl&gt;, score &lt;dbl&gt;</span>
 
 nlp2$tokens
-<span class="co">#&gt; # A tibble: 13 x 17</span>
-<span class="co">#&gt;     content beginOffset   tag         aspect         case         form</span>
-<span class="co">#&gt;       &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;</span>
-<span class="co">#&gt;  1        I           0  PRON ASPECT_UNKNOWN   NOMINATIVE FORM_UNKNOWN</span>
-<span class="co">#&gt;  2       do           2  VERB ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt;  3      n't           4   ADV ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt;  4     know           8  VERB ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt;  5      how          13   ADV ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt;  6       to          17   PRT ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt;  7     make          20  VERB ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt;  8        a          25   DET ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt;  9     text          27  NOUN ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt; 10     demo          32  NOUN ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt; 11     that          37   DET ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt; 12       is          42  VERB ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt; 13 sensible          45   ADJ ASPECT_UNKNOWN CASE_UNKNOWN FORM_UNKNOWN</span>
-<span class="co">#&gt; # ... with 11 more variables: gender &lt;chr&gt;, mood &lt;chr&gt;, number &lt;chr&gt;,</span>
-<span class="co">#&gt; #   person &lt;chr&gt;, proper &lt;chr&gt;, reciprocity &lt;chr&gt;, tense &lt;chr&gt;,</span>
-<span class="co">#&gt; #   voice &lt;chr&gt;, headTokenIndex &lt;int&gt;, label &lt;chr&gt;, value &lt;chr&gt;</span>
 
 nlp2$entities
-<span class="co">#&gt; # A tibble: 1 x 5</span>
-<span class="co">#&gt;        name        type salience beginOffset mention_type</span>
-<span class="co">#&gt;       &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt;       &lt;int&gt;        &lt;chr&gt;</span>
-<span class="co">#&gt; 1 text demo WORK_OF_ART        1          27       COMMON</span>
 
 nlp2$documentSentiment
-<span class="co">#&gt; # A tibble: 1 x 2</span>
-<span class="co">#&gt;   magnitude score</span>
-<span class="co">#&gt;       &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       0.3  -0.3</span>
 
-nlp2$language
-<span class="co">#&gt; [1] "en"</span></code></pre></div>
+nlp2$language</code></pre></div>
 </div>
 </div>
   </div>

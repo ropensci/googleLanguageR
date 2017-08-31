@@ -47,6 +47,7 @@ test_that("Record requests if online", {
       gl_nlp(test_text)
       gl_nlp(c(test_text, test_text2))
       gl_speech(test_audio)
+      async <- gl_speech(test_audio, asynch = TRUE)
       gl_translate_languages()
       gl_translate_detect(trans_text)
       gl_translate(trans_text)
@@ -55,6 +56,16 @@ test_that("Record requests if online", {
       gl_translate(html_result, format = "html")
       gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
     })
+
+  ## wait for the operation jobs to finish
+  Sys.sleep(10)
+
+  capture_requests(
+    path = "mock", {
+      gl_speech_op(async)
+    })
+
+
 
 })
 
@@ -113,6 +124,12 @@ with_mock_API({
 
     expect_equal(names(unnested), c("transcript","confidence","startTime","endTime","word"))
 
+    async <- gl_speech(test_audio, asynch = TRUE)
+    expect_true(inherits(async, "gl_speech_op"))
+
+    result2 <- gl_speech_op(async)
+    expect_true(any(stringdist::ain(result2$transcript, test_result, maxDist = 10),
+                    inherits(async, "gl_speech_op")))
   })
 
   context("Unit tests - Translation")

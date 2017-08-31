@@ -88,9 +88,7 @@ context("Integration tests - Speech")
 test_that("Speech recognise expected", {
   skip_on_cran()
   skip_if_not(local_auth)
-
   test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
-
   result <- gl_speech(test_audio)
 
   test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
@@ -105,6 +103,13 @@ test_that("Speech recognise expected", {
   unnested <- tidyr::unnest(result)
 
   expect_equal(names(unnested), c("transcript","confidence","startTime","endTime","word"))
+
+  async <- gl_speech(test_audio, asynch = TRUE)
+  expect_true(inherits(async, "gl_speech_op"))
+
+  result2 <- gl_speech_op(async)
+  expect_true(any(stringdist::ain(result2$transcript, test_result, maxDist = 10),
+                  inherits(async, "gl_speech_op")))
 
 })
 
@@ -135,7 +140,7 @@ test_that("Translation detection works", {
 
   expect_s3_class(danish, "data.frame")
   expect_equal(danish$language, "da")
-  expect_equal(names(danish), c("confidence","isReliable","language","text"))
+  expect_true(all(names(danish) %in% c("confidence","isReliable","language","text")))
 
   two_lang <- gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
 

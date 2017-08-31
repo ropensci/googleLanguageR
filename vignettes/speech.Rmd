@@ -77,3 +77,28 @@ str(unnested)
 # $ endTime   : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...
 # $ word      : chr  "to" "administer" "medicine" "to" ...
 ```
+
+## Asynchronous calls
+
+For speech files greater than 60 seconds of if you don't want your results straight away, set `asynch = TRUE` in the call to the API.
+
+This will return an object of class `"gl_speech_op"` which should be used within the `gl_speech_op()` function to check the status of the task.  If the task is finished, then it will return an object the same form as the non-asynchronous case. 
+
+```r
+async <- gl_speech(test_audio, asynch = TRUE)
+async
+## Send to gl_speech_op() for status
+## 4625920921526393240
+
+result <- gl_speech_op(async)
+> str(result)
+#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	1 obs. of  3 variables:
+# $ transcript: chr "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so"
+# $ confidence: num 0.929
+# $ words     :List of 1
+#  ..$ :'data.frame':	18 obs. of  3 variables:
+#  .. ..$ startTime: chr  "0s" "0.200s" "0.700s" "1.100s" ...
+#  .. ..$ endTime  : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...
+#  .. ..$ word     : chr  "to" "administer" "medicine" "to" ...
+```
+

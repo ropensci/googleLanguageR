@@ -99,7 +99,7 @@
       <h1>Google Cloud Speech API</h1>
                         <h4 class="author">Mark Edmondson</h4>
             
-            <h4 class="date">2017-08-10</h4>
+            <h4 class="date">2017-08-31</h4>
           </div>
 
     
@@ -133,34 +133,79 @@
 </blockquote>
 <p>The file is sourced from the <a href="http://www-mobile.ecs.soton.ac.uk/newcomms/">University of Southampton’s speech detection</a> group and is fairly difficult for computers to parse, as we see below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(googleLanguageR)
-<span class="co">#&gt; Setting scopes to https://www.googleapis.com/auth/cloud-platform</span>
-<span class="co">#&gt; Set any additional scopes via options(googleAuthR.scopes.selected = c('scope1', 'scope2')) before loading library.</span>
-<span class="co">#&gt; Successfully authenticated via /Users/mark/dev/auth/auth.json</span>
 ## get the sample source file
 test_audio &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"woman1_wb.wav"</span>, <span class="dt">package =</span> <span class="st">"googleLanguageR"</span>)
 
 ## its not perfect but...:)
 <span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio)$transcript
-<span class="co">#&gt; [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"</span>
 
 ## get alternative transcriptions
 <span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">maxAlternatives =</span> 2L)$transcript
-<span class="co">#&gt; [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"     </span>
-<span class="co">#&gt; [2] "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"</span>
 
 <span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>)$transcript
-<span class="co">#&gt; [1] "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"</span>
 
 ## help it out with context for "frequently"
 <span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, 
             <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>, 
-            <span class="dt">speechContexts =</span> <span class="kw">list</span>(<span class="dt">phrases =</span> <span class="kw">list</span>(<span class="st">"is frequently a very difficult"</span>)))$transcript
-<span class="co">#&gt; [1] "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so"</span></code></pre></div>
+            <span class="dt">speechContexts =</span> <span class="kw">list</span>(<span class="dt">phrases =</span> <span class="kw">list</span>(<span class="st">"is frequently a very difficult"</span>)))$transcript</code></pre></div>
+</div>
+<div id="word-transcripts" class="section level3">
+<h3 class="hasAnchor">
+<a href="#word-transcripts" class="anchor"></a>Word transcripts</h3>
+<p>The API <a href="https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo">supports timestamps</a> on when words are recognised. These are outputted into a list column that holds three entries: <code>startTime</code>, <code>endTime</code> and the <code>word</code>.</p>
+<p>To access this data, use <code><a href="http://www.rdocumentation.org/packages/tidyr/topics/unnest">tidyr::unnest()</a></code> which will duplicate the other columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(result)
+<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  1 obs. of  3 variables:</span>
+<span class="co"># $ transcript: chr "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so"</span>
+<span class="co"># $ confidence: num 0.929</span>
+<span class="co"># $ words     :List of 1</span>
+<span class="co">#  ..$ :'data.frame':   18 obs. of  3 variables:</span>
+<span class="co">#  .. ..$ startTime: chr  "0s" "0.200s" "0.700s" "1.100s" ...</span>
+<span class="co">#  .. ..$ endTime  : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...</span>
+<span class="co">#  .. ..$ word     : chr  "to" "administer" "medicine" "to" ...</span>
+
+## extracting words
+unnested &lt;-<span class="st"> </span>tidyr::<span class="kw">unnest</span>(result)
+<span class="kw">str</span>(unnested)
+<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  18 obs. of  5 variables:</span>
+<span class="co"># $ transcript: chr  "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so" "to administer medicine to animals Is frequent very difficult #matter and yet sometimes it's necessary to do so" "to administer medicine to animals Is frequent very #difficult matter and yet sometimes it's necessary to do so" "to administer medicine to animals Is #frequent very difficult matter and yet sometimes it's necessary to do so" ...</span>
+<span class="co"># $ confidence: num  0.929 0.929 0.929 0.929 0.929 ...</span>
+<span class="co"># $ startTime : chr  "0s" "0.200s" "0.700s" "1.100s" ...</span>
+<span class="co"># $ endTime   : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...</span>
+<span class="co"># $ word      : chr  "to" "administer" "medicine" "to" ...</span></code></pre></div>
+</div>
+<div id="asynchronous-calls" class="section level2">
+<h2 class="hasAnchor">
+<a href="#asynchronous-calls" class="anchor"></a>Asynchronous calls</h2>
+<p>For speech files greater than 60 seconds of if you don’t want your results straight away, set <code>asynch = TRUE</code> in the call to the API.</p>
+<p>This will return an object of class <code>"gl_speech_op"</code> which should be used within the <code><a href="../reference/gl_speech_op.html">gl_speech_op()</a></code> function to check the status of the task. If the task is finished, then it will return an object the same form as the non-asynchronous case.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">async &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">asynch =</span> <span class="ot">TRUE</span>)
+async
+## Send to gl_speech_op() for status
+## 4625920921526393240
+
+result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gl_speech_op.html">gl_speech_op</a></span>(async)
+&gt;<span class="st"> </span><span class="kw">str</span>(result)
+<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  1 obs. of  3 variables:</span>
+<span class="co"># $ transcript: chr "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so"</span>
+<span class="co"># $ confidence: num 0.929</span>
+<span class="co"># $ words     :List of 1</span>
+<span class="co">#  ..$ :'data.frame':   18 obs. of  3 variables:</span>
+<span class="co">#  .. ..$ startTime: chr  "0s" "0.200s" "0.700s" "1.100s" ...</span>
+<span class="co">#  .. ..$ endTime  : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...</span>
+<span class="co">#  .. ..$ word     : chr  "to" "administer" "medicine" "to" ...</span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#asynchronous-calls">Asynchronous calls</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

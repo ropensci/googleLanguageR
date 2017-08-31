@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mark Edmondson" />
 
-<meta name="date" content="2017-08-26" />
+<meta name="date" content="2017-08-31" />
 
 <title>Google Cloud Speech API</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Google Cloud Speech API</h1>
 <h4 class="author"><em>Mark Edmondson</em></h4>
-<h4 class="date"><em>2017-08-26</em></h4>
+<h4 class="date"><em>2017-08-31</em></h4>
 
 
 
@@ -133,6 +133,26 @@ unnested &lt;-<span class="st"> </span>tidyr::<span class="kw">unnest</span>(res
 <span class="co"># $ startTime : chr  &quot;0s&quot; &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; ...</span>
 <span class="co"># $ endTime   : chr  &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; &quot;1.400s&quot; ...</span>
 <span class="co"># $ word      : chr  &quot;to&quot; &quot;administer&quot; &quot;medicine&quot; &quot;to&quot; ...</span></code></pre></div>
+</div>
+<div id="asynchronous-calls" class="section level2">
+<h2>Asynchronous calls</h2>
+<p>For speech files greater than 60 seconds of if you don’t want your results straight away, set <code>asynch = TRUE</code> in the call to the API.</p>
+<p>This will return an object of class <code>&quot;gl_speech_op&quot;</code> which should be used within the <code>gl_speech_op()</code> function to check the status of the task. If the task is finished, then it will return an object the same form as the non-asynchronous case.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">async &lt;-<span class="st"> </span><span class="kw">gl_speech</span>(test_audio, <span class="dt">asynch =</span> <span class="ot">TRUE</span>)
+async
+## Send to gl_speech_op() for status
+## 4625920921526393240
+
+result &lt;-<span class="st"> </span><span class="kw">gl_speech_op</span>(async)
+&gt;<span class="st"> </span><span class="kw">str</span>(result)
+<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  1 obs. of  3 variables:</span>
+<span class="co"># $ transcript: chr &quot;to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so&quot;</span>
+<span class="co"># $ confidence: num 0.929</span>
+<span class="co"># $ words     :List of 1</span>
+<span class="co">#  ..$ :'data.frame':   18 obs. of  3 variables:</span>
+<span class="co">#  .. ..$ startTime: chr  &quot;0s&quot; &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; ...</span>
+<span class="co">#  .. ..$ endTime  : chr  &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; &quot;1.400s&quot; ...</span>
+<span class="co">#  .. ..$ word     : chr  &quot;to&quot; &quot;administer&quot; &quot;medicine&quot; &quot;to&quot; ...</span></code></pre></div>
 </div>
 
 

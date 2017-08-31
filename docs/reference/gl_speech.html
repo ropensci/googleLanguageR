@@ -129,7 +129,7 @@
     <pre class="usage"><span class='fu'>gl_speech</span>(<span class='no'>audio_source</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"LINEAR16"</span>, <span class='st'>"FLAC"</span>, <span class='st'>"MULAW"</span>, <span class='st'>"AMR"</span>,
   <span class='st'>"AMR_WB"</span>, <span class='st'>"OGG_OPUS"</span>, <span class='st'>"SPEEX_WITH_HEADER_BYTE"</span>), <span class='kw'>sampleRateHertz</span> <span class='kw'>=</span> <span class='fl'>16000L</span>,
   <span class='kw'>languageCode</span> <span class='kw'>=</span> <span class='st'>"en-US"</span>, <span class='kw'>maxAlternatives</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>profanityFilter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>speechContexts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>speechContexts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>asynch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -162,11 +162,15 @@
       <th>speechContexts</th>
       <td><p>An optional character vector of context to assist the speech recognition</p></td>
     </tr>
+    <tr>
+      <th>asynch</th>
+      <td><p>If your <code>audio_source</code> is greater than 60 seconds, set this to TRUE to return an asynchronous call</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble of two columns: <code>transcript</code> and the <code>confidence</code> with the number of rows equal to the <code>maxAlternatives</code></p>
+    <p>A tibble of three columns: <code>transcript</code>, the <code>confidence</code> with the number of rows equal to the <code>maxAlternatives</code>; a list-column of word timestamps.  If <code>asynch</code> is TRUE, then an operation you will need to pass to <a href='gl_speech_op.html'>gl_speech_op</a> to get the finished result.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -190,6 +194,14 @@ Recognition accuracy may be reduced if lossy codecs, which include the other cod
 are used to capture or transmit the audio, particularly if background noise is present.</p>
 <p>Read more on audio encodings here <a href='https://cloud.google.com/speech/docs/encoding'>https://cloud.google.com/speech/docs/encoding</a></p>
     
+    <h2 class="hasAnchor" id="wordinfo"><a class="anchor" href="#wordinfo"></a>WordInfo</h2>
+
+    
+    <p>Use <code><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>tidyr::unnest()</a></code> to extract the word columns if needed.
+    <code>startTime</code> - Time offset relative to the beginning of the audio, and corresponding to the start of the spoken word.
+    <code>endTime</code> - Time offset relative to the beginning of the audio, and corresponding to the end of the spoken word.
+    <code>word</code> - The word corresponding to this set of information.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><a href='https://cloud.google.com/speech/reference/rest/v1/speech/recognize'>https://cloud.google.com/speech/reference/rest/v1/speech/recognize</a></p>
@@ -205,6 +217,15 @@ are used to capture or transmit the audio, particularly if background noise is p
 
 <span class='no'>result_brit</span> <span class='kw'>&lt;-</span> <span class='fu'>gl_speech</span>(<span class='no'>test_audio</span>, <span class='kw'>languageCode</span> <span class='kw'>=</span> <span class='st'>"en-GB"</span>)
 
+<span class='co'>## extract word timestamps</span>
+<span class='kw pkg'>tidyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tidyr/topics/unnest'>unnest</a></span>(<span class='no'>result_brit</span>)
+
+<span class='co'>## make an asynchronous API request (mandatory for sound files over 60 seconds)</span>
+<span class='no'>asynch</span> <span class='kw'>&lt;-</span> <span class='fu'>gl_speech</span>(<span class='no'>test_audio</span>, <span class='kw'>asynch</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'>## Send to gl_speech_op() for status or finished result</span>
+<span class='fu'><a href='gl_speech_op.html'>gl_speech_op</a></span>(<span class='no'>asynch</span>)
+
 <span class='co'># }</span><div class='input'>
 
 </div></pre>
@@ -219,6 +240,8 @@ are used to capture or transmit the audio, particularly if background noise is p
       <li><a href="#details">Details</a></li>
 
       <li><a href="#audioencoding">AudioEncoding</a></li>
+
+      <li><a href="#wordinfo">WordInfo</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

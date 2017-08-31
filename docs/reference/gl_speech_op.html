@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All news • googleLanguageR</title>
+<title>Get a speech operation — gl_speech_op • googleLanguageR</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -117,46 +117,62 @@
       </header>
 
       <div class="row">
-
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Change log <small>All releases</small></h1>
+    <h1>Get a speech operation</h1>
     </div>
 
-    <div class="contents">
-    <div id="googlelanguager-0-0-0-9000" class="section level1">
-<h1 class="hasAnchor">
-<a href="#googlelanguager-0-0-0-9000" class="anchor"></a>googleLanguageR 0.0.0.9000</h1>
-<div id="first-release" class="section level2">
-<h2 class="hasAnchor">
-<a href="#first-release" class="anchor"></a>First release</h2>
-<ul>
-<li>Natural language API via <code>gl_nlp</code>
-</li>
-<li>Speech annotation via <code>gl_speech_recognise</code>
-</li>
-<li>Translation detection and performance via <code>gl_translate_detect</code> and <code>gl_translate</code>
-</li>
-<li>Rate limiting via <code>options(googleLanguageR.character_limit = 10000L)</code>
-</li>
-<li>Vectorised support for inputs</li>
-<li>Translating HTML support</li>
-<li>Tibble outputs</li>
-</ul>
-</div>
-</div>
-    </div>
+    
+    <p>For asynchronous calls of audio over 60 seconds, this returns the finished job</p>
+    
+
+    <pre class="usage"><span class='fu'>gl_speech_op</span>(<span class='no'>operation</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>operation</th>
+      <td><p>A speech operation object from <a href='gl_speech.html'>gl_speech</a> when <code>asynch = TRUE</code></p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>If the operation is still running, another operation object.  If done, the result as per <a href='gl_speech.html'>gl_speech</a></p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><a href='gl_speech.html'>gl_speech</a></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='no'>test_audio</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"woman1_wb.wav"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"googleLanguageR"</span>)
+
+<span class='co'>## make an asynchronous API request (mandatory for sound files over 60 seconds)</span>
+<span class='no'>asynch</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gl_speech.html'>gl_speech</a></span>(<span class='no'>test_audio</span>, <span class='kw'>asynch</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'>## Send to gl_speech_op() for status or finished result</span>
+<span class='fu'>gl_speech_op</span>(<span class='no'>asynch</span>)
+
+<span class='co'># }</span><div class='input'>
+</div></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#googlelanguager-0-0-0-9000">0.0.0.9000</a></li>
-      </ul>
-    </div>
-  </div>
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
 
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
+  </div>
 </div>
 
       <footer>
