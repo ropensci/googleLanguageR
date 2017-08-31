@@ -3,16 +3,16 @@
     "detections": [
       [
         {
+          "confidence": 0.93390387296676636,
           "isReliable": false,
-          "language": "da",
-          "confidence": 0.93390387296676636
+          "language": "da"
         }
       ],
       [
         {
-          "confidence": 0.47274550795555115,
           "isReliable": false,
-          "language": "en"
+          "language": "en",
+          "confidence": 0.47274550795555115
         }
       ]
     ]
