@@ -63,6 +63,8 @@
 #' @import assertthat
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom purrr map
+#' @importFrom purrr map_df
+#' @importFrom purrr map_chr
 gl_nlp <- function(string,
                    nlp_type = c("annotateText",
                                 "analyzeEntities",
@@ -75,12 +77,28 @@ gl_nlp <- function(string,
                    encodingType = c("UTF8","UTF16","UTF32","NONE"),
                    version = c("v1", "v1beta2", "v1beta1")){
 
-  map(string, gl_nlp_single,
+  if(nlp_type == "analyzeEntitySentiment" && version != "v1beta2"){
+    my_message("Setting version to 'v1beta2' to support analyzeEntitySentiment", level = 3)
+    version <- "v1beta2"
+  }
+
+  api_results <- map(string, gl_nlp_single,
       nlp_type = nlp_type,
       type = type,
       language = language,
       encodingType = encodingType,
       version = version)
+
+  ## hack to avoid parser complaints
+  .x <- NULL
+
+  ## map api_results so all nlp_types in own list
+  the_types <- c("sentences", "tokens", "entities", "documentSentiment")
+  the_types <- setNames(the_types, the_types)
+  out <- map(the_types, ~ map_df(api_results, .x))
+  out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
+
+  out
 
 }
 
@@ -105,7 +123,7 @@ gl_nlp_single <- function(string,
   assert_that(is.string(string))
   string <- trimws(string)
   if(nchar(string) == 0 || is.na(string)){
-    my_message("Zero length string passed, not calling API", level = 3)
+    my_message("Zero length string passed, not calling API", level = 2)
     return(NULL)
   }
 
@@ -118,7 +136,7 @@ gl_nlp_single <- function(string,
   my_message(nlp_type, " for '", substring(string, 0, 50), "'",
             level = 2)
 
-  string <- trimws(string)
+  my_message(nlp_type, ": ", nchar(string), " characters", level = 3)
 
   call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
                       version, nlp_type)
@@ -155,6 +173,7 @@ gl_nlp_single <- function(string,
                                 "POST",
                                 data_parse_function = parse_nlp)
 
+
   call_api(the_body = body)
 
 }
@@ -184,18 +203,25 @@ parse_nlp <- function(x){
 
   if(!is_empty(x$entities)){
 
-    ent <- x$entities[, c("name","type","salience")]
+    e <- x$entities[, c("name","type","salience")]
 
-    metadata <- x$entities$metadata
-
-    mentions <- map_df(x$entities$mentions, ~ cbind(.x$text, tibble(mention_type = .x$type)))
-
-    e <- ent %>%
-      merge(mentions, by.x = "name", by.y = "content") %>%
-      cbind(metadata)
+    if(!is_empty(x$entities$metadata)){
+      e <- cbind(e, x$entities$metadata)
+    }
 
     if(!is_empty(x$entities$sentiment)){
       e <- cbind(e, x$entities$sentiment)
+    }
+
+    ## needs to come last as mentions can hold more rows than
+    ## passed in words as it matches multiple
+    if(!is_empty(x$entities$mentions)){
+
+      mentions <- map_df(x$entities$mentions,
+                         ~ cbind(.x$text, tibble(mention_type = .x$type)))
+
+      e <- merge(e, mentions, by.x = "name", by.y = "content", all = TRUE)
+
     }
 
     e <- as_tibble(e)
@@ -213,5 +239,7 @@ parse_nlp <- function(x){
     documentSentiment = d,
     language = x$language
   ))
+
+
 
 }

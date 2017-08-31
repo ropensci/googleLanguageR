@@ -30,6 +30,7 @@ Suggests:
     rmarkdown,
     rvest,
     stringdist,
+    tidyr,
     xml2
 Remotes: 
     MarkEdmondson1234/googleAuthR

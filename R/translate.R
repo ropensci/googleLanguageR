@@ -78,6 +78,7 @@ gl_translate_languages <- function(target = 'en'){
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
 #' @importFrom stats setNames
+#' @importFrom purrr map_df
 gl_translate_detect <- function(string){
 
   assert_that(is.character(string))
@@ -86,8 +87,7 @@ gl_translate_detect <- function(string){
 
   string <- trimws(string)
 
-  my_message("Detecting language: ",char_num,
-          " characters - ", substring(string, 0, 50), "...", level = 2)
+  my_message("Detecting language: ",char_num, " characters", level = 3)
 
   ## character limits - 100000 characters per 100 seconds
   check_rate(char_num)
@@ -101,7 +101,13 @@ gl_translate_detect <- function(string){
                                 data_parse_function = function(x) Reduce(rbind,
                                                                          x$data$detections))
 
-  me <- call_api(the_body = pars)
+  me <- tryCatch(call_api(the_body = pars),
+                 error = function(ex){
+                   if(grepl("Too many text segments|Request payload size exceeds the limit", ex$message)){
+                     my_message("Attempting to split into several API calls", level = 3)
+                     Reduce(rbind, lapply(string, gl_translate_detect))
+                   }
+                 })
 
   me$text <- string
 
@@ -185,14 +191,13 @@ gl_translate <- function(t_string,
 
   ## string checks
   t_string <- trimws(t_string)
+
   t_string <- check_if_html(t_string, format)
 
   char_num <- sum(nchar(t_string))
 
   my_message("Translating ",format,": ",
-             char_num," characters - ",
-             substring(t_string, 0, 50), "...",
-             level = 2)
+             char_num," characters - ", level = 3)
 
   if(!is.string(t_string)){
     my_message("Translating vector of strings > 1: ", length(t_string), level = 2)
@@ -218,11 +223,11 @@ gl_translate <- function(t_string,
                  error = function(ex){
                    if(grepl("Too many text segments|Request payload size exceeds the limit", ex$message)){
                      my_message("Attempting to split into several API calls", level = 3)
-                     purrr::map_df(t_string, gl_translate,
-                                   format = format,
-                                   target = target,
-                                   source = source,
-                                   model = model)
+                     Reduce(rbind, lapply(t_string, gl_translate,
+                                          format = format,
+                                          target = target,
+                                          source = source,
+                                          model = model))
                    }
                  })
 

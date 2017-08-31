@@ -57,30 +57,30 @@ test_that("NLP returns expected fields", {
 
   nlp <- gl_nlp(test_text)
 
-  expect_equal(length(nlp), 1)
-  expect_equal(names(nlp[[1]]), c("sentences","tokens","entities","documentSentiment","language"))
-  expect_s3_class(nlp[[1]]$sentences, "data.frame")
-  expect_equal(nlp[[1]]$sentences$content, test_text)
-  expect_equal(names(nlp[[1]]$sentences), c("content","beginOffset","magnitude","score"))
-  expect_equal(names(nlp[[1]]$tokens), c("content", "beginOffset", "tag", "aspect", "case",
+  expect_equal(length(nlp), 5)
+  expect_equal(names(nlp), c("sentences","tokens","entities","documentSentiment","language"))
+  expect_s3_class(nlp$sentences, "data.frame")
+  expect_equal(nlp$sentences$content[[1]], test_text)
+  expect_equal(names(nlp$sentences), c("content","beginOffset","magnitude","score"))
+  expect_equal(names(nlp$tokens), c("content", "beginOffset", "tag", "aspect", "case",
                                          "form", "gender", "mood", "number", "person", "proper",
                                          "reciprocity", "tense", "voice", "headTokenIndex",
                                          "label", "value"))
-  expect_equal(names(nlp[[1]]$entities), c("name","type","salience","beginOffset","mention_type"))
-  expect_equal(names(nlp[[1]]$documentSentiment), c("magnitude","score"))
-  expect_equal(nlp[[1]]$language, "en")
-  expect_s3_class(nlp[[1]]$tokens, "data.frame")
-  expect_s3_class(nlp[[1]]$entities, "data.frame")
-  expect_s3_class(nlp[[1]]$documentSentiment, "data.frame")
+  expect_equal(names(nlp$entities), c("name","type","salience","beginOffset","mention_type"))
+  expect_equal(names(nlp$documentSentiment), c("magnitude","score"))
+  expect_equal(nlp$language, "en")
+  expect_s3_class(nlp$tokens, "data.frame")
+  expect_s3_class(nlp$entities, "data.frame")
+  expect_s3_class(nlp$documentSentiment, "data.frame")
 
 
 
   nlp2 <- gl_nlp(c(test_text, test_text2))
-  expect_equal(length(nlp2), 2)
-  expect_equal(names(nlp2[[1]]),
+  expect_equal(length(nlp2), 5)
+  expect_equal(names(nlp2),
                c("sentences","tokens","entities","documentSentiment","language"))
-  expect_equal(names(nlp2[[2]]),
-               c("sentences","tokens","entities","documentSentiment","language"))
+  expect_equal(nrow(nlp2$sentences), 2)
+
 })
 
 context("Integration tests - Speech")
