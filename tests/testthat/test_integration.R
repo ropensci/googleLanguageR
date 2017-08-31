@@ -87,6 +87,8 @@ context("Integration tests - Speech")
 
 test_that("Speech recognise expected", {
   skip_on_cran()
+  skip_if_not(local_auth)
+
   test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
 
   result <- gl_speech(test_audio)
