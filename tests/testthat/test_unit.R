@@ -33,7 +33,7 @@ trans_text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt m
 expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
 # a lot of text
 lots <- rep(paste(html_result, trans_text, expected),35)
-test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
+
 
 
 context("API Mocking")
@@ -97,7 +97,7 @@ with_mock_API({
 
   test_that("Speech recognise expected", {
     skip_on_cran()
-
+    test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
     result <- gl_speech(test_audio)
 
     test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"

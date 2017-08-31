@@ -65,6 +65,7 @@
 #' @importFrom purrr map
 #' @importFrom purrr map_df
 #' @importFrom purrr map_chr
+#' @importFrom purrr compact
 gl_nlp <- function(string,
                    nlp_type = c("annotateText",
                                 "analyzeEntities",
@@ -98,7 +99,7 @@ gl_nlp <- function(string,
   out <- map(the_types, ~ map_df(api_results, .x))
   out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
 
-  out
+  compact(out)
 
 }
 
