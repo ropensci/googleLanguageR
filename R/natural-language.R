@@ -102,7 +102,7 @@ gl_nlp <- function(string,
   out          <- map(the_types, ~ map(api_results, .x))
   out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
   out$text     <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$text})
-  out$documentSentiment <- my_map_df(api_results, ~ out_documentSentiment(.x))
+  out$documentSentiment <- my_map_df(api_results,  out_documentSentiment)
 
   compact(out)
 
@@ -113,18 +113,10 @@ out_documentSentiment <- function(x){
   out <- tibble(magnitude=NA_real_, score=NA_real_)
 
   if(!is.null(x)){
-    out <- x$documentSentiment
+    out <- as_tibble(x$documentSentiment)
   }
 
   out
-}
-
-my_map_df <- function(.x, .f, ...){
-
-  .f <- purrr::as_mapper(.f, ...)
-  res <- map(.x, .f, ...)
-  Reduce(rbind, res)
-
 }
 
 #' Used to vectorise gl_nlp

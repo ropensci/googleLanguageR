@@ -1,3 +1,13 @@
+# purrr's map_df without dplyr
+my_map_df <- function(.x, .f, ...){
+
+  .f <- purrr::as_mapper(.f, ...)
+  res <- map(.x, .f, ...)
+  Reduce(rbind, res)
+
+}
+
+
 #' @importFrom jsonlite unbox
 #' @noRd
 jubox <- function(x){
