@@ -75,7 +75,6 @@ with_mock_API({
 
   test_that("NLP returns expected fields", {
     skip_on_cran()
-    skip_if_not(local_auth)
 
     nlp <- gl_nlp(test_text)
 

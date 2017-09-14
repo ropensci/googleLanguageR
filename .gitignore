@@ -3,3 +3,4 @@
 .RData
 *.history
 _gcssave.yml
+.httr-oauth
