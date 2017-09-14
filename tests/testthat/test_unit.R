@@ -30,7 +30,7 @@ html_result <- read_html(my_url) %>%
 test_text <- "The cat sat on the mat"
 test_text2 <- "How much is that doggy in the window?"
 trans_text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
-expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
+expected <- "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former."
 # a lot of text
 lots <- rep(paste(html_result, trans_text, expected),35)
 
@@ -75,32 +75,36 @@ with_mock_API({
 
   test_that("NLP returns expected fields", {
     skip_on_cran()
+    skip_if_not(local_auth)
 
     nlp <- gl_nlp(test_text)
 
-    expect_equal(length(nlp), 5)
-    expect_equal(names(nlp), c("sentences","tokens","entities","documentSentiment","language"))
-    expect_s3_class(nlp$sentences, "data.frame")
-    expect_equal(nlp$sentences$content[[1]], test_text)
-    expect_equal(names(nlp$sentences), c("content","beginOffset","magnitude","score"))
-    expect_equal(names(nlp$tokens), c("content", "beginOffset", "tag", "aspect", "case",
-                                      "form", "gender", "mood", "number", "person", "proper",
-                                      "reciprocity", "tense", "voice", "headTokenIndex",
-                                      "label", "value"))
-    expect_equal(names(nlp$entities), c("name","type","salience","beginOffset","mention_type"))
-    expect_equal(names(nlp$documentSentiment), c("magnitude","score"))
+    expect_equal(length(nlp), 6)
+    expect_true(all(names(nlp) %in%
+                      c("sentences","tokens","entities","documentSentiment","language", "text")))
+    expect_s3_class(nlp$sentences[[1]], "data.frame")
+    expect_equal(nlp$sentences[[1]]$content, test_text)
+    expect_true(all(names(nlp$sentences[[1]]) %in% c("content","beginOffset","magnitude","score")))
+    expect_true(all(names(nlp$tokens[[1]]) %in% c("content", "beginOffset", "tag", "aspect", "case",
+                                                  "form", "gender", "mood", "number", "person", "proper",
+                                                  "reciprocity", "tense", "voice", "headTokenIndex",
+                                                  "label", "value")))
+    expect_true(all(names(nlp$entities[[1]]) %in%
+                      c("name","type","salience","mid","wikipedia_url",
+                        "beginOffset","magnitude", "score", "mention_type")))
+    expect_true(all(names(nlp$documentSentiment) %in% c("magnitude","score")))
     expect_equal(nlp$language, "en")
-    expect_s3_class(nlp$tokens, "data.frame")
-    expect_s3_class(nlp$entities, "data.frame")
+    expect_s3_class(nlp$tokens[[1]], "data.frame")
+    expect_s3_class(nlp$entities[[1]], "data.frame")
     expect_s3_class(nlp$documentSentiment, "data.frame")
 
 
 
     nlp2 <- gl_nlp(c(test_text, test_text2))
-    expect_equal(length(nlp2), 5)
-    expect_equal(names(nlp2),
-                 c("sentences","tokens","entities","documentSentiment","language"))
-    expect_equal(nrow(nlp2$sentences), 2)
+    expect_equal(length(nlp2), 6)
+    expect_true(all(names(nlp2) %in%
+                      c("sentences","tokens","entities","text","documentSentiment","language")))
+    expect_equal(length(nlp2$sentences), 2)
 
   })
 
@@ -171,7 +175,7 @@ with_mock_API({
 
     danish <- gl_translate(trans_text)
 
-    expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful intercourse with former goods."
+    expected <- "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former."
 
     expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 

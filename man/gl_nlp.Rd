@@ -32,6 +32,7 @@ A list of length equal to the number of elements in \code{string}, each element 
  \item{entities - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{Entities, along with their semantic information, in the input document}}
  \item{documentSentiment - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{The overall sentiment for the document}}
  \item{language - }{The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language}
+ \item{text - }{The original text passed into the API. \code{NA} if not passed due to being zero-length etc. }
 }
 }
 \description{

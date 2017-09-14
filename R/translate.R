@@ -74,7 +74,6 @@ gl_translate_languages <- function(target = 'en'){
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
 #' @importFrom stats setNames
-#' @importFrom purrr map_df
 gl_translate_detect <- function(string){
 
   assert_that(is.character(string))
@@ -102,7 +101,10 @@ gl_translate_detect <- function(string){
                    }
                  })
 
-  me$text <- string
+  ## is not within a recursive call
+  if(length(string) == nrow(me)){
+    me$text <- string
+  }
 
   as_tibble(me)
 
@@ -167,7 +169,6 @@ gl_translate_detect <- function(string){
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom tibble as_tibble
 #' @importFrom stats setNames
-#' @importFrom purrr map_df
 gl_translate <- function(t_string,
                          target = "en",
                          format = c("text","html"),
@@ -236,7 +237,10 @@ gl_translate <- function(t_string,
                    }
                  })
 
-  me$text <- t_string
+  ## is not within a recursive call
+  if(length(t_string) == nrow(me)){
+    me$text <- t_string
+  }
 
   as_tibble(me)
 

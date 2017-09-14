@@ -29,6 +29,7 @@
 #'  \item{entities - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{Entities, along with their semantic information, in the input document}}
 #'  \item{documentSentiment - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{The overall sentiment for the document}}
 #'  \item{language - }{The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language}
+#'  \item{text - }{The original text passed into the API. \code{NA} if not passed due to being zero-length etc. }
 #' }
 #'
 #'
@@ -63,7 +64,6 @@
 #' @import assertthat
 #' @importFrom googleAuthR gar_api_generator
 #' @importFrom purrr map
-#' @importFrom purrr map_df
 #' @importFrom purrr map_chr
 #' @importFrom purrr compact
 gl_nlp <- function(string,
@@ -77,6 +77,8 @@ gl_nlp <- function(string,
                                 "it","ja","ko","pt","es"),
                    encodingType = c("UTF8","UTF16","UTF32","NONE"),
                    version = c("v1", "v1beta2", "v1beta1")){
+
+  version <- match.arg(version)
 
   if(nlp_type == "analyzeEntitySentiment" && version != "v1beta2"){
     my_message("Setting version to 'v1beta2' to support analyzeEntitySentiment", level = 3)
@@ -94,12 +96,34 @@ gl_nlp <- function(string,
   .x <- NULL
 
   ## map api_results so all nlp_types in own list
-  the_types <- c("sentences", "tokens", "entities", "documentSentiment")
-  the_types <- setNames(the_types, the_types)
-  out <- map(the_types, ~ map_df(api_results, .x))
+  the_types    <- c("sentences", "tokens", "entities")
+  the_types    <- setNames(the_types, the_types)
+  ## create output shape
+  out          <- map(the_types, ~ map(api_results, .x))
   out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
+  out$text     <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$text})
+  out$documentSentiment <- my_map_df(api_results, ~ out_documentSentiment(.x))
 
   compact(out)
+
+}
+
+out_documentSentiment <- function(x){
+
+  out <- tibble(magnitude=NA_real_, score=NA_real_)
+
+  if(!is.null(x)){
+    out <- x$documentSentiment
+  }
+
+  out
+}
+
+my_map_df <- function(.x, .f, ...){
+
+  .f <- purrr::as_mapper(.f, ...)
+  res <- map(.x, .f, ...)
+  Reduce(rbind, res)
 
 }
 
@@ -118,7 +142,7 @@ gl_nlp_single <- function(string,
                           language = c("en", "zh","zh-Hant","fr","de",
                                        "it","ja","ko","pt","es"),
                           encodingType = c("UTF8","UTF16","UTF32","NONE"),
-                          version = c("v1", "v1beta2", "v1beta1")){
+                          version = c("v1", "v1beta2")){
 
   ## string processing
   assert_that(is.string(string))
@@ -175,13 +199,16 @@ gl_nlp_single <- function(string,
                                 data_parse_function = parse_nlp)
 
 
-  call_api(the_body = body)
+  out <- call_api(the_body = body)
+
+  out$text <- string
+
+  out
 
 }
 
 #' @importFrom tibble as_tibble
 #' @importFrom tibble tibble
-#' @importFrom purrr map_df
 #' @importFrom purrr is_empty
 #' @importFrom purrr compact
 #' @importFrom magrittr %>%
@@ -208,21 +235,29 @@ parse_nlp <- function(x){
 
     if(!is_empty(x$entities$metadata)){
       e <- cbind(e, x$entities$metadata)
+    } else {
+      e <- cbind(e, data.frame(mid = NA_character_, wikipedia_url = NA_character_))
     }
 
     if(!is_empty(x$entities$sentiment)){
       e <- cbind(e, x$entities$sentiment)
+    } else {
+      e <- cbind(e, data.frame(magnitude = NA_real_, score = NA_real_))
     }
 
     ## needs to come last as mentions can hold more rows than
     ## passed in words as it matches multiple
     if(!is_empty(x$entities$mentions)){
 
-      mentions <- map_df(x$entities$mentions,
+      mentions <- my_map_df(x$entities$mentions,
                          ~ cbind(.x$text, tibble(mention_type = .x$type)))
 
       e <- merge(e, mentions, by.x = "name", by.y = "content", all = TRUE)
 
+    } else {
+      ## for v1beta2 will also add sentiment_ ?
+      ## https://cloud.google.com/natural-language/docs/reference/rest/v1beta2/Entity#EntityMention
+      e <- cbind(e, data.frame(beginOffset = NA_integer_, type = NA_character_))
     }
 
     e <- as_tibble(e)
