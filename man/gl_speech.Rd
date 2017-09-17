@@ -5,7 +5,7 @@
 \title{Call Google Speech API}
 \usage{
 gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
-  "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"), sampleRateHertz = 16000L,
+  "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"), sampleRateHertz = NULL,
   languageCode = "en-US", maxAlternatives = 1L, profanityFilter = FALSE,
   speechContexts = NULL, asynch = FALSE)
 }
@@ -14,7 +14,7 @@ gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
 
 \item{encoding}{Encoding of audio data sent}
 
-\item{sampleRateHertz}{Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000}}
+\item{sampleRateHertz}{Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000} - will be guessed from file headers if left \code{NULL}}
 
 \item{languageCode}{Language of the supplied audio as a \code{BCP-47} language tag}
 

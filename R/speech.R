@@ -4,7 +4,7 @@
 #'
 #' @param audio_source File location of audio data, or Google Cloud Storage URI
 #' @param encoding Encoding of audio data sent
-#' @param sampleRateHertz Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000}
+#' @param sampleRateHertz Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000} - will be guessed from file headers if left \code{NULL}
 #' @param languageCode Language of the supplied audio as a \code{BCP-47} language tag
 #' @param maxAlternatives Maximum number of recognition hypotheses to be returned. \code{0-30}
 #' @param profanityFilter If \code{TRUE} will attempt to filter out profanities
@@ -77,7 +77,7 @@
 gl_speech <- function(audio_source,
                       encoding = c("LINEAR16","FLAC","MULAW","AMR",
                                    "AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
-                      sampleRateHertz = 16000L,
+                      sampleRateHertz = NULL,
                       languageCode = "en-US",
                       maxAlternatives = 1L,
                       profanityFilter = FALSE,
@@ -85,7 +85,6 @@ gl_speech <- function(audio_source,
                       asynch = FALSE){
 
   assert_that(is.string(audio_source),
-              is.numeric(sampleRateHertz),
               is.string(languageCode),
               is.numeric(maxAlternatives),
               is.logical(profanityFilter))

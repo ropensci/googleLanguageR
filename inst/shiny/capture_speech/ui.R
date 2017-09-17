@@ -1,34 +1,30 @@
 library(shiny)
 
-# Define UI for application that draws a histogram
 shinyUI(
   fluidPage(
     includeCSS("www/style.css"),
+    includeScript("www/main.js"),
+    includeScript("www/speech.js"),
+    includeScript("www/audiodisplay.js"),
 
-
-  # Application title
   titlePanel("Capture Speech"),
-  a("Adapted from Web Audio Demos", href="https://webaudiodemos.appspot.com/AudioRecorder/index.html"),
 
-  # Sidebar with a slider input for number of bins
+  a("Adapted from Web Audio Demos",
+    href="https://webaudiodemos.appspot.com/AudioRecorder/index.html"),
+
   sidebarLayout(
     sidebarPanel(
-      tags$div(id = "controls",
-        tags$img(id = "record", src = "mic128.png", onclick = "toggleRecording(this);"),
-        tags$a(tags$img(src="save.svg"), id = "save", href="#")
-      ),
-      textOutput("wav")
+      helpText("Click on the microphone to record, click again to send to Cloud Speech API"),
+      img(id = "record", src = "mic128.png", onclick = "toggleRecording(this);"),
+      div(id = "viz",
+          tags$canvas(id = "analyser"),
+          tags$canvas(id = "wavedisplay")
+      )
     ),
 
-    # Show a plot of the generated distribution
     mainPanel(
-      tags$div(id = "viz",
-        tags$canvas(id = "analyser"),
-        tags$canvas(id = "wavedisplay")
-      )
+      h3("Transcription"),
+      tableOutput("result_table")
     )
-  ),
-  includeScript("www/speech.js"),
-  includeScript("www/main.js"),
-  includeScript("www/audiodisplay.js")
+  )
 ))

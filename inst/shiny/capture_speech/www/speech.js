@@ -100,6 +100,7 @@ https://webaudiodemos.appspot.com/AudioRecorder/js/recorderjs/recorder.js
 
     worker.onmessage = function(e){
       var blob = e.data;
+      Shiny.onInputChange("audio", blob);
       currCallback(blob);
     }
 
@@ -108,10 +109,10 @@ https://webaudiodemos.appspot.com/AudioRecorder/js/recorderjs/recorder.js
   };
 
   Recorder.setupDownload = function(blob, filename){
-    var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    var link = document.getElementById("save");
-    link.href = url;
-    link.download = filename || 'output.wav';
+    //var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    //var link = document.getElementById("save");
+    //link.href = url;
+    //link.download = filename || 'output.wav';
   }
 
   window.Recorder = Recorder;
