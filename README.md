@@ -105,40 +105,21 @@ nlp_result <- gl_nlp(texts)
 str(nlp_result, max.level = 2)
 ```
 
-    ## List of 5
-    ##  $ sentences        :'data.frame':   2 obs. of  4 variables:
-    ##   ..$ content    : chr [1:2] "to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so" "I don't know how to make a text demo that is sensible"
-    ##   ..$ beginOffset: int [1:2] 0 0
-    ##   ..$ magnitude  : num [1:2] 0.5 0.3
-    ##   ..$ score      : num [1:2] 0.5 -0.3
-    ##  $ tokens           :'data.frame':   34 obs. of  17 variables:
-    ##   ..$ content       : chr [1:34] "to" "administer" "medicince" "to" ...
-    ##   ..$ beginOffset   : int [1:34] 0 3 14 24 27 35 38 49 51 56 ...
-    ##   ..$ tag           : chr [1:34] "PRT" "VERB" "NOUN" "ADP" ...
-    ##   ..$ aspect        : chr [1:34] "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" ...
-    ##   ..$ case          : chr [1:34] "CASE_UNKNOWN" "CASE_UNKNOWN" "CASE_UNKNOWN" "CASE_UNKNOWN" ...
-    ##   ..$ form          : chr [1:34] "FORM_UNKNOWN" "FORM_UNKNOWN" "FORM_UNKNOWN" "FORM_UNKNOWN" ...
-    ##   ..$ gender        : chr [1:34] "GENDER_UNKNOWN" "GENDER_UNKNOWN" "GENDER_UNKNOWN" "GENDER_UNKNOWN" ...
-    ##   ..$ mood          : chr [1:34] "MOOD_UNKNOWN" "MOOD_UNKNOWN" "MOOD_UNKNOWN" "MOOD_UNKNOWN" ...
-    ##   ..$ number        : chr [1:34] "NUMBER_UNKNOWN" "NUMBER_UNKNOWN" "SINGULAR" "NUMBER_UNKNOWN" ...
-    ##   ..$ person        : chr [1:34] "PERSON_UNKNOWN" "PERSON_UNKNOWN" "PERSON_UNKNOWN" "PERSON_UNKNOWN" ...
-    ##   ..$ proper        : chr [1:34] "PROPER_UNKNOWN" "PROPER_UNKNOWN" "PROPER_UNKNOWN" "PROPER_UNKNOWN" ...
-    ##   ..$ reciprocity   : chr [1:34] "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" ...
-    ##   ..$ tense         : chr [1:34] "TENSE_UNKNOWN" "TENSE_UNKNOWN" "TENSE_UNKNOWN" "TENSE_UNKNOWN" ...
-    ##   ..$ voice         : chr [1:34] "VOICE_UNKNOWN" "VOICE_UNKNOWN" "VOICE_UNKNOWN" "VOICE_UNKNOWN" ...
-    ##   ..$ headTokenIndex: int [1:34] 1 5 1 1 3 5 5 10 9 10 ...
-    ##   ..$ label         : chr [1:34] "AUX" "CSUBJ" "DOBJ" "PREP" ...
-    ##   ..$ value         : chr [1:34] "to" "administer" "medicince" "to" ...
-    ##  $ entities         :Classes 'tbl_df', 'tbl' and 'data.frame':   4 obs. of  5 variables:
-    ##   ..$ name        : chr [1:4] "animals" "matter" "medicince" "text demo"
-    ##   ..$ type        : chr [1:4] "OTHER" "OTHER" "OTHER" "WORK_OF_ART"
-    ##   ..$ salience    : num [1:4] 0.245 0.232 0.523 1
-    ##   ..$ beginOffset : int [1:4] 27 66 14 27
-    ##   ..$ mention_type: chr [1:4] "COMMON" "COMMON" "COMMON" "COMMON"
+    ## List of 6
+    ##  $ sentences        :List of 2
+    ##   ..$ :'data.frame': 1 obs. of  4 variables:
+    ##   ..$ :'data.frame': 1 obs. of  4 variables:
+    ##  $ tokens           :List of 2
+    ##   ..$ :'data.frame': 21 obs. of  17 variables:
+    ##   ..$ :'data.frame': 13 obs. of  17 variables:
+    ##  $ entities         :List of 2
+    ##   ..$ :Classes 'tbl_df', 'tbl' and 'data.frame': 3 obs. of  9 variables:
+    ##   ..$ :Classes 'tbl_df', 'tbl' and 'data.frame': 1 obs. of  9 variables:
+    ##  $ language         : chr [1:2] "en" "en"
+    ##  $ text             : chr [1:2] "to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so" "I don't know how to make a text demo that is sensible"
     ##  $ documentSentiment:Classes 'tbl_df', 'tbl' and 'data.frame':   2 obs. of  2 variables:
     ##   ..$ magnitude: num [1:2] 0.5 0.3
     ##   ..$ score    : num [1:2] 0.5 -0.3
-    ##  $ language         : chr [1:2] "en" "en"
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/nlp.html) or via `vignette("nlp", package = "googleLanguageR")`
 
@@ -155,7 +136,7 @@ text <- "to administer medicince to animals is frequently a very difficult matte
 gl_translate(text, target = "da")$translatedText
 ```
 
-    ## [1] "At administrere medicince til dyr er ofte en meget vanskelig sag, og dog er det undertiden nødvendigt at gøre det"
+    ## [1] "at administrere medicince til dyr er ofte en meget vanskelig sag, og dog er det nogle gange nødvendigt at gøre det"
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/translation.html) or via `vignette("translate", package = "googleLanguageR")`
 
@@ -178,6 +159,6 @@ test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 gl_speech(test_audio)$transcript
 ```
 
-    ## [1] "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so"
+    ## [1] "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`

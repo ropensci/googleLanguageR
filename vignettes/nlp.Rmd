@@ -31,22 +31,104 @@ texts <- c("to administer medicince to animals is frequently a very difficult ma
          and yet sometimes it's necessary to do so", 
          "I don't know how to make a text demo that is sensible")
 nlp_result <- gl_nlp(texts)
+```
 
-# two results of lists of tibbles
+Each text has its own entry in returned tibbles
+
+```r
 str(nlp_result, max.level = 2)
+#List of 6
+# $ sentences        :List of 2
+#  ..$ :'data.frame':	1 obs. of  4 variables:
+#  ..$ :'data.frame':	1 obs. of  4 variables:
+# $ tokens           :List of 2
+#  ..$ :'data.frame':	21 obs. of  17 variables:
+#  ..$ :'data.frame':	13 obs. of  17 variables:
+# $ entities         :List of 2
+#  ..$ :Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	3 obs. of  9 variables:
+#  ..$ :Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	1 obs. of  9 variables:
+# $ language         : chr [1:2] "en" "en"
+# $ text             : chr [1:2] "to administer medicince to animals is frequently a very difficult matter,\n   #      and yet sometimes it's necessary to do so" "I don't know how to make a text demo that is sensible"
+# $ documentSentiment:Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	2 obs. of  2 variables:
+#  ..$ magnitude: num [1:2] 0.5 0.3
+#  ..$ score    : num [1:2] 0.5 -0.3
+```
 
-## get first return
-nlp <- nlp_result[[1]]
-nlp$sentences
+Sentence structure and sentiment:
 
-nlp2 <- nlp_result[[2]]
-nlp2$sentences
+```r
+## sentences structure
+nlp_result$sentences[[2]]
+#                                                content beginOffset magnitude score
+#1 I don't know how to make a text demo that is sensible           0       0.3  -0.3
+```
 
-nlp2$tokens
+Information on what words (tokens) are within each text:
 
-nlp2$entities
+```r
+# word tokens data
+str(nlp_result$tokens[[1]])
+#'data.frame':	6 obs. of  17 variables:
+# $ content       : chr  "to" "administer" "medicince" "to" ...
+# $ beginOffset   : int  0 3 14 24 27 35
+# $ tag           : chr  "PRT" "VERB" "NOUN" "ADP" ...
+# $ aspect        : chr  "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" ...
+# $ case          : chr  "CASE_UNKNOWN" "CASE_UNKNOWN" "CASE_UNKNOWN" "CASE_UNKNOWN" ...
+# $ form          : chr  "FORM_UNKNOWN" "FORM_UNKNOWN" "FORM_UNKNOWN" "FORM_UNKNOWN" ...
+# $ gender        : chr  "GENDER_UNKNOWN" "GENDER_UNKNOWN" "GENDER_UNKNOWN" "GENDER_UNKNOWN" ...
+# $ mood          : chr  "MOOD_UNKNOWN" "MOOD_UNKNOWN" "MOOD_UNKNOWN" "MOOD_UNKNOWN" ...
+# $ number        : chr  "NUMBER_UNKNOWN" "NUMBER_UNKNOWN" "SINGULAR" "NUMBER_UNKNOWN" ...
+# $ person        : chr  "PERSON_UNKNOWN" "PERSON_UNKNOWN" "PERSON_UNKNOWN" "PERSON_UNKNOWN" ...
+# $ proper        : chr  "PROPER_UNKNOWN" "PROPER_UNKNOWN" "PROPER_UNKNOWN" "PROPER_UNKNOWN" ...
+# $ reciprocity   : chr  "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" #...
+# $ tense         : chr  "TENSE_UNKNOWN" "TENSE_UNKNOWN" "TENSE_UNKNOWN" "TENSE_UNKNOWN" ...
+# $ voice         : chr  "VOICE_UNKNOWN" "VOICE_UNKNOWN" "VOICE_UNKNOWN" "VOICE_UNKNOWN" ...
+# $ headTokenIndex: int  1 5 1 1 3 5
+# $ label         : chr  "AUX" "CSUBJ" "DOBJ" "PREP" ...
+# $ value         : chr  "to" "administer" "medicince" "to" ...
+```
 
-nlp2$documentSentiment
+What entities within text have been identified, with optional wikipedia URL if its available.
 
-nlp2$language
+```r
+nlp_result$entities
+#[[1]]
+# A tibble: 3 x 9
+#       name  type  salience    mid wikipedia_url magnitude score beginOffset mention_type
+#      <chr> <chr>     <dbl> <fctr>        <fctr>     <dbl> <dbl>       <int>        <chr>
+#1   animals OTHER 0.2449778   <NA>          <NA>        NA    NA          27       COMMON
+#2    matter OTHER 0.2318689   <NA>          <NA>        NA    NA          66       COMMON
+#3 medicince OTHER 0.5231533   <NA>          <NA>        NA    NA          14       COMMON
+
+#[[2]]
+# A tibble: 1 x 9
+#       name        type salience    mid wikipedia_url magnitude score beginOffset mention_type
+#      <chr>       <chr>    <int> <fctr>        <fctr>     <dbl> <dbl>       <int>        <chr>
+#1 text demo WORK_OF_ART        1   <NA>          <NA>        NA    NA          27       COMMON
+```
+
+Sentiment of the entire text:
+
+```r
+nlp_result$documentSentiment
+# A tibble: 2 x 2
+  magnitude score
+      <dbl> <dbl>
+1       0.5   0.5
+2       0.3  -0.3
+```
+
+The language for the text:
+
+```r
+nlp_result$language
+# [1] "en" "en"
+```
+
+The original passed in text, to aid with working with the output:
+
+```r
+nlp_result$text
+# [1] "to administer medicince to animals is frequently a very difficult matter,\n         and yet sometimes  it's necessary to do so"
+# [2] "I don't know how to make a text demo that is sensible"  
 ```

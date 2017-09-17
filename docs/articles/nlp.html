@@ -99,7 +99,7 @@
       <h1>Google Natural Language API</h1>
                         <h4 class="author">Mark Edmondson</h4>
             
-            <h4 class="date">2017-08-31</h4>
+            <h4 class="date">2017-09-17</h4>
           </div>
 
     
@@ -125,25 +125,79 @@
 texts &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"to administer medicince to animals is frequently a very difficult matter,</span>
 <span class="st">         and yet sometimes it's necessary to do so"</span>, 
          <span class="st">"I don't know how to make a text demo that is sensible"</span>)
-nlp_result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gl_nlp.html">gl_nlp</a></span>(texts)
+nlp_result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gl_nlp.html">gl_nlp</a></span>(texts)</code></pre></div>
+<p>Each text has its own entry in returned tibbles</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(nlp_result, <span class="dt">max.level =</span> <span class="dv">2</span>)
+<span class="co">#List of 6</span>
+<span class="co"># $ sentences        :List of 2</span>
+<span class="co">#  ..$ :'data.frame':   1 obs. of  4 variables:</span>
+<span class="co">#  ..$ :'data.frame':   1 obs. of  4 variables:</span>
+<span class="co"># $ tokens           :List of 2</span>
+<span class="co">#  ..$ :'data.frame':   21 obs. of  17 variables:</span>
+<span class="co">#  ..$ :'data.frame':   13 obs. of  17 variables:</span>
+<span class="co"># $ entities         :List of 2</span>
+<span class="co">#  ..$ :Classes ‘tbl_df’, ‘tbl’ and 'data.frame':   3 obs. of  9 variables:</span>
+<span class="co">#  ..$ :Classes ‘tbl_df’, ‘tbl’ and 'data.frame':   1 obs. of  9 variables:</span>
+<span class="co"># $ language         : chr [1:2] "en" "en"</span>
+<span class="co"># $ text             : chr [1:2] "to administer medicince to animals is frequently a very difficult matter,\n   #      and yet sometimes it's necessary to do so" "I don't know how to make a text demo that is sensible"</span>
+<span class="co"># $ documentSentiment:Classes ‘tbl_df’, ‘tbl’ and 'data.frame': 2 obs. of  2 variables:</span>
+<span class="co">#  ..$ magnitude: num [1:2] 0.5 0.3</span>
+<span class="co">#  ..$ score    : num [1:2] 0.5 -0.3</span></code></pre></div>
+<p>Sentence structure and sentiment:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## sentences structure
+nlp_result$sentences[[<span class="dv">2</span>]]
+<span class="co">#                                                content beginOffset magnitude score</span>
+<span class="co">#1 I don't know how to make a text demo that is sensible           0       0.3  -0.3</span></code></pre></div>
+<p>Information on what words (tokens) are within each text:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># word tokens data</span>
+<span class="kw">str</span>(nlp_result$tokens[[<span class="dv">1</span>]])
+<span class="co">#'data.frame':  6 obs. of  17 variables:</span>
+<span class="co"># $ content       : chr  "to" "administer" "medicince" "to" ...</span>
+<span class="co"># $ beginOffset   : int  0 3 14 24 27 35</span>
+<span class="co"># $ tag           : chr  "PRT" "VERB" "NOUN" "ADP" ...</span>
+<span class="co"># $ aspect        : chr  "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" "ASPECT_UNKNOWN" ...</span>
+<span class="co"># $ case          : chr  "CASE_UNKNOWN" "CASE_UNKNOWN" "CASE_UNKNOWN" "CASE_UNKNOWN" ...</span>
+<span class="co"># $ form          : chr  "FORM_UNKNOWN" "FORM_UNKNOWN" "FORM_UNKNOWN" "FORM_UNKNOWN" ...</span>
+<span class="co"># $ gender        : chr  "GENDER_UNKNOWN" "GENDER_UNKNOWN" "GENDER_UNKNOWN" "GENDER_UNKNOWN" ...</span>
+<span class="co"># $ mood          : chr  "MOOD_UNKNOWN" "MOOD_UNKNOWN" "MOOD_UNKNOWN" "MOOD_UNKNOWN" ...</span>
+<span class="co"># $ number        : chr  "NUMBER_UNKNOWN" "NUMBER_UNKNOWN" "SINGULAR" "NUMBER_UNKNOWN" ...</span>
+<span class="co"># $ person        : chr  "PERSON_UNKNOWN" "PERSON_UNKNOWN" "PERSON_UNKNOWN" "PERSON_UNKNOWN" ...</span>
+<span class="co"># $ proper        : chr  "PROPER_UNKNOWN" "PROPER_UNKNOWN" "PROPER_UNKNOWN" "PROPER_UNKNOWN" ...</span>
+<span class="co"># $ reciprocity   : chr  "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" "RECIPROCITY_UNKNOWN" #...</span>
+<span class="co"># $ tense         : chr  "TENSE_UNKNOWN" "TENSE_UNKNOWN" "TENSE_UNKNOWN" "TENSE_UNKNOWN" ...</span>
+<span class="co"># $ voice         : chr  "VOICE_UNKNOWN" "VOICE_UNKNOWN" "VOICE_UNKNOWN" "VOICE_UNKNOWN" ...</span>
+<span class="co"># $ headTokenIndex: int  1 5 1 1 3 5</span>
+<span class="co"># $ label         : chr  "AUX" "CSUBJ" "DOBJ" "PREP" ...</span>
+<span class="co"># $ value         : chr  "to" "administer" "medicince" "to" ...</span></code></pre></div>
+<p>What entities within text have been identified, with optional wikipedia URL if its available.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlp_result$entities
+<span class="co">#[[1]]</span>
+<span class="co"># A tibble: 3 x 9</span>
+<span class="co">#       name  type  salience    mid wikipedia_url magnitude score beginOffset mention_type</span>
+<span class="co">#      &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;fctr&gt;        &lt;fctr&gt;     &lt;dbl&gt; &lt;dbl&gt;       &lt;int&gt;        &lt;chr&gt;</span>
+<span class="co">#1   animals OTHER 0.2449778   &lt;NA&gt;          &lt;NA&gt;        NA    NA          27       COMMON</span>
+<span class="co">#2    matter OTHER 0.2318689   &lt;NA&gt;          &lt;NA&gt;        NA    NA          66       COMMON</span>
+<span class="co">#3 medicince OTHER 0.5231533   &lt;NA&gt;          &lt;NA&gt;        NA    NA          14       COMMON</span>
 
-<span class="co"># two results of lists of tibbles</span>
-<span class="kw">str</span>(nlp_result, <span class="dt">max.level =</span> <span class="dv">2</span>)
-
-## get first return
-nlp &lt;-<span class="st"> </span>nlp_result[[<span class="dv">1</span>]]
-nlp$sentences
-
-nlp2 &lt;-<span class="st"> </span>nlp_result[[<span class="dv">2</span>]]
-nlp2$sentences
-
-nlp2$tokens
-
-nlp2$entities
-
-nlp2$documentSentiment
-
-nlp2$language</code></pre></div>
+<span class="co">#[[2]]</span>
+<span class="co"># A tibble: 1 x 9</span>
+<span class="co">#       name        type salience    mid wikipedia_url magnitude score beginOffset mention_type</span>
+<span class="co">#      &lt;chr&gt;       &lt;chr&gt;    &lt;int&gt; &lt;fctr&gt;        &lt;fctr&gt;     &lt;dbl&gt; &lt;dbl&gt;       &lt;int&gt;        &lt;chr&gt;</span>
+<span class="co">#1 text demo WORK_OF_ART        1   &lt;NA&gt;          &lt;NA&gt;        NA    NA          27       COMMON</span></code></pre></div>
+<p>Sentiment of the entire text:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlp_result$documentSentiment
+<span class="co"># A tibble: 2 x 2</span>
+  magnitude score
+      &lt;dbl&gt;<span class="st"> </span><span class="er">&lt;</span>dbl&gt;
+<span class="dv">1</span>       <span class="fl">0.5</span>   <span class="fl">0.5</span>
+<span class="dv">2</span>       <span class="fl">0.3</span>  -<span class="fl">0.3</span></code></pre></div>
+<p>The language for the text:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlp_result$language
+<span class="co"># [1] "en" "en"</span></code></pre></div>
+<p>The original passed in text, to aid with working with the output:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nlp_result$text
+<span class="co"># [1] "to administer medicince to animals is frequently a very difficult matter,\n         and yet sometimes  it's necessary to do so"</span>
+<span class="co"># [2] "I don't know how to make a text demo that is sensible"  </span></code></pre></div>
 </div>
 </div>
   </div>
