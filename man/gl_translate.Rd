@@ -19,7 +19,8 @@ gl_translate(t_string, target = "en", format = c("text", "html"),
 \item{model}{What translation model to use}
 }
 \value{
-A tibble of \code{translatedText} and \code{detectedSourceLanguage} and \code{text} of length equal to the vector of text you passed in.
+A tibble of \code{translatedText} and \code{detectedSourceLanguage}
+  and \code{text} of length equal to the vector of text you passed in.
 }
 \description{
 Translate character vectors via the Google Translate API
@@ -30,9 +31,13 @@ You can translate a vector of strings, although if too many for one call then it
   This is the same cost as charging is per character translated, but will take longer.
 
 If translating HTML set the \code{format = "html"}.
-Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts. See example on how to do this with \code{rvest}
+Consider removing anything not needed to be translated first,
+  such as JavaScript and CSS scripts. See example on how to do this with \code{rvest}
 
-The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager \code{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
+The API limits in three ways: characters per day, characters per 100 seconds,
+  and API requests per 100 seconds.
+All can be set in the API manager
+  \url{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 }
 \examples{
 
@@ -49,7 +54,8 @@ library(googleLanguageR)
 
 # translate webpages
 
-my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
+# dr.dk article
+my_url <- "http://bit.ly/2yhrmrH"
 
 ## in this case the content to translate is in css selector '.wcms-article-content'
 read_html(my_url) \%>\%

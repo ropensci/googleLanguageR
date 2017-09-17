@@ -156,7 +156,8 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble of <code>translatedText</code> and <code>detectedSourceLanguage</code> and <code>text</code> of length equal to the vector of text you passed in.</p>
+    <p>A tibble of <code>translatedText</code> and <code>detectedSourceLanguage</code>
+  and <code>text</code> of length equal to the vector of text you passed in.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -164,8 +165,12 @@
   broken up into one API call per element.
   This is the same cost as charging is per character translated, but will take longer.</p>
 <p>If translating HTML set the <code>format = "html"</code>.
-Consider removing anything not needed to be translated first, such as JavaScript and CSS scripts. See example on how to do this with <code>rvest</code></p>
-<p>The API limits in three ways: characters per day, characters per 100 seconds, and API requests per 100 seconds. All can be set in the API manager <code>https://console.developers.google.com/apis/api/translate.googleapis.com/quotas</code></p>
+Consider removing anything not needed to be translated first,
+  such as JavaScript and CSS scripts. See example on how to do this with <code>rvest</code></p>
+<p>The API limits in three ways: characters per day, characters per 100 seconds,
+  and API requests per 100 seconds.
+All can be set in the API manager
+  <a href='https://console.developers.google.com/apis/api/translate.googleapis.com/quotas'>https://console.developers.google.com/apis/api/translate.googleapis.com/quotas</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -188,7 +193,8 @@ Consider removing anything not needed to be translated first, such as JavaScript
 
 <span class='co'># translate webpages</span>
 
-<span class='no'>my_url</span> <span class='kw'>&lt;-</span> <span class='st'>"http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"</span>
+<span class='co'># dr.dk article</span>
+<span class='no'>my_url</span> <span class='kw'>&lt;-</span> <span class='st'>"http://bit.ly/2yhrmrH"</span>
 
 <span class='co'>## in this case the content to translate is in css selector '.wcms-article-content'</span>
 <span class='fu'>read_html</span>(<span class='no'>my_url</span>) <span class='kw'>%&gt;%</span>

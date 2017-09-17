@@ -1,4 +1,4 @@
-#' Perform Natural Language Analysis on text
+#' Perform Natural Language Analysis
 #'
 #' Analyse text entities, sentiment, and syntax using the Google Natural Language API
 #'
@@ -17,11 +17,9 @@
 #' Encoding type can usually be left at default \code{UTF8}.
 #'   \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}{Read more here}
 #'
-#' Set \code{options(googleAuthR.verbose)} to 2 or less to see more verbose API feedback.
-#'
 #' The current language support is available \href{https://cloud.google.com/natural-language/docs/languages}{here}
 #'
-#' @return A list of length equal to the number of elements in \code{string}, each element of which is a list of tibbles of the following objects, if those fields are asked for via \code{nlp_type}:
+#' @return A list of the following objects, if those fields are asked for via \code{nlp_type}:
 #'
 #' \itemize{
 #'  \item{sentences - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentence}{Sentences in the input document}}
@@ -41,9 +39,8 @@
 #'
 #' text <- "to administer medicince to animals is frequently a very difficult matter,
 #'   and yet sometimes it's necessary to do so"
-#' nlp_result <- gl_nlp(text)
+#' nlp <- gl_nlp(text)
 #'
-#' nlp <- nlp_result[[1]]
 #' nlp$sentences
 #'
 #' nlp$tokens

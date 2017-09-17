@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Perform Natural Language Analysis on text — gl_nlp • googleLanguageR</title>
+<title>Perform Natural Language Analysis — gl_nlp • googleLanguageR</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -119,7 +119,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Perform Natural Language Analysis on text</h1>
+    <h1>Perform Natural Language Analysis</h1>
     </div>
 
     
@@ -130,7 +130,7 @@
   <span class='st'>"analyzeSentiment"</span>, <span class='st'>"analyzeSyntax"</span>, <span class='st'>"analyzeEntitySentiment"</span>),
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"PLAIN_TEXT"</span>, <span class='st'>"HTML"</span>), <span class='kw'>language</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"en"</span>, <span class='st'>"zh"</span>, <span class='st'>"zh-Hant"</span>, <span class='st'>"fr"</span>,
   <span class='st'>"de"</span>, <span class='st'>"it"</span>, <span class='st'>"ja"</span>, <span class='st'>"ko"</span>, <span class='st'>"pt"</span>, <span class='st'>"es"</span>), <span class='kw'>encodingType</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"UTF8"</span>, <span class='st'>"UTF16"</span>,
-  <span class='st'>"UTF32"</span>, <span class='st'>"NONE"</span>), <span class='kw'>version</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"v1"</span>, <span class='st'>"v1beta2"</span>, <span class='st'>"v1beta1"</span>))</pre>
+  <span class='st'>"UTF32"</span>, <span class='st'>"NONE"</span>), <span class='kw'>version</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"v1"</span>, <span class='st'>"v1beta2"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -163,7 +163,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of length equal to the number of elements in <code>string</code>, each element of which is a list of tibbles of the following objects, if those fields are asked for via <code>nlp_type</code>:</p><ul>
+    <p>A list of the following objects, if those fields are asked for via <code>nlp_type</code>:</p><ul>
 <li><p>sentences - <a href='https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentence'>Sentences in the input document</a></p></li>
 <li><p>tokens - <a href='https://cloud.google.com/natural-language/docs/reference/rest/v1/Token'>Tokens, along with their syntactic information, in the input document</a></p></li>
 <li><p>entities - <a href='https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity'>Entities, along with their semantic information, in the input document</a></p></li>
@@ -179,7 +179,6 @@
   This URI must be of the form <code>gs://bucket_name/object_name</code></p>
 <p>Encoding type can usually be left at default <code>UTF8</code>.
   <a href='https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType'>Read more here</a></p>
-<p>Set <code>options(googleAuthR.verbose)</code> to 2 or less to see more verbose API feedback.</p>
 <p>The current language support is available <a href='https://cloud.google.com/natural-language/docs/languages'>here</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -192,9 +191,8 @@
 </div><span class='co'># NOT RUN {</span>
 <span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='st'>"to administer medicince to animals is frequently a very difficult matter,
   and yet sometimes it's necessary to do so"</span>
-<span class='no'>nlp_result</span> <span class='kw'>&lt;-</span> <span class='fu'>gl_nlp</span>(<span class='no'>text</span>)
+<span class='no'>nlp</span> <span class='kw'>&lt;-</span> <span class='fu'>gl_nlp</span>(<span class='no'>text</span>)
 
-<span class='no'>nlp</span> <span class='kw'>&lt;-</span> <span class='no'>nlp_result</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 <span class='no'>nlp</span>$<span class='no'>sentences</span>
 
 <span class='no'>nlp</span>$<span class='no'>tokens</span>
