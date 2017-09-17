@@ -76,9 +76,13 @@ gl_nlp <- function(string,
                    language = c("en", "zh","zh-Hant","fr","de",
                                 "it","ja","ko","pt","es"),
                    encodingType = c("UTF8","UTF16","UTF32","NONE"),
-                   version = c("v1", "v1beta2", "v1beta1")){
+                   version = c("v1", "v1beta2")){
 
-  version <- match.arg(version)
+  nlp_type      <- match.arg(nlp_type)
+  type          <- match.arg(type)
+  language      <- match.arg(language)
+  encodingType  <- match.arg(encodingType)
+  version       <- match.arg(version)
 
   if(nlp_type == "analyzeEntitySentiment" && version != "v1beta2"){
     my_message("Setting version to 'v1beta2' to support analyzeEntitySentiment", level = 3)
