@@ -93,9 +93,11 @@ gl_translate_detect <- function(string){
                                 data_parse_function = function(x) Reduce(rbind,
                                                                          x$data$detections))
 
+  catch_errors <- "Too many text segments|Request payload size exceeds the limit|Text too long"
+
   me <- tryCatch(call_api(the_body = pars),
                  error = function(ex){
-                   if(grepl("Too many text segments|Request payload size exceeds the limit", ex$message)){
+                   if(grepl(catch_errors, ex$message)){
                      my_message("Attempting to split into several API calls", level = 3)
                      Reduce(rbind, lapply(string, gl_translate_detect))
                    }
@@ -210,6 +212,7 @@ gl_translate <- function(t_string,
                                 data_parse_function = function(x) x$data$translations)
 
   catch_errors <- "Too many text segments|Request payload size exceeds the limit|Text too long"
+
   me <- tryCatch(call_api(the_body = pars),
                  error = function(ex){
                    if(grepl(catch_errors,

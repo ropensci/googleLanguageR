@@ -137,7 +137,7 @@ gl_speech <- function(audio_source,
 # parse normal speech call responses
 parse_speech <- function(x) as_tibble(x$results$alternatives[[1]])
 
-# parse asynchrnous speech calls responses
+# parse asynchronous speech calls responses
 parse_async <- function(x) structure(x, class = "gl_speech_op")
 
 # pretty print of gl_speech_op
@@ -182,11 +182,7 @@ gl_speech_op <- function(operation){
     is.gl_speech_op(operation)
   )
 
-  api_url <- sprintf("https://speech.googleapis.com/v1/operations/%s", operation$name)
-
-
-
-  call_api <- gar_api_generator(api_url,
+  call_api <- gar_api_generator(sprintf("https://speech.googleapis.com/v1/operations/%s", operation$name),
                                 "GET",
                                 data_parse_function = parse_op)
   call_api()
