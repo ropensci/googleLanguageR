@@ -3,7 +3,7 @@ googleLanguageR - R client for the Google Translation API, Google Cloud Natural 
 Mark Edmondson
 8/10/2017
 
-[![CRAN](http://www.r-pkg.org/badges/version/googleLanguageR)](http://cran.r-project.org/package=googleLanguageR) [![Build Status](https://travis-ci.org/MarkEdmondson1234/googleLanguageR.png?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleLanguageR) [![codecov.io](http://codecov.io/github/MarkEdmondson1234/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/MarkEdmondson1234/googleLanguageR?branch=master) [![](https://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
+[![CRAN](http://www.r-pkg.org/badges/version/googleLanguageR)](http://cran.r-project.org/package=googleLanguageR) [![Build Status](https://travis-ci.org/ropensci/googleLanguageR.png?branch=master)](https://travis-ci.org/ropensci/googleLanguageR) [![codecov.io](http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/ropensci/googleLanguageR?branch=master) [![](https://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
 
 This package contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning/)
 
@@ -50,7 +50,7 @@ Installation
 -   [Google Cloud Speech API](https://console.cloud.google.com/apis/api/speech.googleapis.com/overview)
 
 1.  [Generate a service account credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) as a JSON file
-2.  Return to R, and install this library via `devtools::install_github("MarkEdmondson1234/googleLanguageR")`
+2.  Return to R, and install this library via `devtools::install_github("ropensci/googleLanguageR")`
 
 Usage
 -----
