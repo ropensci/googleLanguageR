@@ -1,7 +1,7 @@
 googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API and Google Cloud Speech API
 ================
 Mark Edmondson
-8/10/2017
+18/10/2017
 
 [![CRAN](http://www.r-pkg.org/badges/version/googleLanguageR)](http://cran.r-project.org/package=googleLanguageR) [![Build Status](https://travis-ci.org/ropensci/googleLanguageR.png?branch=master)](https://travis-ci.org/ropensci/googleLanguageR) [![codecov.io](http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/ropensci/googleLanguageR?branch=master) [![](https://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
 
