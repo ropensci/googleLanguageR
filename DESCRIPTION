@@ -2,8 +2,12 @@ Package: googleLanguageR
 Title: Call Google's Natural Language API, Cloud Translation API and Cloud Speech API from R
 Version: 0.0.0.9000
 Authors@R: c(person("Mark", "Edmondson", email = "r@sunholo.com", role = c("aut", "cre")),
-             person("Neal", "Richardson", email = "neal.p.richardson@gmail.com", role = "ctb"),
-            person("Julia", "Gustavsen", email = "j.gustavsen@gmail.com", role = "ctb") 
+             person("Neal", "Richardson", email = "neal.p.richardson@gmail.com", role = "rev",
+             comment = "Neal reviewed the package for ropensci, 
+               see https://github.com/ropensci/onboarding/issues/127"),
+             person("Julia", "Gustavsen", email = "j.gustavsen@gmail.com", role = "rev",
+             comment = "Julia reviewed the package for ropensci, 
+               see https://github.com/ropensci/onboarding/issues/127") 
                          )
 Description: Call 'Google Cloud' machine learning APIs for text and speech tasks.
   Call the 'Google Cloud Translation API' for detection and translation of text, 

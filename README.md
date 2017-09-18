@@ -162,3 +162,5 @@ gl_speech(test_audio)$transcript
     ## [1] "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
+
+[![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

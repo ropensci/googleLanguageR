@@ -10,10 +10,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 googleAuthR::gar_gce_auth()
 ```
 
-
 [![CRAN](http://www.r-pkg.org/badges/version/googleLanguageR)](http://cran.r-project.org/package=googleLanguageR)
-[![Build Status](https://travis-ci.org/MarkEdmondson1234/googleLanguageR.png?branch=master)](https://travis-ci.org/MarkEdmondson1234/googleLanguageR)
-[![codecov.io](http://codecov.io/github/MarkEdmondson1234/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/MarkEdmondson1234/googleLanguageR?branch=master)
+[![Build Status](https://travis-ci.org/ropensci/googleLanguageR.png?branch=master)](https://travis-ci.org/ropensci/googleLanguageR)
+[![codecov.io](http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/ropensci/googleLanguageR?branch=master)
 [![](https://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
 
 
@@ -56,7 +55,7 @@ Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
   - [Google Cloud Translation API](https://console.cloud.google.com/apis/api/translate.googleapis.com/overview)
   - [Google Cloud Speech API](https://console.cloud.google.com/apis/api/speech.googleapis.com/overview)
 4. [Generate a service account credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) as a JSON file
-5. Return to R, and install this library via `devtools::install_github("MarkEdmondson1234/googleLanguageR")`
+5. Return to R, and install this library via `devtools::install_github("ropensci/googleLanguageR")`
 
 ## Usage
 
@@ -148,3 +147,5 @@ gl_speech(test_audio)$transcript
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
 
+
+[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

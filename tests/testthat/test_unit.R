@@ -2,7 +2,7 @@ library(httptest)
 library(rvest)
 library(magrittr)
 
-.mockPaths(path.expand(file.path(getwd(),"mock")))
+.mockPaths(path.expand(file.path(getwd())))
 
 local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
