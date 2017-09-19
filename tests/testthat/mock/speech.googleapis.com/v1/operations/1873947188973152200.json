@@ -1,10 +1,10 @@
 {
-  "name": "6878035562101596820",
+  "name": "1873947188973152200",
   "metadata": {
     "@type": "type.googleapis.com/google.cloud.speech.v1.LongRunningRecognizeMetadata",
     "progressPercent": 100,
-    "startTime": "2017-08-31T16:40:49.462248Z",
-    "lastUpdateTime": "2017-08-31T16:40:52.425296Z"
+    "startTime": "2017-09-19T18:07:38.078549Z",
+    "lastUpdateTime": "2017-09-19T18:07:41.091057Z"
   },
   "done": true,
   "response": {
@@ -13,8 +13,8 @@
       {
         "alternatives": [
           {
-            "transcript": "to administer medicine to animals Is frequent very difficult matter and yet sometimes it's necessary to do so",
-            "confidence": 0.9288741,
+            "transcript": "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so",
+            "confidence": 0.9299278,
             "words": [
               {
                 "startTime": "0s",
@@ -53,11 +53,16 @@
               },
               {
                 "startTime": "2.600s",
-                "endTime": "3s",
+                "endTime": "2.700s",
+                "word": "give"
+              },
+              {
+                "startTime": "2.700s",
+                "endTime": "2.900s",
                 "word": "very"
               },
               {
-                "startTime": "3s",
+                "startTime": "2.900s",
                 "endTime": "3.300s",
                 "word": "difficult"
               },
