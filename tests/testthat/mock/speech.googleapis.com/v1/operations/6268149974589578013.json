@@ -1,0 +1,121 @@
+{
+  "name": "6268149974589578013",
+  "metadata": {
+    "@type": "type.googleapis.com/google.cloud.speech.v1.LongRunningRecognizeMetadata",
+    "progressPercent": 100,
+    "startTime": "2017-09-19T19:14:26.120084Z",
+    "lastUpdateTime": "2017-09-19T19:14:29.963438Z"
+  },
+  "done": true,
+  "response": {
+    "@type": "type.googleapis.com/google.cloud.speech.v1.LongRunningRecognizeResponse",
+    "results": [
+      {
+        "alternatives": [
+          {
+            "transcript": "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so",
+            "confidence": 0.92992926,
+            "words": [
+              {
+                "startTime": "0s",
+                "endTime": "0.200s",
+                "word": "to"
+              },
+              {
+                "startTime": "0.200s",
+                "endTime": "0.700s",
+                "word": "administer"
+              },
+              {
+                "startTime": "0.700s",
+                "endTime": "1.100s",
+                "word": "medicine"
+              },
+              {
+                "startTime": "1.100s",
+                "endTime": "1.400s",
+                "word": "to"
+              },
+              {
+                "startTime": "1.400s",
+                "endTime": "2s",
+                "word": "animals"
+              },
+              {
+                "startTime": "2s",
+                "endTime": "2.100s",
+                "word": "Is"
+              },
+              {
+                "startTime": "2.100s",
+                "endTime": "2.600s",
+                "word": "frequent"
+              },
+              {
+                "startTime": "2.600s",
+                "endTime": "2.700s",
+                "word": "give"
+              },
+              {
+                "startTime": "2.700s",
+                "endTime": "2.900s",
+                "word": "very"
+              },
+              {
+                "startTime": "2.900s",
+                "endTime": "3.300s",
+                "word": "difficult"
+              },
+              {
+                "startTime": "3.300s",
+                "endTime": "3.800s",
+                "word": "matter"
+              },
+              {
+                "startTime": "3.800s",
+                "endTime": "4.400s",
+                "word": "and"
+              },
+              {
+                "startTime": "4.400s",
+                "endTime": "4.600s",
+                "word": "yet"
+              },
+              {
+                "startTime": "4.600s",
+                "endTime": "4.900s",
+                "word": "sometimes"
+              },
+              {
+                "startTime": "4.900s",
+                "endTime": "5.400s",
+                "word": "it's"
+              },
+              {
+                "startTime": "5.400s",
+                "endTime": "5.500s",
+                "word": "necessary"
+              },
+              {
+                "startTime": "5.500s",
+                "endTime": "5.800s",
+                "word": "to"
+              },
+              {
+                "startTime": "5.800s",
+                "endTime": "6s",
+                "word": "do"
+              },
+              {
+                "startTime": "6s",
+                "endTime": "6.200s",
+                "word": "so"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "totalBilledTime": "15s"
+  }
+}

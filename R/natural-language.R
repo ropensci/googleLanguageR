@@ -81,11 +81,6 @@ gl_nlp <- function(string,
   encodingType  <- match.arg(encodingType)
   version       <- match.arg(version)
 
-  if(nlp_type == "analyzeEntitySentiment" && version != "v1beta2"){
-    my_message("Setting version to 'v1beta2' to support analyzeEntitySentiment", level = 3)
-    version <- "v1beta2"
-  }
-
   api_results <- map(string, gl_nlp_single,
       nlp_type = nlp_type,
       type = type,
