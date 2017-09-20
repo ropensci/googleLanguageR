@@ -3,7 +3,7 @@ googleLanguageR - R client for the Google Translation API, Google Cloud Natural 
 Mark Edmondson
 8/10/2017
 
-[![CRAN](http://www.r-pkg.org/badges/version/googleLanguageR)](http://cran.r-project.org/package=googleLanguageR) [![Build Status](https://travis-ci.org/ropensci/googleLanguageR.png?branch=master)](https://travis-ci.org/ropensci/googleLanguageR) [![codecov.io](http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/ropensci/googleLanguageR?branch=master) [![](https://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
+[![CRAN](https://www.r-pkg.org/badges/version/googleLanguageR)](https://cran.r-project.org/package=googleLanguageR) [![Build Status](https://travis-ci.org/ropensci/googleLanguageR.png?branch=master)](https://travis-ci.org/ropensci/googleLanguageR) [![codecov.io](http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/ropensci/googleLanguageR?branch=master) [![](https://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
 
 This package contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning/)
 
