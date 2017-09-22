@@ -50,7 +50,7 @@ Installation
 -   [Google Cloud Speech API](https://console.cloud.google.com/apis/api/speech.googleapis.com/overview)
 
 1.  [Generate a service account credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) as a JSON file
-2.  Return to R, and install this library via `devtools::install_github("ropensci/googleLanguageR")`
+2.  Return to R, and install the official release via `install.packages("googleLanguageR")`, or the development version with `devtools::install_github("ropensci/googleLanguageR")`
 
 Usage
 -----
@@ -131,12 +131,12 @@ You can detect the language via `gl_translate_detect`, or translate and detect l
 Note this is a lot more refined than the free version on Google's translation website.
 
 ``` r
-text <- "to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
+text <- "to administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
 ## translate British into Danish
 gl_translate(text, target = "da")$translatedText
 ```
 
-    ## [1] "at administrere medicince til dyr er ofte en meget vanskelig sag, og dog er det nogle gange nødvendigt at gøre det"
+    ## [1] "at administrere medicin til dyr er ofte en meget vanskelig sag, og dog er det undertiden nødvendigt at gøre det"
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/translation.html) or via `vignette("translate", package = "googleLanguageR")`
 
@@ -159,7 +159,7 @@ test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 gl_speech(test_audio)$transcript
 ```
 
-    ## [1] "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
+    ## [1] "to administer medicine to animals is freaking give very difficult matter and yet sometimes it's necessary to do so"
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
 
