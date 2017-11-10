@@ -159,7 +159,11 @@ test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 gl_speech(test_audio)$transcript
 ```
 
-    ## [1] "to administer medicine to animals Is frequent a very difficult matter and yet sometimes it's necessary to do so"
+    ## # A tibble: 1 x 2
+    ##                                                                    transcript
+    ##                                                                         <chr>
+    ## 1 to administer medicine to animals is freaking cute very difficult matter an
+    ## # ... with 1 more variables: confidence <chr>
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
 

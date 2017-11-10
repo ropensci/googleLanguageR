@@ -11,7 +11,8 @@
 #' @param speechContexts An optional character vector of context to assist the speech recognition
 #' @param asynch If your \code{audio_source} is greater than 60 seconds, set this to TRUE to return an asynchronous call
 #'
-#' @return A tibble of three columns: \code{transcript}, the \code{confidence} with the number of rows equal to the \code{maxAlternatives}; a list-column of word timestamps.  If \code{asynch} is TRUE, then an operation you will need to pass to \link{gl_speech_op} to get the finished result.
+#' @return A list of two tibbles:  \code{$transcript}, a tibble of the \code{transcript} with a \code{confidence}; \code{$timings}, a tibble that contains \code{startTime}, \code{endTime} per \code{word}.  If maxAlternatives is greater than 1, then the transcript will return near-duplicate rows with other interpretations of the text.
+#'  If \code{asynch} is TRUE, then an operation you will need to pass to \link{gl_speech_op} to get the finished result.
 #'
 #' @details
 #'
@@ -135,10 +136,25 @@ gl_speech <- function(audio_source,
 }
 
 # parse normal speech call responses
-parse_speech <- function(x) as_tibble(x$results$alternatives[[1]])
+parse_speech <- function(x){
+  if(!is.null(x$totalBilledTime)){
+    my_message("Total billed time: ", x$totalBilledTime, level = 3)
+  }
+
+  transcript <- my_map_df(x$results$alternatives, ~ as_tibble(cbind(transcript = .x$transcript, confidence = .x$confidence)))
+  timings    <- my_map_df(x$results$alternatives, ~ .x$words[[1]])
+
+  list(transcript = transcript, timings = timings)
+}
 
 # parse asynchronous speech calls responses
-parse_async <- function(x) structure(x, class = "gl_speech_op")
+parse_async <- function(x) {
+  if(!is.null(x$metadata$startTime)){
+    my_message("Speech transcription running - started at ", x$metadata$startTime,
+               " - last update: ", x$metadata$lastUpdateTime, level = 3)
+  }
+  structure(x, class = "gl_speech_op")
+}
 
 # pretty print of gl_speech_op
 print.gl_speech_op <- function(x, ...){

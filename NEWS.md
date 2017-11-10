@@ -1,6 +1,6 @@
 # 0.1.0.9000
 
-* ...
+* Fix bug where `gl_speech()` only returned first few seconds of translation when asynch (#23)
 
 # 0.1.0
 
