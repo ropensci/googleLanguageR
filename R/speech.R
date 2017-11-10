@@ -138,7 +138,7 @@ gl_speech <- function(audio_source,
 # parse normal speech call responses
 parse_speech <- function(x){
   if(!is.null(x$totalBilledTime)){
-    my_message("Total billed time: ", x$totalBilledTime, level = 3)
+    my_message("Speech transcription finished. Total billed time: ", x$totalBilledTime, level = 3)
   }
 
   transcript <- my_map_df(x$results$alternatives, ~ as_tibble(cbind(transcript = .x$transcript, confidence = .x$confidence)))
@@ -214,7 +214,6 @@ parse_op <- function(x){
       out <- parse_speech(x$response)
     }
   } else {
-    my_message("Operation still in progress", level = 3)
     out <- parse_async(x)
   }
 

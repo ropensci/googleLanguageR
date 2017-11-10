@@ -25,20 +25,20 @@ Arguments include:
 
 ### Returned structure
 
-The API returns a list of two data.frame tibbles - `transcript` and `words`.
+The API returns a list of two data.frame tibbles - `transcript` and `timings`.
 
-Access them via the return object and `$transcript` and `$words`
+Access them via the returned object and `$transcript` and `$timings`
 
 ```r
-gl_speech(test_audio, languageCode = "en-GB")
+return <- gl_speech(test_audio, languageCode = "en-GB")
 
-#$transcript
+return$transcript
 # A tibble: 1 x 2
 #                                                                                                         transcript confidence
 #                                                                                                              <chr>      <chr>
 #1 to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so  0.9711006
 
-#$timings
+return$timings
 #   startTime endTime       word
 #1         0s  0.100s         to
 #2     0.100s  0.700s administer
@@ -81,17 +81,12 @@ The API [supports timestamps](https://cloud.google.com/speech/reference/rest/v1/
 
 
 ```r
-> str(result)
-#List of 2
-# $ transcript:Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	1 obs. of  2 variables:
-#  ..$ transcript: chr "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary #to do so"
-#  ..$ confidence: chr "0.9711006"
-# $ timings   :'data.frame':	19 obs. of  3 variables:
-#  ..$ startTime: chr [1:19] "0s" "0.100s" "0.700s" "0.700s" ...
-#  ..$ endTime  : chr [1:19] "0.100s" "0.700s" "0.700s" "1.200s" ...
-#  ..$ word     : chr [1:19] "to" "administer" "medicine" "to" ...
+str(result$timings)
+#'data.frame':	152 obs. of  3 variables:
+# $ startTime: chr  "0s" "0.100s" "0.500s" "0.700s" ...
+# $ endTime  : chr  "0.100s" "0.500s" "0.700s" "0.900s" ...
+# $ word     : chr  "a" "Dream" "Within" "A" ...
 
-## extracting words
 result$timings
 #     startTime endTime       word
 #1          0s  0.100s          a

@@ -136,17 +136,17 @@
 <div id="returned-structure" class="section level3">
 <h3 class="hasAnchor">
 <a href="#returned-structure" class="anchor"></a>Returned structure</h3>
-<p>The API returns a list of two data.frame tibbles - <code>transcript</code> and <code>words</code>.</p>
-<p>Access them via the return object and <code>$transcript</code> and <code>$words</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>)
+<p>The API returns a list of two data.frame tibbles - <code>transcript</code> and <code>timings</code>.</p>
+<p>Access them via the returned object and <code>$transcript</code> and <code>$timings</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">return &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gl_speech.html">gl_speech</a></span>(test_audio, <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>)
 
-<span class="co">#$transcript</span>
+return<span class="op">$</span>transcript
 <span class="co"># A tibble: 1 x 2</span>
 <span class="co">#                                                                                                         transcript confidence</span>
 <span class="co">#                                                                                                              &lt;chr&gt;      &lt;chr&gt;</span>
 <span class="co">#1 to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so  0.9711006</span>
 
-<span class="co">#$timings</span>
+return<span class="op">$</span>timings
 <span class="co">#   startTime endTime       word</span>
 <span class="co">#1         0s  0.100s         to</span>
 <span class="co">#2     0.100s  0.700s administer</span>
@@ -183,17 +183,12 @@ test_audio &lt;-<span class="st"> </span><span class="kw">system.file</span>(<sp
 <h3 class="hasAnchor">
 <a href="#word-transcripts" class="anchor"></a>Word transcripts</h3>
 <p>The API <a href="https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo">supports timestamps</a> on when words are recognised. These are outputted into a second data.frame that holds three entries: <code>startTime</code>, <code>endTime</code> and the <code>word</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">str</span>(result)
-<span class="co">#List of 2</span>
-<span class="co"># $ transcript:Classes ‘tbl_df’, ‘tbl’ and 'data.frame':    1 obs. of  2 variables:</span>
-<span class="co">#  ..$ transcript: chr "to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary #to do so"</span>
-<span class="co">#  ..$ confidence: chr "0.9711006"</span>
-<span class="co"># $ timings   :'data.frame':    19 obs. of  3 variables:</span>
-<span class="co">#  ..$ startTime: chr [1:19] "0s" "0.100s" "0.700s" "0.700s" ...</span>
-<span class="co">#  ..$ endTime  : chr [1:19] "0.100s" "0.700s" "0.700s" "1.200s" ...</span>
-<span class="co">#  ..$ word     : chr [1:19] "to" "administer" "medicine" "to" ...</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(result<span class="op">$</span>timings)
+<span class="co">#'data.frame':  152 obs. of  3 variables:</span>
+<span class="co"># $ startTime: chr  "0s" "0.100s" "0.500s" "0.700s" ...</span>
+<span class="co"># $ endTime  : chr  "0.100s" "0.500s" "0.700s" "0.900s" ...</span>
+<span class="co"># $ word     : chr  "a" "Dream" "Within" "A" ...</span>
 
-## extracting words
 result<span class="op">$</span>timings
 <span class="co">#     startTime endTime       word</span>
 <span class="co">#1          0s  0.100s          a</span>
