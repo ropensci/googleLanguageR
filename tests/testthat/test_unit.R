@@ -113,7 +113,7 @@ with_mock_API({
 
   test_that("Speech recognise expected", {
     skip_on_cran()
-    skip_if_not(local_auth)
+
     test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
     result <- gl_speech(test_audio)
 
@@ -130,6 +130,8 @@ with_mock_API({
   })
 
   test_that("Speech asynch tests", {
+    skip_on_cran()
+
     test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
 
     async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
