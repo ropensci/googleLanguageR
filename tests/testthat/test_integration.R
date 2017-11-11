@@ -96,23 +96,28 @@ test_that("Speech recognise expected", {
 
   test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
 
-  expect_s3_class(result, "data.frame")
-  expect_equal(names(result), c("transcript","confidence","words"))
+  expect_true(inherits(result, "list"))
+  expect_true(all(names(result$transcript) %in% c("transcript","confidence","words")))
 
   ## the API call varies a bit, so it passes if within 10 characters of expected transscript
-  expect_true(stringdist::ain(result$transcript, test_result, maxDist = 10))
+  expect_true(stringdist::ain(result$transcript$transcript, test_result, maxDist = 10))
 
-  ## word trasscripts
-  unnested <- tidyr::unnest(result)
+  expect_equal(names(result$timings), c("startTime","endTime","word"))
 
-  expect_equal(names(unnested), c("transcript","confidence","startTime","endTime","word"))
+})
 
-  async <- gl_speech(test_audio, asynch = TRUE)
+test_that("Speech asynch tests", {
+  test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
+
+  async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
   expect_true(inherits(async, "gl_speech_op"))
 
+  Sys.sleep(45)
   result2 <- gl_speech_op(async)
-  expect_true(any(stringdist::ain(result2$transcript, test_result, maxDist = 10),
-                  inherits(async, "gl_speech_op")))
+  expect_true(stringdist::ain(result2$transcript$transcript[[1]],
+                              "a Dream Within A Dream Edgar Allan Poe",
+                              maxDist = 10))
+
 
 })
 

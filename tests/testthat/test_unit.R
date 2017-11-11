@@ -31,6 +31,9 @@ test_text <- "The cat sat on the mat"
 test_text2 <- "How much is that doggy in the window?"
 trans_text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
 expected <- "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former."
+
+test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
+
 # a lot of text
 lots <- rep(paste(html_result, trans_text, expected),35)
 
@@ -51,6 +54,7 @@ test_that("Record requests if online", {
       gl_translate_languages()
       gl_translate_detect(trans_text)
       gl_translate(trans_text)
+      async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
       # gl_translate(lots)
       gl_translate_languages("da")
       gl_translate(html_result, format = "html")
@@ -58,14 +62,12 @@ test_that("Record requests if online", {
     })
 
   ## wait for the operation jobs to finish
-  Sys.sleep(10)
+  Sys.sleep(45)
 
   capture_requests(
-    path = "mock", {
+    path = "..", {
       gl_speech_op(async)
     })
-
-
 
 })
 
@@ -111,28 +113,35 @@ with_mock_API({
 
   test_that("Speech recognise expected", {
     skip_on_cran()
+    skip_if_not(local_auth)
     test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
     result <- gl_speech(test_audio)
 
     test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
 
-    expect_s3_class(result, "data.frame")
-    expect_equal(names(result), c("transcript","confidence","words"))
+    expect_true(inherits(result, "list"))
+    expect_true(all(names(result$transcript) %in% c("transcript","confidence","words")))
 
     ## the API call varies a bit, so it passes if within 10 characters of expected transscript
-    expect_true(stringdist::ain(result$transcript, test_result, maxDist = 10))
+    expect_true(stringdist::ain(result$transcript$transcript, test_result, maxDist = 10))
 
-    ## word trasscripts
-    unnested <- tidyr::unnest(result)
+    expect_equal(names(result$timings), c("startTime","endTime","word"))
 
-    expect_equal(names(unnested), c("transcript","confidence","startTime","endTime","word"))
+  })
 
-    async <- gl_speech(test_audio, asynch = TRUE)
+  test_that("Speech asynch tests", {
+    test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
+
+    async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
     expect_true(inherits(async, "gl_speech_op"))
 
-    # result2 <- gl_speech_op(async)
-    # expect_true(any(stringdist::ain(result2$transcript, test_result, maxDist = 10),
-    #                 inherits(async, "gl_speech_op")))
+    Sys.sleep(45)
+    result2 <- gl_speech_op(async)
+    expect_true(stringdist::ain(result2$transcript$transcript[[1]],
+                                "a Dream Within A Dream Edgar Allan Poe",
+                                maxDist = 10))
+
+
   })
 
   context("Unit tests - Translation")

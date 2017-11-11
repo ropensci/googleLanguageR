@@ -3,8 +3,8 @@
     {
       "alternatives": [
         {
-          "transcript": "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so",
-          "confidence": 0.9299274,
+          "transcript": "to administer medicine to animals is freaking cute very difficult matter and yet sometimes it's necessary to do so",
+          "confidence": 0.907764,
           "words": [
             {
               "startTime": "0s",
@@ -34,30 +34,30 @@
             {
               "startTime": "2s",
               "endTime": "2.100s",
-              "word": "Is"
+              "word": "is"
             },
             {
               "startTime": "2.100s",
-              "endTime": "2.600s",
-              "word": "frequent"
+              "endTime": "2.500s",
+              "word": "freaking"
             },
             {
-              "startTime": "2.600s",
+              "startTime": "2.500s",
               "endTime": "2.700s",
-              "word": "give"
+              "word": "cute"
             },
             {
               "startTime": "2.700s",
-              "endTime": "2.900s",
+              "endTime": "3s",
               "word": "very"
             },
             {
-              "startTime": "2.900s",
-              "endTime": "3.300s",
+              "startTime": "3s",
+              "endTime": "3.200s",
               "word": "difficult"
             },
             {
-              "startTime": "3.300s",
+              "startTime": "3.200s",
               "endTime": "3.800s",
               "word": "matter"
             },
@@ -68,26 +68,26 @@
             },
             {
               "startTime": "4.400s",
-              "endTime": "4.600s",
+              "endTime": "4.500s",
               "word": "yet"
             },
             {
-              "startTime": "4.600s",
+              "startTime": "4.500s",
               "endTime": "4.900s",
               "word": "sometimes"
             },
             {
               "startTime": "4.900s",
-              "endTime": "5.400s",
+              "endTime": "5.300s",
               "word": "it's"
             },
             {
-              "startTime": "5.400s",
-              "endTime": "5.500s",
+              "startTime": "5.300s",
+              "endTime": "5.400s",
               "word": "necessary"
             },
             {
-              "startTime": "5.500s",
+              "startTime": "5.400s",
               "endTime": "5.800s",
               "word": "to"
             },
@@ -98,7 +98,7 @@
             },
             {
               "startTime": "6s",
-              "endTime": "6.200s",
+              "endTime": "6.100s",
               "word": "so"
             }
           ]

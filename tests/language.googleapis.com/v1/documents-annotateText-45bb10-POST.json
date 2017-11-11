@@ -168,7 +168,7 @@
       "name": "cat",
       "type": "OTHER",
       "metadata": {},
-      "salience": 0.6515189,
+      "salience": 0.65477216,
       "mentions": [
         {
           "text": {
@@ -183,7 +183,7 @@
       "name": "mat",
       "type": "OTHER",
       "metadata": {},
-      "salience": 0.34848115,
+      "salience": 0.3452278,
       "mentions": [
         {
           "text": {
@@ -199,5 +199,6 @@
     "magnitude": 0.1,
     "score": -0.1
   },
-  "language": "en"
+  "language": "en",
+  "categories": []
 }

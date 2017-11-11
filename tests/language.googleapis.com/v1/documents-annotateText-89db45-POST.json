@@ -240,25 +240,10 @@
   ],
   "entities": [
     {
-      "name": "much",
-      "type": "OTHER",
-      "metadata": {},
-      "salience": 0.641835,
-      "mentions": [
-        {
-          "text": {
-            "content": "much",
-            "beginOffset": 4
-          },
-          "type": "COMMON"
-        }
-      ]
-    },
-    {
       "name": "doggy",
       "type": "OTHER",
       "metadata": {},
-      "salience": 0.22168222,
+      "salience": 0.6130943,
       "mentions": [
         {
           "text": {
@@ -273,7 +258,7 @@
       "name": "window",
       "type": "OTHER",
       "metadata": {},
-      "salience": 0.13648279,
+      "salience": 0.38690576,
       "mentions": [
         {
           "text": {
@@ -289,5 +274,6 @@
     "magnitude": 0.1,
     "score": -0.1
   },
-  "language": "en"
+  "language": "en",
+  "categories": []
 }
