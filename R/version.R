@@ -1,4 +1,10 @@
 # used to specify the API endpoint - on GitHub beta, on CRAN, stable
-.glr <- new.env(parent = emptyenv())
-.glr$version <- "v1beta2"
+get_version <- function(){
+  if(grepl("\\.9...$", packageVersion("googleLanguageR"))){
+    version <- "v1beta2"
+  } else {
+    version <- "v1"
+  }
 
+  version
+}
