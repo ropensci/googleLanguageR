@@ -27,7 +27,8 @@ gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
 \item{asynch}{If your \code{audio_source} is greater than 60 seconds, set this to TRUE to return an asynchronous call}
 }
 \value{
-A tibble of three columns: \code{transcript}, the \code{confidence} with the number of rows equal to the \code{maxAlternatives}; a list-column of word timestamps.  If \code{asynch} is TRUE, then an operation you will need to pass to \link{gl_speech_op} to get the finished result.
+A list of two tibbles:  \code{$transcript}, a tibble of the \code{transcript} with a \code{confidence}; \code{$timings}, a tibble that contains \code{startTime}, \code{endTime} per \code{word}.  If maxAlternatives is greater than 1, then the transcript will return near-duplicate rows with other interpretations of the text.
+ If \code{asynch} is TRUE, then an operation you will need to pass to \link{gl_speech_op} to get the finished result.
 }
 \description{
 Turn audio into text
