@@ -8,7 +8,7 @@ local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
   cat("\nNo authentication file detected - skipping integration tests\n")
 } else {
-  cat("\nPerforming API calls for integration tests\n")
+  cat("\nFound local auth file\n")
 }
 
 on_travis <- Sys.getenv("CI") == "true"
