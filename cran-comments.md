@@ -5,17 +5,9 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 2 notes
-
-* This is a new release.
-
-* Possibly mis-spelled words in DESCRIPTION:
-  API (2:39, 2:62, 3:22)
-  APIs (13:51)
-  
-These are spelt correctly. 
+0 errors | 0 warnings | 0 notes
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+There are no reverse dependencies.
 
