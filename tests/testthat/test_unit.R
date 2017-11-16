@@ -8,7 +8,7 @@ local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
   cat("\nNo authentication file detected - skipping integration tests\n")
 } else {
-  cat("\nPerforming API calls for integration tests\n")
+  cat("\nFound local auth file\n")
 }
 
 on_travis <- Sys.getenv("CI") == "true"
@@ -19,13 +19,18 @@ if(on_travis){
 }
 
 ## Generate test text and audio
-
+context("Setup test files")
 # HTML testing
 my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
 
-html_result <- read_html(my_url) %>%
-  html_node(css = ".wcms-article-content") %>%
+
+html_result <- tryCatch({
+  rvest::read_html(my_url) %>%
+  rvest::html_node(css = ".wcms-article-content") %>%
   html_text
+  }, error = function(ex){
+    NULL
+  })
 
 test_text <- "The cat sat on the mat"
 test_text2 <- "How much is that doggy in the window?"
@@ -189,9 +194,13 @@ with_mock_API({
 
     expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
-    trans_result <- gl_translate(html_result, format = "html")
+    ## sometimes it can't get the HTML
+    if(!is.null(html_result)){
+      trans_result <- gl_translate(html_result, format = "html")
 
-    expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
+      expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
+
+    }
 
     # expect_equal(sum(nchar(lots)), 115745L)
     #

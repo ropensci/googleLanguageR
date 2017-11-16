@@ -7,7 +7,6 @@
 #' @param type Whether input text is plain text or a HTML page
 #' @param language Language of source, must be supported by API.
 #' @param encodingType Text encoding that the caller uses to process the output
-#' @param version the API version
 #'
 #' @details
 #'
@@ -72,14 +71,14 @@ gl_nlp <- function(string,
                    type = c("PLAIN_TEXT", "HTML"),
                    language = c("en", "zh","zh-Hant","fr","de",
                                 "it","ja","ko","pt","es"),
-                   encodingType = c("UTF8","UTF16","UTF32","NONE"),
-                   version = c("v1", "v1beta2")){
+                   encodingType = c("UTF8","UTF16","UTF32","NONE")){
 
   nlp_type      <- match.arg(nlp_type)
   type          <- match.arg(type)
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
-  version       <- match.arg(version)
+  # global env set in version.R
+  version       <- .glr$version
 
   api_results <- map(string, gl_nlp_single,
       nlp_type = nlp_type,
