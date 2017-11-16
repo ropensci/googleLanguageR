@@ -26,6 +26,7 @@
 #'  \item{entities - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{Entities, along with their semantic information, in the input document}}
 #'  \item{documentSentiment - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{The overall sentiment for the document}}
 #'  \item{language - }{The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language}
+#'  \item{categories - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1beta2/ClassificationCategory}{A category returned from the text classifier}}
 #'  \item{text - }{The original text passed into the API. \code{NA} if not passed due to being zero-length etc. }
 #' }
 #'
@@ -67,7 +68,8 @@ gl_nlp <- function(string,
                                 "analyzeEntities",
                                 "analyzeSentiment",
                                 "analyzeSyntax",
-                                "analyzeEntitySentiment"),
+                                "analyzeEntitySentiment",
+                                "classifyText"),
                    type = c("PLAIN_TEXT", "HTML"),
                    language = c("en", "zh","zh-Hant","fr","de",
                                 "it","ja","ko","pt","es"),
@@ -91,8 +93,9 @@ gl_nlp <- function(string,
   .x <- NULL
 
   ## map api_results so all nlp_types in own list
-  the_types    <- c("sentences", "tokens", "entities")
+  the_types    <- c("sentences", "tokens", "entities", "categories")
   the_types    <- setNames(the_types, the_types)
+
   ## create output shape
   out          <- map(the_types, ~ map(api_results, .x))
   out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
@@ -124,7 +127,8 @@ gl_nlp_single <- function(string,
                                        "analyzeEntities",
                                        "analyzeSentiment",
                                        "analyzeSyntax",
-                                       "analyzeEntitySentiment"),
+                                       "analyzeEntitySentiment",
+                                       "classifyText"),
                           type = c("PLAIN_TEXT", "HTML"),
                           language = c("en", "zh","zh-Hant","fr","de",
                                        "it","ja","ko","pt","es"),
@@ -173,13 +177,17 @@ gl_nlp_single <- function(string,
       features = list(
         extractSyntax = jubox(TRUE),
         extractEntities = jubox(TRUE),
-        extractDocumentSentiment = jubox(TRUE)
+        extractDocumentSentiment = jubox(TRUE),
+        extractEntitySentiment = jubox(TRUE)
       )))
 
     if(version == "v1beta2"){
-      body$features$extractEntitySentiment = jubox(TRUE)
+      ## beta request content here
+      body$features$classifyText = jubox(TRUE)
     }
   }
+
+  ## beta currently can't cope with this
 
   call_api <- gar_api_generator(call_url,
                                 "POST",
@@ -202,7 +210,7 @@ gl_nlp_single <- function(string,
 #' @noRd
 parse_nlp <- function(x){
 
-  s <- t <- e <- d <- NULL
+  s <- t <- e <- d <- cls <- NULL
 
   if(!is_empty(x$sentences)){
     s <- cbind(as_tibble(x$sentences$text),
@@ -255,12 +263,19 @@ parse_nlp <- function(x){
     d <- as_tibble(x$documentSentiment)
   }
 
+  if(!is_empty(x$categories)){
+    cls <- as_tibble(x$categories)
+  } else {
+    cls <- as_tibble(data.frame(name = NA_character_, confidence = NA_real_))
+  }
+
   compact(list(
     sentences = s,
     tokens = t,
     entities = e,
     documentSentiment = d,
-    language = x$language
+    language = x$language,
+    categories = cls
   ))
 
 

@@ -5,10 +5,10 @@
 \title{Perform Natural Language Analysis}
 \usage{
 gl_nlp(string, nlp_type = c("annotateText", "analyzeEntities",
-  "analyzeSentiment", "analyzeSyntax", "analyzeEntitySentiment"),
-  type = c("PLAIN_TEXT", "HTML"), language = c("en", "zh", "zh-Hant", "fr",
-  "de", "it", "ja", "ko", "pt", "es"), encodingType = c("UTF8", "UTF16",
-  "UTF32", "NONE"))
+  "analyzeSentiment", "analyzeSyntax", "analyzeEntitySentiment",
+  "classifyText"), type = c("PLAIN_TEXT", "HTML"), language = c("en", "zh",
+  "zh-Hant", "fr", "de", "it", "ja", "ko", "pt", "es"),
+  encodingType = c("UTF8", "UTF16", "UTF32", "NONE"))
 }
 \arguments{
 \item{string}{A vector of text to detect language for, or Google Cloud Storage URI(s)}
@@ -30,6 +30,7 @@ A list of the following objects, if those fields are asked for via \code{nlp_typ
  \item{entities - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{Entities, along with their semantic information, in the input document}}
  \item{documentSentiment - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{The overall sentiment for the document}}
  \item{language - }{The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language}
+ \item{categories - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1beta2/ClassificationCategory}{A category returned from the text classifier}}
  \item{text - }{The original text passed into the API. \code{NA} if not passed due to being zero-length etc. }
 }
 }

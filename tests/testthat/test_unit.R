@@ -25,7 +25,7 @@ my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-f
 
 
 html_result <- tryCatch({
-  rvest::read_html(my_url) %>%
+  xml2::read_html(my_url) %>%
   rvest::html_node(css = ".wcms-article-content") %>%
   html_text
   }, error = function(ex){
