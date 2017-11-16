@@ -1,7 +1,7 @@
 ## Test environments
 * local OS X install, R 3.4.0
-* ubuntu 14.04.5 LTS (on travis-ci), R 3.4.1
-* rhub - Windows Server 2008 R2 SP1, R-devel, 32/64 bit, R 3.4.1
+* ubuntu 14.04.5 LTS (on travis-ci), R 3.4.2
+* rhub - Windows Server 2008 R2 SP1, R-devel, 32/64 bit, R 3.4.2
 
 ## R CMD check results
 

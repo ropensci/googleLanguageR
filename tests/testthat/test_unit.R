@@ -19,13 +19,18 @@ if(on_travis){
 }
 
 ## Generate test text and audio
-
+context("Setup test files")
 # HTML testing
 my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
 
-html_result <- read_html(my_url) %>%
-  html_node(css = ".wcms-article-content") %>%
+
+html_result <- tryCatch({
+  rvest::read_html(my_url) %>%
+  rvest::html_node(css = ".wcms-article-content") %>%
   html_text
+  }, error = function(ex){
+    NULL
+  })
 
 test_text <- "The cat sat on the mat"
 test_text2 <- "How much is that doggy in the window?"
