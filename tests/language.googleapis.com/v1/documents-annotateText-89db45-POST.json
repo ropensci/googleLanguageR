@@ -2,7 +2,7 @@
   "sentences": [
     {
       "text": {
-        "content": "The cat sat on the mat",
+        "content": "How much is that doggy in the window?",
         "beginOffset": 0
       },
       "sentiment": {
@@ -14,11 +14,11 @@
   "tokens": [
     {
       "text": {
-        "content": "The",
+        "content": "How",
         "beginOffset": 0
       },
       "partOfSpeech": {
-        "tag": "DET",
+        "tag": "ADV",
         "aspect": "ASPECT_UNKNOWN",
         "case": "CASE_UNKNOWN",
         "form": "FORM_UNKNOWN",
@@ -33,14 +33,89 @@
       },
       "dependencyEdge": {
         "headTokenIndex": 1,
-        "label": "DET"
+        "label": "ADVMOD"
       },
-      "lemma": "The"
+      "lemma": "How"
     },
     {
       "text": {
-        "content": "cat",
+        "content": "much",
         "beginOffset": 4
+      },
+      "partOfSpeech": {
+        "tag": "ADJ",
+        "aspect": "ASPECT_UNKNOWN",
+        "case": "CASE_UNKNOWN",
+        "form": "FORM_UNKNOWN",
+        "gender": "GENDER_UNKNOWN",
+        "mood": "MOOD_UNKNOWN",
+        "number": "NUMBER_UNKNOWN",
+        "person": "PERSON_UNKNOWN",
+        "proper": "PROPER_UNKNOWN",
+        "reciprocity": "RECIPROCITY_UNKNOWN",
+        "tense": "TENSE_UNKNOWN",
+        "voice": "VOICE_UNKNOWN"
+      },
+      "dependencyEdge": {
+        "headTokenIndex": 2,
+        "label": "ATTR"
+      },
+      "lemma": "much"
+    },
+    {
+      "text": {
+        "content": "is",
+        "beginOffset": 9
+      },
+      "partOfSpeech": {
+        "tag": "VERB",
+        "aspect": "ASPECT_UNKNOWN",
+        "case": "CASE_UNKNOWN",
+        "form": "FORM_UNKNOWN",
+        "gender": "GENDER_UNKNOWN",
+        "mood": "INDICATIVE",
+        "number": "SINGULAR",
+        "person": "THIRD",
+        "proper": "PROPER_UNKNOWN",
+        "reciprocity": "RECIPROCITY_UNKNOWN",
+        "tense": "PRESENT",
+        "voice": "VOICE_UNKNOWN"
+      },
+      "dependencyEdge": {
+        "headTokenIndex": 2,
+        "label": "ROOT"
+      },
+      "lemma": "be"
+    },
+    {
+      "text": {
+        "content": "that",
+        "beginOffset": 12
+      },
+      "partOfSpeech": {
+        "tag": "ADP",
+        "aspect": "ASPECT_UNKNOWN",
+        "case": "CASE_UNKNOWN",
+        "form": "FORM_UNKNOWN",
+        "gender": "GENDER_UNKNOWN",
+        "mood": "MOOD_UNKNOWN",
+        "number": "NUMBER_UNKNOWN",
+        "person": "PERSON_UNKNOWN",
+        "proper": "PROPER_UNKNOWN",
+        "reciprocity": "RECIPROCITY_UNKNOWN",
+        "tense": "TENSE_UNKNOWN",
+        "voice": "VOICE_UNKNOWN"
+      },
+      "dependencyEdge": {
+        "headTokenIndex": 4,
+        "label": "DET"
+      },
+      "lemma": "that"
+    },
+    {
+      "text": {
+        "content": "doggy",
+        "beginOffset": 17
       },
       "partOfSpeech": {
         "tag": "NOUN",
@@ -60,37 +135,12 @@
         "headTokenIndex": 2,
         "label": "NSUBJ"
       },
-      "lemma": "cat"
+      "lemma": "doggy"
     },
     {
       "text": {
-        "content": "sat",
-        "beginOffset": 8
-      },
-      "partOfSpeech": {
-        "tag": "VERB",
-        "aspect": "ASPECT_UNKNOWN",
-        "case": "CASE_UNKNOWN",
-        "form": "FORM_UNKNOWN",
-        "gender": "GENDER_UNKNOWN",
-        "mood": "INDICATIVE",
-        "number": "NUMBER_UNKNOWN",
-        "person": "PERSON_UNKNOWN",
-        "proper": "PROPER_UNKNOWN",
-        "reciprocity": "RECIPROCITY_UNKNOWN",
-        "tense": "PAST",
-        "voice": "VOICE_UNKNOWN"
-      },
-      "dependencyEdge": {
-        "headTokenIndex": 2,
-        "label": "ROOT"
-      },
-      "lemma": "sit"
-    },
-    {
-      "text": {
-        "content": "on",
-        "beginOffset": 12
+        "content": "in",
+        "beginOffset": 23
       },
       "partOfSpeech": {
         "tag": "ADP",
@@ -107,15 +157,15 @@
         "voice": "VOICE_UNKNOWN"
       },
       "dependencyEdge": {
-        "headTokenIndex": 2,
+        "headTokenIndex": 4,
         "label": "PREP"
       },
-      "lemma": "on"
+      "lemma": "in"
     },
     {
       "text": {
         "content": "the",
-        "beginOffset": 15
+        "beginOffset": 26
       },
       "partOfSpeech": {
         "tag": "DET",
@@ -132,15 +182,15 @@
         "voice": "VOICE_UNKNOWN"
       },
       "dependencyEdge": {
-        "headTokenIndex": 5,
+        "headTokenIndex": 7,
         "label": "DET"
       },
       "lemma": "the"
     },
     {
       "text": {
-        "content": "mat",
-        "beginOffset": 19
+        "content": "window",
+        "beginOffset": 30
       },
       "partOfSpeech": {
         "tag": "NOUN",
@@ -157,38 +207,63 @@
         "voice": "VOICE_UNKNOWN"
       },
       "dependencyEdge": {
-        "headTokenIndex": 3,
+        "headTokenIndex": 5,
         "label": "POBJ"
       },
-      "lemma": "mat"
+      "lemma": "window"
+    },
+    {
+      "text": {
+        "content": "?",
+        "beginOffset": 36
+      },
+      "partOfSpeech": {
+        "tag": "PUNCT",
+        "aspect": "ASPECT_UNKNOWN",
+        "case": "CASE_UNKNOWN",
+        "form": "FORM_UNKNOWN",
+        "gender": "GENDER_UNKNOWN",
+        "mood": "MOOD_UNKNOWN",
+        "number": "NUMBER_UNKNOWN",
+        "person": "PERSON_UNKNOWN",
+        "proper": "PROPER_UNKNOWN",
+        "reciprocity": "RECIPROCITY_UNKNOWN",
+        "tense": "TENSE_UNKNOWN",
+        "voice": "VOICE_UNKNOWN"
+      },
+      "dependencyEdge": {
+        "headTokenIndex": 2,
+        "label": "P"
+      },
+      "lemma": "?"
     }
   ],
   "entities": [
     {
-      "name": "cat",
+      "name": "doggy",
       "type": "OTHER",
       "metadata": {},
-      "salience": 0.6515189,
+      "salience": 0.6130943,
       "mentions": [
         {
           "text": {
-            "content": "cat",
-            "beginOffset": 4
+            "content": "doggy",
+            "beginOffset": 17
           },
           "type": "COMMON"
         }
       ]
     },
     {
-      "name": "mat",
+      "name": "window",
       "type": "OTHER",
       "metadata": {},
-      "salience": 0.34848115,
+      "salience": 0.38690576,
       "mentions": [
         {
           "text": {
-            "content": "mat",
-            "beginOffset": 19
+            "content": "window",
+            "beginOffset": 30
           },
           "type": "COMMON"
         }
@@ -199,5 +274,6 @@
     "magnitude": 0.1,
     "score": -0.1
   },
-  "language": "en"
+  "language": "en",
+  "categories": []
 }

@@ -7,7 +7,6 @@
 #' @param type Whether input text is plain text or a HTML page
 #' @param language Language of source, must be supported by API.
 #' @param encodingType Text encoding that the caller uses to process the output
-#' @param version the API version
 #'
 #' @details
 #'
@@ -72,19 +71,14 @@ gl_nlp <- function(string,
                    type = c("PLAIN_TEXT", "HTML"),
                    language = c("en", "zh","zh-Hant","fr","de",
                                 "it","ja","ko","pt","es"),
-                   encodingType = c("UTF8","UTF16","UTF32","NONE"),
-                   version = c("v1", "v1beta2")){
+                   encodingType = c("UTF8","UTF16","UTF32","NONE")){
 
   nlp_type      <- match.arg(nlp_type)
   type          <- match.arg(type)
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
-  version       <- match.arg(version)
-
-  if(nlp_type == "analyzeEntitySentiment" && version != "v1beta2"){
-    my_message("Setting version to 'v1beta2' to support analyzeEntitySentiment", level = 3)
-    version <- "v1beta2"
-  }
+  # global env set in version.R
+  version       <- get_version()
 
   api_results <- map(string, gl_nlp_single,
       nlp_type = nlp_type,
@@ -179,11 +173,13 @@ gl_nlp_single <- function(string,
       features = list(
         extractSyntax = jubox(TRUE),
         extractEntities = jubox(TRUE),
-        extractDocumentSentiment = jubox(TRUE)
+        extractDocumentSentiment = jubox(TRUE),
+        extractEntitySentiment = jubox(TRUE)
       )))
 
     if(version == "v1beta2"){
-      body$features$extractEntitySentiment = jubox(TRUE)
+      # put beta features here
+      #body$features$extractEntitySentiment = jubox(TRUE)
     }
   }
 

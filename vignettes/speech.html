@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mark Edmondson" />
 
-<meta name="date" content="2017-08-31" />
+<meta name="date" content="2017-11-16" />
 
 <title>Google Cloud Speech API</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Google Cloud Speech API</h1>
 <h4 class="author"><em>Mark Edmondson</em></h4>
-<h4 class="date"><em>2017-08-31</em></h4>
+<h4 class="date"><em>2017-11-16</em></h4>
 
 
 
@@ -86,6 +86,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>languageCode</code> - specify the language spoken as a <a href="https://tools.ietf.org/html/bcp47"><code>BCP-47</code> language tag</a></li>
 <li><code>speechContexts</code> - you can supply keywords to help the translation with some context.</li>
 </ul>
+<div id="returned-structure" class="section level3">
+<h3>Returned structure</h3>
+<p>The API returns a list of two data.frame tibbles - <code>transcript</code> and <code>timings</code>.</p>
+<p>Access them via the returned object and <code>$transcript</code> and <code>$timings</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">return &lt;-<span class="st"> </span><span class="kw">gl_speech</span>(test_audio, <span class="dt">languageCode =</span> <span class="st">&quot;en-GB&quot;</span>)
+
+return<span class="op">$</span>transcript
+<span class="co"># A tibble: 1 x 2</span>
+<span class="co">#                                                                                                         transcript confidence</span>
+<span class="co">#                                                                                                              &lt;chr&gt;      &lt;chr&gt;</span>
+<span class="co">#1 to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so  0.9711006</span>
+
+return<span class="op">$</span>timings
+<span class="co">#   startTime endTime       word</span>
+<span class="co">#1         0s  0.100s         to</span>
+<span class="co">#2     0.100s  0.700s administer</span>
+<span class="co">#3     0.700s  0.700s   medicine</span>
+<span class="co">#4     0.700s  1.200s         to</span>
+<span class="co"># etc...</span></code></pre></div>
+</div>
 <div id="demo-for-google-cloud-speech-api" class="section level3">
 <h3>Demo for Google Cloud Speech API</h3>
 <p>A test audio file is installed with the package which reads:</p>
@@ -98,41 +118,34 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 test_audio &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;woman1_wb.wav&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;googleLanguageR&quot;</span>)
 
 ## its not perfect but...:)
-<span class="kw">gl_speech</span>(test_audio)$transcript
+<span class="kw">gl_speech</span>(test_audio)<span class="op">$</span>transcript
 
 ## get alternative transcriptions
-<span class="kw">gl_speech</span>(test_audio, <span class="dt">maxAlternatives =</span> 2L)$transcript
+<span class="kw">gl_speech</span>(test_audio, <span class="dt">maxAlternatives =</span> 2L)<span class="op">$</span>transcript
 
-<span class="kw">gl_speech</span>(test_audio, <span class="dt">languageCode =</span> <span class="st">&quot;en-GB&quot;</span>)$transcript
+<span class="kw">gl_speech</span>(test_audio, <span class="dt">languageCode =</span> <span class="st">&quot;en-GB&quot;</span>)<span class="op">$</span>transcript
 
 ## help it out with context for &quot;frequently&quot;
 <span class="kw">gl_speech</span>(test_audio, 
             <span class="dt">languageCode =</span> <span class="st">&quot;en-GB&quot;</span>, 
-            <span class="dt">speechContexts =</span> <span class="kw">list</span>(<span class="dt">phrases =</span> <span class="kw">list</span>(<span class="st">&quot;is frequently a very difficult&quot;</span>)))$transcript</code></pre></div>
+            <span class="dt">speechContexts =</span> <span class="kw">list</span>(<span class="dt">phrases =</span> <span class="kw">list</span>(<span class="st">&quot;is frequently a very difficult&quot;</span>)))<span class="op">$</span>transcript</code></pre></div>
 </div>
 <div id="word-transcripts" class="section level3">
 <h3>Word transcripts</h3>
-<p>The API <a href="https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo">supports timestamps</a> on when words are recognised. These are outputted into a list column that holds three entries: <code>startTime</code>, <code>endTime</code> and the <code>word</code>.</p>
-<p>To access this data, use <code>tidyr::unnest()</code> which will duplicate the other columns.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">&gt;<span class="st"> </span><span class="kw">str</span>(result)
-<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  1 obs. of  3 variables:</span>
-<span class="co"># $ transcript: chr &quot;to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so&quot;</span>
-<span class="co"># $ confidence: num 0.929</span>
-<span class="co"># $ words     :List of 1</span>
-<span class="co">#  ..$ :'data.frame':   18 obs. of  3 variables:</span>
-<span class="co">#  .. ..$ startTime: chr  &quot;0s&quot; &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; ...</span>
-<span class="co">#  .. ..$ endTime  : chr  &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; &quot;1.400s&quot; ...</span>
-<span class="co">#  .. ..$ word     : chr  &quot;to&quot; &quot;administer&quot; &quot;medicine&quot; &quot;to&quot; ...</span>
+<p>The API <a href="https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo">supports timestamps</a> on when words are recognised. These are outputted into a second data.frame that holds three entries: <code>startTime</code>, <code>endTime</code> and the <code>word</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(result<span class="op">$</span>timings)
+<span class="co">#'data.frame':  152 obs. of  3 variables:</span>
+<span class="co"># $ startTime: chr  &quot;0s&quot; &quot;0.100s&quot; &quot;0.500s&quot; &quot;0.700s&quot; ...</span>
+<span class="co"># $ endTime  : chr  &quot;0.100s&quot; &quot;0.500s&quot; &quot;0.700s&quot; &quot;0.900s&quot; ...</span>
+<span class="co"># $ word     : chr  &quot;a&quot; &quot;Dream&quot; &quot;Within&quot; &quot;A&quot; ...</span>
 
-## extracting words
-unnested &lt;-<span class="st"> </span>tidyr::<span class="kw">unnest</span>(result)
-<span class="kw">str</span>(unnested)
-<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  18 obs. of  5 variables:</span>
-<span class="co"># $ transcript: chr  &quot;to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so&quot; &quot;to administer medicine to animals Is frequent very difficult #matter and yet sometimes it's necessary to do so&quot; &quot;to administer medicine to animals Is frequent very #difficult matter and yet sometimes it's necessary to do so&quot; &quot;to administer medicine to animals Is #frequent very difficult matter and yet sometimes it's necessary to do so&quot; ...</span>
-<span class="co"># $ confidence: num  0.929 0.929 0.929 0.929 0.929 ...</span>
-<span class="co"># $ startTime : chr  &quot;0s&quot; &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; ...</span>
-<span class="co"># $ endTime   : chr  &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; &quot;1.400s&quot; ...</span>
-<span class="co"># $ word      : chr  &quot;to&quot; &quot;administer&quot; &quot;medicine&quot; &quot;to&quot; ...</span></code></pre></div>
+result<span class="op">$</span>timings
+<span class="co">#     startTime endTime       word</span>
+<span class="co">#1          0s  0.100s          a</span>
+<span class="co">#2      0.100s  0.500s      Dream</span>
+<span class="co">#3      0.500s  0.700s     Within</span>
+<span class="co">#4      0.700s  0.900s          A</span>
+<span class="co">#5      0.900s      1s      Dream</span></code></pre></div>
 </div>
 <div id="asynchronous-calls" class="section level2">
 <h2>Asynchronous calls</h2>
@@ -143,16 +156,7 @@ async
 ## Send to gl_speech_op() for status
 ## 4625920921526393240
 
-result &lt;-<span class="st"> </span><span class="kw">gl_speech_op</span>(async)
-&gt;<span class="st"> </span><span class="kw">str</span>(result)
-<span class="co">#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':  1 obs. of  3 variables:</span>
-<span class="co"># $ transcript: chr &quot;to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so&quot;</span>
-<span class="co"># $ confidence: num 0.929</span>
-<span class="co"># $ words     :List of 1</span>
-<span class="co">#  ..$ :'data.frame':   18 obs. of  3 variables:</span>
-<span class="co">#  .. ..$ startTime: chr  &quot;0s&quot; &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; ...</span>
-<span class="co">#  .. ..$ endTime  : chr  &quot;0.200s&quot; &quot;0.700s&quot; &quot;1.100s&quot; &quot;1.400s&quot; ...</span>
-<span class="co">#  .. ..$ word     : chr  &quot;to&quot; &quot;administer&quot; &quot;medicine&quot; &quot;to&quot; ...</span></code></pre></div>
+result &lt;-<span class="st"> </span><span class="kw">gl_speech_op</span>(async)</code></pre></div>
 </div>
 
 

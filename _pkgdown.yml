@@ -8,6 +8,7 @@ authors:
 template:
   params:
     bootswatch: cosmo
+    ganalytics: UA-47480439-2
 navbar:
   title: googleLanguageR
   type: inverse
@@ -31,6 +32,6 @@ navbar:
     - icon: fa-google fa-lg
       href: https://cloud.google.com/products/machine-learning/
     - icon: fa-github fa-lg
-      href: https://github.com/MarkEdmondson1234/googleLanguageR
+      href: https://github.com/ropensci/googleLanguageR
     - icon: fa-slack fa-lg
       href: https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform

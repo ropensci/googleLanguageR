@@ -23,7 +23,32 @@ Arguments include:
 * `languageCode` - specify the language spoken as a [`BCP-47` language tag](https://tools.ietf.org/html/bcp47)
 * `speechContexts` - you can supply keywords to help the translation with some context. 
 
+### Returned structure
+
+The API returns a list of two data.frame tibbles - `transcript` and `timings`.
+
+Access them via the returned object and `$transcript` and `$timings`
+
+```r
+return <- gl_speech(test_audio, languageCode = "en-GB")
+
+return$transcript
+# A tibble: 1 x 2
+#                                                                                                         transcript confidence
+#                                                                                                              <chr>      <chr>
+#1 to administer medicine to animals is frequently a very difficult matter and yet sometimes it's necessary to do so  0.9711006
+
+return$timings
+#   startTime endTime       word
+#1         0s  0.100s         to
+#2     0.100s  0.700s administer
+#3     0.700s  0.700s   medicine
+#4     0.700s  1.200s         to
+# etc...
+```
+
 ### Demo for Google Cloud Speech API
+
 
 A test audio file is installed with the package which reads:
 
@@ -52,30 +77,23 @@ gl_speech(test_audio,
 
 ### Word transcripts
 
-The API [supports timestamps](https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo) on when words are recognised. These are outputted into a list column that holds three entries: `startTime`, `endTime` and the `word`.
+The API [supports timestamps](https://cloud.google.com/speech/reference/rest/v1/speech/recognize#WordInfo) on when words are recognised. These are outputted into a second data.frame that holds three entries: `startTime`, `endTime` and the `word`.
 
-To access this data, use `tidyr::unnest()` which will duplicate the other columns.
 
 ```r
-> str(result)
-#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	1 obs. of  3 variables:
-# $ transcript: chr "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so"
-# $ confidence: num 0.929
-# $ words     :List of 1
-#  ..$ :'data.frame':	18 obs. of  3 variables:
-#  .. ..$ startTime: chr  "0s" "0.200s" "0.700s" "1.100s" ...
-#  .. ..$ endTime  : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...
-#  .. ..$ word     : chr  "to" "administer" "medicine" "to" ...
+str(result$timings)
+#'data.frame':	152 obs. of  3 variables:
+# $ startTime: chr  "0s" "0.100s" "0.500s" "0.700s" ...
+# $ endTime  : chr  "0.100s" "0.500s" "0.700s" "0.900s" ...
+# $ word     : chr  "a" "Dream" "Within" "A" ...
 
-## extracting words
-unnested <- tidyr::unnest(result)
-str(unnested)
-#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	18 obs. of  5 variables:
-# $ transcript: chr  "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so" "to administer medicine to animals Is frequent very difficult #matter and yet sometimes it's necessary to do so" "to administer medicine to animals Is frequent very #difficult matter and yet sometimes it's necessary to do so" "to administer medicine to animals Is #frequent very difficult matter and yet sometimes it's necessary to do so" ...
-# $ confidence: num  0.929 0.929 0.929 0.929 0.929 ...
-# $ startTime : chr  "0s" "0.200s" "0.700s" "1.100s" ...
-# $ endTime   : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...
-# $ word      : chr  "to" "administer" "medicine" "to" ...
+result$timings
+#     startTime endTime       word
+#1          0s  0.100s          a
+#2      0.100s  0.500s      Dream
+#3      0.500s  0.700s     Within
+#4      0.700s  0.900s          A
+#5      0.900s      1s      Dream
 ```
 
 ## Asynchronous calls
@@ -91,14 +109,5 @@ async
 ## 4625920921526393240
 
 result <- gl_speech_op(async)
-> str(result)
-#Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	1 obs. of  3 variables:
-# $ transcript: chr "to administer medicine to animals Is frequent very difficult matter and yet #sometimes it's necessary to do so"
-# $ confidence: num 0.929
-# $ words     :List of 1
-#  ..$ :'data.frame':	18 obs. of  3 variables:
-#  .. ..$ startTime: chr  "0s" "0.200s" "0.700s" "1.100s" ...
-#  .. ..$ endTime  : chr  "0.200s" "0.700s" "1.100s" "1.400s" ...
-#  .. ..$ word     : chr  "to" "administer" "medicine" "to" ...
 ```
 

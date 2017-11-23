@@ -7,3 +7,4 @@
 ^README\.Rmd$
 ^_gcssave\.yml$
 ^\.httr-oauth$
+^cran-comments\.md$
