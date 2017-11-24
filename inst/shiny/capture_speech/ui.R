@@ -1,5 +1,4 @@
 library(shiny)
-library(shinyjs)
 
 shinyUI(
   fluidPage(

@@ -1,7 +1,6 @@
 library(shiny)
 library(audio)
 library(googleLanguageR)
-library(tidyr)
 
 # Define server logic required to draw a histogram
 function(input, output, session){
@@ -24,8 +23,10 @@ function(input, output, session){
     wav_name <- paste0("audio",gsub("[^0-9]","",Sys.time()),".wav")
     save.wave(audioSample(a), wav_name)
     message("saved wav to ", wav_name)
-    wav_name
+
     # "audio20171123132816.wav"
+    wav_name
+
 
   })
 
