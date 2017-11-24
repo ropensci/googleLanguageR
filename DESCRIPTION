@@ -38,5 +38,7 @@ Suggests:
     rmarkdown,
     rvest,
     stringdist,
+    shinyjs,
     tidyr,
+    tuneR,
     xml2
