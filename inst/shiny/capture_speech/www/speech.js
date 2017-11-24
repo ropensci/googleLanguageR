@@ -100,7 +100,6 @@ https://webaudiodemos.appspot.com/AudioRecorder/js/recorderjs/recorder.js
 
     worker.onmessage = function(e){
       var blob = e.data;
-      Shiny.onInputChange("audio", blob);
       currCallback(blob);
     }
 
