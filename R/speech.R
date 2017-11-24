@@ -38,7 +38,6 @@
 #'
 #' @section WordInfo:
 #'
-#' Use \code{tidyr::unnest()} to extract the word columns if needed.
 #'
 #' \code{startTime} - Time offset relative to the beginning of the audio, and corresponding to the start of the spoken word.
 #'
@@ -53,12 +52,14 @@
 #' test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 #' result <- gl_speech(test_audio)
 #'
+#' result$transcript
+#' result$timings
+#'
 #' result2 <- gl_speech(test_audio, maxAlternatives = 2L)
+#' result2$transcript
 #'
 #' result_brit <- gl_speech(test_audio, languageCode = "en-GB")
 #'
-#' ## extract word timestamps
-#' tidyr::unnest(result_brit)
 #'
 #' ## make an asynchronous API request (mandatory for sound files over 60 seconds)
 #' asynch <- gl_speech(test_audio, asynch = TRUE)

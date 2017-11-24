@@ -25,11 +25,12 @@ function(input, output, session){
     save.wave(audioSample(a), wav_name)
     message("saved wav to ", wav_name)
     wav_name
+    # "audio20171123132816.wav"
 
   })
 
 
-  output$result_table <- renderTable({
+  output$result_text <- renderText({
     req(wav_name())
 
     wav_name <- wav_name()
@@ -37,20 +38,18 @@ function(input, output, session){
     message("Calling API")
     me <- googleLanguageR::gl_speech(wav_name, sampleRateHertz = 44100L)
 
-    me <- tidyr::unnest(me)
-
-    if(nrow(me) == 0){
-      me <- NULL
+    if(nrow(me$transcript) == 0){
+      return(NULL)
     }
 
-    trans_name <- paste0("transcript_",wav_name,".rds")
-    message("Result saved to: ", trans_name)
-    saveRDS(me, file = trans_name)
+    message("API returned: ", me$transcript$transcript[[1]])
     unlink(wav_name)
 
-    me
+    as.character(me$transcript$transcript[[1]])
 
   })
+
+  output$the_time <- renderText({as.character(Sys.time())})
 
 
 }

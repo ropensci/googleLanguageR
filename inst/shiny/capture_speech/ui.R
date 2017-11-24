@@ -1,4 +1,5 @@
 library(shiny)
+library(shinyjs)
 
 shinyUI(
   fluidPage(
@@ -24,7 +25,8 @@ shinyUI(
 
     mainPanel(
       h3("Transcription"),
-      tableOutput("result_table")
+      textOutput("result_text"),
+      textOutput("the_time")
     )
   )
 ))
