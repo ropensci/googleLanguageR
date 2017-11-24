@@ -1,6 +1,6 @@
 # 0.1.1.9000
 
-* ...
+* Added an example Shiny app that calls the Speech API
 
 # 0.1.1
 
