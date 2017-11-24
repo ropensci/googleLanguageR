@@ -4,7 +4,7 @@
 #'
 #' @param audio_source File location of audio data, or Google Cloud Storage URI
 #' @param encoding Encoding of audio data sent
-#' @param sampleRateHertz Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000}
+#' @param sampleRateHertz Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000} - will be guessed from file headers if left \code{NULL}
 #' @param languageCode Language of the supplied audio as a \code{BCP-47} language tag
 #' @param maxAlternatives Maximum number of recognition hypotheses to be returned. \code{0-30}
 #' @param profanityFilter If \code{TRUE} will attempt to filter out profanities
@@ -38,7 +38,6 @@
 #'
 #' @section WordInfo:
 #'
-#' Use \code{tidyr::unnest()} to extract the word columns if needed.
 #'
 #' \code{startTime} - Time offset relative to the beginning of the audio, and corresponding to the start of the spoken word.
 #'
@@ -53,12 +52,14 @@
 #' test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 #' result <- gl_speech(test_audio)
 #'
+#' result$transcript
+#' result$timings
+#'
 #' result2 <- gl_speech(test_audio, maxAlternatives = 2L)
+#' result2$transcript
 #'
 #' result_brit <- gl_speech(test_audio, languageCode = "en-GB")
 #'
-#' ## extract word timestamps
-#' tidyr::unnest(result_brit)
 #'
 #' ## make an asynchronous API request (mandatory for sound files over 60 seconds)
 #' asynch <- gl_speech(test_audio, asynch = TRUE)
@@ -78,7 +79,7 @@
 gl_speech <- function(audio_source,
                       encoding = c("LINEAR16","FLAC","MULAW","AMR",
                                    "AMR_WB","OGG_OPUS","SPEEX_WITH_HEADER_BYTE"),
-                      sampleRateHertz = 16000L,
+                      sampleRateHertz = NULL,
                       languageCode = "en-US",
                       maxAlternatives = 1L,
                       profanityFilter = FALSE,
@@ -86,7 +87,6 @@ gl_speech <- function(audio_source,
                       asynch = FALSE){
 
   assert_that(is.string(audio_source),
-              is.numeric(sampleRateHertz),
               is.string(languageCode),
               is.numeric(maxAlternatives),
               is.logical(profanityFilter))
