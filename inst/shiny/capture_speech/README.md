@@ -4,12 +4,11 @@ This is a demo on using the [Cloud Speech API](https://cloud.google.com/speech/)
 
 It uses `library(tuneR)` to process the audio file, and a JavaScript audio library from [Web Audio Demos](https://webaudiodemos.appspot.com/AudioRecorder/index.html) to capture the audio in your browser.
 
-## English speech to text
+You can also optionally send your transcription to the [Cloud Translation API](https://cloud.google.com/translate/)
 
-![](english.png)
+If on MacOS, the results will also be spoken to you via the library [`rsay`](https://github.com/sellorm/rsay)
 
+## Screenshot
 
-## Danish speech to text
-
-![](danish.png)
+![](babelfish.png)
 
