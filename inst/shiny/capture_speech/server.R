@@ -18,6 +18,40 @@ function(input, output, session){
     translation()
   })
 
+  output$nlp_sentences <- renderTable({
+    req(nlp())
+
+    nlp()$sentences[[1]]
+
+  })
+
+  output$nlp_tokens <- renderTable({
+    req(nlp())
+
+    ## only a few otherwise it breaks formatting
+    nlp()$tokens[[1]][, c("content","beginOffset","tag","mood","number")]
+
+  })
+
+  output$nlp_entities <- renderTable({
+    req(nlp())
+
+    nlp()$entities[[1]]
+
+  })
+
+  output$nlp_misc <- renderTable({
+    req(nlp())
+
+    data.frame(
+      language = nlp()$language,
+      text = nlp()$text,
+      documentSentimentMagnitude = nlp()$documentSentiment$magnitude,
+      documentSentimentScore = nlp()$documentSentiment$score
+    )
+
+  })
+
   input_audio <- reactive({
     req(input$audio)
     a <- input$audio
@@ -119,6 +153,46 @@ function(input, output, session){
                   selector = NULL)
 
     ttt$translatedText
+
+  })
+
+  nlp <- reactive({
+    req(get_api_text())
+    req(input$nlp)
+
+    nlp_lang <- switch(input$nlp,
+        none = NULL,
+        input = substr(input$language, start = 0, stop = 2),
+        trans = input$translate # not activated from ui.R dropdown as entity analysis only available on 'en' at the moment
+    )
+
+    if(is.null(nlp_lang)){
+      return(NULL)
+    }
+
+    ## has to be on supported list of NLP language codes
+    if(!any(nlp_lang %in% c("en", "zh", "zh-Hant", "fr",
+                       "de", "it", "ja", "ko", "pt", "es"))){
+      message("Unsupported NLP language, switching to 'en'")
+      nlp_lang <- "en"
+    }
+
+    message("Calling NLP API")
+    shinyjs::show(id = "api",
+                  anim = TRUE,
+                  animType = "fade",
+                  time = 1,
+                  selector = NULL)
+
+    nnn <- gl_nlp(get_api_text(), language = nlp_lang)
+
+    message("API returned: ", nnn$text)
+    shinyjs::hide(id = "api",
+                  anim = TRUE,
+                  animType = "fade",
+                  time = 1,
+                  selector = NULL)
+    nnn
 
   })
 

@@ -49,6 +49,13 @@ shinyUI(
                                                                        "Italian" = "it",
                                                                        "Norwegian" = "nb",
                                                                        "Swedish" = "sv")),
+      helpText("Send the text to the Natural Language API for NLP analysis below."),
+      selectInput("nlp", "Perform NLP", choices = c("No NLP" = "none",
+                                                    "NLP" = "input"
+                                                    #,
+                                                    #"On Translated Text" = "trans"
+                                                    )
+                  ),
       helpText("Many more languages are supported in the API but I couldn't be bothered to put them all in - see here:",
                a(href="https://cloud.google.com/speech/docs/languages", "Supported languages"))
     ),
@@ -63,7 +70,12 @@ shinyUI(
       h2("Transcribed text"),
       p(textOutput("result_text")),
       h2("Translated text"),
-      p(textOutput("result_translation"))
+      p(textOutput("result_translation")),
+      h2("NLP"),
+      tableOutput("nlp_sentences"),
+      tableOutput("nlp_tokens"),
+      tableOutput("nlp_entities"),
+      tableOutput("nlp_misc")
     )
   ),
   helpText(
