@@ -5,6 +5,19 @@ library(shinyjs)
 
 function(input, output, session){
 
+  output$result_text <- renderText({
+    req(get_api_text())
+
+    get_api_text()
+
+  })
+
+  output$result_translation <- renderText({
+    req(translation())
+
+    translation()
+  })
+
   input_audio <- reactive({
     req(input$audio)
     a <- input$audio
@@ -41,8 +54,7 @@ function(input, output, session){
 
   })
 
-
-  output$result_text <- renderText({
+  get_api_text <- reactive({
     req(wav_name())
     req(input$language)
 
@@ -56,8 +68,12 @@ function(input, output, session){
       return(NULL)
     }
 
-    message("Calling API")
-    shinyjs::show(id = "api", anim = TRUE, animType = "fade", time = 1)
+    message("Calling Speech API")
+    shinyjs::show(id = "api",
+                  anim = TRUE,
+                  animType = "fade",
+                  time = 1,
+                  selector = NULL)
 
     # make API call
     me <- gl_speech(wav_name,
@@ -68,9 +84,102 @@ function(input, output, session){
     unlink(wav_name)
 
     message("API returned: ", me$transcript$transcript)
-    shinyjs::hide(id = "api", anim = TRUE, animType = "fade", time = 1)
+    shinyjs::hide(id = "api",
+                  anim = TRUE,
+                  animType = "fade",
+                  time = 1,
+                  selector = NULL)
 
-    as.character(me$transcript$transcript)
+    me$transcript$transcript
+  })
+
+  translation <- reactive({
+
+    req(get_api_text())
+    req(input$translate)
+
+    if(input$translate == "none"){
+      return("No translation required")
+    }
+
+    message("Calling Translation API")
+    shinyjs::show(id = "api",
+                  anim = TRUE,
+                  animType = "fade",
+                  time = 1,
+                  selector = NULL)
+
+    ttt <- gl_translate(get_api_text(), target = input$translate)
+
+    message("API returned: ", ttt$translatedText)
+    shinyjs::hide(id = "api",
+                  anim = TRUE,
+                  animType = "fade",
+                  time = 1,
+                  selector = NULL)
+
+    ttt$translatedText
+
+  })
+
+  observe({
+
+    req(translation())
+
+    if(!isNamespaceLoaded("rsay")){
+      message("For talk back on MacOS, needs 'rsay' package https://github.com/sellorm/rsay")
+    }
+
+    if (!isTRUE(grepl("^darwin", R.version$os))){
+      message("Talk back only supported on MacOS")
+      return(NULL)
+    }
+
+    ## if a translation, we speak that, else the input language
+    if(input$translate == "none"){
+
+      voice <- switch(input$language,
+                      "en-GB" = "Daniel",
+                      "en-US" = "Agnes",
+                      "da-DK" = NULL,
+                      "fr-FR" = "Thomas",
+                      "de-DE" = "Anna",
+                      "es-ES" = "Monica",
+                      "es-CL" = "Monica",
+                      "nl-NL" = "Xander",
+                      "ro-RO" = "Ioana",
+                      "it-IT" = "Alice",
+                      "nb-NO" = "Nora",
+                      "sv-SE" = "Alva"
+      )
+
+      speak_me <- get_api_text()
+
+    } else {
+
+      voice <- switch(input$translate,
+                      "en" = "Daniel",
+                      "da" = NULL,
+                      "fr" = "Thomas",
+                      "de" = "Anna",
+                      "es" = "Monica",
+                      "nl" = "Xander",
+                      "ro" = "Ioana",
+                      "it" = "Alice",
+                      "nb" = "Nora",
+                      "sv" = "Alva"
+      )
+
+      speak_me <- translation()
+    }
+
+
+    if(is.null(voice)){
+      message("Unsupported language to speak")
+      return(NULL)
+    }
+
+    rsay::speak(speak_me, voice = voice)
 
   })
 

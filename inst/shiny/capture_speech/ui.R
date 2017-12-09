@@ -9,7 +9,7 @@ shinyUI(
     includeScript("www/speech.js"),
     includeScript("www/audiodisplay.js"),
 
-  titlePanel("Capture audio and send to Google Speech API"),
+  titlePanel("Shiny Babelfish"),
 
   sidebarLayout(
     sidebarPanel(
@@ -25,7 +25,7 @@ shinyUI(
       ),
       br(),
       hr(),
-      selectInput("language", "Add a languageCode", choices = c("English (UK)" = "en-GB",
+      selectInput("language", "Language input", choices = c("English (UK)" = "en-GB",
                                                                 "English (Americans)" = "en-US",
                                                                 "Danish" = "da-DK",
                                                                 "French (France)" = "fr-FR",
@@ -37,17 +37,33 @@ shinyUI(
                                                                 "Italian" = "it-IT",
                                                                 "Norwegian" = "nb-NO",
                                                                 "Swedish" = "sv-SE")),
+      helpText("You can also add a call to the Google Translation API by selecting an output below"),
+      selectInput("translate", "Translate output", choices = c("No Translation" = "none",
+                                                                       "English" = "en",
+                                                                       "Danish" = "da",
+                                                                       "French" = "fr",
+                                                                       "German" = "de",
+                                                                       "Spanish" = "es",
+                                                                       "Dutch" = "nl",
+                                                                       "Romainian" = "ro",
+                                                                       "Italian" = "it",
+                                                                       "Norwegian" = "nb",
+                                                                       "Swedish" = "sv")),
       helpText("Many more languages are supported in the API but I couldn't be bothered to put them all in - see here:",
                a(href="https://cloud.google.com/speech/docs/languages", "Supported languages"))
     ),
 
     mainPanel(
       helpText("Transcription will appear here when ready. (Can take 30 seconds +).  Streaming support not implemented yet."),
+      helpText("If on MacOS then response will be spoken through the ", a(href="https://github.com/sellorm/rsay", "rsay package")),
       shinyjs::hidden(
         div(id = "api",
             p("Calling API - please wait", icon("circle-o-notch fa-spin fa-fw"))
         )),
-      h3(textOutput("result_text"))
+      h2("Transcribed text"),
+      p(textOutput("result_text")),
+      h2("Translated text"),
+      p(textOutput("result_translation"))
     )
   ),
   helpText(
