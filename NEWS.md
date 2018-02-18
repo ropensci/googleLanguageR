@@ -1,6 +1,7 @@
 # 0.1.1.9000
 
 * Added an example Shiny app that calls the Speech API
+* Fixed bug where cbind of any missing API content raised an error (#28)
 
 # 0.1.1
 

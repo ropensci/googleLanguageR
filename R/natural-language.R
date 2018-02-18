@@ -207,12 +207,12 @@ parse_nlp <- function(x){
   s <- t <- e <- d <- NULL
 
   if(!is_empty(x$sentences)){
-    s <- cbind(as_tibble(x$sentences$text),
+    s <- my_cbind(as_tibble(x$sentences$text),
                    as_tibble(x$sentences$sentiment))
   }
 
   if(!is_empty(x$tokens)){
-    t <- cbind(as_tibble(x$tokens$text),
+    t <- my_cbind(as_tibble(x$tokens$text),
                    as_tibble(x$tokens$partOfSpeech),
                    as_tibble(x$tokens$dependencyEdge),
                    as_tibble(x$tokens$lemma))
@@ -223,15 +223,15 @@ parse_nlp <- function(x){
     e <- x$entities[, c("name","type","salience")]
 
     if(!is_empty(x$entities$metadata)){
-      e <- cbind(e, x$entities$metadata)
+      e <- my_cbind(e, x$entities$metadata)
     } else {
-      e <- cbind(e, data.frame(mid = NA_character_, wikipedia_url = NA_character_))
+      e <- my_cbind(e, data.frame(mid = NA_character_, wikipedia_url = NA_character_))
     }
 
     if(!is_empty(x$entities$sentiment)){
-      e <- cbind(e, x$entities$sentiment)
+      e <- my_cbind(e, x$entities$sentiment)
     } else {
-      e <- cbind(e, data.frame(magnitude = NA_real_, score = NA_real_))
+      e <- my_cbind(e, data.frame(magnitude = NA_real_, score = NA_real_))
     }
 
     ## needs to come last as mentions can hold more rows than
@@ -239,14 +239,14 @@ parse_nlp <- function(x){
     if(!is_empty(x$entities$mentions)){
 
       mentions <- my_map_df(x$entities$mentions,
-                         ~ cbind(.x$text, tibble(mention_type = .x$type)))
+                         ~ my_cbind(.x$text, tibble(mention_type = .x$type)))
 
       e <- merge(e, mentions, by.x = "name", by.y = "content", all = TRUE)
 
     } else {
       ## for v1beta2 will also add sentiment_ ?
       ## https://cloud.google.com/natural-language/docs/reference/rest/v1beta2/Entity#EntityMention
-      e <- cbind(e, data.frame(beginOffset = NA_integer_, type = NA_character_))
+      e <- my_cbind(e, data.frame(beginOffset = NA_integer_, type = NA_character_))
     }
 
     e <- as_tibble(e)

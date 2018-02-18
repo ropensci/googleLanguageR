@@ -1,3 +1,15 @@
+# safe cbind that removes df with no rows
+my_cbind <- function(...){
+  dots <- list(...)
+
+  nrows <- vapply(dots, function(x) nrow(x) > 0, logical(1))
+
+  dots <- dots[nrows]
+
+  do.call(cbind, args = dots)
+
+}
+
 # purrr's map_df without dplyr
 my_map_df <- function(.x, .f, ...){
 
