@@ -173,11 +173,13 @@ gl_nlp_single <- function(string,
       features = list(
         extractSyntax = jubox(TRUE),
         extractEntities = jubox(TRUE),
-        extractDocumentSentiment = jubox(TRUE)
+        extractDocumentSentiment = jubox(TRUE),
+        extractEntitySentiment = jubox(TRUE)
       )))
 
     if(version == "v1beta2"){
-      body$features$extractEntitySentiment = jubox(TRUE)
+      # put beta features here
+      #body$features$extractEntitySentiment = jubox(TRUE)
     }
   }
 

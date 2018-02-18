@@ -5,7 +5,7 @@
 \title{Call Google Speech API}
 \usage{
 gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
-  "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"), sampleRateHertz = 16000L,
+  "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"), sampleRateHertz = NULL,
   languageCode = "en-US", maxAlternatives = 1L, profanityFilter = FALSE,
   speechContexts = NULL, asynch = FALSE)
 }
@@ -14,7 +14,7 @@ gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
 
 \item{encoding}{Encoding of audio data sent}
 
-\item{sampleRateHertz}{Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000}}
+\item{sampleRateHertz}{Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000} - will be guessed from file headers if left \code{NULL}}
 
 \item{languageCode}{Language of the supplied audio as a \code{BCP-47} language tag}
 
@@ -59,7 +59,6 @@ Read more on audio encodings here \url{https://cloud.google.com/speech/docs/enco
 \section{WordInfo}{
 
 
-Use \code{tidyr::unnest()} to extract the word columns if needed.
 
 \code{startTime} - Time offset relative to the beginning of the audio, and corresponding to the start of the spoken word.
 
@@ -75,12 +74,14 @@ Use \code{tidyr::unnest()} to extract the word columns if needed.
 test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 result <- gl_speech(test_audio)
 
+result$transcript
+result$timings
+
 result2 <- gl_speech(test_audio, maxAlternatives = 2L)
+result2$transcript
 
 result_brit <- gl_speech(test_audio, languageCode = "en-GB")
 
-## extract word timestamps
-tidyr::unnest(result_brit)
 
 ## make an asynchronous API request (mandatory for sound files over 60 seconds)
 asynch <- gl_speech(test_audio, asynch = TRUE)
