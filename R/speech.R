@@ -211,11 +211,13 @@ parse_op <- function(x){
     if(!is.null(x$error)){
       out <- x$error
     } else {
-      out <- parse_speech(x$response)
+      if(grepl('LongRunningRecognize', x$metadata$`@type`)){
+        out <- parse_async(x)
+      } else {
+        out <- parse_speech(x$response)
+      }
     }
-  } else {
-    out <- parse_async(x)
   }
-
   out
 }
+
