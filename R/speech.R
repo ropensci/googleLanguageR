@@ -138,18 +138,25 @@ gl_speech <- function(audio_source,
 # parse normal speech call responses
 parse_speech <- function(x){
   if(!is.null(x$totalBilledTime)){
-    my_message("Speech transcription finished. Total billed time: ", x$totalBilledTime, level = 3)
+    my_message("Speech transcription finished. Total billed time: ",
+               x$totalBilledTime, level = 3)
   }
 
-  transcript <- my_map_df(x$results$alternatives, ~ as_tibble(cbind(transcript = .x$transcript, confidence = .x$confidence)))
-  timings    <- my_map_df(x$results$alternatives, ~ .x$words[[1]])
+  transcript <-
+    my_map_df(x$results$alternatives,
+              ~ as_tibble(cbind(transcript = ifelse(!is.null(.x$transcript),
+                                                             .x$transcript,NA),
+                                             ifelse(!is.null(.x$confidence),
+                                                             .x$confidence,NA))))
+  timings    <- my_map_df(x$results$alternatives,
+                          ~ .x$words[[1]])
 
   list(transcript = transcript, timings = timings)
 }
 
 # parse asynchronous speech calls responses
 parse_async <- function(x){
-  if(is.null(x$done)){
+  if(is.null(x$done) | x$done == FALSE){
     my_message("Speech transcription running - started at ", x$metadata$startTime,
                " - last update: ", x$metadata$lastUpdateTime, level = 3)
   } else{
@@ -165,7 +172,6 @@ parse_async <- function(x){
 
   list(transcript = transcript, timings = timings)
 }
-
 
 # pretty print of gl_speech_op
 print.gl_speech_op <- function(x, ...){
