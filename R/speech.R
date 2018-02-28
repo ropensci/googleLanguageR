@@ -148,13 +148,24 @@ parse_speech <- function(x){
 }
 
 # parse asynchronous speech calls responses
-parse_async <- function(x) {
-  if(!is.null(x$metadata$startTime)){
+parse_async <- function(x){
+  if(is.null(x$done)){
     my_message("Speech transcription running - started at ", x$metadata$startTime,
                " - last update: ", x$metadata$lastUpdateTime, level = 3)
+  } else{
+    my_message("Asychronous transcription finished.", level = 3)
   }
-  structure(x, class = "gl_speech_op")
+  transcript <-
+    my_map_df(x$results$alternatives,
+              ~ as_tibble(cbind(transcript = ifelse(!is.null(.x$transcript),
+                                                             .x$transcript,NA),
+                                confidence = ifelse(!is.null(.x$confidence),
+                                                             .x$confidence,NA))))
+  timings <- my_map_df(x$results$alternatives, ~ .x$words[[1]])
+
+  list(transcript = transcript, timings = timings)
 }
+
 
 # pretty print of gl_speech_op
 print.gl_speech_op <- function(x, ...){
@@ -212,7 +223,7 @@ parse_op <- function(x){
       out <- x$error
     } else {
       if(grepl('LongRunningRecognize', x$metadata$`@type`)){
-        out <- parse_async(x)
+        out <- parse_async(x$response)
       } else {
         out <- parse_speech(x$response)
       }
