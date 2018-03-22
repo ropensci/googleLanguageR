@@ -30,7 +30,8 @@ Imports:
     magrittr,
     purrr (>= 0.2.4),
     stats,
-    tibble
+    tibble,
+    utils
 Suggests: 
     cld2,
     httptest,
