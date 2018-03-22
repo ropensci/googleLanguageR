@@ -184,6 +184,8 @@ parse_async <- function(x){
 
 #' pretty print of gl_speech_op
 #' @export
+#' @keywords internal
+#' @noRd
 print.gl_speech_op <- function(x, ...){
   cat("## Send to gl_speech_op() for status")
   cat("\n##", x$name)
@@ -227,24 +229,9 @@ gl_speech_op <- function(operation){
 
   call_api <- gar_api_generator(sprintf("https://speech.googleapis.com/v1/operations/%s", operation$name),
                                 "GET",
-                                data_parse_function = parse_op)
+                                data_parse_function = parse_async)
   call_api()
 
 }
 
-# parses operation responses
-parse_op <- function(x){
-  if(!is.null(x$done)){
-    if(!is.null(x$error)){
-      out <- x$error
-    } else {
-      if(grepl('LongRunningRecognize', x$metadata$`@type`)){
-        out <- parse_async(x)
-      } else {
-        out <- parse_speech(x$response)
-      }
-    }
-  }
-  out
-}
 
