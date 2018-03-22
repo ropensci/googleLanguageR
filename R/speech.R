@@ -4,7 +4,7 @@
 #'
 #' @param audio_source File location of audio data, or Google Cloud Storage URI
 #' @param encoding Encoding of audio data sent
-#' @param sampleRateHertz Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000} - will be guessed from file headers if left \code{NULL}
+#' @param sampleRateHertz Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal and default if left \code{NULL} is \code{16000}
 #' @param languageCode Language of the supplied audio as a \code{BCP-47} language tag
 #' @param maxAlternatives Maximum number of recognition hypotheses to be returned. \code{0-30}
 #' @param profanityFilter If \code{TRUE} will attempt to filter out profanities

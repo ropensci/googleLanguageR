@@ -14,7 +14,7 @@ gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
 
 \item{encoding}{Encoding of audio data sent}
 
-\item{sampleRateHertz}{Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal \code{16000} - will be guessed from file headers if left \code{NULL}}
+\item{sampleRateHertz}{Sample rate in Hertz of audio data. Valid values \code{8000-48000}. Optimal and default if left \code{NULL} is \code{16000}}
 
 \item{languageCode}{Language of the supplied audio as a \code{BCP-47} language tag}
 
