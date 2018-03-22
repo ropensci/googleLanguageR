@@ -28,7 +28,7 @@ Imports:
     googleAuthR,
     jsonlite,
     magrittr,
-    purrr,
+    purrr (>= 0.2.4),
     stats,
     tibble
 Suggests: 
