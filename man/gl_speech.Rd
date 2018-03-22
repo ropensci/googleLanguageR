@@ -89,6 +89,10 @@ asynch <- gl_speech(test_audio, asynch = TRUE)
 ## Send to gl_speech_op() for status or finished result
 gl_speech_op(asynch)
 
+## Upload to GCS bucket for long files > 60 seconds
+test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
+gcs <- gl_speech(test_gcs, sampleRateHertz = 44100L, asynch = TRUE)
+gl_speech_op(gcs)
 }
 
 

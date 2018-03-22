@@ -67,6 +67,10 @@
 #' ## Send to gl_speech_op() for status or finished result
 #' gl_speech_op(asynch)
 #'
+#' ## Upload to GCS bucket for long files > 60 seconds
+#' test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
+#' gcs <- gl_speech(test_gcs, sampleRateHertz = 44100L, asynch = TRUE)
+#' gl_speech_op(gcs)
 #' }
 #'
 #'
@@ -163,21 +167,19 @@ parse_speech <- function(x){
 parse_async <- function(x){
 
   if(is.null(x$done)){
-    my_message("Speech transcription running - started at ", x$metadata$startTime,
-               " - last update: ", x$metadata$lastUpdateTime, level = 3)
+    my_message("Speech transcription running")
+    if(!is.null(x$metadata$startTime)){
+      my_message("- started at ", x$metadata$startTime,
+                 " - last update: ", x$metadata$lastUpdateTime,
+                 level = 3)
+    }
     return(structure(x, class = "gl_speech_op"))
   } else {
     my_message("Asychronous transcription finished.", level = 3)
   }
-  transcript <-
-    my_map_df(x$response$results$alternatives,
-              ~ as_tibble(cbind(transcript = ifelse(!is.null(.x$transcript),
-                                                             .x$transcript,NA),
-                                confidence = ifelse(!is.null(.x$confidence),
-                                                             .x$confidence,NA))))
-  timings <- my_map_df(x$response$results$alternatives, ~ .x$words[[1]])
 
-  list(transcript = transcript, timings = timings)
+  parse_speech(x$response)
+
 }
 
 #' pretty print of gl_speech_op
