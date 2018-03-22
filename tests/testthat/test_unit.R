@@ -1,48 +1,4 @@
-library(httptest)
-library(rvest)
-library(magrittr)
-
-.mockPaths("..")
-
-local_auth <- Sys.getenv("GL_AUTH") != ""
-if(!local_auth){
-  cat("\nNo authentication file detected - skipping integration tests\n")
-} else {
-  cat("\nFound local auth file\n")
-}
-
-on_travis <- Sys.getenv("CI") == "true"
-if(on_travis){
-  cat("\n#testing on CI - working dir: ", path.expand(getwd()), "\n")
-} else {
-  cat("\n#testing not on CI\n")
-}
-
-## Generate test text and audio
-context("Setup test files")
-# HTML testing
-my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
-
-
-html_result <- tryCatch({
-  rvest::read_html(my_url) %>%
-  rvest::html_node(css = ".wcms-article-content") %>%
-  html_text
-  }, error = function(ex){
-    NULL
-  })
-
-test_text <- "The cat sat on the mat"
-test_text2 <- "How much is that doggy in the window?"
-trans_text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
-expected <- "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former."
-
-test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
-
-# a lot of text
-lots <- rep(paste(html_result, trans_text, expected),35)
-
-test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
+source("prep_tests.R")
 
 context("API Mocking")
 
@@ -60,7 +16,6 @@ test_that("Record requests if online", {
       gl_translate_detect(trans_text)
       gl_translate(trans_text)
       async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
-      # gl_translate(lots)
       gl_translate_languages("da")
       gl_translate(html_result, format = "html")
       gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
@@ -187,26 +142,17 @@ with_mock_API({
 
   test_that("Translation works", {
     skip_on_cran()
+    skip_if_not(local_auth)
 
     danish <- gl_translate(trans_text)
-
     expected <- "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former."
 
     expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
-    ## sometimes it can't get the HTML
-    if(!is.null(html_result)){
-      trans_result <- gl_translate(html_result, format = "html")
+    trans_result <- gl_translate(html_result, format = "html")
 
-      expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
+    expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
-    }
-
-    # expect_equal(sum(nchar(lots)), 115745L)
-    #
-    # big_r <- gl_translate(lots)
-    #
-    # expect_equal(nrow(big_r), 35)
 
   })
 

@@ -86,9 +86,14 @@ gl_speech <- function(audio_source,
                       speechContexts = NULL,
                       asynch = FALSE){
 
+  if(is.null(sampleRateHertz)){
+    my_message("Setting sampleRateHertz = 16000L")
+    sampleRateHertz <- 16000L
+  }
   assert_that(is.string(audio_source),
               is.string(languageCode),
               is.numeric(maxAlternatives),
+              is.scalar(sampleRateHertz),
               is.logical(profanityFilter))
 
   encoding <- match.arg(encoding)
@@ -146,7 +151,7 @@ parse_speech <- function(x){
     my_map_df(x$results$alternatives,
               ~ as_tibble(cbind(transcript = ifelse(!is.null(.x$transcript),
                                                              .x$transcript,NA),
-                                             ifelse(!is.null(.x$confidence),
+                                confidence = ifelse(!is.null(.x$confidence),
                                                              .x$confidence,NA))))
   timings    <- my_map_df(x$results$alternatives,
                           ~ .x$words[[1]])
@@ -156,9 +161,11 @@ parse_speech <- function(x){
 
 # parse asynchronous speech calls responses
 parse_async <- function(x){
+
   if(is.null(x$done)){
     my_message("Speech transcription running - started at ", x$metadata$startTime,
                " - last update: ", x$metadata$lastUpdateTime, level = 3)
+    return(structure(x, class = "gl_speech_op"))
   } else {
     my_message("Asychronous transcription finished.", level = 3)
   }
@@ -173,7 +180,8 @@ parse_async <- function(x){
   list(transcript = transcript, timings = timings)
 }
 
-# pretty print of gl_speech_op
+#' pretty print of gl_speech_op
+#' @export
 print.gl_speech_op <- function(x, ...){
   cat("## Send to gl_speech_op() for status")
   cat("\n##", x$name)

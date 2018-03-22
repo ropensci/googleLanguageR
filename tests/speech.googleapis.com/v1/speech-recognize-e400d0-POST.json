@@ -3,8 +3,8 @@
     {
       "alternatives": [
         {
-          "transcript": "to administer medicine to animals is freaking cute very difficult matter and yet sometimes it's necessary to do so",
-          "confidence": 0.9077643,
+          "transcript": "to administer medicine to animals is frequency of very difficult matter and yet sometimes it's necessary to do so",
+          "confidence": 0.9180294,
           "words": [
             {
               "startTime": "0s",
@@ -38,13 +38,13 @@
             },
             {
               "startTime": "2.100s",
-              "endTime": "2.500s",
-              "word": "freaking"
+              "endTime": "2.600s",
+              "word": "frequency"
             },
             {
-              "startTime": "2.500s",
+              "startTime": "2.600s",
               "endTime": "2.700s",
-              "word": "cute"
+              "word": "of"
             },
             {
               "startTime": "2.700s",
@@ -63,11 +63,11 @@
             },
             {
               "startTime": "3.800s",
-              "endTime": "4.400s",
+              "endTime": "4.300s",
               "word": "and"
             },
             {
-              "startTime": "4.400s",
+              "startTime": "4.300s",
               "endTime": "4.500s",
               "word": "yet"
             },

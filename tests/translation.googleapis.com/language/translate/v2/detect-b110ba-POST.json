@@ -3,9 +3,9 @@
     "detections": [
       [
         {
+          "confidence": 1,
           "isReliable": false,
-          "language": "da",
-          "confidence": 1
+          "language": "da"
         }
       ],
       [

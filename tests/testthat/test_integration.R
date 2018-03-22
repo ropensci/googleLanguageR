@@ -1,40 +1,4 @@
-library(httptest)
-library(rvest)
-library(magrittr)
-
-.mockPaths("..")
-
-local_auth <- Sys.getenv("GL_AUTH") != ""
-if(!local_auth){
-  cat("\nNo authentication file detected - skipping integration tests\n")
-} else {
-  cat("\nPerforming API calls for integration tests\n")
-}
-
-on_travis <- Sys.getenv("CI") == "true"
-if(on_travis){
-  cat("\n#testing on CI - working dir: ", path.expand(getwd()), "\n")
-} else {
-  cat("\n#testing not on CI\n")
-}
-
-## Generate test text and audio
-
-# HTML testing
-my_url <- "http://www.dr.dk/nyheder/indland/greenpeace-facebook-og-google-boer-foelge-apples-groenne-planer"
-
-html_result <- read_html(my_url) %>%
-  html_node(css = ".wcms-article-content") %>%
-  html_text
-
-test_text <- "The cat sat on the mat"
-test_text2 <- "How much is that doggy in the window?"
-trans_text <- "Der gives Folk, der i den Grad omgaaes letsindigt og skammeligt med Andres Ideer, de snappe op, at de burde tiltales for ulovlig Omgang med Hittegods."
-expected <- "People who are soberly and shamefully opposed to the ideas of others are given to people that they should be accused of unlawful interference with the former."
-# a lot of text
-lots <- rep(paste(html_result, trans_text, expected),35)
-
-
+source("prep_tests.R")
 
 context("Integration tests - Auth")
 
@@ -173,11 +137,6 @@ test_that("Translation works", {
 
   expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
-  # expect_equal(sum(nchar(lots)), 115745L)
-  #
-  # big_r <- gl_translate(lots)
-  #
-  # expect_equal(nrow(big_r), 35)
 
 })
 
