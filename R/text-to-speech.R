@@ -3,6 +3,7 @@
 #' Synthesizes speech synchronously: receive results after all text input has been processed.
 #'
 #' @param input The text to turn into speech
+#' @param output Where to save the speech audio file
 #' @param languageCode The language of the voice as a \code{BCP-47} language code
 #' @param name Name of the voice, see list of supported voices in details.  Set to \code{NULL} to make the service choose a voice based on \code{languageCode} and \code{gender}.
 #' @param gender The gender of the voice, if available
@@ -18,10 +19,23 @@
 #'
 #' Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices}
 #'
+#' @seealso \url{https://cloud.google.com/text-to-speech/docs/}
+#'
+#' @return The file output name you supplied as \code{output}
+#' @examples
+#'
+#' \dontrun{
+#'
+#' gl_talk("The rain in spain falls mainly in the plain",
+#'         output = "output.wav")
+#'
+#' }
+#'
 #' @export
 #' @importFrom googleAuthR gar_api_generator
 #' @import assertthat
 gl_talk <- function(input,
+                    output = "output.wav",
                     languageCode = "en-GB",
                     gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE","FEMALE","NEUTRAL"),
                     name = NULL,
@@ -37,7 +51,8 @@ gl_talk <- function(input,
   assert_that(
     is.string(input),
     nchar(input) <= 5000L,
-    is.string(languageCode)
+    is.string(languageCode),
+    is.string(output)
   )
 
   if(!is.null(name)){
@@ -73,8 +88,10 @@ gl_talk <- function(input,
                                 data_parse_function = audio_decode)
   o <- call_api(the_body = body)
 
-  ## what do we do with this?
-  o
+  ## write the file
+  writeBin(o, con = output)
+
+  output
 }
 
 audio_decode <- function(x){

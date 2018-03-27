@@ -4,13 +4,15 @@
 \alias{gl_talk}
 \title{Perform text to speech}
 \usage{
-gl_talk(input, languageCode = "en-GB",
+gl_talk(input, output = "output.wav", languageCode = "en-GB",
   gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE", "FEMALE", "NEUTRAL"),
   name = NULL, audioEncoding = c("LINEAR16", "MP3", "OGG_OPUS"),
   speakingRate = 1, pitch = 0, volumeGainDb = 0, sampleRateHertz = NULL)
 }
 \arguments{
 \item{input}{The text to turn into speech}
+
+\item{output}{Where to save the speech audio file}
 
 \item{languageCode}{The language of the voice as a \code{BCP-47} language code}
 
@@ -28,6 +30,9 @@ gl_talk(input, languageCode = "en-GB",
 
 \item{sampleRateHertz}{Sample rate for returned audio}
 }
+\value{
+The file output name you supplied as \code{output}
+}
 \description{
 Synthesizes speech synchronously: receive results after all text input has been processed.
 }
@@ -35,4 +40,17 @@ Synthesizes speech synchronously: receive results after all text input has been 
 Requires the Cloud Text-To-Speech API to be activated for your Google Cloud project.
 
 Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices}
+}
+\examples{
+
+\dontrun{
+
+gl_talk("The rain in spain falls mainly in the plain",
+        output = "output.wav")
+
+}
+
+}
+\seealso{
+\url{https://cloud.google.com/text-to-speech/docs/}
 }
