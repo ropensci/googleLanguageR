@@ -4,9 +4,9 @@
 \alias{gl_talk}
 \title{Perform text to speech}
 \usage{
-gl_talk(input, output = "output.wav", languageCode = "en-GB",
-  gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE", "FEMALE", "NEUTRAL"),
-  name = NULL, audioEncoding = c("LINEAR16", "MP3", "OGG_OPUS"),
+gl_talk(input, output = "output.wav", name = "en-US-Wavenet-C",
+  languageCode = "en", gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE",
+  "FEMALE", "NEUTRAL"), audioEncoding = c("LINEAR16", "MP3", "OGG_OPUS"),
   speakingRate = 1, pitch = 0, volumeGainDb = 0, sampleRateHertz = NULL)
 }
 \arguments{
@@ -14,11 +14,11 @@ gl_talk(input, output = "output.wav", languageCode = "en-GB",
 
 \item{output}{Where to save the speech audio file}
 
+\item{name}{Name of the voice, see list via \link{gl_talk_languages} for supported voices.  Set to \code{NULL} to make the service choose a voice based on \code{languageCode} and \code{gender}.}
+
 \item{languageCode}{The language of the voice as a \code{BCP-47} language code}
 
 \item{gender}{The gender of the voice, if available}
-
-\item{name}{Name of the voice, see list of supported voices in details.  Set to \code{NULL} to make the service choose a voice based on \code{languageCode} and \code{gender}.}
 
 \item{audioEncoding}{Format of the requested audio stream}
 

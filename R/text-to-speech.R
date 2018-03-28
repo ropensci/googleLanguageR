@@ -5,7 +5,7 @@
 #' @param input The text to turn into speech
 #' @param output Where to save the speech audio file
 #' @param languageCode The language of the voice as a \code{BCP-47} language code
-#' @param name Name of the voice, see list of supported voices in details.  Set to \code{NULL} to make the service choose a voice based on \code{languageCode} and \code{gender}.
+#' @param name Name of the voice, see list via \link{gl_talk_languages} for supported voices.  Set to \code{NULL} to make the service choose a voice based on \code{languageCode} and \code{gender}.
 #' @param gender The gender of the voice, if available
 #' @param audioEncoding Format of the requested audio stream
 #' @param speakingRate Speaking rate/speed between \code{0.25} and \code{4.0}
@@ -36,9 +36,9 @@
 #' @import assertthat
 gl_talk <- function(input,
                     output = "output.wav",
-                    languageCode = "en-GB",
+                    name = "en-US-Wavenet-C",
+                    languageCode = "en",
                     gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE","FEMALE","NEUTRAL"),
-                    name = NULL,
                     audioEncoding = c("LINEAR16","MP3","OGG_OPUS"),
                     speakingRate = 1,
                     pitch = 0,
@@ -51,8 +51,8 @@ gl_talk <- function(input,
   assert_that(
     is.string(input),
     nchar(input) <= 5000L,
-    is.string(languageCode),
-    is.string(output)
+    is.string(output),
+    is.string(languageCode)
   )
 
   if(!is.null(name)){
@@ -97,3 +97,56 @@ gl_talk <- function(input,
 audio_decode <- function(x){
   jsonlite::base64_dec(x$audioContent)
 }
+
+#' Get a list of voices available for text to speech
+#'
+#' Returns a list of voices supported for synthesis.
+#'
+#' @param languageCode A \code{BCP-47} language tag.  If specified, will only return voices that can be used to synthesize this languageCode
+#'
+#' @import assertthat
+#' @importFrom googleAuthR gar_api_generator
+#' @export
+gl_talk_languages <- function(languageCode = NULL){
+
+  if(!is.null(languageCode)){
+    assert_that(is.string(languageCode))
+  }
+
+  call_api <- gar_api_generator("https://texttospeech.googleapis.com/v1beta1/voices",
+                                "GET",
+                                pars_args = list(languageCode = languageCode),
+                                data_parse_function = parse_talk_language)
+  call_api()
+
+}
+
+parse_talk_language <- function(x){
+
+  if(length(x) == 0){
+    my_message("No languages found")
+    return(tibble())
+  }
+  o <- x$voices
+  lc <- map_chr(o$languageCodes, 1)
+
+  tibble(languageCodes = lc,
+         name = o$name,
+         ssmlGender = o$ssmlGender,
+         naturalSampleRateHertz = o$naturalSampleRateHertz)
+
+}
+
+audio_html_player <- function(x = "output.wav",
+                              html = "player.html"){
+
+  writeLines(sprintf('<html><body>
+    <audio controls>
+                     <source src="%s">
+                     </audio>
+                     </body></html>', x), html)
+
+  utils::browseURL(htmlFile)
+
+}
+
