@@ -40,9 +40,9 @@
 #' @import assertthat
 gl_talk <- function(input,
                     output = "output.wav",
-                    name = "en-US-Wavenet-C",
                     languageCode = "en",
                     gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE","FEMALE","NEUTRAL"),
+                    name = NULL,
                     audioEncoding = c("LINEAR16","MP3","OGG_OPUS"),
                     speakingRate = 1,
                     pitch = 0,
