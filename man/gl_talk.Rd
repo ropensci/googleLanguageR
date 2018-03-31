@@ -40,6 +40,8 @@ Synthesizes speech synchronously: receive results after all text input has been 
 Requires the Cloud Text-To-Speech API to be activated for your Google Cloud project.
 
 Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices}
+
+To play the audio in code via a browser see \link{gl_talk_player}
 }
 \examples{
 
@@ -47,6 +49,8 @@ Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voic
 
 gl_talk("The rain in spain falls mainly in the plain",
         output = "output.wav")
+
+gl_talk("Testing my new audio player") \%>\% gl_talk_player()
 
 }
 

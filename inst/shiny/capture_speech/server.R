@@ -196,67 +196,42 @@ function(input, output, session){
 
   })
 
-  observe({
-
+  talk_file <- reactive({
+    req(get_api_text())
     req(translation())
+    req(input$translate)
 
-    if(!isNamespaceLoaded("rsay")){
-      message("For talk back on MacOS, needs 'rsay' package https://github.com/sellorm/rsay")
-    }
+    # clean up any existing wav files
+    unlink(list.files("www", pattern = ".wav$", full.names = TRUE))
 
-    if (!isTRUE(grepl("^darwin", R.version$os))){
-      message("Talk back only supported on MacOS")
-      return(NULL)
-    }
-
-    ## if a translation, we speak that, else the input language
-    if(input$translate == "none"){
-
-      voice <- switch(input$language,
-                      "en-GB" = "Daniel",
-                      "en-US" = "Agnes",
-                      "da-DK" = NULL,
-                      "fr-FR" = "Thomas",
-                      "de-DE" = "Anna",
-                      "es-ES" = "Monica",
-                      "es-CL" = "Monica",
-                      "nl-NL" = "Xander",
-                      "ro-RO" = "Ioana",
-                      "it-IT" = "Alice",
-                      "nb-NO" = "Nora",
-                      "sv-SE" = "Alva"
-      )
-
-      speak_me <- get_api_text()
-
-    } else {
-
-      voice <- switch(input$translate,
-                      "en" = "Daniel",
-                      "da" = NULL,
-                      "fr" = "Thomas",
-                      "de" = "Anna",
-                      "es" = "Monica",
-                      "nl" = "Xander",
-                      "ro" = "Ioana",
-                      "it" = "Alice",
-                      "nb" = "Nora",
-                      "sv" = "Alva"
-      )
-
-      speak_me <- translation()
-    }
-
-
-    if(is.null(voice)){
-      message("Unsupported language to speak")
-      return(NULL)
-    }
-
-    rsay::speak(speak_me, voice = voice)
+    # to prevent browser caching
+    paste0(input$language,input$translate,basename(tempfile(fileext = ".wav")))
 
   })
 
+  output$talk <- renderUI({
 
+    req(get_api_text())
+    req(translation())
+    req(talk_file())
+
+    # to prevent browser caching
+    output_name <- talk_file()
+
+    if(input$translate != "none"){
+      audio_file <- gl_talk(translation(),
+                            languageCode = input$translate,
+                            name = NULL,
+                            output = file.path("www", output_name))
+    } else {
+      audio_file <- gl_talk(get_api_text(),
+                            languageCode = input$language,
+                            output = file.path("www", output_name))
+    }
+
+    ## the audio file sits in folder www, but the audio file must be referenced without www
+    tags$audio(autoplay = NA, controls = NA, tags$source(src = output_name))
+
+  })
 
 }

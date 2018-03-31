@@ -19,6 +19,8 @@
 #'
 #' Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices}
 #'
+#' To play the audio in code via a browser see \link{gl_talk_player}
+#'
 #' @seealso \url{https://cloud.google.com/text-to-speech/docs/}
 #'
 #' @return The file output name you supplied as \code{output}
@@ -28,6 +30,8 @@
 #'
 #' gl_talk("The rain in spain falls mainly in the plain",
 #'         output = "output.wav")
+#'
+#' gl_talk("Testing my new audio player") %>% gl_talk_player()
 #'
 #' }
 #'
@@ -83,6 +87,8 @@ gl_talk <- function(input,
 
   body <- rmNullObs(body)
 
+  my_message("Calling text-to-speech API with voice: ",name, " input: ", input, level = 3)
+
   call_api <- gar_api_generator("https://texttospeech.googleapis.com/v1beta1/text:synthesize",
                                 "POST",
                                 data_parse_function = audio_decode)
@@ -111,11 +117,15 @@ gl_talk_languages <- function(languageCode = NULL){
 
   if(!is.null(languageCode)){
     assert_that(is.string(languageCode))
+    pars <- list(languageCode = languageCode)
+  } else {
+    pars <- NULL
   }
+
 
   call_api <- gar_api_generator("https://texttospeech.googleapis.com/v1beta1/voices",
                                 "GET",
-                                pars_args = list(languageCode = languageCode),
+                                pars_args = pars,
                                 data_parse_function = parse_talk_language)
   call_api()
 
@@ -137,16 +147,39 @@ parse_talk_language <- function(x){
 
 }
 
-audio_html_player <- function(x = "output.wav",
-                              html = "player.html"){
+#' Play audio in a browser
+#'
+#' This uses HTML5 audio tags to play audio in your browser
+#'
+#' @param audio The file location of the audio file.  Must be supported by HTML5
+#' @param html The html file location that will be created host the audio
+#'
+#' @details
+#'
+#' A platform neutral way to play audio is not easy, so this uses your browser to play it instead.
+#'
+#' @examples
+#'
+#' \notrun{
+#'
+#' gl_talk("Testing my new audio player") %>% gl_talk_player()
+#'
+#' }
+#'
+#' @export
+#' @importFrom utils browseURL
+gl_talk_player <- function(audio = "output.wav",
+                           html = "player.html"){
 
   writeLines(sprintf('<html><body>
-    <audio controls>
+    <audio controls autoplay>
                      <source src="%s">
                      </audio>
-                     </body></html>', x), html)
+                     </body></html>',
+              audio),
+      html)
 
-  utils::browseURL(htmlFile)
+  utils::browseURL(html)
 
 }
 

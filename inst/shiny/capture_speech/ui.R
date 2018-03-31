@@ -75,7 +75,8 @@ shinyUI(
       tableOutput("nlp_sentences"),
       tableOutput("nlp_tokens"),
       tableOutput("nlp_entities"),
-      tableOutput("nlp_misc")
+      tableOutput("nlp_misc"),
+      htmlOutput("talk")
     )
   ),
   helpText(
