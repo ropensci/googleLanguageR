@@ -56,7 +56,11 @@ gl_talk <- function(input,
     is.string(input),
     nchar(input) <= 5000L,
     is.string(output),
-    is.string(languageCode)
+    is.string(languageCode),
+    speakingRate >= 0.25,
+    speakingRate <= 4.0,
+    pitch >= -20.0,
+    pitch <= 20.0
   )
 
   if(!is.null(name)){
@@ -160,7 +164,7 @@ parse_talk_language <- function(x){
 #'
 #' @examples
 #'
-#' \notrun{
+#' \dontrun{
 #'
 #' gl_talk("Testing my new audio player") %>% gl_talk_player()
 #'
