@@ -140,3 +140,47 @@ test_that("Translation works", {
 
 })
 
+context("Integration tests - Talk")
+
+test_that("Simple talk API call creates a file", {
+  skip_on_cran()
+  skip_if_not(local_auth)
+
+  unlink("test.wav")
+  filename <- gl_talk("Test talk sentence", output  = "test.wav", languageCode = "en",  gender = "FEMALE")
+
+  expect_equal(filename, "test.wav")
+  expect_true(file.exists("test.wav"))
+  expect_gt(file.info("test.wav")$size, 50000)
+
+  on.exit(unlink("test.wav"))
+
+})
+
+test_that("Get list of talk languages", {
+  skip_on_cran()
+  skip_if_not(local_auth)
+
+  lang <- gl_talk_languages()
+
+  expect_s3_class(lang, "data.frame")
+  expect_gt(nrow(lang), 30)
+  expect_true(all(names(lang) %in% c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
+              info = "expect names in data.frame")
+
+
+})
+
+test_that("Get filtered list of talk languages", {
+  skip_on_cran()
+  skip_if_not(local_auth)
+
+  lang <- gl_talk_languages(languageCode = "en")
+
+  expect_s3_class(lang, "data.frame")
+  expect_true(all(names(lang) %in% c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
+              info = "expect names in data.frame")
+  expect_true(all(grepl("^en-", lang$languageCodes)),
+              info = "Only languageCodes beginning with en")
+
+})

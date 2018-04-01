@@ -11,7 +11,6 @@ test_that("Record requests if online", {
       gl_nlp(test_text)
       gl_nlp(c(test_text, test_text2))
       gl_speech(test_audio)
-      async <- gl_speech(test_audio, asynch = TRUE)
       gl_translate_languages()
       gl_translate_detect(trans_text)
       gl_translate(trans_text)
@@ -19,6 +18,10 @@ test_that("Record requests if online", {
       gl_translate_languages("da")
       gl_translate(html_result, format = "html")
       gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
+      gl_talk("Test talk sentence", output  = "test.wav", languageCode = "en",  gender = "FEMALE")
+      gl_talk_languages()
+      gl_talk_languages(languageCode = "en")
+
     })
 
   ## wait for the operation jobs to finish
@@ -153,6 +156,51 @@ with_mock_API({
 
     expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
+
+  })
+
+  context("Unit tests - Talk")
+
+  test_that("Simple talk API call creates a file", {
+    skip_on_cran()
+    skip_if_not(local_auth)
+
+    unlink("test.wav")
+    filename <- gl_talk("Test talk sentence", output  = "test.wav", languageCode = "en",  gender = "FEMALE")
+
+    expect_equal(filename, "test.wav")
+    expect_true(file.exists("test.wav"))
+    expect_gt(file.info("test.wav")$size, 50000)
+
+    on.exit(unlink("test.wav"))
+
+  })
+
+  test_that("Get list of talk languages", {
+    skip_on_cran()
+    skip_if_not(local_auth)
+
+    lang <- gl_talk_languages()
+
+    expect_s3_class(lang, "data.frame")
+    expect_gt(nrow(lang), 30)
+    expect_true(all(names(lang) %in% c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
+                info = "expect names in data.frame")
+
+
+  })
+
+  test_that("Get filtered list of talk languages", {
+    skip_on_cran()
+    skip_if_not(local_auth)
+
+    lang <- gl_talk_languages(languageCode = "en")
+
+    expect_s3_class(lang, "data.frame")
+    expect_true(all(names(lang) %in% c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
+                info = "expect names in data.frame")
+    expect_true(all(grepl("^en-", lang$languageCodes)),
+                info = "Only languageCodes beginning with en")
 
   })
 
