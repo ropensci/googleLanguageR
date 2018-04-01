@@ -19,7 +19,7 @@ A platform neutral way to play audio is not easy, so this uses your browser to p
 }
 \examples{
 
-\\notrun{
+\dontrun{
 
 gl_talk("Testing my new audio player") \%>\% gl_talk_player()
 
