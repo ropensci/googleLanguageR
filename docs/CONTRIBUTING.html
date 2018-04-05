@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a speech operation — gl_speech_op • googleLanguageR</title>
+<title>Contributing to googleLanguageR • googleLanguageR</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -22,13 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
-<script src="../pkgdown.js"></script>
-<meta property="og:title" content="Get a speech operation — gl_speech_op" />
-
-<meta property="og:description" content="For asynchronous calls of audio over 60 seconds, this returns the finished job" />
-<meta name="twitter:card" content="summary" />
+<link href="pkgdown.css" rel="stylesheet">
+<script src="jquery.sticky-kit.min.js"></script>
+<script src="pkgdown.js"></script>
+<meta property="og:title" content="Contributing to googleLanguageR" />
 
 
 <!-- mathjax -->
@@ -57,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -68,7 +65,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">googleLanguageR</a>
+        <a class="navbar-link" href="index.html">googleLanguageR</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1.9000</span>
       </span>
     </div>
@@ -76,28 +73,28 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/translation.html">
+  <a href="articles/translation.html">
     <span class="fa fa-globe fa-lg"></span>
      
     Translation API
   </a>
 </li>
 <li>
-  <a href="../articles/nlp.html">
+  <a href="articles/nlp.html">
     <span class="fa fa-object-group fa-lg"></span>
      
     NLP API
   </a>
 </li>
 <li>
-  <a href="../articles/speech.html">
+  <a href="articles/speech.html">
     <span class="fa fa-comment fa-lg"></span>
      
     Speech API
   </a>
 </li>
 <li>
-  <a href="../articles/text-to-speech.html">
+  <a href="articles/text-to-speech.html">
     <span class="fa fa-phone fa-lg"></span>
      
     Text-to-Speech API
@@ -111,7 +108,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../reference/index.html">
+      <a href="reference/index.html">
         <span class="fa fa-info"></span>
          
         Function Reference
@@ -154,65 +151,40 @@
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Get a speech operation</h1>
-    
-    <div class="hidden name"><code>gl_speech_op.Rd</code></div>
+      <h1>Contributing to googleLanguageR</h1>
     </div>
 
-    
-    <p>For asynchronous calls of audio over 60 seconds, this returns the finished job</p>
-    
+<div id="contributing-to-googlelanguager" class="section level1">
 
-    <pre class="usage"><span class='fu'>gl_speech_op</span>(<span class='no'>operation</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>operation</th>
-      <td><p>A speech operation object from <a href='gl_speech.html'>gl_speech</a> when <code>asynch = TRUE</code></p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>If the operation is still running, another operation object.  If done, the result as per <a href='gl_speech.html'>gl_speech</a></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='gl_speech.html'>gl_speech</a></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>test_audio</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"woman1_wb.wav"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"googleLanguageR"</span>)
-
-<span class='co'>## make an asynchronous API request (mandatory for sound files over 60 seconds)</span>
-<span class='no'>asynch</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gl_speech.html'>gl_speech</a></span>(<span class='no'>test_audio</span>, <span class='kw'>asynch</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'>## Send to gl_speech_op() for status or finished result</span>
-<span class='fu'>gl_speech_op</span>(<span class='no'>asynch</span>)
-
-<span class='co'># }</span><div class='input'>
-</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-  </div>
+<p>Thank you for your interest in contributing to this project!</p>
+<p>To run unit tests, saved API calls are cached in the <code>tests/testthat/mock</code> folder. These substitute for an API call to Google and avoid authentication.</p>
+<p>The API calls to the Cloud Speech API and translation varies slightly, so test success is judged if the string is within 10 characters of the test string. For this test then, the <code>stringdist</code> package is needed (under the package <code>Suggests</code>)</p>
+<p>To run integration tests that hit the API, you will need to add your own authentication service JSON file from Google Cloud projects. Save this file to your computer and then set an environment variable <code>GL_AUTH</code> pointing to the file location. If not present, (such as on CRAN or Travis) the integration tests will be skipped.</p>
+<p>You will need to enable the following APIs:</p>
+<ul>
+<li><a href="https://console.developers.google.com/apis/api/speech.googleapis.com/overview">Google Cloud Speech API</a></li>
+<li><a href="https://console.developers.google.com/apis/api/language.googleapis.com/overview">Google Cloud Natural Language API</a></li>
+<li><a href="https://console.developers.google.com/apis/api/translate.googleapis.com/overview">Google Cloud Translation API</a></li>
+</ul>
+<div id="contributor-covenant-code-of-conduct-" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributor-covenant-code-of-conduct-" class="anchor"></a>Contributor Covenant Code of Conduct.</h2>
+<ul>
+<li>Any contributors should be doing so for the joy of creating and sharing and advancing knowledge. Treat each other with the respect this deserves.<br>
+</li>
+<li>The main language is English.</li>
+<li>The community will tolerate everything but intolerance. It should be assumed everyone is trying to be tolerant until they repeatedly prove otherwise.</li>
+<li>Don’t break any laws or copyrights during contributions, credit sources where it is due.</li>
+</ul>
 </div>
+</div>
+
+  </div>
+
+</div>
+
 
       <footer>
       <div class="copyright">

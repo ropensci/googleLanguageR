@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get a speech operation — gl_speech_op • googleLanguageR</title>
+<title>Recursively step down into list, removing all such objects — rmNullObs • googleLanguageR</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Get a speech operation — gl_speech_op" />
+<meta property="og:title" content="Recursively step down into list, removing all such objects — rmNullObs" />
 
-<meta property="og:description" content="For asynchronous calls of audio over 60 seconds, this returns the finished job" />
+<meta property="og:description" content="Recursively step down into list, removing all such objects" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -156,60 +156,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get a speech operation</h1>
+    <h1>Recursively step down into list, removing all such objects</h1>
     
-    <div class="hidden name"><code>gl_speech_op.Rd</code></div>
+    <div class="hidden name"><code>rmNullObs.Rd</code></div>
     </div>
 
     
-    <p>For asynchronous calls of audio over 60 seconds, this returns the finished job</p>
+    <p>Recursively step down into list, removing all such objects</p>
     
 
-    <pre class="usage"><span class='fu'>gl_speech_op</span>(<span class='no'>operation</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>operation</th>
-      <td><p>A speech operation object from <a href='gl_speech.html'>gl_speech</a> when <code>asynch = TRUE</code></p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='fu'>rmNullObs</span>(<span class='no'>x</span>)</pre>
+        
 
-    <p>If the operation is still running, another operation object.  If done, the result as per <a href='gl_speech.html'>gl_speech</a></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='gl_speech.html'>gl_speech</a></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>test_audio</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"woman1_wb.wav"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"googleLanguageR"</span>)
-
-<span class='co'>## make an asynchronous API request (mandatory for sound files over 60 seconds)</span>
-<span class='no'>asynch</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gl_speech.html'>gl_speech</a></span>(<span class='no'>test_audio</span>, <span class='kw'>asynch</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='co'>## Send to gl_speech_op() for status or finished result</span>
-<span class='fu'>gl_speech_op</span>(<span class='no'>asynch</span>)
-
-<span class='co'># }</span><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

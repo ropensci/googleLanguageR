@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Translate the language of text within a request — gl_translate • googleLanguageR</title>
+<title>Get a list of voices available for text to speech — gl_talk_languages • googleLanguageR</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Translate the language of text within a request — gl_translate" />
+<meta property="og:title" content="Get a list of voices available for text to speech — gl_talk_languages" />
 
-<meta property="og:description" content="Translate character vectors via the Google Translate API" />
+<meta property="og:description" content="Returns a list of voices supported for synthesis." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -156,107 +156,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Translate the language of text within a request</h1>
+    <h1>Get a list of voices available for text to speech</h1>
     
-    <div class="hidden name"><code>gl_translate.Rd</code></div>
+    <div class="hidden name"><code>gl_talk_languages.Rd</code></div>
     </div>
 
     
-    <p>Translate character vectors via the Google Translate API</p>
+    <p>Returns a list of voices supported for synthesis.</p>
     
 
-    <pre class="usage"><span class='fu'>gl_translate</span>(<span class='no'>t_string</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"en"</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"text"</span>, <span class='st'>"html"</span>),
-  <span class='kw'>source</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"nmt"</span>, <span class='st'>"base"</span>))</pre>
+    <pre class="usage"><span class='fu'>gl_talk_languages</span>(<span class='kw'>languageCode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>t_string</th>
-      <td><p>A character vector of text to detect language for</p></td>
-    </tr>
-    <tr>
-      <th>target</th>
-      <td><p>The target language</p></td>
-    </tr>
-    <tr>
-      <th>format</th>
-      <td><p>Whether the text is plain or HTML</p></td>
-    </tr>
-    <tr>
-      <th>source</th>
-      <td><p>Specify the language to translate from. Will detect it if left default</p></td>
-    </tr>
-    <tr>
-      <th>model</th>
-      <td><p>What translation model to use</p></td>
+      <th>languageCode</th>
+      <td><p>A <code>BCP-47</code> language tag.  If specified, will only return voices that can be used to synthesize this languageCode</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble of <code>translatedText</code> and <code>detectedSourceLanguage</code>
-  and <code>text</code> of length equal to the vector of text you passed in.</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>You can translate a vector of strings, although if too many for one call then it will be
-  broken up into one API call per element.
-  This is the same cost as charging is per character translated, but will take longer.</p>
-<p>If translating HTML set the <code>format = "html"</code>.
-Consider removing anything not needed to be translated first,
-  such as JavaScript and CSS scripts. See example on how to do this with <code>rvest</code></p>
-<p>The API limits in three ways: characters per day, characters per 100 seconds,
-  and API requests per 100 seconds.
-All can be set in the API manager
-  <a href='https://console.developers.google.com/apis/api/translate.googleapis.com/quotas'>https://console.developers.google.com/apis/api/translate.googleapis.com/quotas</a></p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='https://cloud.google.com/translate/docs/reference/translate'>https://cloud.google.com/translate/docs/reference/translate</a></p>
-<p>Other translations: <code><a href='gl_translate_detect.html'>gl_translate_detect</a></code>,
-  <code><a href='gl_translate_languages.html'>gl_translate_languages</a></code></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='st'>"to administer medicine to animals is frequently a very difficult matter,
-  and yet sometimes it's necessary to do so"</span>
-
-<span class='fu'>gl_translate</span>(<span class='no'>text</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='st'>"ja"</span>)
-
-<span class='co'># translate webpages using rvest to process beforehand</span>
-<span class='fu'>library</span>(<span class='no'>rvest</span>)
-<span class='fu'>library</span>(<span class='no'>googleLanguageR</span>)
-
-<span class='co'># translate webpages</span>
-
-<span class='co'># dr.dk article</span>
-<span class='no'>my_url</span> <span class='kw'>&lt;-</span> <span class='st'>"http://bit.ly/2yhrmrH"</span>
-
-<span class='co'>## in this case the content to translate is in css selector '.wcms-article-content'</span>
-<span class='fu'>read_html</span>(<span class='no'>my_url</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/rvest/topics/html_nodes'>html_node</a></span>(<span class='kw'>css</span> <span class='kw'>=</span> <span class='st'>".wcms-article-content"</span>) <span class='kw'>%&gt;%</span>
-  <span class='no'>html_text</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'>gl_translate</span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"html"</span>)
-
-<span class='co'># }</span><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
