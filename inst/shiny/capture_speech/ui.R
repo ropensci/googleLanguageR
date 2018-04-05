@@ -62,7 +62,6 @@ shinyUI(
 
     mainPanel(
       helpText("Transcription will appear here when ready. (Can take 30 seconds +).  Streaming support not implemented yet."),
-      helpText("If on MacOS then response will be spoken through the ", a(href="https://github.com/sellorm/rsay", "rsay package")),
       shinyjs::hidden(
         div(id = "api",
             p("Calling API - please wait", icon("circle-o-notch fa-spin fa-fw"))

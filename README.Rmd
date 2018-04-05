@@ -171,12 +171,13 @@ test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
 
 ## its not perfect but...:)
 gl_speech(test_audio)$transcript
-```
+
 
     ## # A tibble: 1 x 2
     ##   transcript                                                    confidence
     ##   <chr>                                                         <chr>     
     ## 1 to administer medicine to animals is frequency of very diffi… 0.9180294
+```
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
 
