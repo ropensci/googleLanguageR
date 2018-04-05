@@ -6,7 +6,7 @@ It uses `library(tuneR)` to process the audio file, and a JavaScript audio libra
 
 You can also optionally send your transcription to the [Cloud Translation API](https://cloud.google.com/translate/)
 
-If on MacOS, the results will also be spoken to you via the library [`rsay`](https://github.com/sellorm/rsay)
+The results are then spoken back to you using the `gl_talk()` functions.
 
 ## Screenshot
 

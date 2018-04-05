@@ -21,6 +21,7 @@ test_that("Record requests if online", {
       gl_talk("Test talk sentence", output  = "test.wav", languageCode = "en",  gender = "FEMALE")
       gl_talk_languages()
       gl_talk_languages(languageCode = "en")
+      gl_talk("Hasta la vista", name = "es-ES-Standard-A")
 
     })
 
@@ -165,6 +166,20 @@ with_mock_API({
 
     unlink("test.wav")
     filename <- gl_talk("Test talk sentence", output  = "test.wav", languageCode = "en",  gender = "FEMALE")
+
+    expect_equal(filename, "test.wav")
+    expect_true(file.exists("test.wav"))
+    expect_gt(file.info("test.wav")$size, 50000)
+
+    on.exit(unlink("test.wav"))
+
+  })
+
+  test_that("Specify a named voice", {
+    skip_on_cran()
+
+    unlink("test.wav")
+    filename <- gl_talk("Hasta la vista", name = "es-ES-Standard-A")
 
     expect_equal(filename, "test.wav")
     expect_true(file.exists("test.wav"))

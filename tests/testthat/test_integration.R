@@ -157,6 +157,21 @@ test_that("Simple talk API call creates a file", {
 
 })
 
+test_that("Specify a named voice", {
+  skip_on_cran()
+  skip_if_not(local_auth)
+
+  unlink("test.wav")
+  filename <- gl_talk("Hasta la vista", name = "es-ES-Standard-A")
+
+  expect_equal(filename, "test.wav")
+  expect_true(file.exists("test.wav"))
+  expect_gt(file.info("test.wav")$size, 50000)
+
+  on.exit(unlink("test.wav"))
+
+})
+
 test_that("Get list of talk languages", {
   skip_on_cran()
   skip_if_not(local_auth)

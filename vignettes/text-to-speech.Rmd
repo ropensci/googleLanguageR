@@ -1,0 +1,123 @@
+---
+title: "Google Cloud Text-to-Speech API"
+author: "Mark Edmondson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Google Cloud Text-to-Speech API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Google Cloud Text-to-Speech enables developers to synthesize natural-sounding speech with 30 voices, available in multiple languages and variants. It applies DeepMind’s groundbreaking research in WaveNet and Google’s powerful neural networks to deliver the highest fidelity possible. With this easy-to-use API, you can create lifelike interactions with your users, across many applications and devices.
+
+Read more [on the Google Cloud Text-to-Speech Website](https://cloud.google.com/text-to-speech/)
+
+The Cloud Text-to-Speech API turns text into sound files of the spoken words.  Its accessible via the `gl_talk` function.
+
+Arguments include:
+
+* `input` - The text to turn into speech
+* `output` Where to save the speech audio file
+* `languageCode` The language of the voice as a [`BCP-47` language tag](https://tools.ietf.org/html/bcp47)
+* `name` Name of the voice, see list via `gl_talk_languages()` or [online](https://cloud.google.com/text-to-speech/docs/voices) for supported voices.  If not set, then the service will choose a voice based on `languageCode` and `gender`.
+* `gender` The gender of the voice, if available
+* `audioEncoding` Format of the requested audio stream - can be a choice of `.wav`, `.mp3` or `.ogg`
+* `speakingRate` Speaking rate/speed
+* `pitch` Speaking pitch
+* `volumeGainDb` Volumne gain in dB
+* `sampleRateHertz` Sample rate for returned audio
+
+### Returned structure
+
+The API returns an audio file which is saved to the location specified in `output` - by default this is `output.wav` - if you don't rename this file it will be overwritten by the next API call.  
+
+It is advised to set the appropriate file extension if you change the audio encoding (e.g. to one of `.wav`, `.mp3` or `.ogg`) so audio payers recognise the file format. 
+
+### Talk Languages
+
+The API can talk several different languages, with more being added over time.  You can get a current list via the function `gl_talk_languages()` or [online](https://cloud.google.com/text-to-speech/docs/voices)
+
+```r
+gl_talk_languages()
+# A tibble: 32 x 4
+   languageCodes name             ssmlGender naturalSampleRateHertz
+   <chr>         <chr>            <chr>                       <int>
+ 1 es-ES         es-ES-Standard-A FEMALE                      24000
+ 2 ja-JP         ja-JP-Standard-A FEMALE                      22050
+ 3 pt-BR         pt-BR-Standard-A FEMALE                      24000
+ 4 tr-TR         tr-TR-Standard-A FEMALE                      22050
+ 5 sv-SE         sv-SE-Standard-A FEMALE                      22050
+ 6 nl-NL         nl-NL-Standard-A FEMALE                      24000
+ 7 en-US         en-US-Wavenet-A  MALE                        24000
+ 8 en-US         en-US-Wavenet-B  MALE                        24000
+ 9 en-US         en-US-Wavenet-C  FEMALE                      24000
+10 en-US         en-US-Wavenet-D  MALE                        24000
+```
+
+If you are looking a specific language, specify that in the function call e.g. to see only Spanish (`es`)
+voices issue:
+
+```r
+gl_talk_languages(languageCode = "es")
+# A tibble: 1 x 4
+  languageCodes name             ssmlGender naturalSampleRateHertz
+  <chr>         <chr>            <chr>                       <int>
+1 es-ES         es-ES-Standard-A FEMALE                      24000
+```
+
+You can then specify that voice when calling the API via the `name` argument, which overrides the `gender` and `languageCode` argument:
+
+```r
+gl_talk("Hasta la vista", name = "es-ES-Standard-A")
+```
+
+Otherwise, specify your own `gender` and `languageCode` and the voice will be picked for you:
+
+```r
+gl_talk("Would you like a cup of tea?", gender = "FEMALE", languageCode = "en-GB")
+```
+
+Some languages are not yet supported, such as Danish.  The API will return an error in those cases. 
+
+### Browser Speech player
+
+Creating and clicking on the audio file to play it can be a bit of a drag, so you also have a function that will play the audio file for you, launching via the browser.  This can be piped via the tidyverse's `%>%`
+
+```r
+library(magrittr)
+gl_talk("This is my audio player") %>% gl_talk_player()
+
+## non-piped equivalent
+gl_talk_player(gl_talk("This is my audio player"))
+```
+
+#### Using with Shiny
+
+You can do this in Shiny too, which is demonstrated in the [example Shiny app](https://github.com/ropensci/googleLanguageR/tree/master/inst/shiny/capture_speech) included with the package.
+
+The pertinent HTML tags for your own Shiny apps are shown below - specify `autoplay` to have the audio play immediatly, or exclude if the user should push the play button to hear the audio.  
+
+Note the output audio file will be cached in the browser, so you should have a new name for the file (And delete the old ones) if you have changing text inputs.
+
+You also need to create the audio files in a `www` folder in your Shiny app, but reference them in the `<audio>` HTML5 tag without `www` - see example below:
+
+```r
+output$talk <- renderUI({
+
+  # to prevent browser caching, create a new audio filename each play
+  # create within the www folder of the Shiny app
+  output_file <- file.path("www", basename(tempfile(fileext = ".wav"))
+
+  # replace with your reactive text input
+  gl_talk("This will autoplay in my Shiny app", 
+          output = output_file)
+
+  # creates HTML5 audio player
+  # the audio file sits in folder www, but the audio file must be referenced without www
+  tags$audio(autoplay = NA, controls = NA, tags$source(src = basename(output_file)))
+
+})
+```
+
+

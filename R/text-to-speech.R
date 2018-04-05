@@ -17,7 +17,7 @@
 #'
 #' Requires the Cloud Text-To-Speech API to be activated for your Google Cloud project.
 #'
-#' Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices}
+#' Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices} and can be imported into R via \link{gl_talk_languages}
 #'
 #' To play the audio in code via a browser see \link{gl_talk_player}
 #'
@@ -65,10 +65,25 @@ gl_talk <- function(input,
 
   if(!is.null(name)){
     assert_that(is.string(name))
+    languageCode <- substr(name, 1,2)
+    gender <- NULL
   }
 
   if(!is.null(sampleRateHertz)){
     assert_that(is.scalar(sampleRateHertz))
+  }
+
+  ## change fileextension of output based on audioEncoding
+  file_ext <- switch(audioEncoding,
+                     LINEAR16 = "wav",
+                     MP3 = "mp3",
+                     OGG_OPUS = "ogg|opus|mka|mkv|webm")
+
+  if(!grepl(paste0("\\.",file_ext,"$"), output)){
+    warning("Output file extension (",
+            output,
+            ") does not match audio encoding (",
+            audioEncoding,")")
   }
 
   body <- list(

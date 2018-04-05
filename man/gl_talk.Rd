@@ -39,7 +39,7 @@ Synthesizes speech synchronously: receive results after all text input has been 
 \details{
 Requires the Cloud Text-To-Speech API to be activated for your Google Cloud project.
 
-Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices}
+Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices} and can be imported into R via \link{gl_talk_languages}
 
 To play the audio in code via a browser see \link{gl_talk_player}
 }

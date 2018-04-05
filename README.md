@@ -1,4 +1,4 @@
-googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API and Google Cloud Speech API
+googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API, Google Cloud Speech API and Google Text-to-speech API
 ================
 Mark Edmondson
 8/10/2017
@@ -11,7 +11,7 @@ Note all are paid services, you will need to provide your credit card details fo
 
 The package can be used by any user who is looking to take advantage of Google's massive dataset to train these machine learning models. Some applications include:
 
--   Translation of speech into another language text, via speech-to-text then translation
+-   Translation of speech into another language text, via speech-to-text then translation, then say it back in the new language
 -   Identification of sentiment within text, such as from Twitter feeds
 -   Pulling out the objects of a sentence, to help classify texts and get metadata links from Wikipedia about them.
 
@@ -38,6 +38,13 @@ Google Cloud Speech API
 
 Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
 
+Google Text-to-Speech API
+-------------------------
+
+> Google Cloud Text-to-Speech enables developers to synthesize natural-sounding speech with 30 voices, available in multiple languages and variants. It applies DeepMind’s groundbreaking research in WaveNet and Google’s powerful neural networks to deliver the highest fidelity possible. With this easy-to-use API, you can create lifelike interactions with your users, across many applications and devices. 
+
+Read more [on the Google Cloud Text-to-Speech Website](https://cloud.google.com/text-to-speech/)
+
 Installation
 ------------
 
@@ -48,9 +55,10 @@ Installation
 -   [Google Natural Language API](https://console.cloud.google.com/apis/api/language.googleapis.com/overview)
 -   [Google Cloud Translation API](https://console.cloud.google.com/apis/api/translate.googleapis.com/overview)
 -   [Google Cloud Speech API](https://console.cloud.google.com/apis/api/speech.googleapis.com/overview)
+-   [Google Text-to-Speech API](https://console.cloud.google.com/apis/library/texttospeech.googleapis.com/)
 
 1.  [Generate a service account credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) as a JSON file
-2.  Return to R, and install the official release via `install.packages("googleLanguageR")`, or the development version with `devtools::install_github("ropensci/googleLanguageR")`
+2.  Return to R, and install the official release via `install.packages("googleLanguageR")`, or the development version with `remotes::install_github("ropensci/googleLanguageR")`
 
 Usage
 -----
@@ -166,5 +174,22 @@ gl_speech(test_audio)$transcript
     ## # ... with 1 more variables: confidence <chr>
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
+
+Google Text-To-Speech API
+-------------------------
+
+The Cloud text-to-speech API lets you synthesize natural sounding speech with 30 voices in multiple languages and variants. 
+
+To use, send text via the `gl_talk()` function to generate a sound file:
+
+```r
+gl_talk("The rain in spain falls mainly in the plain", output = "output.wav")
+```
+
+A web browser audio player is also included via `gl_talk_player()` so you can hear the results immediatly - it accepts the piped output of `gl_talk()`:
+
+```r
+gl_talk("Testing my new audio player") %>% gl_talk_player()
+```
 
 [![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
