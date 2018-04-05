@@ -190,6 +190,6 @@ To use, supply your text to the function:
 gl_talk("This is a talking computer.  Hello Dave.")
 ```
 
-See more examples and details [on the website]((http://code.markedmondson.me/googleLanguageR/articles/text-to-speech.html)) or via `vignette("text-to-speech", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/text-to-speech.html) or via `vignette("text-to-speech", package = "googleLanguageR")`
 
 [![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
