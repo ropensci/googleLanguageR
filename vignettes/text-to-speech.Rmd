@@ -92,6 +92,8 @@ gl_talk("This is my audio player") %>% gl_talk_player()
 gl_talk_player(gl_talk("This is my audio player"))
 ```
 
+The `gl_talk_player()` creates a HTML file called `player.html` in your working directory by default.
+
 #### Using with Shiny
 
 You can do this in Shiny too, which is demonstrated in the [example Shiny app](https://github.com/ropensci/googleLanguageR/tree/master/inst/shiny/capture_speech) included with the package.

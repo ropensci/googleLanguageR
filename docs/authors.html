@@ -18,13 +18,16 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script>
 <script src="pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Authors" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -46,6 +49,8 @@
 
 </script>
 
+
+
   </head>
 
   <body>
@@ -59,8 +64,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">googleLanguageR</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="index.html">googleLanguageR</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1.9000</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -84,6 +93,13 @@
     Speech API
   </a>
 </li>
+<li>
+  <a href="articles/text-to-speech.html">
+    <span class="fa fa-phone fa-lg"></span>
+     
+    Text-to-Speech API
+  </a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Help
@@ -92,35 +108,41 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="reference/index.html">Function Reference</a>
+      <a href="reference/index.html">
+        <span class="fa fa-info"></span>
+         
+        Function Reference
+      </a>
     </li>
     <li>
-      <a href="news/index.html">News</a>
+      <a href="https://cloud.google.com/products/machine-learning/">
+        <span class="fa fa-google"></span>
+         
+        Google Documentation
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/ropensci/googleLanguageR">
+        <span class="fa fa-github"></span>
+         
+        Development site
+      </a>
+    </li>
+    <li>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform">
+        <span class="fa fa-slack"></span>
+         
+        Slack Support Channel
+      </a>
     </li>
   </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://cloud.google.com/products/machine-learning/">
-    <span class="fa fa-google fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="https://github.com/ropensci/googleLanguageR">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform">
-    <span class="fa fa-slack fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -128,24 +150,24 @@
       
       </header>
 
-      <div class="row">
-  <div class="contents col-md-12">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
       <h1>Authors</h1>
     </div>
 
     <ul class="list-unstyled">
       <li>
-        <p><strong><a href='http://code.markedmondson.me'>Mark Edmondson</a></strong>. Author, maintainer.
+        <p><strong><a href='http://code.markedmondson.me'>Mark Edmondson</a></strong>. Author, maintainer. 
         </p>
       </li>
       <li>
-        <p><strong>Neal Richardson</strong>. Reviewer.
+        <p><strong>Neal Richardson</strong>. Reviewer. 
         <br /><small>Neal reviewed the package for ropensci, 
                see <https://github.com/ropensci/onboarding/issues/127></small></p>
       </li>
       <li>
-        <p><strong>Julia Gustavsen</strong>. Reviewer.
+        <p><strong>Julia Gustavsen</strong>. Reviewer. 
         <br /><small>Julia reviewed the package for ropensci, 
                see <https://github.com/ropensci/onboarding/issues/127></small></p>
       </li>
@@ -162,11 +184,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

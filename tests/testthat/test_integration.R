@@ -161,14 +161,14 @@ test_that("Specify a named voice", {
   skip_on_cran()
   skip_if_not(local_auth)
 
-  unlink("test.wav")
-  filename <- gl_talk("Hasta la vista", name = "es-ES-Standard-A")
+  unlink("test2.wav")
+  filename <- gl_talk("Hasta la vista", name = "es-ES-Standard-A", output = "test2.wav")
 
-  expect_equal(filename, "test.wav")
-  expect_true(file.exists("test.wav"))
-  expect_gt(file.info("test.wav")$size, 50000)
+  expect_equal(filename, "test2.wav")
+  expect_true(file.exists("test2.wav"))
+  expect_gt(file.info("test2.wav")$size, 50000)
 
-  on.exit(unlink("test.wav"))
+  on.exit(unlink("test2.wav"))
 
 })
 

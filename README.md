@@ -1,4 +1,4 @@
-googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API, Google Cloud Speech API and Google Text-to-speech API
+googleLanguageR - R client for the Google Translation API, Google Cloud Natural Language API, Google Cloud Speech API and Google Cloud Speech-to-Text API
 ================
 Mark Edmondson
 8/10/2017
@@ -11,7 +11,8 @@ Note all are paid services, you will need to provide your credit card details fo
 
 The package can be used by any user who is looking to take advantage of Google's massive dataset to train these machine learning models. Some applications include:
 
--   Translation of speech into another language text, via speech-to-text then translation, then say it back in the new language
+-   Translation of speech into another language text, via speech-to-text then translation and having the results spoen back to you
+-   Talking Shiny apps
 -   Identification of sentiment within text, such as from Twitter feeds
 -   Pulling out the objects of a sentence, to help classify texts and get metadata links from Wikipedia about them.
 
@@ -38,10 +39,10 @@ Google Cloud Speech API
 
 Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
 
-Google Text-to-Speech API
--------------------------
+Google Cloud Speech-to-Text API
+-------------------------------
 
-> Google Cloud Text-to-Speech enables developers to synthesize natural-sounding speech with 30 voices, available in multiple languages and variants. It applies DeepMind’s groundbreaking research in WaveNet and Google’s powerful neural networks to deliver the highest fidelity possible. With this easy-to-use API, you can create lifelike interactions with your users, across many applications and devices. 
+> Google Cloud Text-to-Speech enables developers to synthesize natural-sounding speech with 30 voices, available in multiple languages and variants. It applies DeepMind’s groundbreaking research in WaveNet and Google’s powerful neural networks to deliver the highest fidelity possible. With this easy-to-use API, you can create lifelike interactions with your users, across many applications and devices.
 
 Read more [on the Google Cloud Text-to-Speech Website](https://cloud.google.com/text-to-speech/)
 
@@ -55,7 +56,6 @@ Installation
 -   [Google Natural Language API](https://console.cloud.google.com/apis/api/language.googleapis.com/overview)
 -   [Google Cloud Translation API](https://console.cloud.google.com/apis/api/translate.googleapis.com/overview)
 -   [Google Cloud Speech API](https://console.cloud.google.com/apis/api/speech.googleapis.com/overview)
--   [Google Text-to-Speech API](https://console.cloud.google.com/apis/library/texttospeech.googleapis.com/)
 
 1.  [Generate a service account credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key) as a JSON file
 2.  Return to R, and install the official release via `install.packages("googleLanguageR")`, or the development version with `remotes::install_github("ropensci/googleLanguageR")`
@@ -168,28 +168,49 @@ gl_speech(test_audio)$transcript
 ```
 
     ## # A tibble: 1 x 2
-    ##                                                                    transcript
-    ##                                                                         <chr>
-    ## 1 to administer medicine to animals is freaking cute very difficult matter an
-    ## # ... with 1 more variables: confidence <chr>
+    ##   transcript                                                    confidence
+    ##   <chr>                                                         <chr>     
+    ## 1 to administer medicine to animals is frequency of very diffi… 0.9157221
 
 See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
 
-Google Text-To-Speech API
--------------------------
+Google Cloud Speech API
+-----------------------
 
-The Cloud text-to-speech API lets you synthesize natural sounding speech with 30 voices in multiple languages and variants. 
+The Cloud Speech API provides audio transcription. Its accessible via the `gl_speech` function.
 
-To use, send text via the `gl_talk()` function to generate a sound file:
+A test audio file is installed with the package which reads:
 
-```r
-gl_talk("The rain in spain falls mainly in the plain", output = "output.wav")
+> "To administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
+
+The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk/newcomms/) group and is fairly difficult for computers to parse, as we see below:
+
+``` r
+## get the sample source file
+test_audio <- system.file("woman1_wb.wav", package = "googleLanguageR")
+
+## its not perfect but...:)
+gl_speech(test_audio)$transcript
 ```
 
-A web browser audio player is also included via `gl_talk_player()` so you can hear the results immediatly - it accepts the piped output of `gl_talk()`:
+    ## # A tibble: 1 x 2
+    ##   transcript                                                    confidence
+    ##   <chr>                                                         <chr>     
+    ## 1 to administer medicine to animals is frequency of very diffi… 0.9180294
 
-```r
-gl_talk("Testing my new audio player") %>% gl_talk_player()
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/speech.html) or via `vignette("speech", package = "googleLanguageR")`
+
+Google Cloud Text-to-Speech API
+-------------------------------
+
+The Cloud Text-to-Speech API turns text into talk audio files. Its accessible via the `gl_talk` function.
+
+To use, supply your text to the function:
+
+``` r
+gl_talk("This is a talking computer.  Hello Dave.")
 ```
+
+See more examples and details [on the website]((http://code.markedmondson.me/googleLanguageR/articles/text-to-speech.html)) or via `vignette("text-to-speech", package = "googleLanguageR")`
 
 [![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

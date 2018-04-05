@@ -22,16 +22,21 @@ navbar:
     - text: "Speech API"
       icon: fa-comment fa-lg
       href: articles/speech.html
+    - text: "Text-to-Speech API"
+      icon: fa-phone fa-lg
+      href: articles/text-to-speech.html
     - text: "Help"
       menu:
       - text: "Function Reference"
         href: reference/index.html
-      - text: "News"
-        href: news/index.html
-  right:
-    - icon: fa-google fa-lg
-      href: https://cloud.google.com/products/machine-learning/
-    - icon: fa-github fa-lg
-      href: https://github.com/ropensci/googleLanguageR
-    - icon: fa-slack fa-lg
-      href: https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform
+        icon: fa-info
+      - icon: fa-google
+        text: "Google Documentation"
+        href: https://cloud.google.com/products/machine-learning/
+      - icon: fa-github
+        text: "Development site"
+        href: https://github.com/ropensci/googleLanguageR
+      - icon: fa-slack
+        text: "Slack Support Channel"
+        href: https://docs.google.com/forms/d/e/1FAIpQLSerjirmMpB3b7LmBs_Vx_XPIE9IrhpCpPg1jUcpfBcivA3uBw/viewform
+
