@@ -91,7 +91,7 @@ gl_talk <- function(input,
 
   body <- rmNullObs(body)
 
-  my_message("Calling text-to-speech API with voice: ",name, " input: ", input, level = 3)
+  my_message("Calling text-to-speech API:", input, level = 3)
 
   call_api <- gar_api_generator("https://texttospeech.googleapis.com/v1beta1/text:synthesize",
                                 "POST",

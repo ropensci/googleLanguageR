@@ -145,7 +145,6 @@ with_mock_API({
 
   test_that("Translation works", {
     skip_on_cran()
-    skip_if_not(local_auth)
 
     danish <- gl_translate(trans_text)
     expected <- "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former."
@@ -163,7 +162,6 @@ with_mock_API({
 
   test_that("Simple talk API call creates a file", {
     skip_on_cran()
-    skip_if_not(local_auth)
 
     unlink("test.wav")
     filename <- gl_talk("Test talk sentence", output  = "test.wav", languageCode = "en",  gender = "FEMALE")
@@ -178,7 +176,6 @@ with_mock_API({
 
   test_that("Get list of talk languages", {
     skip_on_cran()
-    skip_if_not(local_auth)
 
     lang <- gl_talk_languages()
 
@@ -192,7 +189,6 @@ with_mock_API({
 
   test_that("Get filtered list of talk languages", {
     skip_on_cran()
-    skip_if_not(local_auth)
 
     lang <- gl_talk_languages(languageCode = "en")
 
