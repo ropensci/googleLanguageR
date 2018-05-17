@@ -202,3 +202,98 @@ gl_talk_player <- function(audio = "output.wav",
 
 }
 
+#' Speak in Shiny module (ui)
+#'
+#' @details
+#'
+#' Shiny Module for use with \link{gl_talk_shiny}.
+#'
+#' @export
+gl_talk_shinyUI <- function(id){
+  ns <- shiny::NS(id)
+
+  shiny::htmlOutput(ns("talk"))
+
+}
+
+#' Speak in Shiny module (server)
+#'
+#' Call via \code{shiny::callModule(gl_talk_shiny, "your_id")}
+#'
+#' @param input shiny input
+#' @param output shiny output
+#' @param session shiny session
+#' @param transcript The (reactive) text to talk
+#' @inheritDotParams gl_talk
+#' @param autoplay passed to the HTML audio player - default plays on load
+#' @param controls passed to the HTML audio player - default shows controls
+#' @param keep_wav keep the generated wav files if TRUE.
+#' @export
+#' @import assertthat
+gl_talk_shiny <- function(input, output, session,
+                          transcript, ...,
+                          autoplay = TRUE, controls = TRUE, loop = FALSE,
+                          keep_wav = FALSE){
+
+  assert_that(
+    is.flag(autoplay),
+    is.flag(controls),
+    is.flag(keep_wav)
+  )
+
+  # to deal with TRUE = NA, FALSE = NULL
+  if(autoplay){
+    autoplay <- NA
+  } else {
+    autoplay <- NULL
+  }
+
+  if(controls){
+    controls <- NA
+  } else {
+    controls <- NULL
+  }
+
+  if(loop){
+    loop <- NA
+  } else {
+    loop <- NULL
+  }
+
+  # make a www folder to host the audio file
+  talk_file <- shiny::reactive({
+
+    # to ensure this fires each new transcript
+    req(transcript())
+    # make www folder if it doesn't exisit
+    if(!dir.exists("www")){
+      dir.create("www")
+    }
+
+    # clean up any existing wav files
+    if(!keep_wav){
+      unlink(list.files("www", pattern = ".wav$", full.names = TRUE))
+    }
+
+    # to prevent browser caching its new every time
+    paste0(basename(tempfile(fileext = ".wav")))
+
+  })
+
+  output$talk <- shiny::renderUI({
+
+    shiny::req(talk_file())
+
+    gl_talk(transcript(),
+            output = file.path("www", talk_file()),
+            ...)
+
+    ## the audio file sits in folder www, but the audio file must be referenced without www
+    shiny::tags$audio(autoplay = autoplay,
+                      controls = controls,
+                      loop = loop,
+                      shiny::tags$source(src = talk_file()))
+
+  })
+
+}
