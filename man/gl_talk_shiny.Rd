@@ -30,9 +30,11 @@ gl_talk_shiny(input, output, session, transcript, ..., autoplay = TRUE,
   \item{sampleRateHertz}{Sample rate for returned audio}
 }}
 
-\item{autoplay}{passed to the HTML audio player - default plays on load}
+\item{autoplay}{passed to the HTML audio player - default \code{TRUE} plays on load}
 
-\item{controls}{passed to the HTML audio player - default shows controls}
+\item{controls}{passed to the HTML audio player - default \code{TRUE} shows controls}
+
+\item{loop}{passed to the HTML audio player - default \code{FALSE} does not loop}
 
 \item{keep_wav}{keep the generated wav files if TRUE.}
 }

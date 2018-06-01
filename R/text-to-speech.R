@@ -204,6 +204,8 @@ gl_talk_player <- function(audio = "output.wav",
 
 #' Speak in Shiny module (ui)
 #'
+#' @param id The Shiny id
+#'
 #' @details
 #'
 #' Shiny Module for use with \link{gl_talk_shiny}.
@@ -225,8 +227,9 @@ gl_talk_shinyUI <- function(id){
 #' @param session shiny session
 #' @param transcript The (reactive) text to talk
 #' @inheritDotParams gl_talk
-#' @param autoplay passed to the HTML audio player - default plays on load
-#' @param controls passed to the HTML audio player - default shows controls
+#' @param autoplay passed to the HTML audio player - default \code{TRUE} plays on load
+#' @param controls passed to the HTML audio player - default \code{TRUE} shows controls
+#' @param loop passed to the HTML audio player - default \code{FALSE} does not loop
 #' @param keep_wav keep the generated wav files if TRUE.
 #' @export
 #' @import assertthat
@@ -264,7 +267,7 @@ gl_talk_shiny <- function(input, output, session,
   talk_file <- shiny::reactive({
 
     # to ensure this fires each new transcript
-    req(transcript())
+    shiny::req(transcript())
     # make www folder if it doesn't exisit
     if(!dir.exists("www")){
       dir.create("www")

@@ -6,6 +6,9 @@
 \usage{
 gl_talk_shinyUI(id)
 }
+\arguments{
+\item{id}{The Shiny id}
+}
 \description{
 Speak in Shiny module (ui)
 }
