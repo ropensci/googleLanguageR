@@ -18,7 +18,7 @@ Description: Call 'Google Cloud' machine learning APIs for text and speech tasks
   the 'Cloud Text-to-Speech' API <https://cloud.google.com/text-to-speech/> to turn text 
   into sound files.
 URL: http://code.markedmondson.me/googleLanguageR/
-BugReports: https://github.com/MarkEdmondson1234/googleLanguageR/issues
+BugReports: https://github.com/ropensci/googleLanguageR/issues
 Depends: R (>= 3.3.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
