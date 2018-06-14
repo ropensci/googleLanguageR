@@ -44,11 +44,11 @@ with_mock_API({
 
     nlp <- gl_nlp(test_text)
 
-    expect_equal(length(nlp), 6)
+    expect_equal(length(nlp), 7)
     expect_true(all(names(nlp) %in%
-                      c("sentences","tokens","entities","documentSentiment","language", "text")))
+                      c("sentences","tokens","entities","documentSentiment","language", "text", "classifyText")))
     expect_s3_class(nlp$sentences[[1]], "data.frame")
-    expect_equal(nlp$sentences[[1]]$content, test_text)
+    expect_equal(nlp$sentences[[1]]$content[[1]], "Norma is a small constellation in the Southern Celestial Hemisphere between Ara and Lupus, one of twelve drawn up in the 18th century by French astronomer Nicolas Louis de Lacaille and one of several depicting scientific instruments.")
     expect_true(all(names(nlp$sentences[[1]]) %in% c("content","beginOffset","magnitude","score")))
     expect_true(all(names(nlp$tokens[[1]]) %in% c("content", "beginOffset", "tag", "aspect", "case",
                                                   "form", "gender", "mood", "number", "person", "proper",
@@ -62,13 +62,13 @@ with_mock_API({
     expect_s3_class(nlp$tokens[[1]], "data.frame")
     expect_s3_class(nlp$entities[[1]], "data.frame")
     expect_s3_class(nlp$documentSentiment, "data.frame")
-
+    expect_s3_class(nlp$classifyText, "data.frame")
 
 
     nlp2 <- gl_nlp(c(test_text, test_text2))
-    expect_equal(length(nlp2), 6)
+    expect_equal(length(nlp2), 7)
     expect_true(all(names(nlp2) %in%
-                      c("sentences","tokens","entities","text","documentSentiment","language")))
+                      c("sentences","tokens","entities","text","documentSentiment","language", "classifyText")))
     expect_equal(length(nlp2$sentences), 2)
 
   })

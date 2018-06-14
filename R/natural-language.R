@@ -67,7 +67,8 @@ gl_nlp <- function(string,
                                 "analyzeEntities",
                                 "analyzeSentiment",
                                 "analyzeSyntax",
-                                "analyzeEntitySentiment"),
+                                "analyzeEntitySentiment",
+                                "classifyText"),
                    type = c("PLAIN_TEXT", "HTML"),
                    language = c("en", "zh","zh-Hant","fr","de",
                                 "it","ja","ko","pt","es"),
@@ -98,8 +99,9 @@ gl_nlp <- function(string,
   out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
   out$text     <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$text})
   out$documentSentiment <- my_map_df(api_results,  out_documentSentiment)
+  out$classifyText <- my_map_df(api_results, out_classifyText)
 
-  compact(out)
+  out
 
 }
 
@@ -114,6 +116,18 @@ out_documentSentiment <- function(x){
   out
 }
 
+out_classifyText <- function(x){
+
+  out <- tibble(name=NA_character_, confidence=NA_integer_)
+
+  if(!is.null(x)){
+    out <- as_tibble(x$classifyText)
+  }
+
+  out
+
+}
+
 #' Used to vectorise gl_nlp
 #' @import assertthat
 #' @importFrom googleAuthR gar_api_generator
@@ -124,7 +138,8 @@ gl_nlp_single <- function(string,
                                        "analyzeEntities",
                                        "analyzeSentiment",
                                        "analyzeSyntax",
-                                       "analyzeEntitySentiment"),
+                                       "analyzeEntitySentiment",
+                                       "classifyText"),
                           type = c("PLAIN_TEXT", "HTML"),
                           language = c("en", "zh","zh-Hant","fr","de",
                                        "it","ja","ko","pt","es"),
@@ -174,7 +189,8 @@ gl_nlp_single <- function(string,
         extractSyntax = jubox(TRUE),
         extractEntities = jubox(TRUE),
         extractDocumentSentiment = jubox(TRUE),
-        extractEntitySentiment = jubox(TRUE)
+        extractEntitySentiment = jubox(TRUE),
+        classifyText = jubox(TRUE)
       )))
 
     if(version == "v1beta2"){
@@ -204,7 +220,7 @@ gl_nlp_single <- function(string,
 #' @noRd
 parse_nlp <- function(x){
 
-  s <- t <- e <- d <- NULL
+  s <- t <- e <- d <- cats <- NULL
 
   if(!is_empty(x$sentences)){
     s <- my_cbind(as_tibble(x$sentences$text),
@@ -257,11 +273,16 @@ parse_nlp <- function(x){
     d <- as_tibble(x$documentSentiment)
   }
 
+  if(!is_empty(x$categories)){
+    cats <- x$categories
+  }
+
   compact(list(
     sentences = s,
     tokens = t,
     entities = e,
     documentSentiment = d,
+    classifyText = cats,
     language = x$language
   ))
 

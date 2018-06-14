@@ -3,6 +3,7 @@
 * Added an example Shiny app that calls the Speech API
 * Fixed bug where cbind of any missing API content raised an error (#28)
 * Add Google text to speech via `gl_talk()` (#39)
+* Add classify text endpoint for `gl_nlp()` (#20)
 
 # 0.1.1
 
