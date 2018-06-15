@@ -22,6 +22,7 @@
 #' @export
 #' @importFrom googleAuthR gar_auth_service
 gl_auth <- function(json_file){
-  options(googleAuthR.scopes.selected = "https://www.googleapis.com/auth/cloud-platform")
+  options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/cloud-language",
+                                          "https://www.googleapis.com/auth/cloud-platform"))
   gar_auth_service(json_file = json_file)
 }

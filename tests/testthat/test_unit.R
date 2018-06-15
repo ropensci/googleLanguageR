@@ -2,12 +2,8 @@ source("prep_tests.R")
 
 context("API Mocking")
 
-test_that("Record requests if online", {
-  skip_if_disconnected()
-  skip_if_not(local_auth)
-
-  capture_requests(
-    path = "..", {
+if(local_auth){
+  capture_requests(verbose = TRUE, {
       gl_nlp(test_text)
       gl_nlp(c(test_text, test_text2))
       gl_speech(test_audio)
@@ -33,7 +29,7 @@ test_that("Record requests if online", {
       gl_speech_op(async)
     })
 
-})
+}
 
 
 with_mock_API({
