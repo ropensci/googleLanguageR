@@ -1,10 +1,10 @@
 {
-  "data": {
-    "translations": [
-      {
-        "translatedText": "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former.",
-        "detectedSourceLanguage": "da"
-      }
-    ]
-  }
+    "data": {
+        "translations": [
+            {
+                "translatedText": "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former.",
+                "detectedSourceLanguage": "da"
+            }
+        ]
+    }
 }
