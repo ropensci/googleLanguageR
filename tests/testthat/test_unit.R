@@ -3,7 +3,7 @@ source("prep_tests.R")
 context("API Mocking")
 
 if(local_auth){
-  capture_requests(verbose = TRUE, {
+  capture_requests({
       gl_nlp(test_text)
       gl_nlp(c(test_text, test_text2))
       gl_speech(test_audio)
@@ -25,7 +25,7 @@ if(local_auth){
   Sys.sleep(45)
 
   capture_requests(
-    path = "..", {
+    {
       gl_speech_op(async)
     })
 
