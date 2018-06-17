@@ -21,14 +21,20 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Perform Natural Language Analysis — gl_nlp" />
 
-<meta property="og:description" content="Analyse text entities, sentiment, and syntax using the Google Natural Language API" />
+<meta property="og:description" content="Analyse text entities, sentiment, syntax and categorisation using the Google Natural Language API" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -40,19 +46,15 @@
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47480439-2"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-47480439-2', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-47480439-2');
 </script>
-
-
 
   </head>
 
@@ -143,7 +145,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/ropensci/googleLanguageR">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -157,19 +164,21 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Perform Natural Language Analysis</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/ropensci/googleLanguageR/blob/master/R/natural-language.R'><code>R/natural-language.R</code></a></small>
     <div class="hidden name"><code>gl_nlp.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Analyse text entities, sentiment, and syntax using the Google Natural Language API</p>
+    <p>Analyse text entities, sentiment, syntax and categorisation using the Google Natural Language API</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>gl_nlp</span>(<span class='no'>string</span>, <span class='kw'>nlp_type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"annotateText"</span>, <span class='st'>"analyzeEntities"</span>,
-  <span class='st'>"analyzeSentiment"</span>, <span class='st'>"analyzeSyntax"</span>, <span class='st'>"analyzeEntitySentiment"</span>),
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"PLAIN_TEXT"</span>, <span class='st'>"HTML"</span>), <span class='kw'>language</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"en"</span>, <span class='st'>"zh"</span>, <span class='st'>"zh-Hant"</span>, <span class='st'>"fr"</span>,
-  <span class='st'>"de"</span>, <span class='st'>"it"</span>, <span class='st'>"ja"</span>, <span class='st'>"ko"</span>, <span class='st'>"pt"</span>, <span class='st'>"es"</span>), <span class='kw'>encodingType</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"UTF8"</span>, <span class='st'>"UTF16"</span>,
-  <span class='st'>"UTF32"</span>, <span class='st'>"NONE"</span>))</pre>
+  <span class='st'>"analyzeSentiment"</span>, <span class='st'>"analyzeSyntax"</span>, <span class='st'>"analyzeEntitySentiment"</span>,
+  <span class='st'>"classifyText"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"PLAIN_TEXT"</span>, <span class='st'>"HTML"</span>), <span class='kw'>language</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"en"</span>, <span class='st'>"zh"</span>,
+  <span class='st'>"zh-Hant"</span>, <span class='st'>"fr"</span>, <span class='st'>"de"</span>, <span class='st'>"it"</span>, <span class='st'>"ja"</span>, <span class='st'>"ko"</span>, <span class='st'>"pt"</span>, <span class='st'>"es"</span>),
+  <span class='kw'>encodingType</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"UTF8"</span>, <span class='st'>"UTF16"</span>, <span class='st'>"UTF32"</span>, <span class='st'>"NONE"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,6 +213,7 @@
 <li><p>tokens - <a href='https://cloud.google.com/natural-language/docs/reference/rest/v1/Token'>Tokens, along with their syntactic information, in the input document</a></p></li>
 <li><p>entities - <a href='https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity'>Entities, along with their semantic information, in the input document</a></p></li>
 <li><p>documentSentiment - <a href='https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment'>The overall sentiment for the document</a></p></li>
+<li><p>classifyText -<a href='https://cloud.google.com/natural-language/docs/classifying-text'>Classification of the document</a></p></li>
 <li><p>language - The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language</p></li>
 <li><p>text - The original text passed into the API. <code>NA</code> if not passed due to being zero-length etc.</p></li>
 </ul>

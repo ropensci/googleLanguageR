@@ -21,11 +21,17 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Function reference" />
+
 
 
 <!-- mathjax -->
@@ -37,19 +43,15 @@
 <![endif]-->
 
 
-<!-- Google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47480439-2"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-  ga('create', 'UA-47480439-2', 'auto');
-  ga('send', 'pageview');
-
+  gtag('config', 'UA-47480439-2');
 </script>
-
-
 
   </head>
 
@@ -140,7 +142,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/ropensci/googleLanguageR">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -159,6 +166,7 @@
     <table class="ref-index">
 
     <colgroup>
+      
       <col class="alias" />
       <col class="title" />
     </colgroup>
@@ -171,67 +179,79 @@
         </th>
       </tr>
       <tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_auth.html">gl_auth()</a></code> </p>
         </td>
         <td><p>Authenticate with Google language API services</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_nlp.html">gl_nlp()</a></code> </p>
         </td>
         <td><p>Perform Natural Language Analysis</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_speech.html">gl_speech()</a></code> </p>
         </td>
         <td><p>Call Google Speech API</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_speech_op.html">gl_speech_op()</a></code> </p>
         </td>
         <td><p>Get a speech operation</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_talk.html">gl_talk()</a></code> </p>
         </td>
         <td><p>Perform text to speech</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_talk_languages.html">gl_talk_languages()</a></code> </p>
         </td>
         <td><p>Get a list of voices available for text to speech</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_talk_player.html">gl_talk_player()</a></code> </p>
         </td>
         <td><p>Play audio in a browser</p></td>
       </tr><tr>
-        <!--  -->
+        
+        <td>
+          <p><code><a href="gl_talk_shiny.html">gl_talk_shiny()</a></code> </p>
+        </td>
+        <td><p>Speak in Shiny module (server)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_talk_shinyUI.html">gl_talk_shinyUI()</a></code> </p>
+        </td>
+        <td><p>Speak in Shiny module (ui)</p></td>
+      </tr><tr>
+        
         <td>
           <p><code><a href="gl_translate.html">gl_translate()</a></code> </p>
         </td>
         <td><p>Translate the language of text within a request</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_translate_detect.html">gl_translate_detect()</a></code> </p>
         </td>
         <td><p>Detect the language of text within a request</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="gl_translate_languages.html">gl_translate_languages()</a></code> </p>
         </td>
         <td><p>Lists languages from Google Translate API</p></td>
       </tr><tr>
-        <!--  -->
+        
         <td>
           <p><code><a href="googleLanguageR.html">googleLanguageR</a></code> </p>
         </td>
