@@ -29,12 +29,13 @@ A list of the following objects, if those fields are asked for via \code{nlp_typ
  \item{tokens - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Token}{Tokens, along with their syntactic information, in the input document}}
  \item{entities - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{Entities, along with their semantic information, in the input document}}
  \item{documentSentiment - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{The overall sentiment for the document}}
+ \item{classifyText -}{\href{https://cloud.google.com/natural-language/docs/classifying-text}}
  \item{language - }{The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language}
  \item{text - }{The original text passed into the API. \code{NA} if not passed due to being zero-length etc. }
 }
 }
 \description{
-Analyse text entities, sentiment, and syntax using the Google Natural Language API
+Analyse text entities, sentiment, syntax and categorisation using the Google Natural Language API
 }
 \details{
 \code{string} can be a character vector, or a location of a file content on Google cloud Storage.
