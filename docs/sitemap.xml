@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://code.markedmondson.me/googleLanguageR//index.html</loc>
+  </url>
+  <url>
     <loc>https://code.markedmondson.me/googleLanguageR//reference/gl_auth.html</loc>
   </url>
   <url>
@@ -20,6 +23,12 @@
   </url>
   <url>
     <loc>https://code.markedmondson.me/googleLanguageR//reference/gl_talk_player.html</loc>
+  </url>
+  <url>
+    <loc>https://code.markedmondson.me/googleLanguageR//reference/gl_talk_shiny.html</loc>
+  </url>
+  <url>
+    <loc>https://code.markedmondson.me/googleLanguageR//reference/gl_talk_shinyUI.html</loc>
   </url>
   <url>
     <loc>https://code.markedmondson.me/googleLanguageR//reference/gl_translate.html</loc>
