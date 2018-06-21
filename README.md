@@ -157,7 +157,7 @@ A test audio file is installed with the package which reads:
 
 > "To administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
 
-The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk/newcomms/) group and is fairly difficult for computers to parse, as we see below:
+The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk) group and is fairly difficult for computers to parse, as we see below:
 
 ``` r
 ## get the sample source file
@@ -183,7 +183,7 @@ A test audio file is installed with the package which reads:
 
 > "To administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
 
-The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk/newcomms/) group and is fairly difficult for computers to parse, as we see below:
+The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk) group and is fairly difficult for computers to parse, as we see below:
 
 ``` r
 ## get the sample source file
@@ -211,6 +211,6 @@ To use, supply your text to the function:
 gl_talk("This is a talking computer.  Hello Dave.")
 ```
 
-See more examples and details [on the website]((http://code.markedmondson.me/googleLanguageR/articles/text-to-speech.html)) or via `vignette("text-to-speech", package = "googleLanguageR")`
+See more examples and details [on the website](http://code.markedmondson.me/googleLanguageR/articles/text-to-speech.html) or via `vignette("text-to-speech", package = "googleLanguageR")`
 
 [![ropensci\_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)
