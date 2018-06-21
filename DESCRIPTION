@@ -37,7 +37,7 @@ Imports:
     utils
 Suggests: 
     cld2,
-    httptest,
+    httptest (>= 3.1.0),
     knitr,
     rmarkdown,
     rvest,
