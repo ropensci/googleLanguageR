@@ -54,7 +54,7 @@ A test audio file is installed with the package which reads:
 
 > "To administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"
 
-The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk/newcomms/) group and is fairly difficult for computers to parse, as we see below:
+The file is sourced from the [University of Southampton's speech detection](http://www-mobile.ecs.soton.ac.uk/) group and is fairly difficult for computers to parse, as we see below:
 
 ```r
 library(googleLanguageR)
