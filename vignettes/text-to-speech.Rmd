@@ -28,13 +28,13 @@ Arguments include:
 * `volumeGainDb` Volumne gain in dB
 * `sampleRateHertz` Sample rate for returned audio
 
-### Returned structure
+## Returned structure
 
 The API returns an audio file which is saved to the location specified in `output` - by default this is `output.wav` - if you don't rename this file it will be overwritten by the next API call.  
 
 It is advised to set the appropriate file extension if you change the audio encoding (e.g. to one of `.wav`, `.mp3` or `.ogg`) so audio payers recognise the file format. 
 
-### Talk Languages
+## Talk Languages
 
 The API can talk several different languages, with more being added over time.  You can get a current list via the function `gl_talk_languages()` or [online](https://cloud.google.com/text-to-speech/docs/voices)
 
@@ -80,7 +80,7 @@ gl_talk("Would you like a cup of tea?", gender = "FEMALE", languageCode = "en-GB
 
 Some languages are not yet supported, such as Danish.  The API will return an error in those cases. 
 
-### Browser Speech player
+## Browser Speech player
 
 Creating and clicking on the audio file to play it can be a bit of a drag, so you also have a function that will play the audio file for you, launching via the browser.  This can be piped via the tidyverse's `%>%`
 
@@ -94,32 +94,35 @@ gl_talk_player(gl_talk("This is my audio player"))
 
 The `gl_talk_player()` creates a HTML file called `player.html` in your working directory by default.
 
-#### Using with Shiny
+### Using with Shiny
 
 You can do this in Shiny too, which is demonstrated in the [example Shiny app](https://github.com/ropensci/googleLanguageR/tree/master/inst/shiny/capture_speech) included with the package.
 
-The pertinent HTML tags for your own Shiny apps are shown below - specify `autoplay` to have the audio play immediatly, or exclude if the user should push the play button to hear the audio.  
+Click the link for a video tutorial on how to [integrate text-to-speech into a Shiny app](https://www.youtube.com/watch?v=Ny0e7vHFu6o&t=8s) - the demo uses text-to-speech to [talk through a user's Google Analytics statistics](https://github.com/MarkEdmondson1234/verbal_ga_shiny).
 
-Note the output audio file will be cached in the browser, so you should have a new name for the file (And delete the old ones) if you have changing text inputs.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ny0e7vHFu6o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-You also need to create the audio files in a `www` folder in your Shiny app, but reference them in the `<audio>` HTML5 tag without `www` - see example below:
+A shiny module has been created to help integrate text-to-speech into your Shiny apps, demo in the video above and below:
 
 ```r
-output$talk <- renderUI({
+library(shiny)
+library(googleLanguageR)  # assume auto auth setup
 
-  # to prevent browser caching, create a new audio filename each play
-  # create within the www folder of the Shiny app
-  output_file <- file.path("www", basename(tempfile(fileext = ".wav"))
+ui <- fluidPage(
+  gl_talk_shinyUI("talk")
+)
 
-  # replace with your reactive text input
-  gl_talk("This will autoplay in my Shiny app", 
-          output = output_file)
+server <- function(input, output, session){
 
-  # creates HTML5 audio player
-  # the audio file sits in folder www, but the audio file must be referenced without www
-  tags$audio(autoplay = NA, controls = NA, tags$source(src = basename(output_file)))
+     transcript <- reactive({
+        paste("This is a demo talking Shiny app!")
+     })
 
-})
+     callModule(gl_talk_shiny, "talk", transcript = transcript)
+}
+
+
+shinyApp(ui = ui, server = server)
 ```
 
 

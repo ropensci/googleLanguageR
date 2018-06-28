@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googleLanguageR</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0.9000</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@
       <h1>Google Cloud Text-to-Speech API</h1>
                         <h4 class="author">Mark Edmondson</h4>
             
-            <h4 class="date">2018-06-21</h4>
+            <h4 class="date">2018-06-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/googleLanguageR/blob/master/vignettes/text-to-speech.Rmd"><code>vignettes/text-to-speech.Rmd</code></a></small>
       <div class="hidden name"><code>text-to-speech.Rmd</code></div>
@@ -166,15 +166,15 @@
 <li>
 <code>sampleRateHertz</code> Sample rate for returned audio</li>
 </ul>
-<div id="returned-structure" class="section level3">
-<h3 class="hasAnchor">
-<a href="#returned-structure" class="anchor"></a>Returned structure</h3>
+<div id="returned-structure" class="section level2">
+<h2 class="hasAnchor">
+<a href="#returned-structure" class="anchor"></a>Returned structure</h2>
 <p>The API returns an audio file which is saved to the location specified in <code>output</code> - by default this is <code>output.wav</code> - if you don’t rename this file it will be overwritten by the next API call.</p>
 <p>It is advised to set the appropriate file extension if you change the audio encoding (e.g. to one of <code>.wav</code>, <code>.mp3</code> or <code>.ogg</code>) so audio payers recognise the file format.</p>
 </div>
-<div id="talk-languages" class="section level3">
-<h3 class="hasAnchor">
-<a href="#talk-languages" class="anchor"></a>Talk Languages</h3>
+<div id="talk-languages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#talk-languages" class="anchor"></a>Talk Languages</h2>
 <p>The API can talk several different languages, with more being added over time. You can get a current list via the function <code><a href="../reference/gl_talk_languages.html">gl_talk_languages()</a></code> or <a href="https://cloud.google.com/text-to-speech/docs/voices">online</a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/gl_talk_languages.html">gl_talk_languages</a></span>()
 <span class="co"># A tibble: 32 x 4</span>
@@ -202,9 +202,9 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"Would you like a cup of tea?"</span>, <span class="dt">gender =</span> <span class="st">"FEMALE"</span>, <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>)</code></pre></div>
 <p>Some languages are not yet supported, such as Danish. The API will return an error in those cases.</p>
 </div>
-<div id="browser-speech-player" class="section level3">
-<h3 class="hasAnchor">
-<a href="#browser-speech-player" class="anchor"></a>Browser Speech player</h3>
+<div id="browser-speech-player" class="section level2">
+<h2 class="hasAnchor">
+<a href="#browser-speech-player" class="anchor"></a>Browser Speech player</h2>
 <p>Creating and clicking on the audio file to play it can be a bit of a drag, so you also have a function that will play the audio file for you, launching via the browser. This can be piped via the tidyverse’s <code>%&gt;%</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 <span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is my audio player"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/gl_talk_player.html">gl_talk_player</a></span>()
@@ -212,33 +212,46 @@
 ## non-piped equivalent
 <span class="kw"><a href="../reference/gl_talk_player.html">gl_talk_player</a></span>(<span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is my audio player"</span>))</code></pre></div>
 <p>The <code><a href="../reference/gl_talk_player.html">gl_talk_player()</a></code> creates a HTML file called <code>player.html</code> in your working directory by default.</p>
-<div id="using-with-shiny" class="section level4">
-<h4 class="hasAnchor">
-<a href="#using-with-shiny" class="anchor"></a>Using with Shiny</h4>
+<div id="using-with-shiny" class="section level3">
+<h3 class="hasAnchor">
+<a href="#using-with-shiny" class="anchor"></a>Using with Shiny</h3>
 <p>You can do this in Shiny too, which is demonstrated in the <a href="https://github.com/ropensci/googleLanguageR/tree/master/inst/shiny/capture_speech">example Shiny app</a> included with the package.</p>
-<p>The pertinent HTML tags for your own Shiny apps are shown below - specify <code>autoplay</code> to have the audio play immediatly, or exclude if the user should push the play button to hear the audio.</p>
-<p>Note the output audio file will be cached in the browser, so you should have a new name for the file (And delete the old ones) if you have changing text inputs.</p>
-<p>You also need to create the audio files in a <code>www</code> folder in your Shiny app, but reference them in the <code>&lt;audio&gt;</code> HTML5 tag without <code>www</code> - see example below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">output<span class="op">$</span>talk &lt;-<span class="st"> </span><span class="kw">renderUI</span>({
+<p>Click the link for a video tutorial on how to <a href="https://www.youtube.com/watch?v=Ny0e7vHFu6o&amp;t=8s">integrate text-to-speech into a Shiny app</a> - the demo uses text-to-speech to <a href="https://github.com/MarkEdmondson1234/verbal_ga_shiny">talk through a user’s Google Analytics statistics</a>.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Ny0e7vHFu6o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+<p>A shiny module has been created to help integrate text-to-speech into your Shiny apps, demo in the video above and below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
+<span class="kw">library</span>(googleLanguageR)  <span class="co"># assume auto auth setup</span>
 
-  <span class="co"># to prevent browser caching, create a new audio filename each play</span>
-  <span class="co"># create within the www folder of the Shiny app</span>
-  output_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">"www"</span>, <span class="kw">basename</span>(<span class="kw">tempfile</span>(<span class="dt">fileext =</span> <span class="st">".wav"</span>))
+ui &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
+  <span class="kw"><a href="../reference/gl_talk_shinyUI.html">gl_talk_shinyUI</a></span>(<span class="st">"talk"</span>)
+)
 
-  <span class="co"># replace with your reactive text input</span>
-  <span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This will autoplay in my Shiny app"</span>, 
-          <span class="dt">output =</span> output_file)
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session){
 
-  <span class="co"># creates HTML5 audio player</span>
-  <span class="co"># the audio file sits in folder www, but the audio file must be referenced without www</span>
-  tags<span class="op">$</span><span class="kw">audio</span>(<span class="dt">autoplay =</span> <span class="ot">NA</span>, <span class="dt">controls =</span> <span class="ot">NA</span>, tags<span class="op">$</span><span class="kw">source</span>(<span class="dt">src =</span> <span class="kw">basename</span>(output_file)))
+     transcript &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/reactive">reactive</a></span>({
+        <span class="kw">paste</span>(<span class="st">"This is a demo talking Shiny app!"</span>)
+     })
 
-<span class="er">}</span>)</code></pre></div>
+     <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/callModule">callModule</a></span>(gl_talk_shiny, <span class="st">"talk"</span>, <span class="dt">transcript =</span> transcript)
+}
+
+
+<span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#returned-structure">Returned structure</a></li>
+      <li><a href="#talk-languages">Talk Languages</a></li>
+      <li><a href="#browser-speech-player">Browser Speech player</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
