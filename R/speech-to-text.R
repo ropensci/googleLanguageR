@@ -10,6 +10,7 @@
 #' @param profanityFilter If \code{TRUE} will attempt to filter out profanities
 #' @param speechContexts An optional character vector of context to assist the speech recognition
 #' @param asynch If your \code{audio_source} is greater than 60 seconds, set this to TRUE to return an asynchronous call
+#' @param customConfig [optional] A \code{RecognitionConfig} object that will be converted from a list to JSON via \code{\link[jsonlite]{toJSON}} - see \href{https://cloud.google.com/speech-to-text/docs/reference/rest/v1p1beta1/RecognitionConfig}{RecognitionConfig documentation}. The \code{languageCode} will be taken from this functions arguments if not present since it is required.
 #'
 #' @return A list of two tibbles:  \code{$transcript}, a tibble of the \code{transcript} with a \code{confidence}; \code{$timings}, a tibble that contains \code{startTime}, \code{endTime} per \code{word}.  If maxAlternatives is greater than 1, then the transcript will return near-duplicate rows with other interpretations of the text.
 #'  If \code{asynch} is TRUE, then an operation you will need to pass to \link{gl_speech_op} to get the finished result.
@@ -73,6 +74,14 @@
 #' gl_speech_op(gcs)
 #' }
 #'
+#' ## Use a custom configuration
+#' my_config <- list(encoding = "LINEAR16",
+#'                   enableSpeakerDiarization = TRUE,
+#'                   diarizationSpeakerCount = 3)
+#'
+#' # languageCode is required, so will be added if not in your custom config
+#' gl_speech(my_audio, languageCode = "en-US", customConfig = my_config)
+#'
 #'
 #' @seealso \url{https://cloud.google.com/speech/reference/rest/v1/speech/recognize}
 #' @export
@@ -88,7 +97,8 @@ gl_speech <- function(audio_source,
                       maxAlternatives = 1L,
                       profanityFilter = FALSE,
                       speechContexts = NULL,
-                      asynch = FALSE){
+                      asynch = FALSE,
+                      customConfig = NULL){
 
   if(is.null(sampleRateHertz)){
     my_message("Setting sampleRateHertz = 16000L")
@@ -114,8 +124,17 @@ gl_speech <- function(audio_source,
     )
   }
 
-  body <- list(
-    config = list(
+  if(!is.null(customConfig)){
+    assert_that(is.list(customConfig))
+    config <- customConfig
+
+    # config has to include languageCode, if not present use argument
+    if(is.null(config$languageCode)){
+      config$languageCode <- languageCode
+    }
+
+  } else {
+    config <- list(
       encoding = encoding,
       sampleRateHertz = sampleRateHertz,
       languageCode = languageCode,
@@ -123,7 +142,11 @@ gl_speech <- function(audio_source,
       profanityFilter = profanityFilter,
       speechContexts = speechContexts,
       enableWordTimeOffsets = TRUE
-    ),
+    )
+  }
+
+  body <- list(
+    config = config,
     audio = recognitionAudio
   )
 
