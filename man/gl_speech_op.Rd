@@ -4,7 +4,7 @@
 \alias{gl_speech_op}
 \title{Get a speech operation}
 \usage{
-gl_speech_op(operation)
+gl_speech_op(operation = .Last.value)
 }
 \arguments{
 \item{operation}{A speech operation object from \link{gl_speech} when \code{asynch = TRUE}}

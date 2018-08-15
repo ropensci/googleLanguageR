@@ -150,15 +150,18 @@ gl_speech <- function(audio_source,
     audio = recognitionAudio
   )
 
+  # beta or production API endpoint
+  endpoint <- sprintf("https://speech.googleapis.com/%s/speech:", get_version())
+
   ## asynch or normal call?
   if(asynch){
-    call_api <- gar_api_generator("https://speech.googleapis.com/v1/speech:longrunningrecognize",
+    call_api <- gar_api_generator(paste0(endpoint, "longrunningrecognize"),
                                   "POST",
                                   data_parse_function = parse_async)
 
   } else {
 
-    call_api <- gar_api_generator("https://speech.googleapis.com/v1/speech:recognize",
+    call_api <- gar_api_generator(paste0(endpoint, "recognize"),
                                   "POST",
                                   data_parse_function = parse_speech)
   }
@@ -244,7 +247,7 @@ is.gl_speech_op <- function(x){
 #'
 #' }
 #'
-gl_speech_op <- function(operation){
+gl_speech_op <- function(operation = .Last.value){
 
   assert_that(
     is.gl_speech_op(operation)
