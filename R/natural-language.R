@@ -80,7 +80,7 @@ gl_nlp <- function(string,
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
   # global env set in version.R
-  version       <- get_version()
+  version       <- get_version("nlp")
 
   api_results <- map(string, gl_nlp_single,
       nlp_type = nlp_type,

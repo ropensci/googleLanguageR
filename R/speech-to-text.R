@@ -151,7 +151,7 @@ gl_speech <- function(audio_source,
   )
 
   # beta or production API endpoint
-  endpoint <- sprintf("https://speech.googleapis.com/%s/speech:", get_version())
+  endpoint <- sprintf("https://speech.googleapis.com/%s/speech:", get_version("speech"))
 
   ## asynch or normal call?
   if(asynch){
