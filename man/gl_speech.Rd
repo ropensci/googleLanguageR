@@ -95,7 +95,6 @@ gl_speech_op(asynch)
 test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
 gcs <- gl_speech(test_gcs, sampleRateHertz = 44100L, asynch = TRUE)
 gl_speech_op(gcs)
-}
 
 ## Use a custom configuration
 my_config <- list(encoding = "LINEAR16",
@@ -104,6 +103,9 @@ my_config <- list(encoding = "LINEAR16",
 
 # languageCode is required, so will be added if not in your custom config
 gl_speech(my_audio, languageCode = "en-US", customConfig = my_config)
+
+}
+
 
 
 }
