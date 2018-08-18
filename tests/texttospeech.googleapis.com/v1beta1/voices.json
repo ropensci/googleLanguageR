@@ -74,6 +74,102 @@
         },
         {
             "languageCodes": [
+                "de-DE"
+            ],
+            "name": "de-DE-Wavenet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "de-DE"
+            ],
+            "name": "de-DE-Wavenet-B",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "de-DE"
+            ],
+            "name": "de-DE-Wavenet-C",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "de-DE"
+            ],
+            "name": "de-DE-Wavenet-D",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-AU"
+            ],
+            "name": "en-AU-Wavenet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-AU"
+            ],
+            "name": "en-AU-Wavenet-B",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-AU"
+            ],
+            "name": "en-AU-Wavenet-C",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-AU"
+            ],
+            "name": "en-AU-Wavenet-D",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-GB"
+            ],
+            "name": "en-GB-Wavenet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-GB"
+            ],
+            "name": "en-GB-Wavenet-B",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-GB"
+            ],
+            "name": "en-GB-Wavenet-C",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-GB"
+            ],
+            "name": "en-GB-Wavenet-D",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
                 "en-US"
             ],
             "name": "en-US-Wavenet-A",
@@ -109,6 +205,70 @@
                 "en-US"
             ],
             "name": "en-US-Wavenet-F",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "fr-FR"
+            ],
+            "name": "fr-FR-Wavenet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "fr-FR"
+            ],
+            "name": "fr-FR-Wavenet-B",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "fr-FR"
+            ],
+            "name": "fr-FR-Wavenet-C",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "fr-FR"
+            ],
+            "name": "fr-FR-Wavenet-D",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "it-IT"
+            ],
+            "name": "it-IT-Wavenet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ja-JP"
+            ],
+            "name": "ja-JP-Wavenet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ko-KR"
+            ],
+            "name": "ko-KR-Wavenet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "nl-NL"
+            ],
+            "name": "nl-NL-Wavenet-A",
             "ssmlGender": "FEMALE",
             "naturalSampleRateHertz": 24000
         },
@@ -253,6 +413,22 @@
                 "fr-CA"
             ],
             "name": "fr-CA-Standard-D",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "fr-FR"
+            ],
+            "name": "fr-FR-Standard-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "fr-FR"
+            ],
+            "name": "fr-FR-Standard-B",
             "ssmlGender": "MALE",
             "naturalSampleRateHertz": 24000
         },

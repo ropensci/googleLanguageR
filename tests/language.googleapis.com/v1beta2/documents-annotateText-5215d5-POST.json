@@ -3603,8 +3603,8 @@
             "name": "Nicolas Louis de Lacaille",
             "type": "PERSON",
             "metadata": {
-                "mid": "/m/05f9q",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille",
+                "mid": "/m/05f9q"
             },
             "salience": 0.08974112,
             "mentions": [
@@ -3691,8 +3691,8 @@
             "name": "Lupus",
             "type": "CONSUMER_GOOD",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Systemic_lupus_erythematosus",
-                "mid": "/m/04nz3"
+                "mid": "/m/04nz3",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Systemic_lupus_erythematosus"
             },
             "salience": 0.06310504,
             "mentions": [
