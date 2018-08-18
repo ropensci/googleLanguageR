@@ -145,10 +145,10 @@ gl_nlp_single <- function(string,
                           language = c("en", "zh","zh-Hant","fr","de",
                                        "it","ja","ko","pt","es"),
                           encodingType = c("UTF8","UTF16","UTF32","NONE"),
-                          version = c("v1", "v1beta2")){
+                          version = "v1"){
 
   ## string processing
-  assert_that(is.string(string))
+  assert_that(is.string(string), is.string(version))
   string <- trimws(string)
   if(nchar(string) == 0 || is.na(string)){
     my_message("Zero length string passed, not calling API", level = 2)
@@ -156,7 +156,6 @@ gl_nlp_single <- function(string,
   }
 
   nlp_type      <- match.arg(nlp_type)
-  version       <- match.arg(version)
   type          <- match.arg(type)
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
