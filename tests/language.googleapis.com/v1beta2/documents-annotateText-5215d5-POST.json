@@ -3603,8 +3603,8 @@
             "name": "Nicolas Louis de Lacaille",
             "type": "PERSON",
             "metadata": {
-                "mid": "/m/05f9q",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille",
+                "mid": "/m/05f9q"
             },
             "salience": 0.08974112,
             "mentions": [
@@ -3691,8 +3691,8 @@
             "name": "Lupus",
             "type": "CONSUMER_GOOD",
             "metadata": {
-                "mid": "/m/04nz3",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Systemic_lupus_erythematosus"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Systemic_lupus_erythematosus",
+                "mid": "/m/04nz3"
             },
             "salience": 0.06310504,
             "mentions": [
@@ -3778,8 +3778,8 @@
             "name": "Mu Normae",
             "type": "OTHER",
             "metadata": {
-                "mid": "/m/0fq1w4_",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Mu_Normae"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Mu_Normae",
+                "mid": "/m/0fq1w4_"
             },
             "salience": 0.04217117,
             "mentions": [
@@ -4165,8 +4165,8 @@
             "name": "Latin",
             "type": "OTHER",
             "metadata": {
-                "mid": "/m/04h9h",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Latin"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Latin",
+                "mid": "/m/04h9h"
             },
             "salience": 0.007890216,
             "mentions": [
