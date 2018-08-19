@@ -1,3 +1,4 @@
 function(request){
-  gsub_request(request, "https\\://(.+).googleapis.com/", "api/")
+  cat("httprequest")
+  gsub_request(request, "https\\://(.+).googleapis.com/", "mock/")
 }

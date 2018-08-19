@@ -1,3 +1,4 @@
 function(response){
-  gsub_response(response, "https\\://(.+).googleapis.com/", "api/")
+  cat("httpredact")
+  gsub_response(response, "https\\://(.+).googleapis.com/", "mock/")
 }
