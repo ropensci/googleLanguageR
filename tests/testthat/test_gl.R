@@ -2,7 +2,7 @@ source("prep_tests.R")
 
 # set to FALSE to use mocks
 # set to TRUE to create mocks and test API
-INTEGRATION_TESTS <- FALSE
+INTEGRATION_TESTS <- TRUE
 
 context("API Mocking")
 
@@ -22,7 +22,17 @@ if(all(local_auth, INTEGRATION_TESTS)){
       gl_talk_languages()
       gl_talk_languages(languageCode = "en")
       gl_talk("Hasta la vista", name = "es-ES-Standard-A")
+      ## Use a custom configuration
+      my_config1 <- list(encoding = "LINEAR16",
+                         enableSpeakerDiarization = TRUE,
+                         diarizationSpeakerCount = 3)
 
+      gl_speech(test_audio, languageCode = "en-US", customConfig = my_config1)
+      ## Use a custom configuration
+      my_config2 <- list(enableAutomaticPunctuation = TRUE)
+
+      # languageCode is required, so will be added if not in your custom config
+      t2 <- gl_speech(test_gcs, languageCode = "en-US", customConfig = my_config2, asynch = TRUE)
     })
 
   ## wait for the operation jobs to finish
@@ -37,8 +47,10 @@ if(all(local_auth, INTEGRATION_TESTS)){
 
 ## if the flag is TRUE, we call API, if FALSE, use preexisting mocks
 if(INTEGRATION_TESTS){
+  cat("# Integration tests - calling API\n")
   do_tests <- force
 } else {
+  cat("# Unit tests - calling mocks\n")
   do_tests <- httptest::with_mock_API
 }
 
@@ -115,6 +127,35 @@ do_tests({
                                 "a Dream Within A Dream Edgar Allan Poe",
                                 maxDist = 10))
 
+
+  })
+
+  test_that("Speech with custom configs", {
+    skip_on_cran()
+
+    test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
+    test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
+
+    ## Use a custom configuration
+    my_config1 <- list(encoding = "LINEAR16",
+                       enableSpeakerDiarization = TRUE,
+                       diarizationSpeakerCount = 3)
+
+    t1 <- gl_speech(test_audio, languageCode = "en-US", customConfig = my_config1)
+
+    expect_true(!is.null(t1$timings$speakerTag))
+    expect_equal(max(t1$timings$speakerTag), 3)
+
+    ## Use a custom configuration
+    my_config2 <- list(enableAutomaticPunctuation = TRUE)
+
+    # languageCode is required, so will be added if not in your custom config
+    t2 <- gl_speech(test_gcs, languageCode = "en-US", customConfig = my_config2, asynch = TRUE)
+    if(INTEGRATION_TESTS) Sys.sleep(45)
+    result2 <- gl_speech_op(t2)
+
+    # do we have a full stop or comma included?
+    expect_true(any(grepl("\\.|\\,", result2$transcript$transcript)))
 
   })
 
