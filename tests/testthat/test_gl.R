@@ -7,6 +7,7 @@ INTEGRATION_TESTS <- FALSE
 context("API Mocking")
 
 if(all(local_auth, INTEGRATION_TESTS)){
+  cat("Mocking API requests\n")
   capture_requests({
       gl_nlp(test_text)
       gl_nlp(c(test_text, test_text2))
@@ -32,7 +33,8 @@ if(all(local_auth, INTEGRATION_TESTS)){
       my_config2 <- list(enableAutomaticPunctuation = TRUE)
 
       # languageCode is required, so will be added if not in your custom config
-      t2 <- gl_speech(test_gcs, languageCode = "en-US", customConfig = my_config2, asynch = TRUE)
+      t2 <- gl_speech(test_gcs, languageCode = "en-US",
+                      customConfig = my_config2, asynch = TRUE)
     })
 
   ## wait for the operation jobs to finish
@@ -41,6 +43,7 @@ if(all(local_auth, INTEGRATION_TESTS)){
   capture_requests(
     {
       gl_speech_op(async)
+      gl_speech_op(t2)
     })
 
 }
@@ -150,7 +153,8 @@ do_tests({
     my_config2 <- list(enableAutomaticPunctuation = TRUE)
 
     # languageCode is required, so will be added if not in your custom config
-    t2 <- gl_speech(test_gcs, languageCode = "en-US", customConfig = my_config2, asynch = TRUE)
+    t2 <- gl_speech(test_gcs, languageCode = "en-US",
+                    customConfig = my_config2, asynch = TRUE)
     if(INTEGRATION_TESTS) Sys.sleep(45)
     result2 <- gl_speech_op(t2)
 
