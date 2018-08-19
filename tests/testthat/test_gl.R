@@ -1,8 +1,12 @@
 source("prep_tests.R")
 
+# set to FALSE to use mocks
+# set to TRUE to create mocks and test API
+INTEGRATION_TESTS <- FALSE
+
 context("API Mocking")
 
-if(local_auth){
+if(all(local_auth, INTEGRATION_TESTS)){
   capture_requests({
       gl_nlp(test_text)
       gl_nlp(c(test_text, test_text2))
@@ -31,9 +35,16 @@ if(local_auth){
 
 }
 
+## if the flag is TRUE, we call API, if FALSE, use preexisting mocks
+if(INTEGRATION_TESTS){
+  do_tests <- force
+} else {
+  do_tests <- httptest::with_mock_API
+}
 
-with_mock_API({
-  context("Unit tests - NLP")
+
+do_tests({
+  context("NLP")
 
   test_that("NLP returns expected fields", {
     skip_on_cran()
@@ -69,7 +80,7 @@ with_mock_API({
 
   })
 
-  context("Unit tests - Speech")
+  context("Speech")
 
   test_that("Speech recognise expected", {
     skip_on_cran()
@@ -97,7 +108,8 @@ with_mock_API({
     async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
     expect_true(inherits(async, "gl_speech_op"))
 
-    Sys.sleep(45)
+    if(INTEGRATION_TESTS) Sys.sleep(45)
+
     result2 <- gl_speech_op(async)
     expect_true(stringdist::ain(result2$transcript$transcript[[1]],
                                 "a Dream Within A Dream Edgar Allan Poe",
@@ -106,7 +118,7 @@ with_mock_API({
 
   })
 
-  context("Unit tests - Translation")
+  context("Translation")
 
 
   test_that("Listing translations works", {
@@ -155,7 +167,7 @@ with_mock_API({
 
   })
 
-  context("Unit tests - Talk")
+  context("Talk")
 
   test_that("Simple talk API call creates a file", {
     skip_on_cran()

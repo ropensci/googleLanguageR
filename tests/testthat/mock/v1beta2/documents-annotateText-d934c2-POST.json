@@ -1393,8 +1393,8 @@
             "name": "Solomon Wariso",
             "type": "ORGANIZATION",
             "metadata": {
-                "mid": "/g/120x5nf6",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Solomon_Wariso"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Solomon_Wariso",
+                "mid": "/g/120x5nf6"
             },
             "salience": 0.15622282,
             "mentions": [
@@ -1444,8 +1444,8 @@
             "name": "Portsmouth",
             "type": "LOCATION",
             "metadata": {
-                "mid": "/m/0619_",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Portsmouth"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Portsmouth",
+                "mid": "/m/0619_"
             },
             "salience": 0.05298244,
             "mentions": [
@@ -1520,8 +1520,8 @@
             "name": "British",
             "type": "LOCATION",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/United_Kingdom",
-                "mid": "/m/07ssc"
+                "mid": "/m/07ssc",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/United_Kingdom"
             },
             "salience": 0.02548278,
             "mentions": [

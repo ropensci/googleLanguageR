@@ -1,3 +1,4 @@
+library(googleLanguageR)
 library(httptest)
 library(rvest)
 library(magrittr)
@@ -8,7 +9,7 @@ library(rvest)
 
 local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
-  cat("\nNo authentication file detected - skipping integration tests\n")
+  cat("\nNo authentication file detected\n")
 } else {
   cat("\nFound local auth file\n")
 }
