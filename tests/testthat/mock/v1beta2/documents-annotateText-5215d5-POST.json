@@ -3640,8 +3640,8 @@
             "name": "Southern Celestial Hemisphere",
             "type": "LOCATION",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_celestial_hemisphere",
-                "mid": "/g/1229bqyd"
+                "mid": "/g/1229bqyd",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_celestial_hemisphere"
             },
             "salience": 0.06310504,
             "mentions": [

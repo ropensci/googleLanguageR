@@ -1520,8 +1520,8 @@
             "name": "British",
             "type": "LOCATION",
             "metadata": {
-                "mid": "/m/07ssc",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/United_Kingdom"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/United_Kingdom",
+                "mid": "/m/07ssc"
             },
             "salience": 0.02548278,
             "mentions": [
