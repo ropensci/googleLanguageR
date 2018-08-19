@@ -3640,8 +3640,8 @@
             "name": "Southern Celestial Hemisphere",
             "type": "LOCATION",
             "metadata": {
-                "mid": "/g/1229bqyd",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_celestial_hemisphere"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_celestial_hemisphere",
+                "mid": "/g/1229bqyd"
             },
             "salience": 0.06310504,
             "mentions": [
@@ -4391,8 +4391,8 @@
             "name": "Gamma2 Normae",
             "type": "OTHER",
             "metadata": {
-                "mid": "/m/0pb8tcj",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Gamma2_Normae"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Gamma2_Normae",
+                "mid": "/m/0pb8tcj"
             },
             "salience": 0.0038640648,
             "mentions": [

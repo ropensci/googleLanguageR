@@ -4,102 +4,121 @@
             "alternatives": [
                 {
                     "transcript": "to administer medicine to animals is frequency of very difficult matter and yet sometimes it's necessary to do so",
-                    "confidence": 0.9408945,
+                    "confidence": 0.9408932,
                     "words": [
                         {
                             "startTime": "0s",
                             "endTime": "0.200s",
-                            "word": "to"
+                            "word": "to",
+                            "speakerTag": 1
                         },
                         {
                             "startTime": "0.200s",
                             "endTime": "0.700s",
-                            "word": "administer"
+                            "word": "administer",
+                            "speakerTag": 1
                         },
                         {
                             "startTime": "0.700s",
                             "endTime": "1.100s",
-                            "word": "medicine"
+                            "word": "medicine",
+                            "speakerTag": 1
                         },
                         {
                             "startTime": "1.100s",
                             "endTime": "1.400s",
-                            "word": "to"
+                            "word": "to",
+                            "speakerTag": 1
                         },
                         {
                             "startTime": "1.400s",
                             "endTime": "2s",
-                            "word": "animals"
+                            "word": "animals",
+                            "speakerTag": 2
                         },
                         {
                             "startTime": "2s",
                             "endTime": "2.100s",
-                            "word": "is"
+                            "word": "is",
+                            "speakerTag": 2
                         },
                         {
                             "startTime": "2.100s",
                             "endTime": "2.600s",
-                            "word": "frequency"
+                            "word": "frequency",
+                            "speakerTag": 2
                         },
                         {
                             "startTime": "2.600s",
                             "endTime": "2.700s",
-                            "word": "of"
+                            "word": "of",
+                            "speakerTag": 2
                         },
                         {
                             "startTime": "2.700s",
                             "endTime": "3s",
-                            "word": "very"
+                            "word": "very",
+                            "speakerTag": 2
                         },
                         {
                             "startTime": "3s",
                             "endTime": "3.200s",
-                            "word": "difficult"
+                            "word": "difficult",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "3.200s",
                             "endTime": "3.800s",
-                            "word": "matter"
+                            "word": "matter",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "3.800s",
                             "endTime": "4.300s",
-                            "word": "and"
+                            "word": "and",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "4.300s",
                             "endTime": "4.500s",
-                            "word": "yet"
+                            "word": "yet",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "4.500s",
                             "endTime": "4.900s",
-                            "word": "sometimes"
+                            "word": "sometimes",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "4.900s",
                             "endTime": "5.300s",
-                            "word": "it's"
+                            "word": "it's",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "5.300s",
                             "endTime": "5.400s",
-                            "word": "necessary"
+                            "word": "necessary",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "5.400s",
                             "endTime": "5.800s",
-                            "word": "to"
+                            "word": "to",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "5.800s",
                             "endTime": "6s",
-                            "word": "do"
+                            "word": "do",
+                            "speakerTag": 3
                         },
                         {
                             "startTime": "6s",
                             "endTime": "6.100s",
-                            "word": "so"
+                            "word": "so",
+                            "speakerTag": 3
                         }
                     ]
                 }

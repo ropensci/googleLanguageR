@@ -2,7 +2,7 @@ source("prep_tests.R")
 
 # set to FALSE to use mocks
 # set to TRUE to create mocks and test API
-INTEGRATION_TESTS <- TRUE
+INTEGRATION_TESTS <- FALSE
 
 context("API Mocking")
 
