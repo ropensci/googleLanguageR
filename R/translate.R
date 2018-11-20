@@ -97,9 +97,18 @@ gl_translate_detect <- function(string){
 
   me <- tryCatch(call_api(the_body = pars),
                  error = function(ex){
-                   if(grepl(catch_errors, ex$message)){
+                   if (grepl(catch_errors, ex$message)) {
                      my_message("Attempting to split into several API calls", level = 3)
                      Reduce(rbind, lapply(string, gl_translate_detect))
+                   } else if (grepl("User Rate Limit Exceeded",
+                                 ex$message)) {
+                     my_message("Characters per 100 seconds rate limit reached, waiting 10 seconds...",
+                                level = 3)
+                     Sys.sleep(10)
+                     ## try again
+                     gl_translate_detect(string)
+                   } else {
+                     stop(ex$message, call. = FALSE)
                    }
                  })
 
