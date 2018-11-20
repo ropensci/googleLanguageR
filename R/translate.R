@@ -100,6 +100,8 @@ gl_translate_detect <- function(string){
                    if(grepl(catch_errors, ex$message)){
                      my_message("Attempting to split into several API calls", level = 3)
                      Reduce(rbind, lapply(string, gl_translate_detect))
+                   } else {
+                     stop(ex$message)
                    }
                  })
 
