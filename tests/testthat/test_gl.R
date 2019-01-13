@@ -19,7 +19,8 @@ if(all(local_auth, INTEGRATION_TESTS)){
       gl_translate_languages("da")
       gl_translate(html_result, format = "html")
       gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
-      gl_talk("Test talk sentence", output  = "test.wav", languageCode = "en",  gender = "FEMALE")
+      gl_talk("Test talk sentence", output  = "test.wav",
+              languageCode = "en",  gender = "FEMALE")
       gl_talk_languages()
       gl_talk_languages(languageCode = "en")
       gl_talk("Hasta la vista", name = "es-ES-Standard-A")

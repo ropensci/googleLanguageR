@@ -27,10 +27,19 @@ my_cbind <- function(...){
 
 # purrr's map_df without dplyr
 my_map_df <- function(.x, .f, ...){
+  tryCatch(
+    {
+      .f <- purrr::as_mapper(.f, ...)
+      res <- map(.x, .f, ...)
+      Reduce(rbind, res)
+    },
+    error = function(err){
+      warning("Could not parse object with names: ", paste(names(.x), collapse = " "))
+      .x
+    }
 
-  .f <- purrr::as_mapper(.f, ...)
-  res <- map(.x, .f, ...)
-  Reduce(rbind, res)
+  )
+
 
 }
 

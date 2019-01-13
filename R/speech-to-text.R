@@ -204,7 +204,7 @@ parse_async <- function(x){
     }
     return(structure(x, class = "gl_speech_op"))
   } else {
-    my_message("Asychronous transcription finished.", level = 3)
+    my_message("Asynchronous transcription finished.", level = 3)
   }
 
   parse_speech(x$response)
