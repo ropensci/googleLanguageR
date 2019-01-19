@@ -72,4 +72,3 @@ read_html(my_url) \%>\%
 Other translations: \code{\link{gl_translate_detect}},
   \code{\link{gl_translate_languages}}
 }
-\concept{translations}

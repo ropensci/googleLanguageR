@@ -2,12 +2,12 @@ source("prep_tests.R")
 
 # set to FALSE to use mocks
 # set to TRUE to create mocks and test API
-INTEGRATION_TESTS <- FALSE
+INTEGRATION_TESTS <- TRUE
 
 context("API Mocking")
 
 if(all(local_auth, INTEGRATION_TESTS)){
-  cat("Mocking API requests\n")
+  cat("\n# Mocking API requests\n")
   capture_requests({
       gl_nlp(test_text)
       gl_nlp(c(test_text, test_text2))
@@ -17,7 +17,6 @@ if(all(local_auth, INTEGRATION_TESTS)){
       gl_translate(trans_text)
       async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
       gl_translate_languages("da")
-      gl_translate(html_result, format = "html")
       gl_translate_detect(c(trans_text, "The owl and the pussycat went to sea"))
       gl_talk("Test talk sentence", output  = "test.wav",
               languageCode = "en",  gender = "FEMALE")
@@ -202,13 +201,9 @@ do_tests({
     skip_on_cran()
 
     danish <- gl_translate(trans_text)
-    expected <- "There are people who are soberly and shamefully opposed to the ideas of others, who make it clear that they should be charged with unlawful interference with the former."
+    expected <- "People who, at this stage, are rudely and shamefully given to others' ideas, are told that they should be accused of illegal dealing with lost property."
 
     expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
-
-    trans_result <- gl_translate(html_result, format = "html")
-
-    expect_true(grepl("There are a few words spoken to Apple", trans_result$translatedText))
 
 
   })

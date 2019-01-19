@@ -2,14 +2,6 @@
     "voices": [
         {
             "languageCodes": [
-                "en-US"
-            ],
-            "name": "en-US-Wavenet-D",
-            "ssmlGender": "MALE",
-            "naturalSampleRateHertz": 24000
-        },
-        {
-            "languageCodes": [
                 "en-AU"
             ],
             "name": "en-AU-Wavenet-A",
@@ -94,6 +86,14 @@
             ],
             "name": "en-US-Wavenet-C",
             "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "en-US"
+            ],
+            "name": "en-US-Wavenet-D",
+            "ssmlGender": "MALE",
             "naturalSampleRateHertz": 24000
         },
         {

@@ -3603,8 +3603,8 @@
             "name": "Nicolas Louis de Lacaille",
             "type": "PERSON",
             "metadata": {
-                "mid": "/m/05f9q",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille",
+                "mid": "/m/05f9q"
             },
             "salience": 0.08974112,
             "mentions": [
@@ -3840,7 +3840,8 @@
             "name": "French",
             "type": "LOCATION",
             "metadata": {
-
+                "mid": "/m/0f8l9c",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/France"
             },
             "salience": 0.024245305,
             "mentions": [
@@ -4165,8 +4166,8 @@
             "name": "Latin",
             "type": "OTHER",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Latin",
-                "mid": "/m/04h9h"
+                "mid": "/m/04h9h",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Latin"
             },
             "salience": 0.007890216,
             "mentions": [
@@ -4339,7 +4340,7 @@
         },
         {
             "name": "field",
-            "type": "LOCATION",
+            "type": "OTHER",
             "metadata": {
 
             },

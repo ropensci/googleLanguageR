@@ -1,0 +1,60 @@
+{
+    "name": "6888685605675937241",
+    "metadata": {
+        "@type": "type.googleapis.com/google.cloud.speech.v1p1beta1.LongRunningRecognizeMetadata",
+        "progressPercent": 100,
+        "startTime": "2019-01-19T20:45:50.372148Z",
+        "lastUpdateTime": "2019-01-19T20:46:13.840950Z"
+    },
+    "done": true,
+    "response": {
+        "@type": "type.googleapis.com/google.cloud.speech.v1p1beta1.LongRunningRecognizeResponse",
+        "results": [
+            {
+                "alternatives": [
+                    {
+                        "transcript": "a Dream Within A Dream Edgar, Allan Poe",
+                        "confidence": 0.90989727
+                    }
+                ],
+                "languageCode": "en-us"
+            },
+            {
+                "alternatives": [
+                    {
+                        "transcript": " Take This Kiss upon the brow and in punching from you now thus much let me eval you are not wrong who deem that my days have been a dream.",
+                        "confidence": 0.9556258
+                    }
+                ],
+                "languageCode": "en-us"
+            },
+            {
+                "alternatives": [
+                    {
+                        "transcript": " Yet is Hope has flown away in the night or in a day Innovation or in none. Is it therefore the less gone all that? We see or seem is but a dream within a dream.",
+                        "confidence": 0.95902616
+                    }
+                ],
+                "languageCode": "en-us"
+            },
+            {
+                "alternatives": [
+                    {
+                        "transcript": " I stand amid the Roar of a surf-tormented sure that I hold within my hand grains of the golden sand how q a jet how they creep through my fingers to the Jeep while I weep while I weep o God can I not cross them with a tie to class o God can I not save one from the pitiless waves?",
+                        "confidence": 0.95842886
+                    }
+                ],
+                "languageCode": "en-us"
+            },
+            {
+                "alternatives": [
+                    {
+                        "transcript": " Is all that we see or seem but a dream within a dream.",
+                        "confidence": 0.9824734
+                    }
+                ],
+                "languageCode": "en-us"
+            }
+        ]
+    }
+}

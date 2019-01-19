@@ -1,10 +1,10 @@
 {
-    "name": "4688899291813445864",
+    "name": "6886656804322859927",
     "metadata": {
         "@type": "type.googleapis.com/google.cloud.speech.v1p1beta1.LongRunningRecognizeMetadata",
         "progressPercent": 100,
-        "startTime": "2018-08-19T17:53:18.230928Z",
-        "lastUpdateTime": "2018-08-19T17:53:35.112654Z"
+        "startTime": "2019-01-19T20:54:13.025715Z",
+        "lastUpdateTime": "2019-01-19T20:54:31.561323Z"
     },
     "done": true,
     "response": {
@@ -14,7 +14,7 @@
                 "alternatives": [
                     {
                         "transcript": "a Dream Within A Dream Edgar Allan Poe",
-                        "confidence": 0.9036181,
+                        "confidence": 0.9098977,
                         "words": [
                             {
                                 "startTime": "0s",
@@ -58,13 +58,14 @@
                             }
                         ]
                     }
-                ]
+                ],
+                "languageCode": "en-us"
             },
             {
                 "alternatives": [
                     {
-                        "transcript": " Take This Kiss upon the brow and in parting from you now thus much let me eval you are not wrong who deem that my days have been a dream",
-                        "confidence": 0.9339875,
+                        "transcript": " Take This Kiss upon the brow and in punching from you now thus much let me eval you are not wrong who deem that my days have been a dream",
+                        "confidence": 0.95562595,
                         "words": [
                             {
                                 "startTime": "7.500s",
@@ -109,7 +110,7 @@
                             {
                                 "startTime": "10.800s",
                                 "endTime": "11.300s",
-                                "word": "parting"
+                                "word": "punching"
                             },
                             {
                                 "startTime": "11.300s",
@@ -218,13 +219,14 @@
                             }
                         ]
                     }
-                ]
+                ],
+                "languageCode": "en-us"
             },
             {
                 "alternatives": [
                     {
-                        "transcript": " yet is Hope has flown away in the night or in the day Innovation or in none is it therefore the less gone all that we see or seem is but a dream within a dream",
-                        "confidence": 0.9490173,
+                        "transcript": " yet is Hope has flown away in the night or in a day Innovation or in none is it therefore the less gone all that we see or seem is but a dream within a dream",
+                        "confidence": 0.95902646,
                         "words": [
                             {
                                 "startTime": "20.500s",
@@ -268,31 +270,31 @@
                             },
                             {
                                 "startTime": "23.600s",
-                                "endTime": "24s",
+                                "endTime": "23.800s",
                                 "word": "night"
                             },
                             {
-                                "startTime": "24s",
-                                "endTime": "24.700s",
+                                "startTime": "23.800s",
+                                "endTime": "24.500s",
                                 "word": "or"
                             },
                             {
-                                "startTime": "24.700s",
+                                "startTime": "24.500s",
                                 "endTime": "24.800s",
                                 "word": "in"
                             },
                             {
                                 "startTime": "24.800s",
                                 "endTime": "24.900s",
-                                "word": "the"
+                                "word": "a"
                             },
                             {
                                 "startTime": "24.900s",
-                                "endTime": "25s",
+                                "endTime": "25.200s",
                                 "word": "day"
                             },
                             {
-                                "startTime": "25s",
+                                "startTime": "25.200s",
                                 "endTime": "26.600s",
                                 "word": "Innovation"
                             },
@@ -348,11 +350,11 @@
                             },
                             {
                                 "startTime": "32.100s",
-                                "endTime": "32.200s",
+                                "endTime": "32.300s",
                                 "word": "that"
                             },
                             {
-                                "startTime": "32.200s",
+                                "startTime": "32.300s",
                                 "endTime": "32.600s",
                                 "word": "we"
                             },
@@ -388,11 +390,11 @@
                             },
                             {
                                 "startTime": "34.400s",
-                                "endTime": "34.600s",
+                                "endTime": "35s",
                                 "word": "dream"
                             },
                             {
-                                "startTime": "34.600s",
+                                "startTime": "35s",
                                 "endTime": "35.100s",
                                 "word": "within"
                             },
@@ -408,13 +410,14 @@
                             }
                         ]
                     }
-                ]
+                ],
+                "languageCode": "en-us"
             },
             {
                 "alternatives": [
                     {
-                        "transcript": " I stand amid the Roar of a Serta meant to Shore and I hold within my hand grains of the golden sand help you eject how they creep through my fingers to the Jeep while I weep while I weep o God can I not cross them with a tie to class so God can I not save one from the pitiless waves",
-                        "confidence": 0.96531725,
+                        "transcript": " I stand amid the Roar of a surf-tormented sure that I hold within my hand grains of the golden sand how q a jet how they creep through my fingers to the Jeep while I weep while I weep o God can I not cross them with a tie to class o God can I not save one from the pitiless waves",
+                        "confidence": 0.95842814,
                         "words": [
                             {
                                 "startTime": "37.900s",
@@ -428,11 +431,11 @@
                             },
                             {
                                 "startTime": "38.700s",
-                                "endTime": "38.900s",
+                                "endTime": "39s",
                                 "word": "amid"
                             },
                             {
-                                "startTime": "38.900s",
+                                "startTime": "39s",
                                 "endTime": "39.200s",
                                 "word": "the"
                             },
@@ -453,28 +456,18 @@
                             },
                             {
                                 "startTime": "40s",
-                                "endTime": "40.500s",
-                                "word": "Serta"
+                                "endTime": "40.800s",
+                                "word": "surf-tormented"
                             },
                             {
-                                "startTime": "40.500s",
-                                "endTime": "41s",
-                                "word": "meant"
+                                "startTime": "40.800s",
+                                "endTime": "41.500s",
+                                "word": "sure"
                             },
                             {
-                                "startTime": "41s",
-                                "endTime": "41.100s",
-                                "word": "to"
-                            },
-                            {
-                                "startTime": "41.100s",
-                                "endTime": "41.400s",
-                                "word": "Shore"
-                            },
-                            {
-                                "startTime": "41.400s",
+                                "startTime": "41.500s",
                                 "endTime": "42.200s",
-                                "word": "and"
+                                "word": "that"
                             },
                             {
                                 "startTime": "42.200s",
@@ -529,17 +522,22 @@
                             {
                                 "startTime": "46.100s",
                                 "endTime": "46.800s",
-                                "word": "help"
+                                "word": "how"
                             },
                             {
                                 "startTime": "46.800s",
                                 "endTime": "47.200s",
-                                "word": "you"
+                                "word": "q"
                             },
                             {
                                 "startTime": "47.200s",
+                                "endTime": "48.300s",
+                                "word": "a"
+                            },
+                            {
+                                "startTime": "48.300s",
                                 "endTime": "48.700s",
-                                "word": "eject"
+                                "word": "jet"
                             },
                             {
                                 "startTime": "48.700s",
@@ -578,11 +576,11 @@
                             },
                             {
                                 "startTime": "50.700s",
-                                "endTime": "50.700s",
+                                "endTime": "50.800s",
                                 "word": "the"
                             },
                             {
-                                "startTime": "50.700s",
+                                "startTime": "50.800s",
                                 "endTime": "51.200s",
                                 "word": "Jeep"
                             },
@@ -608,11 +606,11 @@
                             },
                             {
                                 "startTime": "53.700s",
-                                "endTime": "53.700s",
+                                "endTime": "54s",
                                 "word": "I"
                             },
                             {
-                                "startTime": "53.700s",
+                                "startTime": "54s",
                                 "endTime": "54.600s",
                                 "word": "weep"
                             },
@@ -648,11 +646,11 @@
                             },
                             {
                                 "startTime": "57.700s",
-                                "endTime": "58.100s",
+                                "endTime": "58s",
                                 "word": "them"
                             },
                             {
-                                "startTime": "58.100s",
+                                "startTime": "58s",
                                 "endTime": "58.200s",
                                 "word": "with"
                             },
@@ -673,13 +671,13 @@
                             },
                             {
                                 "startTime": "58.800s",
-                                "endTime": "59.300s",
+                                "endTime": "59.200s",
                                 "word": "class"
                             },
                             {
-                                "startTime": "59.300s",
+                                "startTime": "59.200s",
                                 "endTime": "59.900s",
-                                "word": "so"
+                                "word": "o"
                             },
                             {
                                 "startTime": "59.900s",
@@ -688,11 +686,11 @@
                             },
                             {
                                 "startTime": "60.400s",
-                                "endTime": "60.600s",
+                                "endTime": "60.700s",
                                 "word": "can"
                             },
                             {
-                                "startTime": "60.600s",
+                                "startTime": "60.700s",
                                 "endTime": "60.800s",
                                 "word": "I"
                             },
@@ -733,13 +731,14 @@
                             }
                         ]
                     }
-                ]
+                ],
+                "languageCode": "en-us"
             },
             {
                 "alternatives": [
                     {
                         "transcript": " is all that we see or seem but a dream within a dream",
-                        "confidence": 0.9816975,
+                        "confidence": 0.9824734,
                         "words": [
                             {
                                 "startTime": "64.500s",
@@ -753,11 +752,11 @@
                             },
                             {
                                 "startTime": "65.100s",
-                                "endTime": "65.500s",
+                                "endTime": "65.600s",
                                 "word": "that"
                             },
                             {
-                                "startTime": "65.500s",
+                                "startTime": "65.600s",
                                 "endTime": "65.800s",
                                 "word": "we"
                             },
@@ -808,7 +807,8 @@
                             }
                         ]
                     }
-                ]
+                ],
+                "languageCode": "en-us"
             }
         ]
     }
