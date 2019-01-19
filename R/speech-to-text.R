@@ -189,7 +189,10 @@ parse_speech <- function(x){
   timings    <- my_map_df(x$results$alternatives,
                           ~ .x$words[[1]])
 
-  list(transcript = transcript, timings = timings)
+  list(transcript = transcript,
+       timings = timings,
+       channelTag = x$channelTag,
+       languageCode = x$languageCode)
 }
 
 # parse asynchronous speech calls responses

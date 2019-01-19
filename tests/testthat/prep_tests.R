@@ -33,3 +33,6 @@ expected <- "There are people who are soberly and shamefully opposed to the idea
 test_gcs <- "gs://mark-edmondson-public-files/googleLanguageR/a-dream-mono.wav"
 
 test_audio <- system.file(package = "googleLanguageR", "woman1_wb.wav")
+
+speaker_d_test <- "gs://mark-edmondson-public-read/boring_conversation.wav"
+
