@@ -192,7 +192,8 @@ parse_speech <- function(x){
 
   alts <- cbind(transcript,
                 languageCode = as.character(x$results$languageCode),
-                channelTag = if(!is.null(x$results$channelTag)) x$results$channelTag else NA)
+                channelTag = if(!is.null(x$results$channelTag)) x$results$channelTag else NA,
+                stringsAsFactors = FALSE)
 
   list(transcript = alts,
        timings = timings)
