@@ -37,3 +37,4 @@ gl_translate_languages("da")
 Other translations: \code{\link{gl_translate_detect}},
   \code{\link{gl_translate}}
 }
+\concept{translations}

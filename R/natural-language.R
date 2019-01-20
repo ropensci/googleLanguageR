@@ -219,7 +219,7 @@ gl_nlp_single <- function(string,
 #' @importFrom magrittr %>%
 #' @noRd
 parse_nlp <- function(x){
-
+browser()
   s <- t <- e <- d <- cats <- NULL
 
   if(!is_empty(x$sentences)){

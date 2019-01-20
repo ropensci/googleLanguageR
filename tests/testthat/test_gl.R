@@ -2,7 +2,7 @@ source("prep_tests.R")
 
 # set to FALSE to use mocks
 # set to TRUE to create mocks and test API
-INTEGRATION_TESTS <- TRUE
+INTEGRATION_TESTS <- FALSE
 
 context("API Mocking")
 
@@ -112,12 +112,10 @@ do_tests({
     test_result <- "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so"
 
     expect_true(inherits(result, "list"))
-    expect_true(all(names(result$transcript) %in% c("transcript","confidence","words")))
-
+    expect_true(all(names(result$transcript) %in% c("transcript","confidence","languageCode","channelTag")))
+    expect_true(all(names(result$timings[[1]]) %in% c("startTime","endTime","word")))
     ## the API call varies a bit, so it passes if within 10 characters of expected transscript
     expect_true(stringdist::ain(result$transcript$transcript, test_result, maxDist = 10))
-
-    expect_equal(names(result$timings), c("startTime","endTime","word"))
 
   })
 
@@ -160,8 +158,15 @@ do_tests({
 
     result3 <- gl_speech_op(t1)
 
-    expect_true(!is.null(t1$timings$speakerTag))
-    expect_equal(max(t1$timings$speakerTag), 3)
+    expect_true(all(names(result3) %in% c("transcript","timings")))
+
+    expect_s3_class(result3$transcript, "data.frame")
+    expect_true(all(names(result3$transcript) %in%
+                      c("transcript","confidence","languageCode","channelTag")))
+    expect_true(all(names(result3$timings[[1]]) %in%
+                      c("startTime","endTime","word")))
+    expect_true(all(names(result3$timings[[2]]) %in%
+                      c("startTime","endTime","word","speakerTag")))
 
     ## Use a custom configuration
     my_config2 <- list(enableAutomaticPunctuation = TRUE)

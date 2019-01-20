@@ -23,12 +23,12 @@ Depends: R (>= 3.3)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Imports:
     assertthat,
     base64enc,
-    googleAuthR,
+    googleAuthR (>= 0.7.0),
     jsonlite,
     magrittr,
     purrr (>= 0.2.4),

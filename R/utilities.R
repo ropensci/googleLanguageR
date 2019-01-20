@@ -44,7 +44,6 @@ my_reduce_rbind <- function(x){
     num_col <- length(missing_names)
     if(num_col > 0){
       missing_cols <- vapply(missing_names, function(i) NA, NA, USE.NAMES = TRUE)
-
       new_df <- data.frame(matrix(missing_cols, ncol = num_col))
       names(new_df) <- names(missing_cols)
       y <- cbind(y, new_df, row.names = NULL)

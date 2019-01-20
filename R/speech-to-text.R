@@ -175,6 +175,7 @@ gl_speech <- function(audio_source,
 
 # parse normal speech call responses
 parse_speech <- function(x){
+
   if(!is.null(x$totalBilledTime)){
     my_message("Speech transcription finished. Total billed time: ",
                x$totalBilledTime, level = 3)
@@ -186,13 +187,15 @@ parse_speech <- function(x){
                                                              .x$transcript,NA),
                                 confidence = ifelse(!is.null(.x$confidence),
                                                              .x$confidence,NA))))
-  timings    <- my_map_df(x$results$alternatives,
+  timings <- map(x$results$alternatives,
                           ~ .x$words[[1]])
 
-  list(transcript = transcript,
-       timings = timings,
-       channelTag = x$channelTag,
-       languageCode = x$languageCode)
+  alts <- cbind(transcript,
+                languageCode = as.character(x$results$languageCode),
+                channelTag = if(!is.null(x$results$channelTag)) x$results$channelTag else NA)
+
+  list(transcript = alts,
+       timings = timings)
 }
 
 # parse asynchronous speech calls responses

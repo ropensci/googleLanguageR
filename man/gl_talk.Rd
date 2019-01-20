@@ -5,9 +5,10 @@
 \title{Perform text to speech}
 \usage{
 gl_talk(input, output = "output.wav", languageCode = "en",
-  gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE", "FEMALE", "NEUTRAL"),
-  name = NULL, audioEncoding = c("LINEAR16", "MP3", "OGG_OPUS"),
-  speakingRate = 1, pitch = 0, volumeGainDb = 0, sampleRateHertz = NULL)
+  gender = c("SSML_VOICE_GENDER_UNSPECIFIED", "MALE", "FEMALE",
+  "NEUTRAL"), name = NULL, audioEncoding = c("LINEAR16", "MP3",
+  "OGG_OPUS"), speakingRate = 1, pitch = 0, volumeGainDb = 0,
+  sampleRateHertz = NULL)
 }
 \arguments{
 \item{input}{The text to turn into speech}
