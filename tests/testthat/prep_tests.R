@@ -1,10 +1,14 @@
+# set to FALSE to use mocks
+# set to TRUE to create mocks and test API
+INTEGRATION_TESTS <- TRUE
+
 library(googleLanguageR)
 library(httptest)
 library(rvest)
 library(magrittr)
 library(xml2)
 library(rvest)
-
+options(error=NULL, warn =2)
 # .mockPaths("..")
 
 local_auth <- Sys.getenv("GL_AUTH") != ""

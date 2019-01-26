@@ -1444,8 +1444,8 @@
             "name": "Portsmouth",
             "type": "LOCATION",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Portsmouth",
-                "mid": "/m/0619_"
+                "mid": "/m/0619_",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Portsmouth"
             },
             "salience": 0.05298244,
             "mentions": [

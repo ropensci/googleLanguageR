@@ -290,6 +290,38 @@
         },
         {
             "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-WaveNet-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-WaveNet-B",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-WaveNet-C",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-WaveNet-D",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
                 "sk-SK"
             ],
             "name": "sk-SK-Wavenet-A",
@@ -358,6 +390,38 @@
             ],
             "name": "it-IT-Standard-A",
             "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-Standard-A",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-Standard-B",
+            "ssmlGender": "MALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-Standard-C",
+            "ssmlGender": "FEMALE",
+            "naturalSampleRateHertz": 24000
+        },
+        {
+            "languageCodes": [
+                "ru-RU"
+            ],
+            "name": "ru-RU-Standard-D",
+            "ssmlGender": "MALE",
             "naturalSampleRateHertz": 24000
         },
         {

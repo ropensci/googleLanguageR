@@ -3603,8 +3603,8 @@
             "name": "Nicolas Louis de Lacaille",
             "type": "PERSON",
             "metadata": {
-                "mid": "/m/05f9q",
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille"
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Nicolas-Louis_de_Lacaille",
+                "mid": "/m/05f9q"
             },
             "salience": 0.08974112,
             "mentions": [
@@ -4392,8 +4392,8 @@
             "name": "Gamma2 Normae",
             "type": "OTHER",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Gamma2_Normae",
-                "mid": "/m/0pb8tcj"
+                "mid": "/m/0pb8tcj",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Gamma2_Normae"
             },
             "salience": 0.0038640648,
             "mentions": [

@@ -110,7 +110,7 @@ out_documentSentiment <- function(x){
 
   out <- tibble(magnitude=NA_real_, score=NA_real_)
 
-  if(!is.null(x)){
+  if(!is.null(x$documentSentiment)){
     out <- as_tibble(x$documentSentiment)
   }
 
@@ -121,7 +121,7 @@ out_classifyText <- function(x){
 
   out <- tibble(name=NA_character_, confidence=NA_integer_)
 
-  if(!is.null(x)){
+  if(!is.null(x$classifyText)){
     out <- as_tibble(x$classifyText)
   }
 
@@ -219,7 +219,7 @@ gl_nlp_single <- function(string,
 #' @importFrom magrittr %>%
 #' @noRd
 parse_nlp <- function(x){
-browser()
+
   s <- t <- e <- d <- cats <- NULL
 
   if(!is_empty(x$sentences)){

@@ -1,8 +1,6 @@
 source("prep_tests.R")
 
-# set to FALSE to use mocks
-# set to TRUE to create mocks and test API
-INTEGRATION_TESTS <- FALSE
+
 
 context("API Mocking")
 
@@ -29,12 +27,12 @@ if(all(local_auth, INTEGRATION_TESTS)){
                          diarizationSpeakerCount = 3)
 
       gl_speech(test_audio, languageCode = "en-US", customConfig = my_config1)
-      ## Use a custom configuration
-      my_config2 <- list(enableAutomaticPunctuation = TRUE)
+
 
       # languageCode is required, so will be added if not in your custom config
       t2 <- gl_speech(test_gcs, languageCode = "en-US",
-                      customConfig = my_config2, asynch = TRUE)
+                      customConfig = list(enableAutomaticPunctuation = TRUE),
+                      asynch = TRUE)
 
       t1 <- gl_speech(speaker_d_test,
                       languageCode = "en-US",
@@ -152,7 +150,7 @@ do_tests({
 
     # languageCode is required, so will be added if not in your custom config
     t2 <- gl_speech(test_gcs, languageCode = "en-US",
-                    customConfig = my_config2, asynch = TRUE)
+                    customConfig = list(enableAutomaticPunctuation = TRUE), asynch = TRUE)
 
     if(INTEGRATION_TESTS) Sys.sleep(45)
 
@@ -168,8 +166,7 @@ do_tests({
     expect_true(all(names(result3$timings[[2]]) %in%
                       c("startTime","endTime","word","speakerTag")))
 
-    ## Use a custom configuration
-    my_config2 <- list(enableAutomaticPunctuation = TRUE)
+
 
     result2 <- gl_speech_op(t2)
 
