@@ -14,6 +14,14 @@ You will need to enable the following APIs:
 * [Google Cloud Natural Language API](https://console.developers.google.com/apis/api/language.googleapis.com/overview)
 * [Google Cloud Translation API](https://console.developers.google.com/apis/api/translate.googleapis.com/overview)
 
+To create new mock files, it needs to fully load the package so do:
+
+```
+remotes::install_github("ropensci/googleLanguageR")
+setwd("tests/testthat")
+source("test_unit.R")
+```
+
 ## Contributor Covenant Code of Conduct.
 
 * Any contributors should be doing so for the joy of creating and sharing and advancing knowledge.  Treat each other with the respect this deserves.  
