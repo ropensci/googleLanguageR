@@ -1,4 +1,5 @@
 function(request){
-  cat("httprequest")
-  gsub_request(request, "https\\://(.+).googleapis.com/", "mock/")
+   require(magrittr, quietly=TRUE)
+   request %>%
+       gsub_response(".googleapis.com", "", fixed=TRUE)
 }

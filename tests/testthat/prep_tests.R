@@ -9,7 +9,6 @@ library(magrittr)
 library(xml2)
 library(rvest)
 options(error=NULL, warn =2)
-# .mockPaths("..")
 
 local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){

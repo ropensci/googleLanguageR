@@ -1,4 +1,5 @@
 function(response){
-  cat("httpredact")
-  gsub_response(response, "https\\://(.+).googleapis.com/", "mock/")
+  require(magrittr, quietly=TRUE)
+  response %>%
+    httptest::gsub_response(".googleapis.com", "", fixed=TRUE)
 }
