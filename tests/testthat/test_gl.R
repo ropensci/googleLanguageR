@@ -8,7 +8,7 @@ if(all(local_auth, INTEGRATION_TESTS)){
   cat("\n# Unit tests - calling mocks\n")
 }
 
-public({
+#public({
   with_mock_api({
     context("NLP")
 
@@ -228,4 +228,4 @@ public({
 
 
   })
-})
+#})

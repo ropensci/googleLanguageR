@@ -3691,8 +3691,8 @@
             "name": "Lupus",
             "type": "CONSUMER_GOOD",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Systemic_lupus_erythematosus",
-                "mid": "/m/04nz3"
+                "mid": "/m/04nz3",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Systemic_lupus_erythematosus"
             },
             "salience": 0.06310504,
             "mentions": [
@@ -3840,8 +3840,8 @@
             "name": "French",
             "type": "LOCATION",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/France",
-                "mid": "/m/0f8l9c"
+                "mid": "/m/0f8l9c",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/France"
             },
             "salience": 0.024245305,
             "mentions": [

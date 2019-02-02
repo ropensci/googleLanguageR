@@ -47,3 +47,5 @@ Suggests:
     tidyr,
     tuneR,
     xml2
+Remotes:
+  nealrichardson/httptest

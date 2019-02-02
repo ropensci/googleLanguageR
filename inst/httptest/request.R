@@ -1,5 +1,5 @@
 function(request){
    require(magrittr, quietly=TRUE)
    request %>%
-       gsub_response(".googleapis.com", "", fixed=TRUE)
+       httptest::gsub_response(".googleapis.com", "", fixed=TRUE)
 }
