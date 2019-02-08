@@ -3,8 +3,8 @@
         {
             "alternatives": [
                 {
-                    "transcript": "to administer medicine to animals is freaking give very difficult matter and yet sometimes it's necessary to do so",
-                    "confidence": 0.9233675,
+                    "transcript": "to administer medicine to animals Is frequent give very difficult matter and yet sometimes it's necessary to do so",
+                    "confidence": 0.932521,
                     "words": [
                         {
                             "startTime": "0s",
@@ -34,15 +34,15 @@
                         {
                             "startTime": "2s",
                             "endTime": "2.100s",
-                            "word": "is"
+                            "word": "Is"
                         },
                         {
                             "startTime": "2.100s",
-                            "endTime": "2.500s",
-                            "word": "freaking"
+                            "endTime": "2.600s",
+                            "word": "frequent"
                         },
                         {
-                            "startTime": "2.500s",
+                            "startTime": "2.600s",
                             "endTime": "2.700s",
                             "word": "give"
                         },
@@ -73,11 +73,11 @@
                         },
                         {
                             "startTime": "4.500s",
-                            "endTime": "4.900s",
+                            "endTime": "5.100s",
                             "word": "sometimes"
                         },
                         {
-                            "startTime": "4.900s",
+                            "startTime": "5.100s",
                             "endTime": "5.300s",
                             "word": "it's"
                         },

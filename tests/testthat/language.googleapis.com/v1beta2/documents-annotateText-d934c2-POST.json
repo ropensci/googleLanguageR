@@ -1393,8 +1393,8 @@
             "name": "Solomon Wariso",
             "type": "ORGANIZATION",
             "metadata": {
-                "wikipedia_url": "https://en.wikipedia.org/wiki/Solomon_Wariso",
-                "mid": "/g/120x5nf6"
+                "mid": "/g/120x5nf6",
+                "wikipedia_url": "https://en.wikipedia.org/wiki/Solomon_Wariso"
             },
             "salience": 0.15622282,
             "mentions": [
