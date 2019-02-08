@@ -3,13 +3,14 @@ source("prep_tests.R")
 ## if the flag is TRUE, we call API, if FALSE, use preexisting mocks
 if(all(local_auth, INTEGRATION_TESTS)){
   cat("\n# Integration tests - calling API and mocking\n")
-  with_mock_api <- httptest::capture_requests
+  with_mock_API <- httptest::capture_requests
 } else {
   cat("\n# Unit tests - calling mocks\n")
+  with_mock_API <- httptest::with_mock_api
 }
 
 #public({
-  with_mock_api({
+  with_mock_API({
     context("NLP")
 
   test_that("NLP returns expected fields", {
