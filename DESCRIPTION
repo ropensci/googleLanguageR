@@ -37,7 +37,7 @@ Imports:
     utils
 Suggests: 
     cld2,
-    httptest (>= 3.1.0),
+    httptest (>= 3.2.3),
     knitr,
     rmarkdown,
     rvest,
@@ -48,4 +48,4 @@ Suggests:
     tuneR,
     xml2
 Remotes:
-  nealrichardson/httptest
+    nealrichardson/httptest
