@@ -2,12 +2,18 @@
 % Please edit documentation in R/auth.R
 \name{gl_auth}
 \alias{gl_auth}
+\alias{gl_auto_auth}
 \title{Authenticate with Google language API services}
 \usage{
 gl_auth(json_file)
+
+gl_auto_auth(...)
 }
 \arguments{
 \item{json_file}{Authentication json file you have downloaded from your Google Project}
+
+\item{...}{additional argument to
+pass to \code{\link{gar_attach_auto_auth}}.}
 }
 \description{
 Authenticate with Google language API services
