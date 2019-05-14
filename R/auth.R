@@ -31,6 +31,8 @@ gl_auth <- function(json_file){
 #' @rdname gl_auth
 #' @param ... additional argument to
 #' pass to \code{\link{gar_attach_auto_auth}}.
+#'
+#' @examples
 #' \dontrun{
 #' library(googleLanguageR)
 #' gl_auto_auth()

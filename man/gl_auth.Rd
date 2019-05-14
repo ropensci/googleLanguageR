@@ -13,12 +13,7 @@ gl_auto_auth(...)
 \item{json_file}{Authentication json file you have downloaded from your Google Project}
 
 \item{...}{additional argument to
-pass to \code{\link{gar_attach_auto_auth}}.
-\dontrun{
-library(googleLanguageR)
-gl_auto_auth()
-gl_auto_auth(environment_var = "GAR_AUTH_FILE")
-}}
+pass to \code{\link{gar_attach_auto_auth}}.}
 }
 \description{
 Authenticate with Google language API services
@@ -39,4 +34,9 @@ library(googleLanguageR)
 gl_auth("location_of_json_file.json")
 }
 
+\dontrun{
+library(googleLanguageR)
+gl_auto_auth()
+gl_auto_auth(environment_var = "GAR_AUTH_FILE")
+}
 }
