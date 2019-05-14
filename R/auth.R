@@ -20,9 +20,28 @@
 #' }
 #'
 #' @export
-#' @importFrom googleAuthR gar_auth_service
+#' @importFrom googleAuthR gar_auth_service gar_attach_auto_auth
 gl_auth <- function(json_file){
   options(googleAuthR.scopes.selected = c("https://www.googleapis.com/auth/cloud-language",
                                           "https://www.googleapis.com/auth/cloud-platform"))
-  gar_auth_service(json_file = json_file)
+  googleAuthR::gar_auth_service(json_file = json_file)
+}
+
+#' @export
+#' @rdname gl_auth
+#' @param ... additional argument to
+#' pass to \code{\link{gar_attach_auto_auth}}.
+#'
+#' @examples
+#' \dontrun{
+#' library(googleLanguageR)
+#' gl_auto_auth()
+#' gl_auto_auth(environment_var = "GAR_AUTH_FILE")
+#' }
+gl_auto_auth <- function(...){
+  required_scopes = c("https://www.googleapis.com/auth/cloud-language",
+                      "https://www.googleapis.com/auth/cloud-platform")
+  googleAuthR::gar_attach_auto_auth(
+    required_scopes = required_scopes,
+    ...)
 }
