@@ -31,6 +31,11 @@ gl_auth <- function(json_file){
 #' @rdname gl_auth
 #' @param ... additional argument to
 #' pass to \code{\link{gar_attach_auto_auth}}.
+#' \dontrun{
+#' library(googleLanguageR)
+#' gl_auto_auth()
+#' gl_auto_auth(environment_var = "GAR_AUTH_FILE")
+#' }
 gl_auto_auth <- function(...){
   required_scopes = c("https://www.googleapis.com/auth/cloud-language",
                       "https://www.googleapis.com/auth/cloud-platform")
