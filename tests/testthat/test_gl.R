@@ -47,6 +47,14 @@ test_that("NLP returns expected fields", {
 
 })
 
+test_that("NLP error handling", {
+
+  error_response <- gl_nlp(c("the rain in spain falls mainly on the plain", "err", "", NA))
+
+  expect_equal(error_response$sentences[[1]],
+               "#error -  API returned: Invalid text content: too few tokens (words) to process.")
+})
+
 context("Speech")
 
 test_that("Speech recognise expected", {

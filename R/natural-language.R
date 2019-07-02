@@ -99,6 +99,7 @@ gl_nlp <- function(string,
   out          <- map(the_types, ~ map(api_results, .x))
   out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
   out$text     <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$text})
+
   out$documentSentiment <- my_map_df(api_results,  out_documentSentiment)
   out$classifyText <- my_map_df(api_results, out_classifyText)
 
@@ -152,7 +153,11 @@ gl_nlp_single <- function(string,
   string <- trimws(string)
   if(nchar(string) == 0 || is.na(string)){
     my_message("Zero length string passed, not calling API", level = 2)
-    return(NULL)
+    return(list(sentences = "#error - zero length string",
+                tokens = "#error - zero length string",
+                entities = "#error - zero length string",
+                language = "#error - zero length string",
+                text = string))
   }
 
   nlp_type      <- match.arg(nlp_type)
@@ -204,7 +209,16 @@ gl_nlp_single <- function(string,
                                 data_parse_function = parse_nlp)
 
 
-  out <- call_api(the_body = body)
+  out <- tryCatch(call_api(the_body = body),
+                  error = function(err){
+                    my_message("Error processing string: '",
+                               string, "' ", err$message,
+                               level = 3)
+                    list(sentences = paste("#error - ", err$message),
+                         tokens = paste("#error - ", err$message),
+                         entities = paste("#error - ", err$message),
+                         language = paste("#error - ", err$message))
+                  })
 
   out$text <- string
 
