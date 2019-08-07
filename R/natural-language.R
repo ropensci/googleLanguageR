@@ -101,7 +101,7 @@ gl_nlp <- function(string,
   out$text     <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$text})
 
   out$documentSentiment <- my_map_df(api_results,  out_documentSentiment)
-  out$classifyText <- my_map_df(api_results, out_classifyText)
+  out$classifyText <- map(api_results, out_classifyText)
 
   out
 

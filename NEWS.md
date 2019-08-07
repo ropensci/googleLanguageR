@@ -1,6 +1,7 @@
 # 0.2.0.9000
 
 * Improved error handling for vectorised `gl_nlp()` (#55)
+* `gl_nlp()`'s classifyText returns list of data.frames, not data.frame
 
 # 0.2.0
 
