@@ -97,8 +97,16 @@ gl_nlp <- function(string,
   the_types    <- setNames(the_types, the_types)
   ## create output shape
   out          <- map(the_types, ~ map(api_results, .x))
-  out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
-  out$text     <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$text})
+
+  out$language <- map_chr(api_results,
+                          ~ if(is.null(.x) || is.null(.x$language)){
+                              NA_character_ }
+                          else {.x$language})
+
+  out$text     <- map_chr(api_results,
+                          ~ if(is.null(.x) || is.null(.x$text)){
+                              NA_character_ }
+                          else {.x$text})
 
   out$documentSentiment <- my_map_df(api_results,  out_documentSentiment)
   out$classifyText <- map(api_results, out_classifyText)
