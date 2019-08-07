@@ -2,6 +2,7 @@
 
 * Improved error handling for vectorised `gl_nlp()` (#55)
 * `gl_nlp()`'s classifyText returns list of data.frames, not data.frame
+* Fix `gl_nlp` when `nlp_type='classifyText'`
 
 # 0.2.0
 

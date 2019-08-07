@@ -173,6 +173,11 @@ gl_nlp_single <- function(string,
   call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
                       version, nlp_type)
 
+  if(nlp_type == "classifyText"){
+    # it errors if you send this in...
+    encodingType <- NULL
+  }
+
   body <- list(
     document = list(
       type = jubox(type),
@@ -203,6 +208,8 @@ gl_nlp_single <- function(string,
       #body$features$extractEntitySentiment = jubox(TRUE)
     }
   }
+
+
 
   call_api <- gar_api_generator(call_url,
                                 "POST",
