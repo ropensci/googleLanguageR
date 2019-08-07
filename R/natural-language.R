@@ -211,6 +211,9 @@ gl_nlp_single <- function(string,
 
   out <- tryCatch(call_api(the_body = body),
                   error = function(err){
+                    if(grepl("too few tokens", err$message)){
+                      warning("If nlp_type='annotateText' or 'classifyText' then you need at least 20 words in input")
+                    }
                     my_message("Error processing string: '",
                                string, "' ", err$message,
                                level = 3)
