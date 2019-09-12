@@ -103,6 +103,17 @@ gl_speech <- function(audio_source,
                       asynch = FALSE,
                       customConfig = NULL){
 
+  if (inherits(audio_source, "Wave")) {
+    if (requireNamespace("tuneR", quietly = TRUE)) {
+      if (is.null(sampleRateHertz)) {
+        sampleRateHertz = as.integer(audio_source@samp.rate)
+      }
+      outfile = tempfile(fileext = ".wav")
+      tuneR::writeWave(object = audio_source, filename = outfile)
+      audio_source = outfile
+    }
+  }
+
   if(is.null(sampleRateHertz)){
     my_message("Setting sampleRateHertz = 16000L")
     sampleRateHertz <- 16000L
