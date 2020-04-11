@@ -15,7 +15,8 @@ gl_talk(
   pitch = 0,
   volumeGainDb = 0,
   sampleRateHertz = NULL,
-  inputType = c("text", "ssml")
+  inputType = c("text", "ssml"),
+  effectsProfileIds = NULL
 )
 }
 \arguments{
@@ -39,7 +40,9 @@ gl_talk(
 
 \item{sampleRateHertz}{Sample rate for returned audio}
 
-\item{inputType}{Choose between \code{text} (the default) or SSML markup. The \code{input} text must be SSML markup if you choose \code{ssml}.}
+\item{inputType}{Choose between \code{text} (the default) or SSML markup. The \code{input} text must be SSML markup if you choose \code{ssml}}
+
+\item{effectsProfileIds}{Optional. An identifier which selects 'audio effects' profiles that are applied on (post synthesized) text to speech. Effects are applied on top of each other in the order they are given}
 }
 \value{
 The file output name you supplied as \code{output}
@@ -54,16 +57,28 @@ Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voic
 
 To play the audio in code via a browser see \link{gl_talk_player}
 
-To use Speech Synthesis MArkup Language (SSML) select \code{inputType=ssml} - more details on using this to insert pauses, sounds and breaks in your audio can be found here: \url{https://cloud.google.com/text-to-speech/docs/ssml}
+To use Speech Synthesis Markup Language (SSML) select \code{inputType=ssml} - more details on using this to insert pauses, sounds and breaks in your audio can be found here: \url{https://cloud.google.com/text-to-speech/docs/ssml}
+
+To use audio profiles, supply a character vector of the available audio profiles listed here: \url{https://cloud.google.com/text-to-speech/docs/audio-profiles} - the audio profiles are applied in the order given.  For instance \code{effectsProfileIds="wearable-class-device"} will optimise output for smart watches, \code{effectsProfileIds=c("wearable-class-device","telephony-class-application")} will apply sound filters optimised for smart watches, then telephonic devices.
 }
 \examples{
 
 \dontrun{
-
+library(magrittr)
 gl_talk("The rain in spain falls mainly in the plain",
         output = "output.wav")
 
 gl_talk("Testing my new audio player") \%>\% gl_talk_player()
+
+# using SSML
+gl_talk('<speak>The <say-as interpret-as=\"characters\">SSML</say-as>
+  standard <break time=\"1s\"/>is defined by the
+  <sub alias=\"World Wide Web Consortium\">W3C</sub>.</speak>',
+  inputType =  "ssml")
+
+# using effects profiles
+gl_talk("This sounds great on headphones",
+        effectsProfileIds = "headphone-class-device")
 
 }
 

@@ -4,7 +4,8 @@
 * `gl_nlp()`'s classifyText returns list of data.frames, not data.frame
 * Fix `gl_nlp` when `nlp_type='classifyText'`
 * `customConfig` available for `gl_speech`
-* Add support for SSML (#66)
+* Add support for SSML for `gl_talk()` (#66)
+* Add support for device profiles for `gl_talk()` #67
 
 # 0.2.0
 

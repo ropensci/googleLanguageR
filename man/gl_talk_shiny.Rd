@@ -36,7 +36,8 @@ gl_talk_shiny(
     \item{\code{pitch}}{Speaking pitch between \code{-20.0} and \code{20.0} in semitones.}
     \item{\code{volumeGainDb}}{Volumne gain in dB}
     \item{\code{sampleRateHertz}}{Sample rate for returned audio}
-    \item{\code{inputType}}{Choose between \code{text} (the default) or SSML markup. The \code{input} text must be SSML markup if you choose \code{ssml}.}
+    \item{\code{inputType}}{Choose between \code{text} (the default) or SSML markup. The \code{input} text must be SSML markup if you choose \code{ssml}}
+    \item{\code{effectsProfileIds}}{Optional. An identifier which selects 'audio effects' profiles that are applied on (post synthesized) text to speech. Effects are applied on top of each other in the order they are given}
   }}
 
 \item{autoplay}{passed to the HTML audio player - default \code{TRUE} plays on load}
