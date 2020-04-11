@@ -38,7 +38,8 @@ gl_translate_detect("katten sidder på måtten")
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/detect}
 
-Other translations: \code{\link{gl_translate_languages}},
-  \code{\link{gl_translate}}
+Other translations: 
+\code{\link{gl_translate_languages}()},
+\code{\link{gl_translate}()}
 }
 \concept{translations}

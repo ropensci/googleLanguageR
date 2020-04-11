@@ -12,6 +12,7 @@
 #' @param pitch Speaking pitch between \code{-20.0} and \code{20.0} in semitones.
 #' @param volumeGainDb Volumne gain in dB
 #' @param sampleRateHertz Sample rate for returned audio
+#' @param inputType Choose between \code{text} (the default) or SSML markup. The \code{input} text must be SSML markup if you choose \code{ssml}.
 #'
 #' @details
 #'
@@ -20,6 +21,8 @@
 #' Supported voices are here \url{https://cloud.google.com/text-to-speech/docs/voices} and can be imported into R via \link{gl_talk_languages}
 #'
 #' To play the audio in code via a browser see \link{gl_talk_player}
+#'
+#' To use Speech Synthesis Markup Language (SSML) select \code{inputType=ssml} - more details on using this to insert pauses, sounds and breaks in your audio can be found here: \url{https://cloud.google.com/text-to-speech/docs/ssml}
 #'
 #' @seealso \url{https://cloud.google.com/text-to-speech/docs/}
 #'
@@ -32,6 +35,12 @@
 #'         output = "output.wav")
 #'
 #' gl_talk("Testing my new audio player") %>% gl_talk_player()
+#'
+#' # using SSML
+#' gl_talk('<speak>The <say-as interpret-as=\"characters\">SSML</say-as>
+#'   standard <break time=\"1s\"/>is defined by the
+#'   <sub alias=\"World Wide Web Consortium\">W3C</sub>.</speak>',
+#'   inputType =  "ssml")
 #'
 #' }
 #'
@@ -47,8 +56,10 @@ gl_talk <- function(input,
                     speakingRate = 1,
                     pitch = 0,
                     volumeGainDb = 0,
-                    sampleRateHertz = NULL){
+                    sampleRateHertz = NULL,
+                    inputType = c("text","ssml")){
 
+  inputType     <- match.arg(inputType)
   gender        <- match.arg(gender)
   audioEncoding <- match.arg(audioEncoding)
 
@@ -86,10 +97,19 @@ gl_talk <- function(input,
             audioEncoding,")")
   }
 
-  body <- list(
-    input = list(
+  if(inputType == "ssml"){
+    assert_that(grepl("^<speak>", input))
+    the_input <- list(
+      ssml = input
+    )
+  } else {
+    the_input <- list(
       text = input
-    ),
+    )
+  }
+
+  body <- list(
+    input = the_input,
     voice = list(
       languageCode = languageCode,
       name = name,

@@ -4,11 +4,18 @@
 \alias{gl_speech}
 \title{Call Google Speech API}
 \usage{
-gl_speech(audio_source, encoding = c("LINEAR16", "FLAC", "MULAW", "AMR",
-  "AMR_WB", "OGG_OPUS", "SPEEX_WITH_HEADER_BYTE"),
-  sampleRateHertz = NULL, languageCode = "en-US",
-  maxAlternatives = 1L, profanityFilter = FALSE,
-  speechContexts = NULL, asynch = FALSE, customConfig = NULL)
+gl_speech(
+  audio_source,
+  encoding = c("LINEAR16", "FLAC", "MULAW", "AMR", "AMR_WB", "OGG_OPUS",
+    "SPEEX_WITH_HEADER_BYTE"),
+  sampleRateHertz = NULL,
+  languageCode = "en-US",
+  maxAlternatives = 1L,
+  profanityFilter = FALSE,
+  speechContexts = NULL,
+  asynch = FALSE,
+  customConfig = NULL
+)
 }
 \arguments{
 \item{audio_source}{File location of audio data, or Google Cloud Storage URI}

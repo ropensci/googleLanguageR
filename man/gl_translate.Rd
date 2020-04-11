@@ -4,8 +4,13 @@
 \alias{gl_translate}
 \title{Translate the language of text within a request}
 \usage{
-gl_translate(t_string, target = "en", format = c("text", "html"),
-  source = "", model = c("nmt", "base"))
+gl_translate(
+  t_string,
+  target = "en",
+  format = c("text", "html"),
+  source = "",
+  model = c("nmt", "base")
+)
 }
 \arguments{
 \item{t_string}{A character vector of text to detect language for}
@@ -69,7 +74,8 @@ read_html(my_url) \%>\%
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/translate}
 
-Other translations: \code{\link{gl_translate_detect}},
-  \code{\link{gl_translate_languages}}
+Other translations: 
+\code{\link{gl_translate_detect}()},
+\code{\link{gl_translate_languages}()}
 }
 \concept{translations}

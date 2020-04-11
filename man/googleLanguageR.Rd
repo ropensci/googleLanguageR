@@ -3,7 +3,6 @@
 \docType{package}
 \name{googleLanguageR}
 \alias{googleLanguageR}
-\alias{googleLanguageR-package}
 \title{googleLanguageR}
 \description{
 This package contains functions for analysing language through the

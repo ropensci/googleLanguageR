@@ -4,8 +4,17 @@
 \alias{gl_talk_shiny}
 \title{Speak in Shiny module (server)}
 \usage{
-gl_talk_shiny(input, output, session, transcript, ..., autoplay = TRUE,
-  controls = TRUE, loop = FALSE, keep_wav = FALSE)
+gl_talk_shiny(
+  input,
+  output,
+  session,
+  transcript,
+  ...,
+  autoplay = TRUE,
+  controls = TRUE,
+  loop = FALSE,
+  keep_wav = FALSE
+)
 }
 \arguments{
 \item{input}{shiny input}
@@ -16,19 +25,19 @@ gl_talk_shiny(input, output, session, transcript, ..., autoplay = TRUE,
 
 \item{transcript}{The (reactive) text to talk}
 
-\item{...}{Arguments passed on to \code{gl_talk}
-\describe{
-  \item{input}{The text to turn into speech}
-  \item{output}{Where to save the speech audio file}
-  \item{languageCode}{The language of the voice as a \code{BCP-47} language code}
-  \item{name}{Name of the voice, see list via \link{gl_talk_languages} for supported voices.  Set to \code{NULL} to make the service choose a voice based on \code{languageCode} and \code{gender}.}
-  \item{gender}{The gender of the voice, if available}
-  \item{audioEncoding}{Format of the requested audio stream}
-  \item{speakingRate}{Speaking rate/speed between \code{0.25} and \code{4.0}}
-  \item{pitch}{Speaking pitch between \code{-20.0} and \code{20.0} in semitones.}
-  \item{volumeGainDb}{Volumne gain in dB}
-  \item{sampleRateHertz}{Sample rate for returned audio}
-}}
+\item{...}{
+  Arguments passed on to \code{\link[=gl_talk]{gl_talk}}
+  \describe{
+    \item{\code{languageCode}}{The language of the voice as a \code{BCP-47} language code}
+    \item{\code{name}}{Name of the voice, see list via \link{gl_talk_languages} for supported voices.  Set to \code{NULL} to make the service choose a voice based on \code{languageCode} and \code{gender}.}
+    \item{\code{gender}}{The gender of the voice, if available}
+    \item{\code{audioEncoding}}{Format of the requested audio stream}
+    \item{\code{speakingRate}}{Speaking rate/speed between \code{0.25} and \code{4.0}}
+    \item{\code{pitch}}{Speaking pitch between \code{-20.0} and \code{20.0} in semitones.}
+    \item{\code{volumeGainDb}}{Volumne gain in dB}
+    \item{\code{sampleRateHertz}}{Sample rate for returned audio}
+    \item{\code{inputType}}{Choose between \code{text} (the default) or SSML markup. The \code{input} text must be SSML markup if you choose \code{ssml}.}
+  }}
 
 \item{autoplay}{passed to the HTML audio player - default \code{TRUE} plays on load}
 
