@@ -97,11 +97,19 @@ gl_nlp <- function(string,
   the_types    <- setNames(the_types, the_types)
   ## create output shape
   out          <- map(the_types, ~ map(api_results, .x))
-  out$language <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$language})
-  out$text     <- map_chr(api_results, ~ if(is.null(.x)){ NA } else {.x$text})
+
+  out$language <- map_chr(api_results,
+                          ~ if(is.null(.x) || is.null(.x$language)){
+                              NA_character_ }
+                          else {.x$language})
+
+  out$text     <- map_chr(api_results,
+                          ~ if(is.null(.x) || is.null(.x$text)){
+                              NA_character_ }
+                          else {.x$text})
 
   out$documentSentiment <- my_map_df(api_results,  out_documentSentiment)
-  out$classifyText <- my_map_df(api_results, out_classifyText)
+  out$classifyText <- map(api_results, out_classifyText)
 
   out
 
@@ -173,6 +181,11 @@ gl_nlp_single <- function(string,
   call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
                       version, nlp_type)
 
+  if(nlp_type == "classifyText"){
+    # it errors if you send this in...
+    encodingType <- NULL
+  }
+
   body <- list(
     document = list(
       type = jubox(type),
@@ -204,6 +217,8 @@ gl_nlp_single <- function(string,
     }
   }
 
+
+
   call_api <- gar_api_generator(call_url,
                                 "POST",
                                 data_parse_function = parse_nlp)
@@ -211,6 +226,9 @@ gl_nlp_single <- function(string,
 
   out <- tryCatch(call_api(the_body = body),
                   error = function(err){
+                    if(grepl("too few tokens", err$message)){
+                      warning("If nlp_type='annotateText' or 'classifyText' then you need at least 20 words in input")
+                    }
                     my_message("Error processing string: '",
                                string, "' ", err$message,
                                level = 3)

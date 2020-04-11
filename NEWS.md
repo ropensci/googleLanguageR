@@ -1,7 +1,9 @@
 # 0.2.0.9000
 
 * Improved error handling for vectorised `gl_nlp()` (#55)
-* Add customConfig to speech to text `gl_speech`
+* `gl_nlp()`'s classifyText returns list of data.frames, not data.frame
+* Fix `gl_nlp` when `nlp_type='classifyText'`
+* `customConfig` available for `gl_speech`
 
 # 0.2.0
 
