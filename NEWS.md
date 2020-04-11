@@ -1,6 +1,7 @@
 # 0.2.0.9000
 
 * Improved error handling for vectorised `gl_nlp()` (#55)
+* Add customConfig to speech to text `gl_speech`
 
 # 0.2.0
 
