@@ -46,9 +46,10 @@ test_that("NLP error handling", {
 
 })
 
+
+context("Speech")
+
 # TODO: why does this hang?
-# context("Speech")
-#
 # test_that("Speech recognise expected", {
 #   skip_on_cran()
 #   skip_on_travis()
@@ -73,7 +74,7 @@ test_that("Speech asynch tests", {
   async <- gl_speech(test_gcs, asynch = TRUE, sampleRateHertz = 44100)
   expect_true(inherits(async, "gl_speech_op"))
 
-  if(INTEGRATION_TESTS) Sys.sleep(45)
+  Sys.sleep(45)
 
   result2 <- gl_speech_op(async)
   expect_true(stringdist::ain(result2$transcript$transcript[[1]],
@@ -100,7 +101,7 @@ test_that("Speech with custom configs", {
   t2 <- gl_speech(test_gcs, languageCode = "en-US",
                   customConfig = list(enableAutomaticPunctuation = TRUE), asynch = TRUE)
 
-  if(INTEGRATION_TESTS) Sys.sleep(45)
+  Sys.sleep(45)
 
   result3 <- gl_speech_op(t1)
 
@@ -139,8 +140,14 @@ test_that("Can parse long diarization audio files (#57)",{
                       customConfig = my_config)
 
   testcall_transcript <- gl_speech_op(apicall)
+  if(inherits(testcall_transcript, "gl_speech_op")){
+    Sys.sleep(30)
+    testcall_transcript <- gl_speech_op(testcall_transcript)
+  }
 
-  expect_true(!is.null(testcall_transcript$timings[[2]]$speakerTag))
+  expect_true(!is.null(
+    testcall_transcript$timings[[length(testcall_transcript$timings)]]$speakerTag)
+    )
 
 })
 
@@ -184,7 +191,7 @@ test_that("Translation works", {
   skip_on_cran()
 
   danish <- gl_translate(trans_text)
-  expected <- "People who, at this stage, are rudely and shamefully given to others' ideas, are told that they should be accused of illegal dealing with lost property."
+  expected <- "There are people who, to the extent of being frivolous and disgraceful with other people's ideas, are given the idea that they should be prosecuted for unlawful dealings with lost property."
 
   expect_true(stringdist::ain(danish$translatedText, expected, maxDist = 10))
 
