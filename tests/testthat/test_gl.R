@@ -1,13 +1,5 @@
 source("prep_tests.R")
 
-## if the flag is TRUE, we call API, if FALSE, use preexisting mocks
-if(all(local_auth, INTEGRATION_TESTS)){
-  cat("\n# Integration tests - calling API and mocking\n")
-} else {
-  cat("\n# Unit tests - calling mocks\n")
-}
-
-
 context("NLP")
 
 test_that("NLP returns expected fields", {

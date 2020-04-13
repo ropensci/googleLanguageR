@@ -1,0 +1,24 @@
+steps:
+  - name: gcr.io/gcer-public/packagetools:master
+    args:
+      - Rscript
+      - -e
+      - |-
+        message("cran mirror: ", getOption("repos"))
+        remotes::install_deps(dependencies = TRUE)
+        rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning')
+    env:
+      - NOT_CRAN=true
+  - name: gcr.io/gcer-public/packagetools:master
+    args:
+      - Rscript
+      - -e
+      - |-
+        remotes::install_deps(dependencies = TRUE)
+        remotes::install_local()
+        cv <- covr::package_coverage()
+        print(cv)
+        covr::codecov(coverage=cv, commit = '$COMMIT_SHA', branch = '$BRANCH_NAME')
+    env:
+      - NOT_CRAN=true
+      - CODECOV_TOKEN=$_CODECOV_TOKEN
