@@ -41,7 +41,6 @@ Suggests:
     knitr,
     rmarkdown,
     rvest,
-    stringdist,
     shiny,
     shinyjs,
     tidyr,
