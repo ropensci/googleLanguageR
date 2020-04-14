@@ -8,21 +8,25 @@
 
 <title>Call Google Speech API — gl_speech • googleLanguageR</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +34,11 @@
 
 
 
-<meta property="og:title" content="Call Google Speech API — gl_speech" />
 
+<meta property="og:title" content="Call Google Speech API — gl_speech" />
 <meta property="og:description" content="Turn audio into text" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,6 +62,7 @@
   gtag('config', 'UA-47480439-2');
 </script>
 
+
   </head>
 
   <body>
@@ -73,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">googleLanguageR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -145,11 +151,10 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ropensci/googleLanguageR">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -160,6 +165,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -171,17 +177,22 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Turn audio into text</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>gl_speech</span>(<span class='no'>audio_source</span>, <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"LINEAR16"</span>, <span class='st'>"FLAC"</span>, <span class='st'>"MULAW"</span>, <span class='st'>"AMR"</span>,
-  <span class='st'>"AMR_WB"</span>, <span class='st'>"OGG_OPUS"</span>, <span class='st'>"SPEEX_WITH_HEADER_BYTE"</span>),
-  <span class='kw'>sampleRateHertz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>languageCode</span> <span class='kw'>=</span> <span class='st'>"en-US"</span>,
-  <span class='kw'>maxAlternatives</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>profanityFilter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>speechContexts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>asynch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>customConfig</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>gl_speech</span>(
+  <span class='no'>audio_source</span>,
+  <span class='kw'>encoding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"LINEAR16"</span>, <span class='st'>"FLAC"</span>, <span class='st'>"MULAW"</span>, <span class='st'>"AMR"</span>, <span class='st'>"AMR_WB"</span>, <span class='st'>"OGG_OPUS"</span>,
+    <span class='st'>"SPEEX_WITH_HEADER_BYTE"</span>),
+  <span class='kw'>sampleRateHertz</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>languageCode</span> <span class='kw'>=</span> <span class='st'>"en-US"</span>,
+  <span class='kw'>maxAlternatives</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
+  <span class='kw'>profanityFilter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>speechContexts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>asynch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>customConfig</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -219,15 +230,14 @@
     </tr>
     <tr>
       <th>customConfig</th>
-      <td><p>[optional] A <code>RecognitionConfig</code> object that will be converted from a list to JSON via <code><a href='https://www.rdocumentation.org/packages/jsonlite/topics/fromJSON'>toJSON</a></code> - see <a href='https://cloud.google.com/speech-to-text/docs/reference/rest/v1p1beta1/RecognitionConfig'>RecognitionConfig documentation</a>. The <code>languageCode</code> will be taken from this functions arguments if not present since it is required.</p></td>
+      <td><p>[optional] A <code>RecognitionConfig</code> object that will be converted from a list to JSON via <code><a href='https://jeroen.cran.dev/jsonlite/reference/fromJSON.html'>toJSON</a></code> - see <a href='https://cloud.google.com/speech-to-text/docs/reference/rest/v1p1beta1/RecognitionConfig'>RecognitionConfig documentation</a>. The <code>languageCode</code> will be taken from this functions arguments if not present since it is required.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list of two tibbles:  <code>$transcript</code>, a tibble of the <code>transcript</code> with a <code>confidence</code>; <code>$timings</code>, a tibble that contains <code>startTime</code>, <code>endTime</code> per <code>word</code>.  If maxAlternatives is greater than 1, then the transcript will return near-duplicate rows with other interpretations of the text.
  If <code>asynch</code> is TRUE, then an operation you will need to pass to <a href='gl_speech_op.html'>gl_speech_op</a> to get the finished result.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Google Cloud Speech API enables developers to convert audio to text by applying powerful
@@ -237,11 +247,12 @@ You can transcribe the text of users dictating to an application’s microphone,
 enable command-and-control through voice, or transcribe audio files, among many other use cases.
 Recognize audio uploaded in the request, and integrate with your audio storage on Google Cloud Storage,
 by using the same technology Google uses to power its own products.</p>
-    
     <h2 class="hasAnchor" id="audioencoding"><a class="anchor" href="#audioencoding"></a>AudioEncoding</h2>
 
     
-    <p>Audio encoding of the data sent in the audio message. All encodings support only 1 channel (mono) audio.
+
+
+<p>Audio encoding of the data sent in the audio message. All encodings support only 1 channel (mono) audio.
 Only FLAC and WAV include a header that describes the bytes of audio that follow the header.
 The other encodings are raw audio bytes with no header.
 For best results, the audio source should be captured and transmitted using a
@@ -249,23 +260,24 @@ lossless encoding (FLAC or LINEAR16).
 Recognition accuracy may be reduced if lossy codecs, which include the other codecs listed in this section,
 are used to capture or transmit the audio, particularly if background noise is present.</p>
 <p>Read more on audio encodings here <a href='https://cloud.google.com/speech/docs/encoding'>https://cloud.google.com/speech/docs/encoding</a></p>
-    
     <h2 class="hasAnchor" id="wordinfo"><a class="anchor" href="#wordinfo"></a>WordInfo</h2>
 
     
-    <p><code>startTime</code> - Time offset relative to the beginning of the audio, and corresponding to the start of the spoken word.</p>
+
+
+
+<p><code>startTime</code> - Time offset relative to the beginning of the audio, and corresponding to the start of the spoken word.</p>
 <p><code>endTime</code> - Time offset relative to the beginning of the audio, and corresponding to the end of the spoken word.</p>
 <p><code>word</code> - The word corresponding to this set of information.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='https://cloud.google.com/speech/reference/rest/v1/speech/recognize'>https://cloud.google.com/speech/reference/rest/v1/speech/recognize</a></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>test_audio</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"woman1_wb.wav"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"googleLanguageR"</span>)
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+
+<span class='no'>test_audio</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"woman1_wb.wav"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"googleLanguageR"</span>)
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>gl_speech</span>(<span class='no'>test_audio</span>)
 
 <span class='no'>result</span>$<span class='no'>transcript</span>
@@ -289,38 +301,30 @@ are used to capture or transmit the audio, particularly if background noise is p
 <span class='fu'><a href='gl_speech_op.html'>gl_speech_op</a></span>(<span class='no'>gcs</span>)
 
 <span class='co'>## Use a custom configuration</span>
-<span class='no'>my_config</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"LINEAR16"</span>,
+<span class='no'>my_config</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>encoding</span> <span class='kw'>=</span> <span class='st'>"LINEAR16"</span>,
                   <span class='kw'>enableSpeakerDiarization</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
                   <span class='kw'>diarizationSpeakerCount</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 
 <span class='co'># languageCode is required, so will be added if not in your custom config</span>
 <span class='fu'>gl_speech</span>(<span class='no'>my_audio</span>, <span class='kw'>languageCode</span> <span class='kw'>=</span> <span class='st'>"en-US"</span>, <span class='kw'>customConfig</span> <span class='kw'>=</span> <span class='no'>my_config</span>)
 
-<span class='co'># }</span><div class='input'>
-
-
-</div></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#audioencoding">AudioEncoding</a></li>
-
       <li><a href="#wordinfo">WordInfo</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -328,13 +332,16 @@ are used to capture or transmit the audio, particularly if background noise is p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

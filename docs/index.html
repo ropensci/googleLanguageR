@@ -5,19 +5,20 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Call Google's 'Natural Language' API, 'Cloud Translation' API, 
-  'Cloud Speech' API and 'Cloud Text-to-Speech' API • googleLanguageR</title>
+<title>Call Googles Natural Language API, Cloud Translation API, 
+  Cloud Speech API and Cloud Text-to-Speech' API • googleLanguageR</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Call Google's 'Natural Language' API, 'Cloud Translation' API, 
-  'Cloud Speech' API and 'Cloud Text-to-Speech' API">
-<meta property="og:description" content="Call 'Google Cloud' machine learning APIs for text and speech tasks.
-  Call the 'Cloud Translation' API &lt;https://cloud.google.com/translate/&gt; for detection 
-  and translation of text, the 'Natural Language' API &lt;https://cloud.google.com/natural-language/&gt; to 
-  analyse text for sentiment, entities or syntax, the 'Cloud Speech' API 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Call Googles Natural Language API, Cloud Translation API, 
+  Cloud Speech API and Cloud Text-to-Speech' API">
+<meta property="og:description" content="Call Google Cloud machine learning APIs for text and speech tasks.
+  Call the Cloud Translation API &lt;https://cloud.google.com/translate/&gt; for detection 
+  and translation of text, the Natural Language API &lt;https://cloud.google.com/natural-language/&gt; to 
+  analyse text for sentiment, entities or syntax, the Cloud Speech API 
   &lt;https://cloud.google.com/speech/&gt; to transcribe sound files to text and 
-  the 'Cloud Text-to-Speech' API &lt;https://cloud.google.com/text-to-speech/&gt; to turn text 
+  the Cloud Text-to-Speech API &lt;https://cloud.google.com/text-to-speech/&gt; to turn text 
   into sound files.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -32,7 +33,7 @@
 </script>
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -44,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">googleLanguageR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -119,7 +120,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ropensci/googleLanguageR">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,16 +133,13 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
+  <div class="contents col-md-9">
+<div id="googlelanguager---r-client-for-the-google-translation-api-google-cloud-natural-language-api-google-cloud-speech-api-and-google-cloud-speech-to-text-api" class="section level1">
 
-    
-    
-
-<div id="language-tools-for-r-via-google-machine-learning-apis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#language-tools-for-r-via-google-machine-learning-apis" class="anchor"></a>Language tools for R via Google Machine Learning APIs</h2>
+<p>Mark Edmondson 8/10/2017</p>
+<p><a href="https://cran.r-project.org/package=googleLanguageR"><img src="https://www.r-pkg.org/badges/version/googleLanguageR" alt="CRAN"></a> <a href="https://travis-ci.org/ropensci/googleLanguageR"><img src="https://travis-ci.org/ropensci/googleLanguageR.png?branch=master" alt="Build Status"></a> <a href="http://codecov.io/github/ropensci/googleLanguageR?branch=master"><img src="http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master" alt="codecov.io"></a> <a href="https://github.com/ropensci/onboarding/issues/127"><img src="http://badges.ropensci.org/127_status.svg"></a></p>
 <p>This package contains functions for analysing language through the <a href="https://cloud.google.com/products/machine-learning/">Google Cloud Machine Learning APIs</a></p>
 <p>Note all are paid services, you will need to provide your credit card details for your own Google Project to use them.</p>
 <p>The package can be used by any user who is looking to take advantage of Google’s massive dataset to train these machine learning models. Some applications include:</p>
@@ -152,7 +150,6 @@
 <li>Pulling out the objects of a sentence, to help classify texts and get metadata links from Wikipedia about them.</li>
 </ul>
 <p>The applications of the API results could be relevant to business or researchers looking to scale text analysis.</p>
-</div>
 <div id="google-natural-language-api" class="section level2">
 <h2 class="hasAnchor">
 <a href="#google-natural-language-api" class="anchor"></a>Google Natural Language API</h2>
@@ -188,7 +185,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<ol style="list-style-type: decimal">
+<ol>
 <li>Create a <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects">Google API Console Project</a>
 </li>
 <li>Within your project, add a <a href="https://support.google.com/cloud/answer/6293589">payment method to the project</a>
@@ -200,10 +197,10 @@
 <li><a href="https://console.cloud.google.com/apis/api/translate.googleapis.com/overview">Google Cloud Translation API</a></li>
 <li><a href="https://console.cloud.google.com/apis/api/speech.googleapis.com/overview">Google Cloud Speech API</a></li>
 </ul>
-<ol start="4" style="list-style-type: decimal">
+<ol>
 <li>
 <a href="https://cloud.google.com/storage/docs/authentication#generating-a-private-key">Generate a service account credential</a> as a JSON file</li>
-<li>Return to R, and install the official release via <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages("googleLanguageR")</a></code>, or the development version with <code><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">remotes::install_github("ropensci/googleLanguageR")</a></code>
+<li>Return to R, and install the official release via <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("googleLanguageR")</a></code>, or the development version with <code><a href="https://rdrr.io/pkg/remotes/man/install_github.html">remotes::install_github("ropensci/googleLanguageR")</a></code>
 </li>
 </ol>
 </div>
@@ -213,15 +210,15 @@
 <div id="authentication" class="section level3">
 <h3 class="hasAnchor">
 <a href="#authentication" class="anchor"></a>Authentication</h3>
-<p>The best way to authenticate is to use an environment file. See <code><a href="https://www.rdocumentation.org/packages/base/topics/Startup">?Startup</a></code>. I usually place this in my home directory. (e.g. if using RStudio, click on <code>Home</code> in the file explorer, create a new <code>TEXT</code> file and call it <code>.Renviron</code>)</p>
+<p>The best way to authenticate is to use an environment file. See <code><a href="https://rdrr.io/r/base/Startup.html">?Startup</a></code>. I usually place this in my home directory. (e.g. if using RStudio, click on <code>Home</code> in the file explorer, create a new <code>TEXT</code> file and call it <code>.Renviron</code>)</p>
 <p>Set the file location of your download Google Project JSON file in a <code>GL_AUTH</code> argument:</p>
-<pre><code>#.Renviron
-GL_AUTH=location_of_json_file.json</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">#.Renviron</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">GL_AUTH=location_of_json_file.json</a></code></pre></div>
 <p>Then, when you load the library you should auto-authenticate:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(googleLanguageR)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(googleLanguageR)</a></code></pre></div>
 <p>You can also authenticate directly using the <code>gl_auth</code> function pointing at your JSON auth file:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(googleLanguageR)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="reference/gl_auth.html">gl_auth</a></span>(<span class="st">"location_of_json_file.json"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(googleLanguageR)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="reference/gl_auth.html">gl_auth</a></span>(<span class="st">"location_of_json_file.json"</span>)</a></code></pre></div>
 <p>You can then call the APIs via the functions:</p>
 <ul>
 <li>
@@ -249,12 +246,27 @@ GL_AUTH=location_of_json_file.json</code></pre>
 <h3 class="hasAnchor">
 <a href="#demo-for-entity-analysis" class="anchor"></a>Demo for Entity Analysis</h3>
 <p>You can pass a vector of text which will call the API for each element. The return is a list of responses, each response being a list of tibbles holding the different types of analysis.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">texts &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"</span>, </a>
-<a class="sourceLine" id="cb4-2" title="2">         <span class="st">"I don't know how to make a text demo that is sensible"</span>)</a>
-<a class="sourceLine" id="cb4-3" title="3">nlp_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/gl_nlp.html">gl_nlp</a></span>(texts)</a>
-<a class="sourceLine" id="cb4-4" title="4"></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co"># two results of lists of tibbles</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(nlp_result, <span class="dt">max.level =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">texts &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"</span>, </a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">         <span class="st">"I don't know how to make a text demo that is sensible"</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">nlp_result &lt;-<span class="st"> </span><span class="kw"><a href="reference/gl_nlp.html">gl_nlp</a></span>(texts)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co"># two results of lists of tibbles</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(nlp_result, <span class="dt">max.level =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">## List of 6</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">##  $ sentences        :List of 2</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">##   ..$ :'data.frame': 1 obs. of  4 variables:</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">##   ..$ :'data.frame': 1 obs. of  4 variables:</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">##  $ tokens           :List of 2</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">##   ..$ :'data.frame': 21 obs. of  17 variables:</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">##   ..$ :'data.frame': 13 obs. of  17 variables:</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">##  $ entities         :List of 2</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">##   ..$ :Classes 'tbl_df', 'tbl' and 'data.frame': 3 obs. of  9 variables:</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">##   ..$ :Classes 'tbl_df', 'tbl' and 'data.frame': 1 obs. of  9 variables:</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">##  $ language         : chr [1:2] "en" "en"</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">##  $ text             : chr [1:2] "to administer medicince to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so" "I don't know how to make a text demo that is sensible"</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">##  $ documentSentiment:Classes 'tbl_df', 'tbl' and 'data.frame':   2 obs. of  2 variables:</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">##   ..$ magnitude: num [1:2] 0.5 0.3</span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">##   ..$ score    : num [1:2] 0.5 -0.3</span></a></code></pre></div>
 <p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/nlp.html">on the website</a> or via <code><a href="articles/nlp.html">vignette("nlp", package = "googleLanguageR")</a></code></p>
 </div>
 </div>
@@ -263,9 +275,10 @@ GL_AUTH=location_of_json_file.json</code></pre>
 <a href="#google-translation-api" class="anchor"></a>Google Translation API</h2>
 <p>You can detect the language via <code>gl_translate_detect</code>, or translate and detect language via <code>gl_translate</code></p>
 <p>Note this is a lot more refined than the free version on Google’s translation website.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">text &lt;-<span class="st"> "to administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="co">## translate British into Danish</span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="kw"><a href="reference/gl_translate.html">gl_translate</a></span>(text, <span class="dt">target =</span> <span class="st">"da"</span>)<span class="op">$</span>translatedText</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">text &lt;-<span class="st"> "to administer medicine to animals is frequently a very difficult matter, and yet sometimes it's necessary to do so"</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">## translate British into Danish</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="reference/gl_translate.html">gl_translate</a></span>(text, <span class="dt">target =</span> <span class="st">"da"</span>)<span class="op">$</span>translatedText</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">## [1] "at administrere medicin til dyr er ofte en meget vanskelig sag, og dog er det undertiden nødvendigt at gøre det"</span></a></code></pre></div>
 <p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/translation.html">on the website</a> or via <code>vignette("translate", package = "googleLanguageR")</code></p>
 </div>
 <div id="google-cloud-speech-api-1" class="section level2">
@@ -276,12 +289,16 @@ GL_AUTH=location_of_json_file.json</code></pre>
 <blockquote>
 <p>“To administer medicine to animals is frequently a very difficult matter, and yet sometimes it’s necessary to do so”</p>
 </blockquote>
-<p>The file is sourced from the <a href="http://www-mobile.ecs.soton.ac.uk/newcomms/">University of Southampton’s speech detection</a> group and is fairly difficult for computers to parse, as we see below:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co">## get the sample source file</span></a>
-<a class="sourceLine" id="cb6-2" title="2">test_audio &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"woman1_wb.wav"</span>, <span class="dt">package =</span> <span class="st">"googleLanguageR"</span>)</a>
-<a class="sourceLine" id="cb6-3" title="3"></a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="co">## its not perfect but...:)</span></a>
-<a class="sourceLine" id="cb6-5" title="5"><span class="kw"><a href="reference/gl_speech.html">gl_speech</a></span>(test_audio)<span class="op">$</span>transcript</a></code></pre></div>
+<p>The file is sourced from the <a href="http://www-mobile.ecs.soton.ac.uk">University of Southampton’s speech detection</a> group and is fairly difficult for computers to parse, as we see below:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co">## get the sample source file</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">test_audio &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"woman1_wb.wav"</span>, <span class="dt">package =</span> <span class="st">"googleLanguageR"</span>)</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">## its not perfect but...:)</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw"><a href="reference/gl_speech.html">gl_speech</a></span>(test_audio)<span class="op">$</span>transcript</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">## # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">##   transcript                                                    confidence</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">##   &lt;chr&gt;                                                         &lt;chr&gt;     </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">## 1 to administer medicine to animals is frequency of very diffi… 0.9157221</span></a></code></pre></div>
 <p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/speech.html">on the website</a> or via <code><a href="articles/speech.html">vignette("speech", package = "googleLanguageR")</a></code></p>
 </div>
 <div id="google-cloud-speech-api-2" class="section level2">
@@ -292,18 +309,16 @@ GL_AUTH=location_of_json_file.json</code></pre>
 <blockquote>
 <p>“To administer medicine to animals is frequently a very difficult matter, and yet sometimes it’s necessary to do so”</p>
 </blockquote>
-<p>The file is sourced from the <a href="http://www-mobile.ecs.soton.ac.uk/newcomms/">University of Southampton’s speech detection</a> group and is fairly difficult for computers to parse, as we see below:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co">## get the sample source file</span></a>
-<a class="sourceLine" id="cb7-2" title="2">test_audio &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"woman1_wb.wav"</span>, <span class="dt">package =</span> <span class="st">"googleLanguageR"</span>)</a>
-<a class="sourceLine" id="cb7-3" title="3"></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co">## its not perfect but...:)</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="kw"><a href="reference/gl_speech.html">gl_speech</a></span>(test_audio)<span class="op">$</span>transcript</a>
-<a class="sourceLine" id="cb7-6" title="6"></a>
-<a class="sourceLine" id="cb7-7" title="7"></a>
-<a class="sourceLine" id="cb7-8" title="8">    <span class="co">## # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb7-9" title="9">    <span class="co">##   transcript                                                    confidence</span></a>
-<a class="sourceLine" id="cb7-10" title="10">    <span class="co">##   &lt;chr&gt;                                                         &lt;chr&gt;     </span></a>
-<a class="sourceLine" id="cb7-11" title="11">    <span class="co">## 1 to administer medicine to animals is frequency of very diffi… 0.9180294</span></a></code></pre></div>
+<p>The file is sourced from the <a href="http://www-mobile.ecs.soton.ac.uk">University of Southampton’s speech detection</a> group and is fairly difficult for computers to parse, as we see below:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">## get the sample source file</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">test_audio &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"woman1_wb.wav"</span>, <span class="dt">package =</span> <span class="st">"googleLanguageR"</span>)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">## its not perfect but...:)</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw"><a href="reference/gl_speech.html">gl_speech</a></span>(test_audio)<span class="op">$</span>transcript</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co">## # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">##   transcript                                                    confidence</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">##   &lt;chr&gt;                                                         &lt;chr&gt;     </span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">## 1 to administer medicine to animals is frequency of very diffi… 0.9180294</span></a></code></pre></div>
 <p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/speech.html">on the website</a> or via <code><a href="articles/speech.html">vignette("speech", package = "googleLanguageR")</a></code></p>
 </div>
 <div id="google-cloud-text-to-speech-api" class="section level2">
@@ -311,9 +326,10 @@ GL_AUTH=location_of_json_file.json</code></pre>
 <a href="#google-cloud-text-to-speech-api" class="anchor"></a>Google Cloud Text-to-Speech API</h2>
 <p>The Cloud Text-to-Speech API turns text into talk audio files. Its accessible via the <code>gl_talk</code> function.</p>
 <p>To use, supply your text to the function:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is a talking computer.  Hello Dave."</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is a talking computer.  Hello Dave."</span>)</a></code></pre></div>
 <p>See more examples and details <a href="http://code.markedmondson.me/googleLanguageR/articles/text-to-speech.html">on the website</a> or via <code><a href="articles/text-to-speech.html">vignette("text-to-speech", package = "googleLanguageR")</a></code></p>
 <p><a href="https://ropensci.org"><img src="https://ropensci.org/public_images/ropensci_footer.png" alt="ropensci_footer"></a></p>
+</div>
 </div>
   </div>
 
@@ -337,6 +353,12 @@ GL_AUTH=location_of_json_file.json</code></pre>
 </li>
 </ul>
 </div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
+</ul>
+</div>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
@@ -346,17 +368,7 @@ GL_AUTH=location_of_json_file.json</code></pre>
 </ul>
 </div>
 
-      <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=googleLanguageR"><img src="https://www.r-pkg.org/badges/version/googleLanguageR" alt="CRAN"></a></li>
-<li><a href="https://travis-ci.org/ropensci/googleLanguageR"><img src="https://travis-ci.org/ropensci/googleLanguageR.png?branch=master" alt="Build Status"></a></li>
-<li><a href="http://codecov.io/github/ropensci/googleLanguageR?branch=master"><img src="http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="https://github.com/ropensci/onboarding/issues/127"><img src="http://badges.ropensci.org/127_status.svg"></a></li>
-</ul>
-</div>
-</div>
-
+  </div>
 </div>
 
 
@@ -365,12 +377,14 @@ GL_AUTH=location_of_json_file.json</code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
