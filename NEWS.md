@@ -1,11 +1,13 @@
-# 0.2.0.9000
+# 0.2.0.9002
 
 * Improved error handling for vectorised `gl_nlp()` (#55)
 * `gl_nlp()`'s classifyText returns list of data.frames, not data.frame
 * Fix `gl_nlp` when `nlp_type='classifyText'`
 * `customConfig` available for `gl_speech`
 * Add support for SSML for `gl_talk()` (#66)
-* Add support for device profiles for `gl_talk()` #67
+* Add support for device profiles for `gl_talk()` (#67)
+* Add support for tuneR wave objects in `gl_speech()` - (#62 thanks @muschellij2)
+* Add check for file size for audio source - (#62 thanks @muschellij2)
 
 # 0.2.0
 

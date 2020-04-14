@@ -17,7 +17,7 @@ The Cloud Speech API provides audio transcription.  Its accessible via the `gl_s
 
 Arguments include:
 
-* `audio_source` - this is a local file in the correct format, or a Google Cloud Storage URI
+* `audio_source` - this is a local file in the correct format, or a Google Cloud Storage URI. This can also be a `Wave` class object from the package `tuneR`
 * `encoding` - the format of the sound file - `LINEAR16` is the common `.wav` format, other formats include `FLAC` and `OGG_OPUS`
 * `sampleRate` - this needs to be set to what your file is recorded at.  
 * `languageCode` - specify the language spoken as a [`BCP-47` language tag](https://tools.ietf.org/html/bcp47)

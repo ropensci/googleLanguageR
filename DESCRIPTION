@@ -3,6 +3,7 @@ Title: Call Google's 'Natural Language' API, 'Cloud Translation' API,
   'Cloud Speech' API and 'Cloud Text-to-Speech' API
 Version: 0.2.0.9002
 Authors@R: c(person("Mark", "Edmondson", email = "r@sunholo.com", role = c("aut", "cre")),
+             person("John", "Muschelli", email = "muschellij2@gmail.com", role = c("ctb")),
              person("Neal", "Richardson", email = "neal.p.richardson@gmail.com", role = "rev",
              comment = "Neal reviewed the package for ropensci, 
                see <https://github.com/ropensci/onboarding/issues/127>"),
