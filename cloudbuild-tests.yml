@@ -1,4 +1,9 @@
 steps:
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -c
+      - gcloud secrets versions access latest --secret=googlelanguager-auth > /workspace/auth.json
   - name: gcr.io/gcer-public/packagetools:master
     args:
       - Rscript
@@ -9,6 +14,7 @@ steps:
         rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning')
     env:
       - NOT_CRAN=true
+      - GL_AUTH=/workspace/auth.json
   - name: gcr.io/gcer-public/packagetools:master
     args:
       - Rscript
@@ -21,5 +27,6 @@ steps:
         covr::codecov(coverage=cv, commit = '$COMMIT_SHA', branch = '$BRANCH_NAME')
     env:
       - NOT_CRAN=true
+      - GL_AUTH=/workspace/auth.json
       - CODECOV_TOKEN=$_CODECOV_TOKEN
-timeout: 1200s
+timeout: 2400s

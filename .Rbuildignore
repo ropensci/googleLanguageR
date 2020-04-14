@@ -8,3 +8,5 @@
 ^_gcssave\.yml$
 ^\.httr-oauth$
 ^cran-comments\.md$
+^\.Renviron$
+^build$

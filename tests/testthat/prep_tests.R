@@ -9,12 +9,8 @@ options(error=NULL, warn =2)
 local_auth <- Sys.getenv("GL_AUTH") != ""
 if(!local_auth){
   cat("\nNo authentication file detected\n")
-  token <- googleAuthR::gar_gce_auth()
-  if(!is.null(token)){
-    cat("\nFound auth via GCE token")
-  }
 } else {
-  cat("\nFound local auth file\n")
+  cat("\nFound local auth file:", Sys.getenv("GL_AUTH"))
 }
 
 on_travis <- Sys.getenv("CI") == "true"
