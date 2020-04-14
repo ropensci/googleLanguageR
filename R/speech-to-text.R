@@ -103,6 +103,17 @@ gl_speech <- function(audio_source,
                       asynch = FALSE,
                       customConfig = NULL){
 
+  if (inherits(audio_source, "Wave")) {
+    if (requireNamespace("tuneR", quietly = TRUE)) {
+      if (is.null(sampleRateHertz)) {
+        sampleRateHertz = as.integer(audio_source@samp.rate)
+      }
+      outfile = tempfile(fileext = ".wav")
+      tuneR::writeWave(object = audio_source, filename = outfile)
+      audio_source = outfile
+    }
+  }
+
   if(is.null(sampleRateHertz)){
     my_message("Setting sampleRateHertz = 16000L")
     sampleRateHertz <- 16000L
@@ -121,7 +132,10 @@ gl_speech <- function(audio_source,
     )
   } else {
     assert_that(is.readable(audio_source))
-
+    assert_that(file.size(audio_source) <= 10485760,
+                msg = paste0(
+                  "Audio source size is too big > 10485760 bytes,",
+                  " must split or reduce size"))
     recognitionAudio <- list(
       content = base64encode(audio_source)
     )
