@@ -75,8 +75,11 @@
 #'
 #' ## Use a custom configuration
 #' my_config <- list(encoding = "LINEAR16",
-#'                   enableSpeakerDiarization = TRUE,
-#'                   diarizationSpeakerCount = 3)
+#'                   diarizationConfig = list(
+#'                     enableSpeakerDiarization = TRUE,
+#'                     minSpeakerCount = 2,
+#'                     maxSpeakCount = 3
+#'                     ))
 #'
 #' # languageCode is required, so will be added if not in your custom config
 #' gl_speech(my_audio, languageCode = "en-US", customConfig = my_config)
@@ -204,9 +207,20 @@ parse_speech <- function(x){
   timings <- map(x$results$alternatives,
                           ~ .x$words[[1]])
 
+  languageCode <- NA_character_
+  channelTag <- NA_character_
+
+  if(!is.null(x$results$languageCode)){
+    languageCode <- x$results$languageCode
+  }
+
+  if(!is.null(x$results$channelTag)){
+    channelTag <- x$results$channelTag
+  }
+
   alts <- cbind(transcript,
-                languageCode = as.character(x$results$languageCode),
-                channelTag = if(!is.null(x$results$channelTag)) x$results$channelTag else NA,
+                languageCode = languageCode,
+                channelTag = channelTag,
                 stringsAsFactors = FALSE)
 
   list(transcript = alts,

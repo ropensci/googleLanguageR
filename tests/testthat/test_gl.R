@@ -89,8 +89,11 @@ test_that("Speech with custom configs", {
   skip_on_travis()
   ## Use a custom configuration
   my_config1 <- list(encoding = "LINEAR16",
-                     enableSpeakerDiarization = TRUE,
-                     diarizationSpeakerCount = 3)
+                    diarizationConfig = list(
+                      enableSpeakerDiarization = TRUE,
+                      minSpeakerCount = 2,
+                      maxSpeakerCount = 3
+                    ))
 
   t1 <- gl_speech(speaker_d_test,
                   languageCode = "en-US",
@@ -127,9 +130,13 @@ test_that("Speech with custom configs", {
 test_that("Can parse long diarization audio files (#57)",{
   skip_on_travis()
   skip_on_cran()
+
   my_config <- list(encoding = "LINEAR16",
-                    enableSpeakerDiarization = TRUE,
-                    diarizationSpeakerCount = 2)
+                    diarizationConfig = list(
+                      enableSpeakerDiarization = TRUE,
+                      minSpeakerCount = 2,
+                      maxSpeakerCount = 3
+                    ))
 
   testcall <- "gs://mark-edmondson-public-read/testcall.wav"
 
@@ -238,7 +245,8 @@ test_that("Get list of talk languages", {
 
   expect_s3_class(lang, "data.frame")
   expect_gt(nrow(lang), 30)
-  expect_true(all(names(lang) %in% c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
+  expect_true(all(names(lang) %in%
+                    c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
               info = "expect names in data.frame")
 
 
@@ -251,7 +259,8 @@ test_that("Get filtered list of talk languages", {
   lang <- gl_talk_languages(languageCode = "en")
 
   expect_s3_class(lang, "data.frame")
-  expect_true(all(names(lang) %in% c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
+  expect_true(all(names(lang) %in%
+                    c("languageCodes","name","ssmlGender","naturalSampleRateHertz")),
               info = "expect names in data.frame")
   expect_true(all(grepl("^en-", lang$languageCodes)),
               info = "Only languageCodes beginning with en")
