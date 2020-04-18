@@ -6,13 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Google Cloud Text-to-Speech API • googleLanguageR</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Google Cloud Text-to-Speech API">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="googleLanguageR">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -24,7 +24,7 @@
   gtag('config', 'UA-47480439-2');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,7 +111,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/ropensci/googleLanguageR">
+  <a href="https://github.com/ropensci/googleLanguageR/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -129,10 +129,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Google Cloud Text-to-Speech API</h1>
+      <h1 data-toc-skip>Google Cloud Text-to-Speech API</h1>
                         <h4 class="author">Mark Edmondson</h4>
             
-            <h4 class="date">2020-04-14</h4>
+            <h4 class="date">2020-04-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ropensci/googleLanguageR/blob/master/vignettes/text-to-speech.Rmd"><code>vignettes/text-to-speech.Rmd</code></a></small>
       <div class="hidden name"><code>text-to-speech.Rmd</code></div>
@@ -179,41 +179,41 @@
 <h2 class="hasAnchor">
 <a href="#talk-languages" class="anchor"></a>Talk Languages</h2>
 <p>The API can talk several different languages, with more being added over time. You can get a current list via the function <code><a href="../reference/gl_talk_languages.html">gl_talk_languages()</a></code> or <a href="https://cloud.google.com/text-to-speech/docs/voices">online</a></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="../reference/gl_talk_languages.html">gl_talk_languages</a></span>()</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># A tibble: 32 x 4</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">   languageCodes name             ssmlGender naturalSampleRateHertz</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">         </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">                       </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="st"> </span><span class="dv">1</span> es<span class="op">-</span>ES         es<span class="op">-</span>ES<span class="op">-</span>Standard<span class="op">-</span>A FEMALE                      <span class="dv">24000</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"> <span class="dv">2</span> ja<span class="op">-</span>JP         ja<span class="op">-</span>JP<span class="op">-</span>Standard<span class="op">-</span>A FEMALE                      <span class="dv">22050</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"> <span class="dv">3</span> pt<span class="op">-</span>BR         pt<span class="op">-</span>BR<span class="op">-</span>Standard<span class="op">-</span>A FEMALE                      <span class="dv">24000</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"> <span class="dv">4</span> tr<span class="op">-</span>TR         tr<span class="op">-</span>TR<span class="op">-</span>Standard<span class="op">-</span>A FEMALE                      <span class="dv">22050</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"> <span class="dv">5</span> sv<span class="op">-</span>SE         sv<span class="op">-</span>SE<span class="op">-</span>Standard<span class="op">-</span>A FEMALE                      <span class="dv">22050</span></a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"> <span class="dv">6</span> nl<span class="op">-</span>NL         nl<span class="op">-</span>NL<span class="op">-</span>Standard<span class="op">-</span>A FEMALE                      <span class="dv">24000</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"> <span class="dv">7</span> en<span class="op">-</span>US         en<span class="op">-</span>US<span class="op">-</span>Wavenet<span class="op">-</span>A  MALE                        <span class="dv">24000</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"> <span class="dv">8</span> en<span class="op">-</span>US         en<span class="op">-</span>US<span class="op">-</span>Wavenet<span class="op">-</span>B  MALE                        <span class="dv">24000</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"> <span class="dv">9</span> en<span class="op">-</span>US         en<span class="op">-</span>US<span class="op">-</span>Wavenet<span class="op">-</span>C  FEMALE                      <span class="dv">24000</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="dv">10</span> en<span class="op">-</span>US         en<span class="op">-</span>US<span class="op">-</span>Wavenet<span class="op">-</span>D  MALE                        <span class="dv">24000</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r">gl_talk_languages()
+# A tibble: 32 x 4
+   languageCodes name             ssmlGender naturalSampleRateHertz
+   &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;                       &lt;int&gt;
+ 1 es-ES         es-ES-Standard-A FEMALE                      24000
+ 2 ja-JP         ja-JP-Standard-A FEMALE                      22050
+ 3 pt-BR         pt-BR-Standard-A FEMALE                      24000
+ 4 tr-TR         tr-TR-Standard-A FEMALE                      22050
+ 5 sv-SE         sv-SE-Standard-A FEMALE                      22050
+ 6 nl-NL         nl-NL-Standard-A FEMALE                      24000
+ 7 en-US         en-US-Wavenet-A  MALE                        24000
+ 8 en-US         en-US-Wavenet-B  MALE                        24000
+ 9 en-US         en-US-Wavenet-C  FEMALE                      24000
+10 en-US         en-US-Wavenet-D  MALE                        24000</pre></body></html></div>
 <p>If you are looking a specific language, specify that in the function call e.g. to see only Spanish (<code>es</code>) voices issue:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/gl_talk_languages.html">gl_talk_languages</a></span>(<span class="dt">languageCode =</span> <span class="st">"es"</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># A tibble: 1 x 4</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  languageCodes name             ssmlGender naturalSampleRateHertz</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">         </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">                       </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="dv">1</span> es<span class="op">-</span>ES         es<span class="op">-</span>ES<span class="op">-</span>Standard<span class="op">-</span>A FEMALE                      <span class="dv">24000</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r">gl_talk_languages(languageCode = "es")
+# A tibble: 1 x 4
+  languageCodes name             ssmlGender naturalSampleRateHertz
+  &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;                       &lt;int&gt;
+1 es-ES         es-ES-Standard-A FEMALE                      24000</pre></body></html></div>
 <p>You can then specify that voice when calling the API via the <code>name</code> argument, which overrides the <code>gender</code> and <code>languageCode</code> argument:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"Hasta la vista"</span>, <span class="dt">name =</span> <span class="st">"es-ES-Standard-A"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"Hasta la vista"</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"es-ES-Standard-A"</span>)</pre></body></html></div>
 <p>Otherwise, specify your own <code>gender</code> and <code>languageCode</code> and the voice will be picked for you:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"Would you like a cup of tea?"</span>, <span class="dt">gender =</span> <span class="st">"FEMALE"</span>, <span class="dt">languageCode =</span> <span class="st">"en-GB"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"Would you like a cup of tea?"</span>, <span class="kw">gender</span> <span class="kw">=</span> <span class="st">"FEMALE"</span>, <span class="kw">languageCode</span> <span class="kw">=</span> <span class="st">"en-GB"</span>)</pre></body></html></div>
 <p>Some languages are not yet supported, such as Danish. The API will return an error in those cases.</p>
 </div>
 <div id="browser-speech-player" class="section level2">
 <h2 class="hasAnchor">
 <a href="#browser-speech-player" class="anchor"></a>Browser Speech player</h2>
 <p>Creating and clicking on the audio file to play it can be a bit of a drag, so you also have a function that will play the audio file for you, launching via the browser. This can be piped via the tidyverse’s <code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(magrittr)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is my audio player"</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/gl_talk_player.html">gl_talk_player</a></span>()</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">## non-piped equivalent</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw"><a href="../reference/gl_talk_player.html">gl_talk_player</a></span>(<span class="kw"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is my audio player"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is my audio player"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/gl_talk_player.html">gl_talk_player</a></span>()
+
+<span class="co">## non-piped equivalent</span>
+<span class="fu"><a href="../reference/gl_talk_player.html">gl_talk_player</a></span>(<span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is my audio player"</span>))</pre></body></html></div>
 <p>The <code><a href="../reference/gl_talk_player.html">gl_talk_player()</a></code> creates a HTML file called <code>player.html</code> in your working directory by default.</p>
 <div id="using-with-shiny" class="section level3">
 <h3 class="hasAnchor">
@@ -223,40 +223,33 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Ny0e7vHFu6o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 <p>A shiny module has been created to help integrate text-to-speech into your Shiny apps, demo in the video above and below:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(shiny)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(googleLanguageR)  <span class="co"># assume auto auth setup</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">ui &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span>(</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="kw"><a href="../reference/gl_talk_shinyUI.html">gl_talk_shinyUI</a></span>(<span class="st">"talk"</span>)</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session){</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10">     transcript &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span>({</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11">        <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"This is a demo talking Shiny app!"</span>)</a>
-<a class="sourceLine" id="cb6-12" data-line-number="12">     })</a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14">     <span class="kw"><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule</a></span>(gl_talk_shiny, <span class="st">"talk"</span>, <span class="dt">transcript =</span> transcript)</a>
-<a class="sourceLine" id="cb6-15" data-line-number="15">}</a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">shiny</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">googleLanguageR</span>)  <span class="co"># assume auto auth setup</span>
+
+<span class="no">ui</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span>(
+  <span class="fu"><a href="../reference/gl_talk_shinyUI.html">gl_talk_shinyUI</a></span>(<span class="st">"talk"</span>)
+)
+
+<span class="no">server</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">input</span>, <span class="no">output</span>, <span class="no">session</span>){
+
+     <span class="no">transcript</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span>({
+        <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"This is a demo talking Shiny app!"</span>)
+     })
+
+     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule</a></span>(<span class="no">gl_talk_shiny</span>, <span class="st">"talk"</span>, <span class="kw">transcript</span> <span class="kw">=</span> <span class="no">transcript</span>)
+}
+
+
+<span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span>(<span class="kw">ui</span> <span class="kw">=</span> <span class="no">ui</span>, <span class="kw">server</span> <span class="kw">=</span> <span class="no">server</span>)</pre></body></html></div>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#returned-structure">Returned structure</a></li>
-      <li><a href="#talk-languages">Talk Languages</a></li>
-      <li><a href="#browser-speech-player">Browser Speech player</a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
@@ -267,7 +260,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

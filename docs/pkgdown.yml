@@ -1,5 +1,5 @@
 pandoc: 2.3.1
-pkgdown: 1.4.1
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   nlp: nlp.html
@@ -7,6 +7,7 @@ articles:
   speech: speech.html
   text-to-speech: text-to-speech.html
   translation: translation.html
+last_built: 2020-04-18T23:29Z
 urls:
   reference: https://code.markedmondson.me/googleLanguageR//reference
   article: https://code.markedmondson.me/googleLanguageR//articles
