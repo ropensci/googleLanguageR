@@ -33,6 +33,7 @@ steps:
     args:
       - clone
       - git@github.com:MarkEdmondson1234/googleLanguageR
+      - repo
     volumes:
       - name: ssh
         path: /root/.ssh
@@ -41,6 +42,7 @@ steps:
       - Rscript
       - -e
       - |-
+        list.files()
         devtools::install()
         pkgdown::build_site()
     dir: repo
