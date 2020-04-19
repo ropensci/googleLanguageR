@@ -90,7 +90,7 @@ steps:
   - name: gcr.io/cloud-builders/git
     args:
       - push
-      - --force-with-lease
+      - --force
     dir: repo
     volumes:
       - name: ssh
