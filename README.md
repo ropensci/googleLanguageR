@@ -3,8 +3,8 @@
 [![CRAN](https://www.r-pkg.org/badges/version/googleLanguageR)](https://cran.r-project.org/package=googleLanguageR)
 [![Build
 Status](https://travis-ci.org/ropensci/googleLanguageR.png?branch=master)](https://travis-ci.org/ropensci/googleLanguageR)
-[![codecov.io](http://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/ropensci/googleLanguageR?branch=master)
-[![](http://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
+[![codecov.io](https://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](http://codecov.io/github/ropensci/googleLanguageR?branch=master)
+[![](https://badges.ropensci.org/127_status.svg)](https://github.com/ropensci/onboarding/issues/127)
 
 ## Language tools for R via Google Machine Learning APIs
 
