@@ -40,11 +40,12 @@ steps:
   - name: gcr.io/cloud-builders/git
     id: set git push
     dir: repo
+    entrypoint: bash
     args:
-      - remote
-      - set-url
-      - --push
-      - origin git@github.com:MarkEdmondson1234/googleLanguageR.git
+      - -c 
+      - |-
+      - git remote -v
+      - git remote set-url --push origin git@github.com:MarkEdmondson1234/googleLanguageR.git
     volumes:
       - name: ssh
         path: /root/.ssh
