@@ -64,10 +64,12 @@ steps:
     args:
       - add
       - --all
+    dir: repo
     volumes:
       - name: ssh
         path: /root/.ssh
   - name: gcr.io/cloud-builders/git
+    dir: repo
     args:
       - commit
       - -a
@@ -77,12 +79,14 @@ steps:
       - name: ssh
         path: /root/.ssh
   - name: gcr.io/cloud-builders/git
+    dir: repo
     args:
       - status
     volumes:
       - name: ssh
         path: /root/.ssh
   - name: gcr.io/cloud-builders/git
+    dir: repo
     args:
       - push
     volumes:
