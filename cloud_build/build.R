@@ -15,7 +15,7 @@ cr_deploy_pkgdown(
   env = "GL_AUTH=/workspace/auth.json",
   post_step = cr_buildstep_bash(
     "git remote set-url --push origin git@github.com:MarkEdmondson1234/googleLanguageR.git",
-    name = "git",
+    name = "gcr.io/cloud-builders/git",
     entrypoint = "bash",
     dir = "repo")
 )
