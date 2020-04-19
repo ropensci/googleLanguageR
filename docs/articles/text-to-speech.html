@@ -205,11 +205,32 @@
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"Would you like a cup of tea?"</span>, <span class="kw">gender</span> <span class="kw">=</span> <span class="st">"FEMALE"</span>, <span class="kw">languageCode</span> <span class="kw">=</span> <span class="st">"en-GB"</span>)</pre></body></html></div>
 <p>Some languages are not yet supported, such as Danish. The API will return an error in those cases.</p>
 </div>
+<div id="support-for-ssml" class="section level2">
+<h2 class="hasAnchor">
+<a href="#support-for-ssml" class="anchor"></a>Support for SSML</h2>
+<p>Support is also included for Speech Synthesis Markup Language (SSML) - more details on using this to insert pauses, sounds and breaks in your audio can be found here: <code>https://cloud.google.com/text-to-speech/docs/ssml</code></p>
+<p>To use, send in your SSML markup around the text you want to talk and set <code>inputType= "ssml"</code>:</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># using SSML</span>
+<span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">'&lt;speak&gt;The &lt;say-as interpret-as=\"characters\"&gt;SSML&lt;/say-as&gt;
+  standard &lt;break time=\"1s\"/&gt;is defined by the
+  &lt;sub alias=\"World Wide Web Consortium\"&gt;W3C&lt;/sub&gt;.&lt;/speak&gt;'</span>,
+  <span class="kw">inputType</span> <span class="kw">=</span>  <span class="st">"ssml"</span>)</pre></body></html></div>
+</div>
+<div id="effect-profiles" class="section level2">
+<h2 class="hasAnchor">
+<a href="#effect-profiles" class="anchor"></a>Effect Profiles</h2>
+<p>You can output audio files that are optimised for playing on various devices.</p>
+<p>To use audio profiles, supply a character vector of the available audio profiles listed here: <code>https://cloud.google.com/text-to-speech/docs/audio-profiles</code> - the audio profiles are applied in the order given.</p>
+<p>For instance <code>effectsProfileIds="wearable-class-device"</code> will optimise output for smart watches, <code>effectsProfileIds=c("wearable-class-device","telephony-class-application")</code> will apply sound filters optimised for smart watches, then telephonic devices.</p>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># using effects profiles</span>
+<span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This sounds great on headphones"</span>,
+        <span class="kw">effectsProfileIds</span> <span class="kw">=</span> <span class="st">"headphone-class-device"</span>)</pre></body></html></div>
+</div>
 <div id="browser-speech-player" class="section level2">
 <h2 class="hasAnchor">
 <a href="#browser-speech-player" class="anchor"></a>Browser Speech player</h2>
 <p>Creating and clicking on the audio file to play it can be a bit of a drag, so you also have a function that will play the audio file for you, launching via the browser. This can be piped via the tidyverse’s <code><a href="https://rdrr.io/pkg/magrittr/man/pipe.html">%&gt;%</a></code></p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
 <span class="fu"><a href="../reference/gl_talk.html">gl_talk</a></span>(<span class="st">"This is my audio player"</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/gl_talk_player.html">gl_talk_player</a></span>()
 
 <span class="co">## non-piped equivalent</span>
@@ -223,7 +244,7 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Ny0e7vHFu6o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 <p>A shiny module has been created to help integrate text-to-speech into your Shiny apps, demo in the video above and below:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">shiny</span>)
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">shiny</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">googleLanguageR</span>)  <span class="co"># assume auto auth setup</span>
 
 <span class="no">ui</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span>(
