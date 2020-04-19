@@ -39,6 +39,7 @@ steps:
         path: /root/.ssh
   - name: gcr.io/cloud-builders/git
     id: set git push
+    dir: repo
     args:
       - remote
       - set-url
