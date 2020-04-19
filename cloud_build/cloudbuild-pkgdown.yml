@@ -15,7 +15,6 @@ steps:
   - name: gcr.io/cloud-builders/git
     entrypoint: bash
     args:
-      - bash
       - -c
       - |-
         chmod 600 /root/.ssh/id_rsa
