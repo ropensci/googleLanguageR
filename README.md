@@ -95,8 +95,9 @@ Website](https://cloud.google.com/text-to-speech/)
     API](https://console.cloud.google.com/apis/api/language.googleapis.com/overview)
   - [Google Cloud Translation
     API](https://console.cloud.google.com/apis/api/translate.googleapis.com/overview)
-  - [Google Cloud Speech
+  - [Google Cloud Speech-to-Text
     API](https://console.cloud.google.com/apis/api/speech.googleapis.com/overview)
+  - [Google Cloud Text-to-Speech API](https://console.cloud.google.com/apis/library/texttospeech.googleapis.com)
 
 <!-- end list -->
 
@@ -139,8 +140,9 @@ gl_auth("location_of_json_file.json")
 You can then call the APIs via the functions:
 
   - `gl_nlp()` - Natural Langage API
-  - `gl_speech()` - Cloud Speech API
+  - `gl_speech()` - Cloud Speech-to-Text API
   - `gl_translate()` - Cloud Translation API
+  - `gl_talk()` - Cloud Text-to-Speech API
 
 ## Natural Language API
 
