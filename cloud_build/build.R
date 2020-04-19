@@ -10,6 +10,7 @@ cr_deploy_packagetests(
 cr_deploy_pkgdown(
   steps = cr_buildstep_secret("googlelanguager-auth", "/workspace/auth.json"),
   secret = "github-ssh",
+  github_repo = "MarkEdmondson1234/googleLanguageR",
   cloudbuild_file = "cloud_build/cloudbuild-pkgdown.yml",
   env = "GL_AUTH=/workspace/auth.json"
 )
