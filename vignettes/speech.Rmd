@@ -1,17 +1,17 @@
 ---
-title: "Google Cloud Speech API"
+title: "Google Cloud Speech-to-Text API"
 author: "Mark Edmondson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Google Cloud Speech API}
+  %\VignetteIndexEntry{Google Cloud Speech-to-Text API}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-The Google Cloud Speech API enables you to convert audio to text by applying neural network models in an easy to use API. The API recognizes over 80 languages and variants, to support your global user base. You can transcribe the text of users dictating to an application’s microphone or enable command-and-control through voice among many other use cases. 
+The Google Cloud Speech-to-Text API enables you to convert audio to text by applying neural network models in an easy to use API. The API recognizes over 80 languages and variants, to support your global user base. You can transcribe the text of users dictating to an application’s microphone or enable command-and-control through voice among many other use cases. 
 
-Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
+Read more [on the Google Cloud Speech-to-Text Website](https://cloud.google.com/speech/)
 
 The Cloud Speech API provides audio transcription.  Its accessible via the `gl_speech` function.
 
@@ -47,7 +47,7 @@ return$timings
 # etc...
 ```
 
-### Demo for Google Cloud Speech API
+### Demo for Google Cloud Speech-to-Text API
 
 
 A test audio file is installed with the package which reads:
@@ -94,6 +94,23 @@ result$timings
 #3      0.500s  0.700s     Within
 #4      0.700s  0.900s          A
 #5      0.900s      1s      Dream
+```
+
+## Custom configurations
+
+You can also send in other arguments which can help shape the output, such as speaker diagrization (labelling different speakers) - to use such custom configurations create a [`RecognitionConfig`](https://cloud.google.com/speech-to-text/docs/reference/rest/v1p1beta1/RecognitionConfig) object.  This can be done via R lists which are converted to JSON via `library(jsonlite)` and an example is shown below:
+
+```r
+## Use a custom configuration
+my_config <- list(encoding = "LINEAR16",
+                  diarizationConfig = list(
+                    enableSpeakerDiarization = TRUE,
+                    minSpeakerCount = 2,
+                    maxSpeakCount = 3
+                  ))
+
+# languageCode is required, so will be added if not in your custom config
+gl_speech(my_audio, languageCode = "en-US", customConfig = my_config)
 ```
 
 ## Asynchronous calls

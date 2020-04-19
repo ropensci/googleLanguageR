@@ -9,5 +9,5 @@
 ^\.httr-oauth$
 ^cran-comments\.md$
 ^\.Renviron$
-^build$
+^cloud_build$
 ^CRAN-RELEASE$
