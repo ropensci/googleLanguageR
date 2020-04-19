@@ -32,8 +32,18 @@ steps:
   - name: gcr.io/cloud-builders/git
     args:
       - clone
-      - git@github.com:MarkEdmondson1234/googleLanguageR
+      - git@github.com:ropensci/googleLanguageR
       - repo
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+  - name: gcr.io/cloud-builders/git
+    id: set git push
+    args:
+      - remote
+      - set-url
+      - --push
+      - --origin git@github.com:MarkEdmondson1234/googleLanguageR
     volumes:
       - name: ssh
         path: /root/.ssh
