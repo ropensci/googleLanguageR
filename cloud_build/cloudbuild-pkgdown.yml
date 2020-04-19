@@ -1,0 +1,78 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -c
+      - gcloud secrets versions access latest --secret=googlelanguager-auth > /workspace/auth.json
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -c
+      - gcloud secrets versions access latest --secret=github-ssh > /root/.ssh/id_rsa
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+  - name: gcr.io/cloud-builders/git
+    entrypoint: bash
+    args:
+      - bash
+      - -c
+      - |-
+        chmod 600 /root/.ssh/id_rsa
+        cat <<EOF >known_hosts
+        github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+        EOF
+        cat <<EOF >/root/.ssh/config
+        Hostname github.com
+        IdentityFile /root/.ssh/id_rsa
+        EOF
+        mv known_hosts /root/.ssh/known_hosts
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+  - name: gcr.io/cloud-builders/git
+    args:
+      - clone
+      - git@github.com:$_GIT_REPO
+      - repo
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+  - name: gcr.io/gcer-public/packagetools:master
+    args:
+      - Rscript
+      - -e
+      - |-
+        devtools::install()
+        pkgdown::build_site()
+    dir: repo
+    env:
+      - GL_AUTH=/workspace/auth.json
+  - name: gcr.io/cloud-builders/git
+    args:
+      - add
+      - --all
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+  - name: gcr.io/cloud-builders/git
+    args:
+      - commit
+      - -a
+      - -m
+      - "[skip travis] Build website from commit ${COMMIT_SHA}: \n$(date +\"%Y%m%dT%H:%M:%S\")"
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+  - name: gcr.io/cloud-builders/git
+    args:
+      - status
+    volumes:
+      - name: ssh
+        path: /root/.ssh
+  - name: gcr.io/cloud-builders/git
+    args:
+      - push
+    volumes:
+      - name: ssh
+        path: /root/.ssh
