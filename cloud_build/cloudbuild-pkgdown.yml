@@ -44,7 +44,7 @@ steps:
       - remote
       - set-url
       - --push
-      - origin git@github.com:MarkEdmondson1234/googleLanguageR
+      - origin git@github.com:MarkEdmondson1234/googleLanguageR.git
     volumes:
       - name: ssh
         path: /root/.ssh
