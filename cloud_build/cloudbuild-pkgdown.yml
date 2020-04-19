@@ -44,10 +44,10 @@ steps:
     dir: repo
     entrypoint: bash
     args:
-      - -c 
+      - -c
       - |-
-      - git remote -v
-      - git remote set-url --push origin git@github.com:MarkEdmondson1234/googleLanguageR.git
+        git remote -v
+        git remote set-url --push origin git@github.com:MarkEdmondson1234/googleLanguageR.git
     volumes:
       - name: ssh
         path: /root/.ssh
