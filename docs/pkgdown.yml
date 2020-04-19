@@ -7,7 +7,7 @@ articles:
   speech: speech.html
   text-to-speech: text-to-speech.html
   translation: translation.html
-last_built: 2020-04-19T21:15Z
+last_built: 2020-04-19T21:17Z
 urls:
   reference: https://code.markedmondson.me/googleLanguageR//reference
   article: https://code.markedmondson.me/googleLanguageR//articles
