@@ -14,9 +14,7 @@ cr_deploy_pkgdown(
   cloudbuild_file = "cloud_build/cloudbuild-pkgdown.yml",
   env = "GL_AUTH=/workspace/auth.json",
   post_clone = cr_buildstep_bash(
-    c("git remote -v",
-      "git remote set-url --push origin git@github.com:MarkEdmondson1234/googleLanguageR.git",
-      "git remote -v"),
+    c("git remote set-url --push origin git@github.com:MarkEdmondson1234/googleLanguageR.git"),
     name = "gcr.io/cloud-builders/git",
     entrypoint = "bash",
     dir = "repo")

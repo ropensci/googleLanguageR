@@ -1,7 +1,7 @@
 Package: googleLanguageR
 Title: Call Google's 'Natural Language' API, 'Cloud Translation' API, 
   'Cloud Speech' API and 'Cloud Text-to-Speech' API
-Version: 0.3.0
+Version: 0.3.0.9000
 Authors@R: c(person("Mark", "Edmondson", email = "r@sunholo.com", role = c("aut", "cre")),
              person("John", "Muschelli", email = "muschellij2@gmail.com", role = c("ctb")),
              person("Neal", "Richardson", email = "neal.p.richardson@gmail.com", role = "rev",

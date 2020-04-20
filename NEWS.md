@@ -1,3 +1,7 @@
+# 0.3.0.9000
+
+* ...
+
 # 0.3.0
 
 * Improved error handling for vectorised `gl_nlp()` (#55)
