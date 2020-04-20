@@ -110,7 +110,7 @@ Website](https://cloud.google.com/text-to-speech/)
     
 ### Docker image
 
-Some Docker images are publically available.  In general `gcr.io/gcer-public/googleLanguageR:$BRANCH_NAME` carries that GitHub branch's version.
+Some Docker images are publicly available.  In general `gcr.io/gcer-public/googleLanguageR:$BRANCH_NAME` carries that GitHub branch's version.
 
 * `gcr.io/gcer-public/googleLanguageR:CRAN` - the latest CRAN version  [![CRAN](https://www.r-pkg.org/badges/version/googleLanguageR)](https://cran.r-project.org/package=googleLanguageR)
 * `gcr.io/gcer-public/googleLanguageR:master` - latest GitHub master version
