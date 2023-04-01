@@ -103,7 +103,7 @@ Website](https://cloud.google.com/text-to-speech/)
 
 4.  [Generate a service account
     credential](https://cloud.google.com/storage/docs/authentication#generating-a-private-key)
-    as a JSON file
+    as a JSON file by first [creating a service account](https://developers.google.com/workspace/guides/create-credentials#create_a_service_account) and then [creating credentials for a service account](https://developers.google.com/workspace/guides/create-credentials#create_credentials_for_a_service_account)
 5.  Return to R, and install the official release via
     `install.packages("googleLanguageR")`, or the development version
     with `remotes::install_github("ropensci/googleLanguageR")`
