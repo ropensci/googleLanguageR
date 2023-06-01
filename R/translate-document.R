@@ -59,16 +59,14 @@ gl_translate_document <- function(d_path,
     location,":translateDocument")
 
 
-  call_api <- gar_api_generator(my_URI,
-                                "POST"
-                                )
+  call_api <- gar_api_generator(my_URI, "POST" )
 
-  me <- tryCatch(call_api(the_body = payload))
+  me <- tryCatch(call_api(the_body = payload), error=function(e){print(e)})
 
-
-  me$content$documentTranslation[[1]] %>%
-   base64decode() %>%
-    writeBin(output_path)
+    writeBin(
+      base64decode(
+        me$content$documentTranslation[[1]]
+      ), output_path)
 
 }
 
