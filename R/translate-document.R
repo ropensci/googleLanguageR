@@ -8,7 +8,7 @@
 #' @param output_path where to save the translated document
 #' @param format currently only pdf-files are supported
 #'
-#' @return invisible() on success
+#' @return output filename
 #' @family translations
 #' @import assertthat
 #' @importFrom base64enc base64encode
@@ -18,6 +18,13 @@
 #' @importFrom tibble as_tibble
 #' @importFrom stats setNames
 #' @export
+#'
+ #' @examples
+#'
+#' \dontrun{
+#' gl_translate_document(system.file(package = "googleLanguageR","test-doc.pdf"), "no")
+#'
+#' }
 gl_translate_document <- function(d_path,
                                   target = "es-ES",
                                   output_path = "out.pdf",
@@ -69,6 +76,8 @@ gl_translate_document <- function(d_path,
       base64decode(
         me$content$documentTranslation[[1]]
       ), output_path)
+
+    path.expand(output_path)
 
 }
 
