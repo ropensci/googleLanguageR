@@ -22,7 +22,7 @@ gl_translate_document(
 \item{format}{currently only pdf-files are supported}
 }
 \value{
-invisible() on success
+output filename
 }
 \description{
 Translate a document via the Google Translate API
