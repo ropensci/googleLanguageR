@@ -38,6 +38,8 @@ gl_translate_document <- function(d_path,
 
   format <- paste0("application/",format)
 
+  if(file.exists(output_path)) stop("Output file already exists.")
+
   payload <-
     list(
       target_language_code = target,
