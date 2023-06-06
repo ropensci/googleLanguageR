@@ -38,6 +38,7 @@ Imports:
     tibble,
     utils
 Suggests: 
+    pdftools,
     cld2,
     testthat,
     knitr,
