@@ -7,7 +7,11 @@ test_that("document tranlation works", {
 
   gl_translate_document(system.file(package = "googleLanguageR","test-doc.pdf"), target = "no",output_path = my_out)
 
-  my_file1 <- readBin(my_out, "raw")
-  my_file2 <- readBin(system.file(package = "googleLanguageR","test-doc.pdf"), "raw")
-  expect_equal(my_file1, my_file2)
+  my_pdf1 <-pdftools::pdf_data(my_out)
+
+  my_pdf2 <- pdftools::pdf_data(
+    system.file(package = "googleLanguageR","test-doc-no.pdf")
+    )
+
+  expect_equal(my_pdf1[[1]]$text, my_pdf2[[1]]$text)
 })
