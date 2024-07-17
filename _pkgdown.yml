@@ -12,20 +12,28 @@ template:
 navbar:
   title: googleLanguageR
   type: inverse
-  left:
-    - text: "Translation API"
+  structure:
+    left:  [translation, nlp, speech, text, help]
+    right: [news, search, github, lightswitch]
+  components:
+    translation:
+      text: "Translation API"
       icon: fa-globe fa-lg
       href: articles/translation.html
-    - text: "NLP API"
+    nlp:
+      text: "NLP API"
       icon: fa-object-group fa-lg
       href: articles/nlp.html
-    - text: "Speech API"
+    speech:
+      text: "Speech API"
       icon: fa-comment fa-lg
       href: articles/speech.html
-    - text: "Text-to-Speech API"
+    text:
+      text: "Text-to-Speech API"
       icon: fa-phone fa-lg
       href: articles/text-to-speech.html
-    - text: "Help"
+    help:
+      text: "Help"
       menu:
       - text: "Function Reference"
         href: reference/index.html
