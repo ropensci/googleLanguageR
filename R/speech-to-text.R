@@ -135,13 +135,74 @@ gl_speech <- function(audio_source,
     )
   } else {
     assert_that(is.readable(audio_source))
+    ext <- tolower(tools::file_ext(audio_source))
     assert_that(file.size(audio_source) <= 10485760,
                 msg = paste0(
                   "Audio source size is too big > 10485760 bytes,",
                   " must split or reduce size"))
+    if(ext == "mp3"){
+
+  # Option A: Direct MP3 upload
+  if(encoding == "MULAW" || encoding == "AMR" || encoding == "AMR_WB" || encoding == "OGG_OPUS" || encoding == "SPEEX_WITH_HEADER_BYTE"){
+    stop("MP3 files must use encoding='LINEAR16', 'FLAC', or 'MP3'")
+  }
+
+  if(encoding == "MP3"){
+    raw <- readBin(audio_source, "raw", n = file.info(audio_source)$size)
     recognitionAudio <- list(
-      content = base64encode(audio_source)
+      content = jsonlite::base64_enc(raw)
     )
+  } else {
+    # Fallback: transcode to LINEAR16 if av package available
+    if(requireNamespace("av", quietly = TRUE)){
+      tmpwav <- tempfile(fileext = ".wav")
+      av::av_audio_convert(audio_source, tmpwav, format = "wav")
+      recognitionAudio <- list(
+        content = base64encode(tmpwav)
+      )
+      encoding <- "LINEAR16"
+      message("MP3 input automatically converted to LINEAR16 using av")
+    } else {
+      stop("MP3 input detected. Either set encoding='MP3' or install 'av' for automatic conversion.")
+    }
+  }
+
+    } else {
+      if(ext == "mp3"){
+        
+        # Option A: Direct MP3 upload
+        if(encoding == "MULAW" || encoding == "AMR" || encoding == "AMR_WB" || encoding == "OGG_OPUS" || encoding == "SPEEX_WITH_HEADER_BYTE"){
+          stop("MP3 files must use encoding='LINEAR16', 'FLAC', or 'MP3'")
+        }
+        
+        if(encoding == "MP3"){
+          raw <- readBin(audio_source, "raw", n = file.info(audio_source)$size)
+          recognitionAudio <- list(
+            content = jsonlite::base64_enc(raw)
+          )
+        } else {
+          # Fallback: transcode to LINEAR16 if av package available
+          if(requireNamespace("av", quietly = TRUE)){
+            tmpwav <- tempfile(fileext = ".wav")
+            av::av_audio_convert(audio_source, tmpwav, format = "wav")
+            recognitionAudio <- list(
+              content = base64encode(tmpwav)
+            )
+            encoding <- "LINEAR16"
+            message("MP3 input automatically converted to LINEAR16 using av")
+          } else {
+            stop("MP3 input detected. Either set encoding='MP3' or install 'av' for automatic conversion.")
+          }
+        }
+        
+      } else {
+        recognitionAudio <- list(
+          content = base64encode(audio_source)
+        )
+      }
+      
+    }
+    
   }
 
   if(!is.null(customConfig)){
