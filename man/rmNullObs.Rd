@@ -2,11 +2,11 @@
 % Please edit documentation in R/utilities.R
 \name{rmNullObs}
 \alias{rmNullObs}
-\title{Recursively step down into list, removing all such objects}
+\title{Recursively remove NULL objects from a list}
 \usage{
 rmNullObs(x)
 }
 \description{
-Recursively step down into list, removing all such objects
+Recursively remove NULL objects from a list
 }
 \keyword{internal}

@@ -1,38 +1,35 @@
 Package: googleLanguageR
 Title: Call Google's 'Natural Language' API, 'Cloud Translation' API, 
   'Cloud Speech' API and 'Cloud Text-to-Speech' API
-Version: 0.3.0.9000
+Version: 0.3.1
 Authors@R: c(person("Aleksander", "Dietrichson",email = "dietrichson@gmail.com", role=c("ctb")),
-            person("Mark", "Edmondson", email = "r@sunholo.com", role = c("aut", "cre")),
+            person("Mark", "Edmondson", email = "r@sunholo.com", role = c("aut")),
              person("John", "Muschelli", email = "muschellij2@gmail.com", role = c("ctb")),
              person("Neal", "Richardson", email = "neal.p.richardson@gmail.com", role = "rev",
-             comment = "Neal reviewed the package for ropensci, 
-               see <https://github.com/ropensci/onboarding/issues/127>"),
+             comment = "Neal reviewed the package for ropensci"),
              person("Julia", "Gustavsen", email = "j.gustavsen@gmail.com", role = "rev",
-             comment = "Julia reviewed the package for ropensci, 
-               see <https://github.com/ropensci/onboarding/issues/127>") 
+             comment = "Julia reviewed the package for ropensci"),
+            person("Cheryl", "Isabella", email = "cheryl.academic@gmail.com", role = c("aut", "cre"))
                          )
-Description: Call 'Google Cloud' machine learning APIs for text and speech tasks.
-  Call the 'Cloud Translation' API <https://cloud.google.com/translate/> for detection 
-  and translation of text, the 'Natural Language' API <https://cloud.google.com/natural-language/> to 
-  analyse text for sentiment, entities or syntax, the 'Cloud Speech' API 
-  <https://cloud.google.com/speech/> to transcribe sound files to text and 
-  the 'Cloud Text-to-Speech' API <https://cloud.google.com/text-to-speech/> to turn text 
+Description: Call 'Google Cloud' machine learning APIs for text and speech tasks. 
+  Call the 'Cloud Translation' API <https://cloud.google.com/translate> for detection
+  and translation of text, the 'Natural Language' API <https://cloud.google.com/natural-language> to
+  analyse text for sentiment, entities or syntax, the 'Cloud Speech' API
+  <https://cloud.google.com/speech-to-text> to transcribe sound files to text and
+  the 'Cloud Text-to-Speech' API <https://cloud.google.com/text-to-speech> to turn text
   into sound files.
-URL: http://code.markedmondson.me/googleLanguageR/, https://github.com/ropensci/googleLanguageR, https://docs.ropensci.org/googleLanguageR/
+URL: https://github.com/ropensci/googleLanguageR, https://docs.ropensci.org/googleLanguageR/
 BugReports: https://github.com/ropensci/googleLanguageR/issues
 Depends: R (>= 3.3)
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Imports:
     assertthat,
     base64enc,
     googleAuthR (>= 1.1.1),
     jsonlite,
-    magrittr,
     purrr (>= 0.2.4),
     stats,
     tibble,
@@ -49,4 +46,6 @@ Suggests:
     stringdist,
     tidyr,
     tuneR,
-    xml2
+    xml2,
+    av,
+    magrittr

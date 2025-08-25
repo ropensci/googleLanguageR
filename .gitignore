@@ -10,4 +10,6 @@ player.html
 .Renviron
 .httr-oauth
 *.wav
-*.mp3
+*.tar.gz
+*.Rcheck/
+inst/doc

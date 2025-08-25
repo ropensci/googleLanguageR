@@ -63,7 +63,7 @@ lossless encoding (FLAC or LINEAR16).
 Recognition accuracy may be reduced if lossy codecs, which include the other codecs listed in this section,
 are used to capture or transmit the audio, particularly if background noise is present.
 
-Read more on audio encodings here \url{https://cloud.google.com/speech/docs/encoding}
+Read more on audio encodings here \url{https://cloud.google.com/speech-to-text/docs/encoding}
 }
 
 \section{WordInfo}{

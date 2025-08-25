@@ -16,7 +16,8 @@ gl_talk(
   volumeGainDb = 0,
   sampleRateHertz = NULL,
   inputType = c("text", "ssml"),
-  effectsProfileIds = NULL
+  effectsProfileIds = NULL,
+  forceLanguageCode = FALSE
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ gl_talk(
 \item{inputType}{Choose between \code{text} (the default) or SSML markup. The \code{input} text must be SSML markup if you choose \code{ssml}}
 
 \item{effectsProfileIds}{Optional. An identifier which selects 'audio effects' profiles that are applied on (post synthesized) text to speech. Effects are applied on top of each other in the order they are given}
+
+\item{forceLanguageCode}{If \code{name} is provided, this will ensure that the passed \code{languageCode} is used instead of being inferred from name. This is necessary for models that require the exact code (en-us, en-gb, ...), not just the two letters shorthand (en, es, ...)}
 }
 \value{
 The file output name you supplied as \code{output}

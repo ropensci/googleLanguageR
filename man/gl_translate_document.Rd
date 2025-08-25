@@ -2,7 +2,7 @@
 % Please edit documentation in R/translate-document.R
 \name{gl_translate_document}
 \alias{gl_translate_document}
-\title{Translate document}
+\title{Translate a document via the Google Translate API}
 \usage{
 gl_translate_document(
   d_path,
@@ -15,29 +15,39 @@ gl_translate_document(
 )
 }
 \arguments{
-\item{d_path}{path of the document to be translated}
+\item{d_path}{Path to the document to be translated}
 
-\item{output_path}{where to save the translated document}
+\item{target}{Target language code (default "es-ES")}
 
-\item{format}{currently only pdf-files are supported}
+\item{output_path}{Path where to save the translated document (default "out.pdf")}
+
+\item{format}{Document format. Currently, only "pdf" is supported}
+
+\item{source}{Source language code (default "en-UK")}
+
+\item{model}{Translation model to use ("nmt" or "base")}
+
+\item{location}{Location for translation API (default "global")}
 }
 \value{
-output filename
+The full path of the translated document
 }
 \description{
 Translate a document via the Google Translate API
 }
 \examples{
-
 \dontrun{
-gl_translate_document(system.file(package = "googleLanguageR","test-doc.pdf"), "no")
-
+gl_translate_document(
+  system.file(package = "googleLanguageR", "test-doc.pdf"),
+  target = "no"
+)
 }
+
 }
 \seealso{
 Other translations: 
+\code{\link{gl_translate}()},
 \code{\link{gl_translate_detect}()},
-\code{\link{gl_translate_languages}()},
-\code{\link{gl_translate}()}
+\code{\link{gl_translate_languages}()}
 }
 \concept{translations}

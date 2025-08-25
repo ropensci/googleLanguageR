@@ -14,63 +14,50 @@ gl_nlp(
 )
 }
 \arguments{
-\item{string}{A vector of text to detect language for, or Google Cloud Storage URI(s)}
+\item{string}{Character vector. Text to analyse or Google Cloud Storage URI(s) in the form \code{gs://bucket_name/object_name}.}
 
-\item{nlp_type}{The type of Natural Language Analysis to perform.  The default \code{annotateText} will perform all features in one call.}
+\item{nlp_type}{Character. Type of analysis to perform. Default \code{annotateText} performs all features in a single call. Options include: \code{analyzeEntities}, \code{analyzeSentiment}, \code{analyzeSyntax}, \code{analyzeEntitySentiment}, \code{classifyText}.}
 
-\item{type}{Whether input text is plain text or a HTML page}
+\item{type}{Character. Whether the input is plain text (\code{PLAIN_TEXT}) or HTML (\code{HTML}).}
 
-\item{language}{Language of source, must be supported by API.}
+\item{language}{Character. Language of the source text. Must be supported by the API.}
 
-\item{encodingType}{Text encoding that the caller uses to process the output}
+\item{encodingType}{Character. Text encoding used to process the output. Default \code{UTF8}.}
 }
 \value{
-A list of the following objects, if those fields are asked for via \code{nlp_type}:
-
-\itemize{
- \item{sentences - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentence}{Sentences in the input document}}
- \item{tokens - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Token}{Tokens, along with their syntactic information, in the input document}}
- \item{entities - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{Entities, along with their semantic information, in the input document}}
- \item{documentSentiment - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{The overall sentiment for the document}}
- \item{classifyText -}{\href{https://cloud.google.com/natural-language/docs/classifying-text}{Classification of the document}}
- \item{language - }{The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language}
- \item{text - }{The original text passed into the API. \code{NA} if not passed due to being zero-length etc. }
-}
+A list containing the requested components as specified by \code{nlp_type}:
+\item{sentences}{Sentences in the input document. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentence}{API reference.}}
+\item{tokens}{Tokens with syntactic information. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Token}{API reference.}}
+\item{entities}{Entities with semantic information. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{API reference.}}
+\item{documentSentiment}{Overall sentiment of the document. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{API reference.}}
+\item{classifyText}{Document classification. \href{https://cloud.google.com/natural-language/docs/classifying-text}{API reference.}}
+\item{language}{Detected language of the text, or the language specified in the request.}
+\item{text}{Original text passed to the API. Returns \code{NA} if input is empty.}
 }
 \description{
-Analyse text entities, sentiment, syntax and categorisation using the Google Natural Language API
+Analyse text for entities, sentiment, syntax and classification using the Google Natural Language API.
 }
 \details{
-\code{string} can be a character vector, or a location of a file content on Google cloud Storage.
-  This URI must be of the form \code{gs://bucket_name/object_name}
+Encoding type can usually be left at the default \code{UTF8}.
+\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}{Further details on encoding types.}
 
-Encoding type can usually be left at default \code{UTF8}.
-  \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}{Read more here}
-
-The current language support is available \href{https://cloud.google.com/natural-language/docs/languages}{here}
+Current language support is listed \href{https://cloud.google.com/natural-language/docs/languages}{here}.
 }
 \examples{
-
 \dontrun{
+library(googleLanguageR)
 
-text <- "to administer medicince to animals is frequently a very difficult matter,
-  and yet sometimes it's necessary to do so"
+text <- "To administer medicine to animals is frequently difficult, yet sometimes necessary."
 nlp <- gl_nlp(text)
 
 nlp$sentences
-
 nlp$tokens
-
 nlp$entities
-
 nlp$documentSentiment
 
-## vectorised input
-texts <- c("The cat sat one the mat", "oh no it didn't you fool")
+# Vectorised input
+texts <- c("The cat sat on the mat.", "Oh no, it did not, you fool!")
 nlp_results <- gl_nlp(texts)
-
-
-
 }
 
 }

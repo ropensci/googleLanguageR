@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-`googleLanguageR` contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning/)
+`googleLanguageR` contains functions for analysing language through the [Google Cloud Machine Learning APIs](https://cloud.google.com/products/machine-learning)
 
 Note all are paid services, you will need to provide your credit card details for your own Google Project to use them.
 
@@ -25,19 +25,19 @@ The applications of the API results could be relevant to business or researchers
 
 > Google Natural Language API reveals the structure and meaning of text by offering powerful machine learning models in an easy to use REST API. You can use it to extract information about people, places, events and much more, mentioned in text documents, news articles or blog posts. You can also use it to understand sentiment about your product on social media or parse intent from customer conversations happening in a call center or a messaging app. 
 
-Read more [on the Google Natural Language API](https://cloud.google.com/natural-language/)
+Read more [on the Google Natural Language API](https://cloud.google.com/natural-language)
 
 ## Google Cloud Translation API
 
 > Google Cloud Translation API provides a simple programmatic interface for translating an arbitrary string into any supported language. Translation API is highly responsive, so websites and applications can integrate with Translation API for fast, dynamic translation of source text from the source language to a target language (e.g. French to English). 
 
-Read more [on the Google Cloud Translation Website](https://cloud.google.com/translate/)
+Read more [on the Google Cloud Translation Website](https://cloud.google.com/translate)
 
 ## Google Cloud Speech API
 
 > Google Cloud Speech API enables you to convert audio to text by applying neural network models in an easy to use API. The API recognizes over 80 languages and variants, to support your global user base. You can transcribe the text of users dictating to an application’s microphone or enable command-and-control through voice among many other use cases. 
 
-Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech/)
+Read more [on the Google Cloud Speech Website](https://cloud.google.com/speech-to-text)
 
 ## Installation
 

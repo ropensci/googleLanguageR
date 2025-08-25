@@ -11,7 +11,7 @@ vignette: >
 
 Google Cloud Text-to-Speech enables developers to synthesize natural-sounding speech with 30 voices, available in multiple languages and variants. It applies DeepMind’s groundbreaking research in WaveNet and Google’s powerful neural networks to deliver the highest fidelity possible. With this easy-to-use API, you can create lifelike interactions with your users, across many applications and devices.
 
-Read more [on the Google Cloud Text-to-Speech Website](https://cloud.google.com/text-to-speech/)
+Read more [on the Google Cloud Text-to-Speech Website](https://cloud.google.com/text-to-speech)
 
 The Cloud Text-to-Speech API turns text into sound files of the spoken words.  Its accessible via the `gl_talk` function.
 
@@ -19,7 +19,7 @@ Arguments include:
 
 * `input` - The text to turn into speech
 * `output` Where to save the speech audio file
-* `languageCode` The language of the voice as a [`BCP-47` language tag](https://tools.ietf.org/html/bcp47)
+* `languageCode` The language of the voice as a [`BCP-47` language tag](https://datatracker.ietf.org/doc/html/bcp47)
 * `name` Name of the voice, see list via `gl_talk_languages()` or [online](https://cloud.google.com/text-to-speech/docs/voices) for supported voices.  If not set, then the service will choose a voice based on `languageCode` and `gender`.
 * `gender` The gender of the voice, if available
 * `audioEncoding` Format of the requested audio stream - can be a choice of `.wav`, `.mp3` or `.ogg`

@@ -3,37 +3,30 @@
 \name{gl_auth}
 \alias{gl_auth}
 \alias{gl_auto_auth}
-\title{Authenticate with Google language API services}
+\title{Authenticate with Google Language API services}
 \usage{
 gl_auth(json_file)
 
 gl_auto_auth(...)
 }
 \arguments{
-\item{json_file}{Authentication json file you have downloaded from your Google Project}
+\item{json_file}{Character. Path to the JSON authentication file downloaded from your Google Cloud project.}
 
-\item{...}{additional argument to
-pass to \code{\link{gar_attach_auto_auth}}.}
+\item{...}{Additional arguments passed to \code{gar_attach_auto_auth}.}
 }
 \description{
-Authenticate with Google language API services
+Authenticate with Google Language API services
 }
 \details{
-The best way to authenticate is to use an environment argument pointing at your authentication file.
-
-Set the file location of your download Google Project JSON file in a \code{GL_AUTH} argument
-
-Then, when you load the library you should auto-authenticate
-
-However, you can authenticate directly using this function pointing at your JSON auth file.
+This function authenticates with Google Cloud's language APIs. By default, it uses the JSON file specified
+in \code{json_file}. Alternatively, you can set the file path in the environment variable \code{GL_AUTH} to
+auto-authenticate when loading the package.
 }
 \examples{
-
 \dontrun{
 library(googleLanguageR)
-gl_auth("location_of_json_file.json")
+gl_auth("path/to/json_file.json")
 }
-
 \dontrun{
 library(googleLanguageR)
 gl_auto_auth()

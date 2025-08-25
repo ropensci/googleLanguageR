@@ -1,68 +1,55 @@
+if(getRversion() >= "2.15.1")  utils::globalVariables(c(
+  "gl_nlp_single", "out_documentSentiment", "out_classifyText"
+))
+
 #' Perform Natural Language Analysis
 #'
-#' Analyse text entities, sentiment, syntax and categorisation using the Google Natural Language API
+#' Analyse text for entities, sentiment, syntax and classification using the Google Natural Language API.
 #'
-#' @param string A vector of text to detect language for, or Google Cloud Storage URI(s)
-#' @param nlp_type The type of Natural Language Analysis to perform.  The default \code{annotateText} will perform all features in one call.
-#' @param type Whether input text is plain text or a HTML page
-#' @param language Language of source, must be supported by API.
-#' @param encodingType Text encoding that the caller uses to process the output
+#' @param string Character vector. Text to analyse or Google Cloud Storage URI(s) in the form \code{gs://bucket_name/object_name}.
+#' @param nlp_type Character. Type of analysis to perform. Default \code{annotateText} performs all features in a single call. Options include: \code{analyzeEntities}, \code{analyzeSentiment}, \code{analyzeSyntax}, \code{analyzeEntitySentiment}, \code{classifyText}.
+#' @param type Character. Whether the input is plain text (\code{PLAIN_TEXT}) or HTML (\code{HTML}).
+#' @param language Character. Language of the source text. Must be supported by the API.
+#' @param encodingType Character. Text encoding used to process the output. Default \code{UTF8}.
 #'
 #' @details
+#' Encoding type can usually be left at the default \code{UTF8}.
+#' \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}{Further details on encoding types.}
 #'
-#' \code{string} can be a character vector, or a location of a file content on Google cloud Storage.
-#'   This URI must be of the form \code{gs://bucket_name/object_name}
+#' Current language support is listed \href{https://cloud.google.com/natural-language/docs/languages}{here}.
 #'
-#' Encoding type can usually be left at default \code{UTF8}.
-#'   \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/EncodingType}{Read more here}
-#'
-#' The current language support is available \href{https://cloud.google.com/natural-language/docs/languages}{here}
-#'
-#' @return A list of the following objects, if those fields are asked for via \code{nlp_type}:
-#'
-#' \itemize{
-#'  \item{sentences - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentence}{Sentences in the input document}}
-#'  \item{tokens - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Token}{Tokens, along with their syntactic information, in the input document}}
-#'  \item{entities - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{Entities, along with their semantic information, in the input document}}
-#'  \item{documentSentiment - }{\href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{The overall sentiment for the document}}
-#'  \item{classifyText -}{\href{https://cloud.google.com/natural-language/docs/classifying-text}{Classification of the document}}
-#'  \item{language - }{The language of the text, which will be the same as the language specified in the request or, if not specified, the automatically-detected language}
-#'  \item{text - }{The original text passed into the API. \code{NA} if not passed due to being zero-length etc. }
-#' }
-#'
+#' @return A list containing the requested components as specified by \code{nlp_type}:
+#' \item{sentences}{Sentences in the input document. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentence}{API reference.}}
+#' \item{tokens}{Tokens with syntactic information. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Token}{API reference.}}
+#' \item{entities}{Entities with semantic information. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Entity}{API reference.}}
+#' \item{documentSentiment}{Overall sentiment of the document. \href{https://cloud.google.com/natural-language/docs/reference/rest/v1/Sentiment}{API reference.}}
+#' \item{classifyText}{Document classification. \href{https://cloud.google.com/natural-language/docs/classifying-text}{API reference.}}
+#' \item{language}{Detected language of the text, or the language specified in the request.}
+#' \item{text}{Original text passed to the API. Returns \code{NA} if input is empty.}
 #'
 #' @seealso \url{https://cloud.google.com/natural-language/docs/reference/rest/v1/documents}
 #'
 #' @examples
-#'
 #' \dontrun{
+#' library(googleLanguageR)
 #'
-#' text <- "to administer medicince to animals is frequently a very difficult matter,
-#'   and yet sometimes it's necessary to do so"
+#' text <- "To administer medicine to animals is frequently difficult, yet sometimes necessary."
 #' nlp <- gl_nlp(text)
 #'
 #' nlp$sentences
-#'
 #' nlp$tokens
-#'
 #' nlp$entities
-#'
 #' nlp$documentSentiment
 #'
-#' ## vectorised input
-#' texts <- c("The cat sat one the mat", "oh no it didn't you fool")
+#' # Vectorised input
+#' texts <- c("The cat sat on the mat.", "Oh no, it did not, you fool!")
 #' nlp_results <- gl_nlp(texts)
-#'
-#'
-#'
 #' }
 #'
 #' @export
 #' @import assertthat
 #' @importFrom googleAuthR gar_api_generator
-#' @importFrom purrr map
-#' @importFrom purrr map_chr
-#' @importFrom purrr compact
+#' @importFrom purrr map map_chr compact
 gl_nlp <- function(string,
                    nlp_type = c("annotateText",
                                 "analyzeEntities",
@@ -71,253 +58,32 @@ gl_nlp <- function(string,
                                 "analyzeEntitySentiment",
                                 "classifyText"),
                    type = c("PLAIN_TEXT", "HTML"),
-                   language = c("en", "zh","zh-Hant","fr","de",
-                                "it","ja","ko","pt","es"),
-                   encodingType = c("UTF8","UTF16","UTF32","NONE")){
+                   language = c("en", "zh", "zh-Hant", "fr", "de",
+                                "it", "ja", "ko", "pt", "es"),
+                   encodingType = c("UTF8", "UTF16", "UTF32", "NONE")) {
 
   nlp_type      <- match.arg(nlp_type)
   type          <- match.arg(type)
   language      <- match.arg(language)
   encodingType  <- match.arg(encodingType)
-  # global env set in version.R
   version       <- get_version("nlp")
 
   api_results <- map(string, gl_nlp_single,
-      nlp_type = nlp_type,
-      type = type,
-      language = language,
-      encodingType = encodingType,
-      version = version)
+                     nlp_type = nlp_type,
+                     type = type,
+                     language = language,
+                     encodingType = encodingType,
+                     version = version)
 
-  ## hack to avoid parser complaints
-  .x <- NULL
+  .x <- NULL  # avoid parser complaints
 
-  ## map api_results so all nlp_types in own list
-  the_types    <- c("sentences", "tokens", "entities")
-  the_types    <- setNames(the_types, the_types)
-  ## create output shape
-  out          <- map(the_types, ~ map(api_results, .x))
+  the_types <- setNames(c("sentences", "tokens", "entities"), c("sentences", "tokens", "entities"))
+  out <- map(the_types, ~ map(api_results, .x))
 
-  out$language <- map_chr(api_results,
-                          ~ if(is.null(.x) || is.null(.x$language)){
-                              NA_character_ }
-                          else {.x$language})
-
-  out$text     <- map_chr(api_results,
-                          ~ if(is.null(.x) || is.null(.x$text)){
-                              NA_character_ }
-                          else {.x$text})
-
-  out$documentSentiment <- my_map_df(api_results,  out_documentSentiment)
+  out$language <- map_chr(api_results, ~ if(is.null(.x) || is.null(.x$language)) NA_character_ else .x$language)
+  out$text <- map_chr(api_results, ~ if(is.null(.x) || is.null(.x$text)) NA_character_ else .x$text)
+  out$documentSentiment <- my_map_df(api_results, out_documentSentiment)
   out$classifyText <- map(api_results, out_classifyText)
 
   out
-
-}
-
-out_documentSentiment <- function(x){
-
-  out <- tibble(magnitude=NA_real_, score=NA_real_)
-
-  if(!is.null(x$documentSentiment)){
-    out <- as_tibble(x$documentSentiment)
-  }
-
-  out
-}
-
-out_classifyText <- function(x){
-
-  out <- tibble(name=NA_character_, confidence=NA_integer_)
-
-  if(!is.null(x$classifyText)){
-    out <- as_tibble(x$classifyText)
-  }
-
-  out
-
-}
-
-#' Used to vectorise gl_nlp
-#' @import assertthat
-#' @importFrom googleAuthR gar_api_generator
-#' @importFrom tibble enframe
-#' @noRd
-gl_nlp_single <- function(string,
-                          nlp_type = c("annotateText",
-                                       "analyzeEntities",
-                                       "analyzeSentiment",
-                                       "analyzeSyntax",
-                                       "analyzeEntitySentiment",
-                                       "classifyText"),
-                          type = c("PLAIN_TEXT", "HTML"),
-                          language = c("en", "zh","zh-Hant","fr","de",
-                                       "it","ja","ko","pt","es"),
-                          encodingType = c("UTF8","UTF16","UTF32","NONE"),
-                          version = "v1"){
-
-  ## string processing
-  assert_that(is.string(string), is.string(version))
-  string <- trimws(string)
-  if(nchar(string) == 0 || is.na(string)){
-    my_message("Zero length string passed, not calling API", level = 2)
-    return(list(sentences = "#error - zero length string",
-                tokens = "#error - zero length string",
-                entities = "#error - zero length string",
-                language = "#error - zero length string",
-                text = string))
-  }
-
-  nlp_type      <- match.arg(nlp_type)
-  type          <- match.arg(type)
-  language      <- match.arg(language)
-  encodingType  <- match.arg(encodingType)
-
-  my_message(nlp_type, " for '", substring(string, 0, 50), "'",
-            level = 2)
-
-  my_message(nlp_type, ": ", nchar(string), " characters", level = 3)
-
-  call_url <- sprintf("https://language.googleapis.com/%s/documents:%s",
-                      version, nlp_type)
-
-  if(nlp_type == "classifyText"){
-    # it errors if you send this in...
-    encodingType <- NULL
-  }
-
-  body <- list(
-    document = list(
-      type = jubox(type),
-      language = jubox(language)
-    ),
-    encodingType = encodingType
-  )
-
-  if(is.gcs(string)){
-    body$document$gcsContentUri <- jubox(string)
-  } else {
-    body$document$content = jubox(string)
-  }
-
-  if(nlp_type == "annotateText"){
-
-    body <- c(body, list(
-      features = list(
-        extractSyntax = jubox(TRUE),
-        extractEntities = jubox(TRUE),
-        extractDocumentSentiment = jubox(TRUE),
-        extractEntitySentiment = jubox(TRUE),
-        classifyText = jubox(TRUE)
-      )))
-
-    if(version == "v1beta2"){
-      # put beta features here
-      #body$features$extractEntitySentiment = jubox(TRUE)
-    }
-  }
-
-
-
-  call_api <- gar_api_generator(call_url,
-                                "POST",
-                                data_parse_function = parse_nlp)
-
-
-  out <- tryCatch(call_api(the_body = body),
-                  error = function(err){
-                    if(grepl("too few tokens", err$message)){
-                      warning("If nlp_type='annotateText' or 'classifyText' then you need at least 20 words in input")
-                    }
-                    my_message("Error processing string: '",
-                               string, "' ", err$message,
-                               level = 3)
-                    list(sentences = paste("#error - ", err$message),
-                         tokens = paste("#error - ", err$message),
-                         entities = paste("#error - ", err$message),
-                         language = paste("#error - ", err$message))
-                  })
-
-  out$text <- string
-
-  out
-
-}
-
-#' @importFrom tibble as_tibble
-#' @importFrom tibble tibble
-#' @importFrom purrr is_empty
-#' @importFrom purrr compact
-#' @importFrom magrittr %>%
-#' @noRd
-parse_nlp <- function(x){
-
-  s <- t <- e <- d <- cats <- NULL
-
-  if(!is_empty(x$sentences)){
-    s <- my_cbind(as_tibble(x$sentences$text),
-                   as_tibble(x$sentences$sentiment))
-  }
-
-  if(!is_empty(x$tokens)){
-    t <- my_cbind(as_tibble(x$tokens$text),
-                   as_tibble(x$tokens$partOfSpeech),
-                   as_tibble(x$tokens$dependencyEdge),
-                   as_tibble(x$tokens$lemma))
-  }
-
-  if(!is_empty(x$entities)){
-
-    e <- x$entities[, c("name","type","salience")]
-
-    if(!is_empty(x$entities$metadata)){
-      e <- my_cbind(e, x$entities$metadata)
-    } else {
-      e <- my_cbind(e, data.frame(mid = NA_character_, wikipedia_url = NA_character_))
-    }
-
-    if(!is_empty(x$entities$sentiment)){
-      e <- my_cbind(e, x$entities$sentiment)
-    } else {
-      e <- my_cbind(e, data.frame(magnitude = NA_real_, score = NA_real_))
-    }
-
-    ## needs to come last as mentions can hold more rows than
-    ## passed in words as it matches multiple
-    if(!is_empty(x$entities$mentions)){
-
-      mentions <- my_map_df(x$entities$mentions,
-                         ~ my_cbind(.x$text, tibble(mention_type = .x$type)))
-
-      e <- merge(e, mentions, by.x = "name", by.y = "content", all = TRUE)
-
-    } else {
-      ## for v1beta2 will also add sentiment_ ?
-      ## https://cloud.google.com/natural-language/docs/reference/rest/v1beta2/Entity#EntityMention
-      e <- my_cbind(e, data.frame(beginOffset = NA_integer_, type = NA_character_))
-    }
-
-    e <- as_tibble(e)
-
-  }
-
-  if(!is_empty(x$documentSentiment)){
-    d <- as_tibble(x$documentSentiment)
-  }
-
-  if(!is_empty(x$categories)){
-    cats <- x$categories
-  }
-
-  compact(list(
-    sentences = s,
-    tokens = t,
-    entities = e,
-    documentSentiment = d,
-    classifyText = cats,
-    language = x$language
-  ))
-
-
-
 }
