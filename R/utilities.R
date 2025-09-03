@@ -1,104 +1,105 @@
-
 #' A helper function that tests whether an object is either NULL _or_
 #' a list of NULLs
 #'
 #' @keywords internal
-is.NullOb <- function(x) is.null(x) | all(sapply(x, is.null))
+is.NullOb <- function(x) {
+  is.null(x) || all(sapply(x, is.null))
+}
 
-#' Recursively step down into list, removing all such objects
+#' Recursively remove NULL objects from a list
 #'
 #' @keywords internal
 rmNullObs <- function(x) {
   x <- Filter(Negate(is.NullOb), x)
-  lapply(x, function(x) if (is.list(x)) rmNullObs(x) else x)
+  lapply(x, function(el) if (is.list(el)) rmNullObs(el) else el)
 }
 
-# safe cbind that removes df with no rows
-my_cbind <- function(...){
+#' Safe cbind that removes data.frames with no rows
+#'
+#' @keywords internal
+my_cbind <- function(...) {
   dots <- list(...)
-
   nrows <- vapply(dots, function(x) nrow(x) > 0, logical(1))
-
   dots <- dots[nrows]
-
   do.call(cbind, args = dots)
-
 }
 
-#' base R safe rbind
+#' Safe rbind for lists of data.frames with differing column names
 #'
-#' Send in a list of data.fames with different column names
-#'
-#' @return one data.frame
-#' a safe rbind for variable length columns
+#' @param x A list of data.frames
+#' @return One combined data.frame
 #' @noRd
-my_reduce_rbind <- function(x){
-  classes <- lapply(x, inherits, what = "data.frame")
-  stopifnot(all(unlist(classes)))
+my_reduce_rbind <- function(x) {
+  stopifnot(all(vapply(x, inherits, logical(1), what = "data.frame")))
 
-  # all possible names
+  # All unique column names
   df_names <- Reduce(union, lapply(x, names))
 
-  df_same_names <- lapply(x, function(y){
-    missing_names <- setdiff(df_names,names(y))
+  df_same_names <- lapply(x, function(y) {
+    missing_names <- setdiff(df_names, names(y))
     num_col <- length(missing_names)
-    if(num_col > 0){
+
+    if (num_col > 0) {
       missing_cols <- vapply(missing_names, function(i) NA, NA, USE.NAMES = TRUE)
-      new_df <- data.frame(matrix(missing_cols, ncol = num_col))
+      new_df <- as.data.frame(matrix(missing_cols, ncol = num_col, nrow = nrow(y)))
       names(new_df) <- names(missing_cols)
       y <- cbind(y, new_df, row.names = NULL)
     }
 
-    y[, df_names]
-
+    y[, df_names, drop = FALSE]
   })
 
   Reduce(rbind, df_same_names)
 }
 
-# purrr's map_df without dplyr
-my_map_df <- function(.x, .f, ...){
+#' purrr::map_df equivalent without dplyr
+#'
+#' @param .x Input list or vector
+#' @param .f Function to apply
+#' @param ... Additional arguments passed to `.f`
+#' @return Combined data.frame
+#' @noRd
+my_map_df <- function(.x, .f, ...) {
   tryCatch(
     {
       .f <- purrr::as_mapper(.f, ...)
-      res <- map(.x, .f, ...)
+      res <- purrr::map(.x, .f, ...)
       my_reduce_rbind(res)
     },
-    error = function(err){
+    error = function(err) {
       warning("Could not parse object with names: ", paste(names(.x), collapse = " "))
       .x
     }
-
   )
-
-
 }
 
-
+#' JSON unbox helper
+#'
 #' @importFrom jsonlite unbox
 #' @noRd
-jubox <- function(x){
-  unbox(x)
+jubox <- function(x) {
+  jsonlite::unbox(x)
 }
 
-# tests if a google storage URL
-is.gcs <- function(x){
+#' Test if a string is a Google Cloud Storage URI
+#'
+#' @param x Character string
+#' @return Logical
+#' @keywords internal
+is.gcs <- function(x) {
   out <- grepl("^gs://", x)
-  if(out){
-    my_message("Using Google Storage URI: ", x, level = 3)
-  }
+  if (out) my_message("Using Google Storage URI: ", x, level = 3)
   out
 }
 
-# controls when messages are sent to user via an option
-# 1 = low level, 2= debug, 3=normal
-my_message <- function(..., level = 1){
-
+#' Custom messaging function for package
+#'
+#' @param ... Messages to print
+#' @param level Message level (1=low, 2=debug, 3=normal)
+#' @keywords internal
+my_message <- function(..., level = 1) {
   compare_level <- getOption("googleAuthR.verbose", default = 1)
-
-  if(level >= compare_level){
-    message(Sys.time()," -- ", ...)
+  if (level >= compare_level) {
+    message(Sys.time(), " -- ", ...)
   }
-
 }
-

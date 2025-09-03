@@ -11,7 +11,7 @@ vignette: >
 
 The Google Cloud Speech-to-Text API enables you to convert audio to text by applying neural network models in an easy to use API. The API recognizes over 80 languages and variants, to support your global user base. You can transcribe the text of users dictating to an application’s microphone or enable command-and-control through voice among many other use cases. 
 
-Read more [on the Google Cloud Speech-to-Text Website](https://cloud.google.com/speech/)
+Read more [on the Google Cloud Speech-to-Text Website](https://cloud.google.com/speech-to-text)
 
 The Cloud Speech API provides audio transcription.  Its accessible via the `gl_speech` function.
 
@@ -20,7 +20,7 @@ Arguments include:
 * `audio_source` - this is a local file in the correct format, or a Google Cloud Storage URI. This can also be a `Wave` class object from the package `tuneR`
 * `encoding` - the format of the sound file - `LINEAR16` is the common `.wav` format, other formats include `FLAC` and `OGG_OPUS`
 * `sampleRate` - this needs to be set to what your file is recorded at.  
-* `languageCode` - specify the language spoken as a [`BCP-47` language tag](https://tools.ietf.org/html/bcp47)
+* `languageCode` - specify the language spoken as a [`BCP-47` language tag](https://datatracker.ietf.org/doc/html/bcp47)
 * `speechContexts` - you can supply keywords to help the translation with some context. 
 
 ### Returned structure

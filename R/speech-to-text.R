@@ -35,7 +35,7 @@
 #' Recognition accuracy may be reduced if lossy codecs, which include the other codecs listed in this section,
 #' are used to capture or transmit the audio, particularly if background noise is present.
 #'
-#' Read more on audio encodings here \url{https://cloud.google.com/speech/docs/encoding}
+#' Read more on audio encodings here \url{https://cloud.google.com/speech-to-text/docs/encoding}
 #'
 #' @section WordInfo:
 #'
@@ -169,12 +169,12 @@ gl_speech <- function(audio_source,
 
     } else {
       if(ext == "mp3"){
-        
+
         # Option A: Direct MP3 upload
         if(encoding == "MULAW" || encoding == "AMR" || encoding == "AMR_WB" || encoding == "OGG_OPUS" || encoding == "SPEEX_WITH_HEADER_BYTE"){
           stop("MP3 files must use encoding='LINEAR16', 'FLAC', or 'MP3'")
         }
-        
+
         if(encoding == "MP3"){
           raw <- readBin(audio_source, "raw", n = file.info(audio_source)$size)
           recognitionAudio <- list(
@@ -194,15 +194,15 @@ gl_speech <- function(audio_source,
             stop("MP3 input detected. Either set encoding='MP3' or install 'av' for automatic conversion.")
           }
         }
-        
+
       } else {
         recognitionAudio <- list(
           content = base64encode(audio_source)
         )
       }
-      
+
     }
-    
+
   }
 
   if(!is.null(customConfig)){

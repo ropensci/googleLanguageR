@@ -7,7 +7,7 @@
 gl_translate_languages(target = "en")
 }
 \arguments{
-\item{target}{If specified, language names are localized in target language}
+\item{target}{A language code for localized language names (default 'en')}
 }
 \value{
 A tibble of supported languages
@@ -16,27 +16,21 @@ A tibble of supported languages
 Returns a list of supported languages for translation.
 }
 \details{
-Supported language codes, generally consisting of its ISO 639-1 identifier. (E.g. \code{'en', 'ja'}).
-In certain cases, BCP-47 codes including language + region identifiers are returned (e.g. \code{'zh-TW', 'zh-CH'})
+Supported language codes generally consist of their ISO 639-1 identifiers (e.g., \code{'en', 'ja'}).
+In certain cases, BCP-47 codes including language + region identifiers are returned (e.g., \code{'zh-TW', 'zh-CH'}).
 }
 \examples{
-
 \dontrun{
-
-# default english names of languages supported
 gl_translate_languages()
-
-# specify a language code to get other names, such as Danish
 gl_translate_languages("da")
-
 }
 }
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/languages}
 
 Other translations: 
+\code{\link{gl_translate}()},
 \code{\link{gl_translate_detect}()},
-\code{\link{gl_translate_document}()},
-\code{\link{gl_translate}()}
+\code{\link{gl_translate_document}()}
 }
 \concept{translations}

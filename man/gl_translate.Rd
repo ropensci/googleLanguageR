@@ -13,69 +13,39 @@ gl_translate(
 )
 }
 \arguments{
-\item{t_string}{A character vector of text to detect language for}
+\item{t_string}{Character vector of text to translate}
 
-\item{target}{The target language}
+\item{target}{The target language code}
 
-\item{format}{Whether the text is plain or HTML}
+\item{format}{Whether the text is plain text or HTML}
 
 \item{source}{Specify the language to translate from. Will detect it if left default}
 
-\item{model}{What translation model to use}
+\item{model}{Translation model to use}
 }
 \value{
-A tibble of \code{translatedText} and \code{detectedSourceLanguage}
-  and \code{text} of length equal to the vector of text you passed in.
+A tibble of \code{translatedText}, \code{detectedSourceLanguage}, and \code{text} of length equal to the vector of text you passed in
 }
 \description{
-Translate character vectors via the Google Translate API
+Translate character vectors via the Google Translate API.
 }
 \details{
-You can translate a vector of strings, although if too many for one call then it will be
-  broken up into one API call per element.
-  This is the same cost as charging is per character translated, but will take longer.
+You can translate a vector of strings; if too many for one call, it will be
+broken up into one API call per element.
+The API charges per character translated, so splitting does not change cost but may take longer.
 
-If translating HTML set the \code{format = "html"}.
-Consider removing anything not needed to be translated first,
-  such as JavaScript and CSS scripts. See example on how to do this with \code{rvest}
+If translating HTML, set \code{format = "html"}.
+Consider removing anything not needed to be translated first, such as JavaScript or CSS.
 
-The API limits in three ways: characters per day, characters per 100 seconds,
-  and API requests per 100 seconds.
-All can be set in the API manager
-  \url{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
-}
-\examples{
-
-\dontrun{
-
-text <- "to administer medicine to animals is frequently a very difficult matter,
-  and yet sometimes it's necessary to do so"
-
-gl_translate(text, target = "ja")
-
-# translate webpages using rvest to process beforehand
-library(rvest)
-library(googleLanguageR)
-
-# translate webpages
-
-# dr.dk article
-my_url <- "http://bit.ly/2yhrmrH"
-
-## in this case the content to translate is in css selector '.wcms-article-content'
-read_html(my_url) \%>\%
-  html_node(css = ".wcms-article-content") \%>\%
-  html_text \%>\%
-  gl_translate(format = "html")
-
-}
-
+API limits: characters per day, characters per 100 seconds, and API requests per 100 seconds.
+These can be configured in the API manager: \url{https://console.developers.google.com/apis/api/translate.googleapis.com/quotas}
 }
 \seealso{
 \url{https://cloud.google.com/translate/docs/reference/translate}
 
 Other translations: 
 \code{\link{gl_translate_detect}()},
+\code{\link{gl_translate_document}()},
 \code{\link{gl_translate_languages}()}
 }
 \concept{translations}

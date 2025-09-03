@@ -11,7 +11,7 @@ vignette: >
 
 The Google Cloud Translation API provides a simple programmatic interface for translating an arbitrary string into any supported language. Translation API is highly responsive, so websites and applications can integrate with Translation API for fast, dynamic translation of source text from the source language to a target language (e.g. French to English). 
 
-Read more [on the Google Cloud Translation Website](https://cloud.google.com/translate/)
+Read more [on the Google Cloud Translation Website](https://cloud.google.com/translate)
 
 You can detect the language via `gl_translate_detect`, or translate and detect language via `gl_translate`
 
