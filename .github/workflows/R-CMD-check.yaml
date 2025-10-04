@@ -19,8 +19,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages('remotes')
-          remotes::install_deps(dependencies = TRUE)
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
 
       - name: Check
         run: R CMD check --no-manual --as-cran .
