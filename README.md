@@ -1,9 +1,9 @@
 # googleLanguageR - R client for the Google Translation API, Natural Language API, Speech-to-Text API and Text-to-Speech API
 
 [![CRAN](https://www.r-pkg.org/badges/version/googleLanguageR)](https://cran.r-project.org/package=googleLanguageR)
-[![Build
-Status](https://travis-ci.org/ropensci/googleLanguageR.png?branch=master)](https://app.travis-ci.com/ropensci/googleLanguageR)
+[![R-CMD-check](https://github.com/ropensci/googleLanguageR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci/googleLanguageR/actions/workflows/R-CMD-check.yaml)
 [![codecov.io](https://codecov.io/github/ropensci/googleLanguageR/coverage.svg?branch=master)](https://app.codecov.io/github/ropensci/googleLanguageR?branch=master)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/grand-total/googleLanguageR)](https://cran.r-project.org/package=googleLanguageR)
 
 ## Language tools for R via Google Machine Learning APIs
 

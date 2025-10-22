@@ -31,7 +31,7 @@ Translate character vectors via the Google Translate API.
 }
 \details{
 You can translate a vector of strings; if too many for one call, it will be
-broken up into one API call per element.
+broken up into multiple API calls with smart batching.
 The API charges per character translated, so splitting does not change cost but may take longer.
 
 If translating HTML, set \code{format = "html"}.

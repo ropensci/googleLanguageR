@@ -1,6 +1,23 @@
-# 0.3.0.9000
+# 0.3.1
 
-* ...
+* Documentation & vignettes updated to fix CRAN URL and Rd issues (#92)
+  - Fixed redirected/moved Google Cloud URLs (Natural Language, Speech-to-Text, Text-to-Speech, Translation, BCP47)
+  - Updated README links and Rd references
+  - Addressed Windows CRAN notes related to URLs
+  - Minor doc clarifications and consistency improvements
+
+* `gl_translate()` now supports recursive batching for large vectors (#80)
+  - Preserves input order
+  - Improves efficiency and reduces API calls
+
+* Added `test_translate_batching.R` with:
+  - Batch splitting unit test
+  - Medium vector efficiency test
+  - Order preservation test
+
+* Added `IMPROVED_TRANSLATION_TESTS.txt` and `TEST_COVERAGE_SUMMARY.md`
+
+* `gl_speech()` now supports MP3 encoding (#77)
 
 # 0.3.0
 
