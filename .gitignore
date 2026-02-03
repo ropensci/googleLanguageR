@@ -13,3 +13,4 @@ player.html
 *.tar.gz
 *.Rcheck/
 inst/doc
+build/
